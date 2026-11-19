@@ -1,26 +1,6 @@
-# Payverge
+# Namakdan
 
-[![CI](https://github.com/stdevMac/payverge/actions/workflows/ci.yml/badge.svg)](https://github.com/stdevMac/payverge/actions/workflows/ci.yml)
-[![CodeQL](https://github.com/stdevMac/payverge/actions/workflows/codeql.yml/badge.svg)](https://github.com/stdevMac/payverge/actions/workflows/codeql.yml)
-[![License](https://img.shields.io/github/license/stdevMac/payverge)](LICENSE)
-[![Latest release](https://img.shields.io/github/v/release/stdevMac/payverge)](https://github.com/stdevMac/payverge/releases/latest)
-
-Payverge is a self-hostable restaurant system with AI built into real
-operations. Guests scan a QR code, order, split the bill and pay. Staff run
-the floor, the kitchen display, reservations and delivery. Owners get an AI
-waiter for guests, an ops assistant for the shift and a director console that
-proposes changes they preview and apply. Payments go through Stripe, PayPal,
-MercadoPago or USDC on-chain, and Argentine venues can issue ARCA (AFIP)
-fiscal receipts.
-
-It is a Go/Gin + PostgreSQL 18 backend and a Next.js 15 frontend, shipped as
-Docker images with a one-command installer.
-
-To try it without installing anything, use the **[live demo](https://demo.payverge.io/)**:
-enter a seeded restaurant as the owner, as kitchen or waiter staff, or as a
-guest at a table, no sign-up. Anyone can see what you change there, and it all
-resets every night at 03:00 UTC. To run a public demo of your own, see
-[docs/self-hosting/public-demo.md](docs/self-hosting/public-demo.md).
+Namakdan (Persian: نمکدان) is a Persian-first, offline-capable restaurant management system in development. [Visit the Namakdan repository](https://github.com/nekzad/namakdan). Based on Payverge (Apache-2.0).
 
 ## Screenshots
 
@@ -139,7 +119,7 @@ pointing at it. Download the installer from the latest release, read it, run
 it:
 
 ```sh
-curl -fsSLO https://github.com/stdevMac/payverge/releases/latest/download/install.sh
+curl -fsSLO https://github.com/nekzad/namakdan/releases/latest/download/install.sh
 less install.sh
 bash install.sh
 ```
@@ -154,7 +134,7 @@ Encrypt certificate, and prints the admin password once. Everything else
 
 The installer only automates [`deploy/docker-compose.yml`](deploy/docker-compose.yml).
 To do it by hand, take `deploy/` from a release (the
-`payverge-deploy-<version>.tar.gz` asset, or a clone checked out at its tag;
+`namakdan-deploy-<version>.tar.gz` asset, or a clone checked out at its tag;
 `main` can be ahead of the newest release), fill in `.env.example` as `.env`,
 and run `docker compose up -d`. See
 [deploy/README.md § Configuration](deploy/README.md#configuration).
@@ -214,10 +194,10 @@ A running instance reports its effective, non-secret configuration at
 
 ## Agentic layer
 
-Payverge can be set up and run with help from AI agents, not only inside the
+namakdan can be set up and run with help from AI agents, not only inside the
 product:
 
-- [`tools/payverge-admin-mcp`](tools/payverge-admin-mcp/README.md): a
+- [`tools/namakdan-admin-mcp`](tools/namakdan-admin-mcp/README.md): a
   dependency-free MCP server that gives Claude Code, Claude Desktop, Codex,
   Cursor or any MCP client tools to configure a restaurant and diagnose an
   instance. Every write previews first.
@@ -282,13 +262,13 @@ contract, migrations, performance gate, hygiene rules) read
 
 ## Status
 
-Payverge was built and run in production for real restaurants in 2025-2026.
+Namakdan is in development; upstream production history does not describe this fork.
 It is now community-maintained, with no SLA and no hosted service. Fixes and
 releases happen when maintainers have time. Plan your deployment accordingly:
 you own its backups, upgrades and security.
 
-Questions and help: [GitHub Discussions](https://github.com/stdevMac/payverge/discussions).
-Bugs go to [issues](https://github.com/stdevMac/payverge/issues/new/choose);
+Questions and help: [GitHub Discussions](https://github.com/nekzad/namakdan/discussions).
+Bugs go to [issues](https://github.com/nekzad/namakdan/issues/new/choose);
 [.github/SUPPORT.md](.github/SUPPORT.md) says what to include.
 
 ## License
@@ -297,7 +277,7 @@ Bugs go to [issues](https://github.com/stdevMac/payverge/issues/new/choose);
 [docs/licensing/](docs/licensing/THIRD_PARTY_LICENSES.md) for third-party
 licences.
 
-The Payverge code in the default build links no GPL module
+The namakdan code in the default build links no GPL module
 (`make check-gpl-free` checks this). The published container images are built
 on upstream base images (Alpine-based `node` for the frontend, distroless
 Debian for the backend) whose operating-system packages keep their own
@@ -315,8 +295,8 @@ libraries from sharp-libvips. [NOTICE](NOTICE) gives their source locations
 and how to substitute your own build; the licence texts are in
 [LICENSES/](LICENSES/).
 
-"Payverge" and the logo are trademarks; the code licence does not grant them.
-Forks should rebrand. See [TRADEMARKS.md](TRADEMARKS.md).
+Namakdan's name and supplied logos are not covered by the code licence. Payverge's
+original marks remain governed by [TRADEMARKS.md](TRADEMARKS.md).
 
 ## Security
 
