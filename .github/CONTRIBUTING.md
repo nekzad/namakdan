@@ -1,6 +1,6 @@
-# Contributing to Payverge
+# Contributing to Namakdan
 
-Thanks for taking the time to contribute. Payverge is a self-hostable restaurant
+Thanks for taking the time to contribute. Namakdan is a self-hostable restaurant
 system: QR ordering, kitchen display, bills, staff tools, an AI waiter and
 operations assistant, and card, wallet and USDC payments. It handles other
 people's money and their guests' data, so the bar for changes is high. This guide
@@ -12,8 +12,8 @@ By taking part you agree to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 | You want to… | Go to |
 | --- | --- |
-| Ask a question or get help self-hosting | [GitHub Discussions](https://github.com/stdevMac/payverge/discussions) (see [SUPPORT.md](SUPPORT.md)) |
-| Report a bug | [Open an issue](https://github.com/stdevMac/payverge/issues/new/choose) with the bug form |
+| Ask a question or get help self-hosting | [GitHub Discussions](https://github.com/nekzad/namakdan/discussions) (see [SUPPORT.md](SUPPORT.md)) |
+| Report a bug | [Open an issue](https://github.com/nekzad/namakdan/issues/new/choose) with the bug form |
 | Propose a feature | Start a Discussion for anything large; use the feature form for a concrete, scoped proposal |
 | Report a security vulnerability | **Never in a public issue.** Follow [SECURITY.md](SECURITY.md) |
 | Send a fix or feature | A pull request, following this guide |
@@ -34,8 +34,8 @@ on the approach before you write the code. It saves everyone a rewrite.
 ### First run
 
 ```bash
-git clone https://github.com/stdevMac/payverge.git
-cd payverge
+git clone https://github.com/nekzad/namakdan.git
+cd namakdan
 make install-hooks          # repo-tracked git hooks: secret scan + i18n parity
 ```
 
@@ -191,7 +191,7 @@ paths without numbers will be asked for them.
 
 ## Internationalization parity
 
-Payverge has two translation tiers. Both are checked by the pre-commit hook
+Namakdan has two translation tiers. Both are checked by the pre-commit hook
 (`make install-hooks`) and in CI.
 
 | Tier | Where | Locales | Rule |
@@ -235,7 +235,7 @@ Practical rules:
 
 ## Developer Certificate of Origin (DCO)
 
-Payverge uses the [Developer Certificate of Origin 1.1](https://developercertificate.org/)
+Namakdan uses the [Developer Certificate of Origin 1.1](https://developercertificate.org/)
 instead of a Contributor License Agreement (CLA).
 
 **What it is.** The DCO is a short statement that you wrote the change, or
@@ -316,5 +316,5 @@ requests are welcome, with three conditions:
 ## License
 
 By contributing, you agree that your contributions are licensed under the
-[Apache License 2.0](../LICENSE). The Payverge name and logo are not covered by
+[Apache License 2.0](../LICENSE). The Namakdan name and logo are not covered by
 that license; see [TRADEMARKS.md](../TRADEMARKS.md).

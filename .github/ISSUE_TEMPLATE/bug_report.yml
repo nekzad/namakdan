@@ -1,5 +1,5 @@
 name: Bug report
-description: Something in Payverge is broken or behaves differently from what the docs say.
+description: Something in Namakdan is broken or behaves differently from what the docs say.
 title: "bug: "
 labels: ["bug", "needs-triage"]
 body:
@@ -8,8 +8,8 @@ body:
       value: |
         Thanks for taking the time to report a bug.
 
-        - **Security vulnerability?** Stop here and follow [SECURITY.md](https://github.com/stdevMac/payverge/blob/main/.github/SECURITY.md). Never post one publicly.
-        - **Question or setup help?** Ask in [Discussions](https://github.com/stdevMac/payverge/discussions) instead.
+        - **Security vulnerability?** Stop here and follow [SECURITY.md](https://github.com/nekzad/namakdan/blob/main/.github/SECURITY.md). Never post one publicly.
+        - **Question or setup help?** Ask in [Discussions](https://github.com/nekzad/namakdan/discussions) instead.
         - **Redact** API keys, tokens, passwords and guest personal data from everything you paste below.
 
   - type: dropdown
@@ -64,7 +64,7 @@ body:
   - type: input
     id: version
     attributes:
-      label: Payverge version
+      label: Namakdan version
       description: The release tag (for example v1.0.0) or the commit SHA you are running.
     validations:
       required: true

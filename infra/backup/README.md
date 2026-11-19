@@ -1,7 +1,7 @@
 # Off-host backup bucket policy (policy-as-code)
 
 Version-controlled, provisionable S3 backup infrastructure and least-privilege
-IAM roles for Payverge database backups. `backup-stack.json` is the source of
+IAM roles for Namakdan database backups. `backup-stack.json` is the source of
 truth for new AWS environments. The smaller JSON documents remain useful as
 provider-neutral policy references and for checking an existing S3-compatible
 bucket. No secrets live here.
@@ -16,7 +16,7 @@ Object Lock, access logging, and public-access blocking.
 
 ```bash
 aws cloudformation deploy \
-  --stack-name payverge-backups \
+  --stack-name namakdan-backups \
   --template-file infra/backup/backup-stack.json \
   --capabilities CAPABILITY_IAM \
   --parameter-overrides \
@@ -159,15 +159,15 @@ COMPLIANCE unless legal hold requires immutability even for root.
 sed 's/<BACKUP_BUCKET>/'"${BACKUP_BUCKET}"'/g' iam-upload-policy.json > /tmp/iam-upload-policy.json
 
 aws iam create-policy \
-  --policy-name PayvergeBackupUpload \
+  --policy-name NamakdanBackupUpload \
   --policy-document file:///tmp/iam-upload-policy.json
 # or:
-# aws iam create-policy-version --policy-arn arn:aws:iam::<AWS_ACCOUNT_ID>:policy/PayvergeBackupUpload \
+# aws iam create-policy-version --policy-arn arn:aws:iam::<AWS_ACCOUNT_ID>:policy/NamakdanBackupUpload \
 #   --policy-document file:///tmp/iam-upload-policy.json --set-as-default
 
 aws iam attach-role-policy \
   --role-name "<UPLOAD_ROLE_NAME>" \
-  --policy-arn "arn:aws:iam::<AWS_ACCOUNT_ID>:policy/PayvergeBackupUpload"
+  --policy-arn "arn:aws:iam::<AWS_ACCOUNT_ID>:policy/NamakdanBackupUpload"
 ```
 
 Actions: `s3:PutObject`, `s3:GetObject` (for `head-object`), `s3:ListBucket`
@@ -179,12 +179,12 @@ Actions: `s3:PutObject`, `s3:GetObject` (for `head-object`), `s3:ListBucket`
 sed 's/<BACKUP_BUCKET>/'"${BACKUP_BUCKET}"'/g' iam-restore-policy.json > /tmp/iam-restore-policy.json
 
 aws iam create-policy \
-  --policy-name PayvergeBackupRestore \
+  --policy-name NamakdanBackupRestore \
   --policy-document file:///tmp/iam-restore-policy.json
 
 aws iam attach-role-policy \
   --role-name "<RESTORE_ROLE_NAME>" \
-  --policy-arn "arn:aws:iam::<AWS_ACCOUNT_ID>:policy/PayvergeBackupRestore"
+  --policy-arn "arn:aws:iam::<AWS_ACCOUNT_ID>:policy/NamakdanBackupRestore"
 ```
 
 Actions: `s3:GetObject`, `s3:ListBucket` only. **No Put/Delete/wildcards.**

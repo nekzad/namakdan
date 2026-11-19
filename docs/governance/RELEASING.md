@@ -1,4 +1,4 @@
-# Releasing Payverge
+# Releasing Namakdan
 
 This document is for maintainers. It covers how versions are numbered, how a
 release is cut, and what each release ships.
@@ -9,14 +9,14 @@ The first release, `v1.0.0`, is tagged by hand; see
 
 ## Versioning
 
-Payverge uses [Semantic Versioning 2.0.0](https://semver.org/). One version
+Namakdan uses [Semantic Versioning 2.0.0](https://semver.org/). One version
 tag covers the whole repository: the backend, the frontend, the container
-images and `tools/payverge-admin-mcp` are released together from the same
+images and `tools/namakdan-admin-mcp` are released together from the same
 commit, and the `vX.Y.Z` tag names that release.
 
 release-please keeps the version fields in step with the tag: the root
 manifest (`.github/.release-please-manifest.json`), `frontend/package.json`
-and its lockfile, `tools/payverge-admin-mcp/package.json`, and the default
+and its lockfile, `tools/namakdan-admin-mcp/package.json`, and the default
 image tag in `deploy/docker-compose.yml`, `deploy/.env.example` and the
 Coolify compose file (the `x-release-please` markers). The frontend image
 reports its version through `NEXT_PUBLIC_VERSION`; the backend binary does
@@ -62,10 +62,10 @@ Rules that follow from this:
 
 | Artefact | Where |
 | --- | --- |
-| Git tag and GitHub Release with release notes | `https://github.com/stdevMac/payverge/releases` |
-| `ghcr.io/stdevmac/payverge-backend` and `ghcr.io/stdevmac/payverge-frontend`, multi-arch (`linux/amd64`, `linux/arm64`) | GitHub Container Registry, tagged `X.Y.Z`, `vX.Y.Z`, `X.Y`, `X` and, for stable releases only, `latest`. Pre-releases get only `X.Y.Z-pre` and `vX.Y.Z-pre` |
+| Git tag and GitHub Release with release notes | `https://github.com/nekzad/namakdan/releases` |
+| `ghcr.io/nekzad/namakdan-backend` and `ghcr.io/nekzad/namakdan-frontend`, multi-arch (`linux/amd64`, `linux/arm64`) | GitHub Container Registry, tagged `X.Y.Z`, `vX.Y.Z`, `X.Y`, `X` and, for stable releases only, `latest`. Pre-releases get only `X.Y.Z-pre` and `vX.Y.Z-pre` |
 | SBOM and SLSA provenance attestations per platform, and a keyless cosign signature on each multi-arch index | Attached to the images in the registry |
-| `install.sh`, `docker-compose.yml`, `Caddyfile`, `env.example` and `payverge-deploy-X.Y.Z.tar.gz` (every tracked file under `deploy/`, plus `LICENSE` and `NOTICE`) | Release assets, staged by `scripts/ci/release-assets.sh` |
+| `install.sh`, `docker-compose.yml`, `Caddyfile`, `env.example` and `namakdan-deploy-X.Y.Z.tar.gz` (every tracked file under `deploy/`, plus `LICENSE` and `NOTICE`) | Release assets, staged by `scripts/ci/release-assets.sh` |
 | `THIRD_PARTY_LICENSES.md` and `SHA256SUMS` | Release assets. The installer checks the deploy files against `SHA256SUMS` |
 
 Release images are built without optional build tags. In particular, **never
@@ -213,7 +213,7 @@ by hand, then let the workflow publish:
 3. Create and push an annotated, signed tag on that commit:
    ```bash
    git switch main && git pull --ff-only
-   git tag -s v1.0.0 -m "Payverge v1.0.0"
+   git tag -s v1.0.0 -m "Namakdan v1.0.0"
    git push origin v1.0.0
    ```
 4. Run **Actions > Release > Run workflow** from `main` with
@@ -222,18 +222,18 @@ by hand, then let the workflow publish:
    creates, because the tag has no release yet.
 5. When it is green, check the images and their signatures:
    ```bash
-   docker buildx imagetools inspect ghcr.io/stdevmac/payverge-backend:1.0.0
-   cosign verify ghcr.io/stdevmac/payverge-backend:1.0.0 \
+   docker buildx imagetools inspect ghcr.io/nekzad/namakdan-backend:1.0.0
+   cosign verify ghcr.io/nekzad/namakdan-backend:1.0.0 \
      --certificate-oidc-issuer https://token.actions.githubusercontent.com \
-     --certificate-identity https://github.com/stdevMac/payverge/.github/workflows/release.yml@refs/heads/main
+     --certificate-identity https://github.com/nekzad/namakdan/.github/workflows/release.yml@refs/heads/main
    ```
-   Repeat for `payverge-frontend`.
+   Repeat for `namakdan-frontend`.
 6. Make both packages public, then check that an anonymous client can pull
    them:
    ```bash
    docker logout ghcr.io
-   docker pull ghcr.io/stdevmac/payverge-backend:1.0.0
-   docker pull ghcr.io/stdevmac/payverge-frontend:1.0.0
+   docker pull ghcr.io/nekzad/namakdan-backend:1.0.0
+   docker pull ghcr.io/nekzad/namakdan-frontend:1.0.0
    ```
 7. Open the draft release, paste the 1.0.0 section of `docs/CHANGELOG.md`
    into its notes, and publish it as the latest release. Until it is
@@ -241,7 +241,7 @@ by hand, then let the workflow publish:
    release-please has no release to count from.
 8. Check that the installer resolves:
    ```bash
-   curl -fsSLI https://github.com/stdevMac/payverge/releases/latest/download/install.sh
+   curl -fsSLI https://github.com/nekzad/namakdan/releases/latest/download/install.sh
    ```
    Then add the rulesets and run the
    [post-release checks](#post-release-checks).

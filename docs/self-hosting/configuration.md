@@ -122,8 +122,8 @@ The server binary takes its database location from flags (see
 
 | Variable | Default | Req. | Compose | Effect |
 |---|---|---|---|---|
-| `DB_USER` | `payverge` | | yes | Postgres role the apps, backup and restore log in as. The deploy compose creates it on the first start as the database owner, not a superuser (`deploy/postgres/init-app-role.sql`); it cannot be `postgres`. |
-| `DB_NAME` | `payverge` | | yes | Database name (`POSTGRES_DB`). |
+| `DB_USER` | `namakdan` | | yes | Postgres role the apps, backup and restore log in as. The deploy compose creates it on the first start as the database owner, not a superuser (`deploy/postgres/init-app-role.sql`); it cannot be `postgres`. |
+| `DB_NAME` | `namakdan` | | yes | Database name (`POSTGRES_DB`). |
 | `DB_PASSWORD` | none | yes | yes | See [Required](#required). |
 | `DB_HOST` | CLI: `localhost`; compose: `postgres` | | via flag | Host for the admin CLI. |
 | `DB_PORT` | `5432` | | via flag | Port for the admin CLI. |
@@ -154,10 +154,10 @@ Details in [admin.md](admin.md).
 
 | Variable | Default | Req. | Compose | Effect |
 |---|---|---|---|---|
-| `PRODUCT_NAME` | `Payverge` | | yes | Product name in email and pages (80 chars max). |
-| `COMPANY_NAME` | Payverge default | | yes | Company in email footers (120 chars max). |
+| `PRODUCT_NAME` | `Namakdan` | | yes | Product name in email and pages (80 chars max). |
+| `COMPANY_NAME` | Namakdan default | | yes | Company in email footers (120 chars max). |
 | `COMPANY_ADDRESS` | empty | | yes | Postal address in email footers. Many anti-spam laws require one for marketing mail. |
-| `LEGAL_ENTITY` | Payverge default | | yes | Legal entity name in footers and legal pages (160 chars max). |
+| `LEGAL_ENTITY` | Namakdan default | | yes | Legal entity name in footers and legal pages (160 chars max). |
 | `LEGAL_TERMS_URL` | empty | | yes | Absolute `https://` URL of your own terms. When set, `/terms-and-conditions` redirects there instead of rendering the generic template. |
 | `LEGAL_PRIVACY_URL` | empty | | yes | Absolute `https://` URL of your own privacy policy. When set, `/privacy-policy` redirects there. |
 | `LOGO_URL` | built-in logo | | yes | Absolute `https://` URL of the logo used in email. |
@@ -228,7 +228,7 @@ Full guide: [storage.md](storage.md).
 | `MEDIA_ORIGINS` | none | | yes (frontend) | Origins of `S3_PUBLIC_BASE_URL`, for the frontend's CSP and image optimizer. |
 | `MEDIA_RATE_LIMIT_REQUESTS_PER_MINUTE` | built-in | | yes | Per-IP limit on `/media/*`. |
 | `MEDIA_RATE_LIMIT_BURST` | built-in | | yes | Burst for the limit above. |
-| `MINIO_ROOT_USER` | `payverge-root` | | yes (minio) | Root user of the bundled MinIO (profile `minio`). |
+| `MINIO_ROOT_USER` | `namakdan-root` | | yes (minio) | Root user of the bundled MinIO (profile `minio`). |
 | `MINIO_ROOT_PASSWORD` | none | minio | yes (minio) | Root password of the bundled MinIO. |
 | `MINIO_IMAGE` | Chainguard MinIO, pinned | | yes (minio) | Another MinIO image. |
 
@@ -327,7 +327,7 @@ Full guide: [ai.md](ai.md). Off until a model endpoint is configured.
 | `TELEGRAM_ESCALATION_BOT_TOKEN` | none | | yes | Separate bot that receives platform escalations. |
 | `TELEGRAM_ESCALATION_CHAT_ID` | none | | yes | Chat that receives them. |
 | `WHATSAPP_ENABLED` | `false` | | yes | Turns the WhatsApp channel on. Only in a backend built with `GO_TAGS=whatsapp`; see [whatsapp.md](whatsapp.md). |
-| `WHATSAPP_STORE_NAME` | `payverge_whatsapp_store` | | no | Name of the WhatsApp session store. |
+| `WHATSAPP_STORE_NAME` | `namakdan_whatsapp_store` | | no | Name of the WhatsApp session store. |
 | `VAPID_PUBLIC_KEY` | none | | yes | Web push public key (`npx web-push generate-vapid-keys`). Also served to the browser. |
 | `VAPID_PRIVATE_KEY` | none | | yes | Web push private key. |
 | `VAPID_SUBJECT` | none | | yes | `mailto:` or `https:` contact for push services. |
@@ -392,7 +392,7 @@ All off by default; nothing leaves the server. See
 | `SENTRY_DSN` | none | | yes | Backend Sentry DSN (also the frontend's server-side fallback). |
 | `SENTRY_ENABLED` | on when a DSN is set | | no | `false` keeps Sentry off with a DSN set. |
 | `SENTRY_ENVIRONMENT` | `APP_ENV`, then compose `production` | | yes | Sentry environment tag. |
-| `SENTRY_RELEASE` | `NEXT_PUBLIC_RELEASE_SHA`, then `dev`; compose: `PAYVERGE_VERSION` | | set from `PAYVERGE_VERSION` | Sentry release tag. |
+| `SENTRY_RELEASE` | `NEXT_PUBLIC_RELEASE_SHA`, then `dev`; compose: `NAMAKDAN_VERSION` | | set from `NAMAKDAN_VERSION` | Sentry release tag. |
 | `SENTRY_TRACES_SAMPLE_RATE` | `0.05` | | no | Performance trace sampling (backend; frontend fallback). |
 | `SENTRY_ENABLE_TRACING` | `true` | | no | Backend tracing on or off. |
 | `SENTRY_ENABLE_LOGS` | `false` | | no | Send backend logs to Sentry. |
@@ -405,9 +405,9 @@ All off by default; nothing leaves the server. See
 
 | Variable | Default | Req. | Compose | Effect |
 |---|---|---|---|---|
-| `PAYVERGE_ADMIN_MCP_TOKEN_SHA256` | none | | yes | SHA-256 of the admin MCP bearer token. Turns on the admin MCP API. |
-| `PAYVERGE_ADMIN_MCP_TOKEN` | none | | yes | The token in clear text. Prefer the hash. |
-| `PAYVERGE_ADMIN_MCP_ALLOWED_IPS` | none (any) | | yes | Comma-separated IPs or CIDRs allowed to call the admin MCP API. |
+| `NAMAKDAN_ADMIN_MCP_TOKEN_SHA256` | none | | yes | SHA-256 of the admin MCP bearer token. Turns on the admin MCP API. |
+| `NAMAKDAN_ADMIN_MCP_TOKEN` | none | | yes | The token in clear text. Prefer the hash. |
+| `NAMAKDAN_ADMIN_MCP_ALLOWED_IPS` | none (any) | | yes | Comma-separated IPs or CIDRs allowed to call the admin MCP API. |
 | `PPROF_TOKEN` | none (off) | | no | Enables a token-protected pprof snapshot route. Leave unset. |
 | `CLIENT_IP_DEBUG` | `false` | | no | `true` logs how the client IP of each sign-up attempt (`POST /api/v1/auth/register`) was resolved. Only that route logs it. For proxy setup only; see [reverse-proxies.md](reverse-proxies.md#checking-it). |
 | `PORT` | `8080` | | set (`8080`) | Backend listen port. |
@@ -466,7 +466,7 @@ Build-time only (read by `next build` when you build the image yourself, see
 | `SENTRY_BUILD_PLUGIN` | off | `1` runs the Sentry webpack plugin. |
 | `SENTRY_ORG` | none | Sentry org for source-map upload. |
 | `SENTRY_AUTH_TOKEN` | none | Token for source-map upload. Never put it in the runtime env. |
-| `SENTRY_FRONTEND_PROJECT` | `payverge-frontend` | Sentry project for upload. |
+| `SENTRY_FRONTEND_PROJECT` | `namakdan-frontend` | Sentry project for upload. |
 | `CI` | unset | Quieter Sentry plugin output and standalone output. |
 
 ## Deploy stack only
@@ -476,10 +476,10 @@ apps. See [deploy/README.md](../../deploy/README.md).
 
 | Variable | Default | Effect |
 |---|---|---|
-| `PAYVERGE_VERSION` | the release the deploy files came from | Image tag for backend and frontend. The installer writes the exact version; `latest` follows every new release ([upgrades.md](upgrades.md)). |
+| `NAMAKDAN_VERSION` | the release the deploy files came from | Image tag for backend and frontend. The installer writes the exact version; `latest` follows every new release ([upgrades.md](upgrades.md)). |
 | `COMPOSE_PROFILES` | `backup` (from `.env.example`) | Optional services: `backup`, `backup-offsite`, `minio`. |
 | `POSTGRES_USER` | `postgres` | The superuser of the `postgres` container. Its password is removed on the first start, so it connects only from inside the container. |
-| `PAYVERGE_DB_USER` | `DB_USER` | Set on the `postgres` container from `DB_USER`; the init script creates that role. |
+| `NAMAKDAN_DB_USER` | `DB_USER` | Set on the `postgres` container from `DB_USER`; the init script creates that role. |
 | `POSTGRES_DB` | `DB_NAME` | Set on the `postgres` container from `DB_NAME`. |
 | `TZ` | `UTC` | Timezone of the backup scheduler. |
 | `BACKUP_TIME` | `03:30` | Daily backup time, `HH:MM` in `TZ`. |
@@ -491,11 +491,11 @@ apps. See [deploy/README.md](../../deploy/README.md).
 | `BACKUP_GID` | root | Host group that owns the sets. |
 | `BACKUP_ARCHIVE_ATTEMPTS` | `3` | Retries of a volume archive when files change during the copy. |
 | `BACKUP_MAX_AGE_HOURS` | `26` | The `backup` service reports unhealthy when the last run failed or none succeeded for this many hours (`backups/.status`). |
-| `RCLONE_REMOTE` | none (required for `backup-offsite`) | rclone remote and path, such as `offsite:bucket/payverge`. |
+| `RCLONE_REMOTE` | none (required for `backup-offsite`) | rclone remote and path, such as `offsite:bucket/namakdan`. |
 | `RCLONE_MODE` | `copy` | `copy` keeps pruned sets off-site; `sync` mirrors pruning. |
 | `RCLONE_INTERVAL_SECONDS` | `3600` | Off-site sync interval. |
 
-The `PAYVERGE_*` variables `install.sh` itself reads are listed in
+The `NAMAKDAN_*` variables `install.sh` itself reads are listed in
 [install.md](install.md#installer-options).
 
 ## Backend command-line flags

@@ -2,17 +2,17 @@
 
 This file provides guidance to Claude Code (claude.ai/code) and other coding agents working in this repository.
 
-Payverge is developed with coding agents as a first-class workflow: agents read
+Namakdan is developed with coding agents as a first-class workflow: agents read
 this file and `AGENTS.md`, follow the engineering rules below, and use the
 shared playbooks in `.claude/skills/` and the MCP tools in
-`tools/payverge-admin-mcp/` (see `docs/agents/README.md`). The rules here are
+`tools/namakdan-admin-mcp/` (see `docs/agents/README.md`). The rules here are
 the ones that kept agent-written changes safe in production: they are enforced
 by tests where possible, so read the Gotchas before touching money, schema or
 config.
 
 ## Project Overview
 
-Payverge is an AI-powered restaurant management platform with Web3 payment integration. It's a monorepo with three workspaces: a Next.js frontend (`frontend/`), a Go/Gin backend (`backend/`), and a Markdown documentation tree (`docs/`), plus `deploy/` (self-hosting compose, Caddy, installer), `site/` (static landing page) and `tools/` (export tooling and the admin MCP server). On-chain interactions are limited to USDC verification (backend) and standard ERC-20/Dynamic-wallet flows (frontend) — no custom Payverge contract ABIs ship with the app.
+Namakdan is an AI-powered restaurant management platform with Web3 payment integration. It's a monorepo with three workspaces: a Next.js frontend (`frontend/`), a Go/Gin backend (`backend/`), and a Markdown documentation tree (`docs/`), plus `deploy/` (self-hosting compose, Caddy, installer), `site/` (static landing page) and `tools/` (export tooling and the admin MCP server). On-chain interactions are limited to USDC verification (backend) and standard ERC-20/Dynamic-wallet flows (frontend) — no custom Namakdan contract ABIs ship with the app.
 
 **See also**:
 - `AGENTS.md` — deeper agent-oriented guide (technology stack, full directory map, env flags, plugin authoring). When CLAUDE.md and AGENTS.md disagree, AGENTS.md is canonical.
@@ -111,14 +111,14 @@ Production self-hosting is a separate compose file under `deploy/` (Caddy, relea
 
 ### Frontend (`frontend/src/`)
 - **Next.js 15 App Router** with route groups: `(home)` (the instance root), `(shop)` (operator sign-in at `/dashboard`, account, legal pages), `admin/`, `business/`, `b/`, `t/`.
-- **URL map**: `/` serves the published venue (`PRIMARY_VENUE`, else the only published one, else a directory of `/b/<slug>` links, else a redirect to `/dashboard`; see `docs/api/home.md`). `/b/<slug>` is a venue page, `/t/<code>` a table (with `/menu`, `/bill`, `/signin`, `/profile`), `/dashboard` the operator sign-in and venue list, `/business/<id>/dashboard` a venue's dashboard, `/admin` the platform admin. The project's landing page (payverge.io) is the separate static site in `site/`, not part of the app.
+- **URL map**: `/` serves the published venue (`PRIMARY_VENUE`, else the only published one, else a directory of `/b/<slug>` links, else a redirect to `/dashboard`; see `docs/api/home.md`). `/b/<slug>` is a venue page, `/t/<code>` a table (with `/menu`, `/bill`, `/signin`, `/profile`), `/dashboard` the operator sign-in and venue list, `/business/<id>/dashboard` a venue's dashboard, `/admin` the platform admin. The project's landing page (example.test) is the separate static site in `site/`, not part of the app.
 - **API client layer**: Typed API functions in `src/api/` (one file per domain, paired `*.test.ts`).
 - **State**: Zustand stores (`src/store/`) for global state, React Query for server state.
-- **Web3**: Wagmi 3 + Viem 2 for wallet + ERC-20 reads (USDC balance/allowance); no custom Payverge contract ABIs are vendored. `ethers` is not a direct dependency — references to "Ethers 6" in older docs are stale.
+- **Web3**: Wagmi 3 + Viem 2 for wallet + ERC-20 reads (USDC balance/allowance); no custom Namakdan contract ABIs are vendored. `ethers` is not a direct dependency — references to "Ethers 6" in older docs are stale.
 - **UI**: NextUI 2.4 components + Tailwind CSS 3.4.
 - **i18n**: Custom translation system in `src/i18n/` (`GuestTranslationProvider` + `guest-messages/*.json` for the 21-locale guest tier; `SimpleTranslationProvider` for the en/es operator tier). `next-intl` has been removed from `package.json` — it is **not** the runtime. Editing translations means editing the providers and message files directly.
 - **Auth context**: `src/providers/HybridAuthProvider.tsx` (operator sessions: email, Google, wallet via Wagmi); `src/contexts/CustomerAuthContext.tsx` for guests.
-- **Runtime config**: browser-visible settings come from `window.__PAYVERGE_ENV__`, rendered per request from the container environment by `src/config/publicConfig.ts` (whitelist `PUBLIC_ENV_KEYS`); server-only values live in `src/config/serverConfig.ts`. One image serves any domain. See `docs/self-hosting/frontend-config.md`.
+- **Runtime config**: browser-visible settings come from `window.__NAMAKDAN_ENV__`, rendered per request from the container environment by `src/config/publicConfig.ts` (whitelist `PUBLIC_ENV_KEYS`); server-only values live in `src/config/serverConfig.ts`. One image serves any domain. See `docs/self-hosting/frontend-config.md`.
 
 ## API Structure
 
@@ -224,7 +224,7 @@ These are easy to get wrong and worth re-reading before related work:
 - **Printer payloads are dollars, not cents.** Backend formatters consume the bill row's `float64` JSON shape (`MarshalJSON` already converts cents → dollars). Do not re-divide.
 - **`window.print()` only runs client-side.** All printer-triggering components must be `"use client"`. Server components must not import `useIframePrint`.
 - **No `FEATURE_FLAGS` registry.** Printers are not build-time gated: the printers UI is permission-gated (`printers:read` for settings, `print:bill` for print actions; owners always). Payment plugin availability follows the business plugin `is_enabled` state.
-- **No upstream hosts.** Never hard-code `payverge.io` or any other deployment's host in code, env templates or compose defaults; derive URLs from `PUBLIC_URL`.
+- **No upstream hosts.** Never hard-code `example.test` or any other deployment's host in code, env templates or compose defaults; derive URLs from `PUBLIC_URL`.
 
 ## Design Context
 
@@ -232,7 +232,7 @@ These are easy to get wrong and worth re-reading before related work:
 Mixed audience of traditional restaurant owners/managers and crypto-native operators. Ranges from small business owners managing daily operations to tech-savvy restaurateurs adopting Web3 payments and AI tools. Users arrive seeking operational clarity and modern payment solutions — the interface must feel accessible to non-technical operators while signaling innovation to early adopters.
 
 ### Brand Personality
-**Premium, Trustworthy, Modern.** Payverge should feel like a high-end fintech product that inspires confidence in handling money. The emotional target is **excitement and possibility** — "this is the future of my business" — energizing and forward-looking without being hype-driven.
+**Premium, Trustworthy, Modern.** Namakdan should feel like a high-end fintech product that inspires confidence in handling money. The emotional target is **excitement and possibility** — "this is the future of my business" — energizing and forward-looking without being hype-driven.
 
 ### Aesthetic Direction
 - **Visual tone**: Premium fintech meets modern dev-tools polish. Think Stripe's clarity, Linear's refinement, Vercel's sharpness, and Raycast's premium feel.

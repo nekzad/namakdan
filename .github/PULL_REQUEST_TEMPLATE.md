@@ -27,4 +27,4 @@ before the fix. -->
 - [ ] **Schema**: database changes are a new numbered migration pair in `backend/migrations/`, with no new `AutoMigrate`.
 - [ ] **No secrets or personal data**: no credentials, `.env` files, production dumps or real customer or guest data are included anywhere in the diff, fixtures or screenshots.
 - [ ] **Docs**: user-facing behaviour, configuration or environment variable changes are documented, and breaking changes are marked with `!` and a `BREAKING CHANGE:` footer.
-- [ ] **DCO**: every commit is signed off (`git commit -s`). See [CONTRIBUTING.md](https://github.com/stdevMac/payverge/blob/main/.github/CONTRIBUTING.md#developer-certificate-of-origin-dco).
+- [ ] **DCO**: every commit is signed off (`git commit -s`). See [CONTRIBUTING.md](https://github.com/nekzad/namakdan/blob/main/.github/CONTRIBUTING.md#developer-certificate-of-origin-dco).

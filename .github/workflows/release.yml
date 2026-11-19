@@ -5,8 +5,8 @@
 # It keeps a release pull request up to date; merging that pull request creates
 # the vX.Y.Z tag and a draft GitHub release, and the jobs below then publish:
 #
-#   ghcr.io/stdevmac/payverge-backend   linux/amd64 + linux/arm64
-#   ghcr.io/stdevmac/payverge-frontend  linux/amd64 + linux/arm64
+#   ghcr.io/nekzad/namakdan-backend   linux/amd64 + linux/arm64
+#   ghcr.io/nekzad/namakdan-frontend  linux/amd64 + linux/arm64
 #     tags X.Y.Z, vX.Y.Z, X.Y and X (X only from 1.0.0 on); latest for
 #     stable releases only. Prereleases get X.Y.Z-pre and vX.Y.Z-pre only.
 #     SLSA provenance (mode=max) and an SBOM attestation per platform,
@@ -68,7 +68,7 @@
 # tag patterns; Settings > Environments > release), so no other ref can reach
 # RELEASE_PLEASE_TOKEN, the signing identity or release write access. The
 # cosign certificate identity is therefore exactly
-#   https://github.com/stdevMac/payverge/.github/workflows/release.yml@refs/heads/main
+#   https://github.com/nekzad/namakdan/.github/workflows/release.yml@refs/heads/main
 #
 # The images carry no deployment-specific settings. The frontend gets only
 # build metadata (NEXT_PUBLIC_RELEASE_SHA, NEXT_PUBLIC_VERSION,
@@ -102,13 +102,13 @@ concurrency:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_PREFIX: ghcr.io/stdevmac/payverge
+  IMAGE_PREFIX: ghcr.io/nekzad/namakdan
 
 jobs:
   release-please:
     name: release-please
     # Forks have no use for release pull requests.
-    if: github.event_name == 'push' && github.repository == 'stdevMac/payverge'
+    if: github.event_name == 'push' && github.repository == 'nekzad/namakdan'
     # RELEASE_PLEASE_TOKEN is an environment secret; the environment's
     # deployment branches are restricted to main in the repository settings.
     environment: release
@@ -287,7 +287,7 @@ jobs:
         with:
           images: ${{ env.IMAGE_PREFIX }}-${{ matrix.image }}
           labels: |
-            org.opencontainers.image.title=payverge-${{ matrix.image }}
+            org.opencontainers.image.title=namakdan-${{ matrix.image }}
             org.opencontainers.image.version=${{ needs.resolve.outputs.version }}
             org.opencontainers.image.revision=${{ needs.resolve.outputs.sha }}
             org.opencontainers.image.licenses=Apache-2.0 AND LGPL-3.0-or-later
@@ -395,7 +395,7 @@ jobs:
             type=semver,pattern={{major}},value=${{ needs.resolve.outputs.tag }},enable=${{ !startsWith(needs.resolve.outputs.tag, 'v0.') }}
             type=raw,value=latest,enable=${{ needs.resolve.outputs.stable == 'true' }}
           labels: |
-            org.opencontainers.image.title=payverge-${{ matrix.image }}
+            org.opencontainers.image.title=namakdan-${{ matrix.image }}
             org.opencontainers.image.version=${{ needs.resolve.outputs.version }}
             org.opencontainers.image.revision=${{ needs.resolve.outputs.sha }}
             org.opencontainers.image.licenses=Apache-2.0 AND LGPL-3.0-or-later
@@ -434,7 +434,7 @@ jobs:
             echo '```sh'
             echo "cosign verify $IMAGE@$DIGEST \\"
             echo "  --certificate-oidc-issuer https://token.actions.githubusercontent.com \\"
-            echo "  --certificate-identity https://github.com/stdevMac/payverge/.github/workflows/release.yml@refs/heads/main"
+            echo "  --certificate-identity https://github.com/nekzad/namakdan/.github/workflows/release.yml@refs/heads/main"
             echo '```'
           } >>"$GITHUB_STEP_SUMMARY"
           echo "signed by $WORKFLOW_REF"
@@ -487,7 +487,7 @@ jobs:
           cosign sign-blob --yes --bundle SHA256SUMS.sigstore.json SHA256SUMS
           cosign verify-blob --bundle SHA256SUMS.sigstore.json \
             --certificate-oidc-issuer https://token.actions.githubusercontent.com \
-            --certificate-identity https://github.com/stdevMac/payverge/.github/workflows/release.yml@refs/heads/main \
+            --certificate-identity https://github.com/nekzad/namakdan/.github/workflows/release.yml@refs/heads/main \
             SHA256SUMS
 
       - name: Upload to the release

@@ -1,7 +1,7 @@
 # Cost and budgets
 
 Every model call costs money, and some AI surfaces are open to anonymous
-visitors. Payverge bounds spend in two layers:
+visitors. Namakdan bounds spend in two layers:
 
 1. **A durable dollar ledger.** Every provider call reserves its worst-case
    cost before it runs and settles the real cost afterwards. Daily ceilings

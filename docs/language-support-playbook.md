@@ -1,4 +1,4 @@
-# Payverge Language Support Playbook
+# Namakdan Language Support Playbook
 
 Last investigated: 2026-05-14. The blog, marketing SEO pages and the Docusaurus
 site this investigation also covered have since been removed from the
@@ -6,9 +6,9 @@ repository. For the current step-by-step procedure see
 [`locales/LANGUAGES.md`](../locales/LANGUAGES.md); `locales/registry.json` is
 the single source of truth.
 
-This document maps the current language surfaces in Payverge and gives a repeatable process for adding a new language or regional locale such as `es-AR`.
+This document maps the current language surfaces in Namakdan and gives a repeatable process for adding a new language or regional locale such as `es-AR`.
 
-The short version: Payverge does not have one language system. It has several language surfaces that share language codes but have different responsibilities. A complete language rollout must account for all of them.
+The short version: Namakdan does not have one language system. It has several language surfaces that share language codes but have different responsibilities. A complete language rollout must account for all of them.
 
 ## Success Criteria For Full Language Support
 
@@ -244,7 +244,7 @@ Tests:
 
 ### Phase 2: Argentine Spanish Copy
 
-Only do this if Payverge wants visibly Argentine language, not just a regional selector.
+Only do this if Namakdan wants visibly Argentine language, not just a regional selector.
 
 Operator UI:
 

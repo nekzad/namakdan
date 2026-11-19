@@ -1,6 +1,6 @@
 # Rioplatense (Argentine) Spanish Style Guide — `es-AR`
 
-This is the **single source of truth** for translating Payverge into Argentine
+This is the **single source of truth** for translating Namakdan into Argentine
 Spanish (`es-AR`). Every translator — human or agent — follows it so that
 parallel work stays consistent. The generic `es` bundle stays **neutral /
 Iberian Spanish**; `es-AR` is genuine **Rioplatense** (Buenos Aires / Río de
@@ -146,7 +146,7 @@ the `es` bundle; right = Argentine.
   polished. Match that.
 - Prefer active voice and short verbs. "Configurá tu negocio" beats
   "Realice la configuración de su negocio".
-- Keep brand/product nouns (Payverge, USDC, QR, Stripe, PayPal) untranslated.
+- Keep brand/product nouns (Namakdan, USDC, QR, Stripe, PayPal) untranslated.
 - Don't over-localize technical/web3 terms diners won't know — keep them as in
   `es` unless the glossary says otherwise.
 

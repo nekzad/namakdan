@@ -1,6 +1,6 @@
 ---
 name: add-locale
-description: Add a language to Payverge, usually as a guest storefront locale that guests can pick on the table page and that menus are translated into, or by promoting an existing guest locale to a full operator dashboard locale. Covers the locale registry, status file, message bundles, flag, code generation and verification. Use when someone asks to add, support or translate Payverge into a new language.
+description: Add a language to Namakdan, usually as a guest storefront locale that guests can pick on the table page and that menus are translated into, or by promoting an existing guest locale to a full operator dashboard locale. Covers the locale registry, status file, message bundles, flag, code generation and verification. Use when someone asks to add, support or translate Namakdan into a new language.
 ---
 
 # Add a locale

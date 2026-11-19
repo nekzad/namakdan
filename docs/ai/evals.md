@@ -1,6 +1,6 @@
 # Evals
 
-Payverge tests its AI in three tiers. The first two are hermetic: they run in
+Namakdan tests its AI in three tiers. The first two are hermetic: they run in
 `go test`, need no API key and make no network call. Only the third tier
 calls a real model.
 

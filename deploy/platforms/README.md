@@ -1,6 +1,6 @@
 # Platform templates
 
-Starting points for running Payverge on a managed platform instead of the
+Starting points for running Namakdan on a managed platform instead of the
 Caddy-fronted [Docker Compose stack](../README.md). The compose stack in
 `deploy/` is the supported path; these templates are **not tested on the real
 platforms yet**. Each one is validated offline only, as listed below.
@@ -64,11 +64,11 @@ root by default; the path is configurable at setup).
 Render asks for the `sync: false` values (`PUBLIC_URL` on both services,
 `ADMIN_EMAIL`, `ADMIN_PASSWORD`, and the optional `EMAIL_PROVIDER` /
 `OPENROUTER_API_KEY`). `PUBLIC_URL` is the frontend's URL; on a first deploy
-that is `https://payverge-frontend.onrender.com` or the suffixed name Render
+that is `https://your-service.onrender.com` or the suffixed name Render
 assigns, so you may have to edit it once the service exists.
 
 The backend reads its database connection from the `DB_*` variables the
-Blueprint fills in from `payverge-db`, so there is no manual step. Both
+Blueprint fills in from `namakdan-db`, so there is no manual step. Both
 images are pinned to the release the files come from (release-please bumps
 the tag); to upgrade, change both tags together and redeploy.
 

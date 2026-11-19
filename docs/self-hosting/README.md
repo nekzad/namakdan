@@ -1,6 +1,6 @@
-# Self-hosting Payverge
+# Self-hosting Namakdan
 
-This is the operator manual for running your own Payverge instance with the
+This is the operator manual for running your own Namakdan instance with the
 Docker Compose stack in [`deploy/`](../../deploy/README.md). The
 [deploy README](../../deploy/README.md) is the command reference that ships
 with every release; these pages explain the choices behind it.
@@ -9,7 +9,7 @@ with every release; these pages explain the choices behind it.
 
 | I want to... | Read |
 |---|---|
-| Install Payverge on a server, or try it on my laptop | [install.md](install.md) |
+| Install Namakdan on a server, or try it on my laptop | [install.md](install.md) |
 | Know what a setting in `.env` does | [configuration.md](configuration.md) |
 | Upgrade to a new release, or roll back | [upgrades.md](upgrades.md) |
 | Make sure my data survives a dead disk | [backups.md](backups.md) |
@@ -42,8 +42,8 @@ internet ─▶ Caddy (80/443, TLS) ─┬─▶ frontend (Next.js) ─▶ backe
                                       backup job ─▶ ./backups ─▶ rclone (optional, off-site)
 ```
 
-Everything an instance needs is in one directory (`/opt/payverge` or
-`~/payverge`): `.env`, the compose and Caddy files, and `backups/`. Data lives
+Everything an instance needs is in one directory (`/opt/namakdan` or
+`~/namakdan`): `.env`, the compose and Caddy files, and `backups/`. Data lives
 in Docker volumes. Only Caddy is reachable from the network.
 
 Commands on these pages run from that directory. A note next to a command

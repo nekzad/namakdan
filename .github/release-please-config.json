@@ -21,13 +21,13 @@
   ],
   "packages": {
     ".": {
-      "package-name": "payverge",
+      "package-name": "namakdan",
       "extra-files": [
         { "type": "json", "path": "frontend/package.json", "jsonpath": "$.version" },
         { "type": "json", "path": "frontend/package-lock.json", "jsonpath": "$.version" },
         { "type": "json", "path": "frontend/package-lock.json", "jsonpath": "$.packages[''].version" },
-        { "type": "json", "path": "tools/payverge-admin-mcp/package.json", "jsonpath": "$.version" },
-        { "type": "generic", "path": "tools/payverge-admin-mcp/src/mcpProtocol.mjs" },
+        { "type": "json", "path": "tools/namakdan-admin-mcp/package.json", "jsonpath": "$.version" },
+        { "type": "generic", "path": "tools/namakdan-admin-mcp/src/mcpProtocol.mjs" },
         { "type": "generic", "path": "deploy/docker-compose.yml" },
         { "type": "generic", "path": "deploy/.env.example" },
         { "type": "generic", "path": "deploy/platforms/coolify/docker-compose.yml" },

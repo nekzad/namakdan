@@ -2,14 +2,14 @@
 
 This file covers the images, icons and fonts in the repository. Code
 dependencies are listed in `THIRD_PARTY_LICENSES.md`. The required
-attributions are in the root `NOTICE`. The Payverge name and logo fall under
-`TRADEMARKS.md`.
+attributions are in the root `NOTICE`. The original Payverge marks remain
+governed by `TRADEMARKS.md`; the supplied Namakdan branding is separate.
 
 Each entry has one of three statuses:
 
 - **Licensed.** The terms are known and the licence text ships with the
   files.
-- **Project-made.** Produced for Payverge, as screenshots of its own UI, as
+- **Project-made.** Produced for Namakdan, as screenshots of its own UI, as
   illustrations drawn in code, or generated with an image model by the
   maintainer. Shipped under the project's terms.
 - **To confirm.** Nobody has recorded where the file came from. The
@@ -27,19 +27,18 @@ beside it that names its copyright holder:
   Noto Sans Arabic, Noto Naskh Arabic, Oswald, EB Garamond and Cormorant
   Garamond
 - `site/assets/fonts/`: latin subsets of DM Sans and DM Serif Display for the
-  payverge.io landing page
+Namakdan landing page
 
 The fonts stay under the OFL and are not relicensed under Apache-2.0. The
 backend renders text with Go Bold (`golang.org/x/image/font/gofont`, BSD-3),
 which `THIRD_PARTY_LICENSES.md` covers with its module.
 
-## Payverge brand assets
+## Namakdan brand assets
 
-Logo, favicons and app icons, plus the
-landing page's copies under `site/assets/` (`logo.svg`, `favicon.ico`,
-`apple-touch-icon.png`) and its project-made social image `og-image.png`
-(source `site/tools/og-image.html`). These are marks, not Apache-2.0 content.
-See `TRADEMARKS.md`.
+The project owner supplied the logo, mark, icons and favicon in
+`site/assets/namakdan-*`; the app serves copies from `frontend/public/`.
+The landing page's `og-image.png` is generated from
+`site/tools/og-image.html`. These marks are separate from the code license.
 
 ## Third-party marks: trademarks of their owners
 
@@ -50,7 +49,7 @@ See `TRADEMARKS.md`.
 | `frontend/public/images/provider-icons/*.svg` | Hand-drawn badges (brand colour plus initials) for Careem, Deliveroo, DoorDash, OpenTable, Resy, Talabat, Uber Eats and Zomato. They are not the companies' real logos, but they use those companies' names. |
 
 The other files in `images/plugins/` are project-made illustrations for
-Payverge's own plugins: `cross-chain*`, `cross_chain_payment-logo`,
+Namakdan's own plugins: `cross-chain*`, `cross_chain_payment-logo`,
 `daily*`, `weekly*`.
 
 ## Project-made images
@@ -58,7 +57,7 @@ Payverge's own plugins: `cross-chain*`, `cross_chain_payment-logo`,
 | Files | Source |
 | --- | --- |
 | `frontend/public/marketing-examples/*.jpg` (2) | Generated with Google Gemini (the files carry C2PA `trainedAlgorithmicMedia` metadata). |
-| `frontend/public/onboarding/*.webp` (5) | Screenshots of the Payverge UI. |
+| `frontend/public/onboarding/*.webp` (5) | Screenshots of the Namakdan UI. |
 | `backend/internal/demo/assets/{carta,promos,venues}/*.jpg` (17) | Illustrations drawn from SVG primitives by `tools/demo-art/art.mjs` and rendered with `tools/demo-art/render.mjs`. No photographs or generated images. They replaced the earlier demo photos, whose source was never recorded. |
 | `frontend/public/images/allergens/*.svg` (14 EU allergen icons) | Hand-written SVG in this repository (a coloured disc with a simple white glyph), Apache-2.0. They replaced earlier icons exported from Adobe Illustrator whose source was never recorded. `scripts/licenses/allergen-icons.test.mjs` keeps them free of editor exports and embedded rasters. |
 | `docs/assets/screenshots/*`, `site/assets/screenshots/*` | Screenshots of a local `--demo` install, captured by `tools/screenshots/capture.mjs`. |

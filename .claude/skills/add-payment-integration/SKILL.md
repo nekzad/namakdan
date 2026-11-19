@@ -1,6 +1,6 @@
 ---
 name: add-payment-integration
-description: Add a new payment provider to Payverge as a code plugin, covering the Go plugin and its registration, webhook signature verification, the provider allow-lists in the payment handlers, the production activation contract, the dashboard config form with its contract tests, and sandbox verification. Use when someone wants guests to pay through a provider Payverge does not support yet, such as a local card processor or wallet.
+description: Add a new payment provider to Namakdan as a code plugin, covering the Go plugin and its registration, webhook signature verification, the provider allow-lists in the payment handlers, the production activation contract, the dashboard config form with its contract tests, and sandbox verification. Use when someone wants guests to pay through a provider Namakdan does not support yet, such as a local card processor or wallet.
 ---
 
 # Add a payment integration
@@ -106,7 +106,7 @@ Create `backend/internal/plugins/<name>/<name>.go`.
 
 | What | Where |
 |---|---|
-| Blank import `_ "github.com/stdevmac/payverge/backend/internal/plugins/<name>"` | the import block of `backend/cmd/app/main.go`, and the same in `backend/internal/plugins/catalog_source_of_truth_test.go`, which mirrors main.go's imports |
+| Blank import `_ "github.com/nekzad/namakdan/backend/internal/plugins/<name>"` | the import block of `backend/cmd/app/main.go`, and the same in `backend/internal/plugins/catalog_source_of_truth_test.go`, which mirrors main.go's imports |
 | `webhookRoutes.POST("/<name>", pluginHandlers.Handle<Name>Webhook)` | the `webhookRoutes` group (`/api/v1/webhooks`) in `backend/cmd/app/main.go`. Add return and cancel routes only for a redirect flow, as for `/paypal/return`. |
 | `Handle<Name>Webhook`, which calls `ph.handlePaymentWebhook(c, "<name>")` | `backend/internal/handlers/plugin_handlers.go`, next to `HandleStripeWebhook` |
 | The signature header and the ordered env-var fallbacks for the webhook secret | `pluginWebhookConfigs` in the same file. Without an entry, the payload counts as unverified. |
@@ -211,7 +211,7 @@ npm run lint
   `<PUBLIC_URL>/api/v1/webhooks/<name>`. Put the webhook secret in the env
   var named in `pluginWebhookConfigs`, or in the business's plugin config.
 - The owner enables and configures the plugin on the dashboard's plugins
-  page. `payverge_payment_plugin_status` (MCP) then reports whether payments
+  page. `namakdan_payment_plugin_status` (MCP) then reports whether payments
   are ready.
 - A platform admin can stop new payments for every provider with the
   `payments_enabled` control in `docs/runbooks/runtime-launch-controls.md`.

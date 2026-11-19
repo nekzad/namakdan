@@ -1,6 +1,6 @@
 # oss-export
 
-This tool builds the public `stdevMac/payverge` repository from a ref of the private repository. The result is a fresh repository with a single commit. It never pushes; the push is a manual step only the owner runs (see the end of this file).
+This tool builds the public `nekzad/namakdan` repository from a ref of the private repository. The result is a fresh repository with a single commit. It never pushes; the push is a manual step only the owner runs (see the end of this file).
 
 > **Maintainer tool.** It is in the public tree only so the release process can be read and audited. It cannot run from a clone of the public repository: it refuses to export without `forbidden.txt`, and that file and the other lists are private by design (they name the strings that must not ship; see [Configuration (private)](#configuration-private)). Their in-repository copy lives in the private repository's planning tree, which the export itself removes. Contributors do not need this tool.
 
@@ -99,7 +99,7 @@ The lists name the very strings that must not ship, so none of them may be in th
 
 1. The explicit flag: `--forbidden`, `--drop`, `--scrub` or `--secrets-allow`.
 2. `--config-dir DIR`. When this is given, the script reads all four files from `DIR` only.
-3. `<parent of the main checkout>/oss-private/<name>`. For `/Users/x/payverge` that is `/Users/x/oss-private/`.
+3. `<parent of the main checkout>/oss-private/<name>`. For `/Users/x/namakdan` that is `/Users/x/oss-private/`.
 4. `<ref>:<CONFIG_SUBDIR>/<name>`, where `CONFIG_SUBDIR` (set in `export.sh`) is a directory inside the private planning tree. The script copies the file out of the archive before the drop step, which then removes it.
 
 `forbidden.txt` is mandatory: the script refuses to export without it. The other three files are optional. A config file that resolves to a path inside the outdir is rejected.
@@ -163,14 +163,14 @@ Each line is a reviewed synthetic fixture, pinned by the hash of its value, so c
 # 0. The licence branch must be merged so LICENSE exists (gate h).
 
 # 1. Dry run. Nothing is committed and the gates report what still leaks.
-tools/oss-export/export.sh oss/main /tmp/payverge-public \
-  --author-email stdevMac@users.noreply.github.com --no-commit
+tools/oss-export/export.sh oss/main /tmp/namakdan-public \
+  --author-email nekzad@users.noreply.github.com --no-commit
 
 # 2. Fix upstream (preferred) or extend the private config, then rerun into
 #    a fresh directory. The outdir must be empty.
-rm -rf /tmp/payverge-public /tmp/payverge-public.export-report
-tools/oss-export/export.sh oss/main /tmp/payverge-public \
-  --author-email stdevMac@users.noreply.github.com
+rm -rf /tmp/namakdan-public /tmp/namakdan-public.export-report
+tools/oss-export/export.sh oss/main /tmp/namakdan-public \
+  --author-email nekzad@users.noreply.github.com
 ```
 
 The author string `Name <email>` and the `--message` text are also checked against `forbidden.txt`, which keeps a personal address out of the public history. Use the GitHub noreply address. The scanners of gates (a) and (b) read only the tree, not the message, so do not paste anything secret into it.
@@ -178,13 +178,13 @@ The author string `Name <email>` and the `--message` text are also checked again
 If you want a signed commit, re-sign it yourself after the export:
 
 ```bash
-git -C /tmp/payverge-public commit --amend --no-edit -S
+git -C /tmp/namakdan-public commit --amend --no-edit -S
 ```
 
 ## Post-export checks (optional, recommended before the first push)
 
 ```bash
-cd /tmp/payverge-public
+cd /tmp/namakdan-public
 (cd backend && go build ./... && go vet ./... && go test -short ./...)
 (cd frontend && npm ci && npm run typecheck && npm run build)
 ```
@@ -196,8 +196,8 @@ These checks are not gates, because they take minutes and need network access fo
 `export.sh` has no push code and rejects `--push`. After you have reviewed the tree and the reports, run this yourself:
 
 ```bash
-cd /tmp/payverge-public
-git remote add origin git@github.com:stdevMac/payverge.git && git push -u origin main
+cd /tmp/namakdan-public
+git remote add origin git@github.com:nekzad/namakdan.git && git push -u origin main
 ```
 
 Create the GitHub repository empty, with no README, licence or .gitignore, so `main` is accepted as is.

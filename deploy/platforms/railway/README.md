@@ -1,4 +1,4 @@
-# Payverge on Railway
+# Namakdan on Railway
 
 **Status: untested.** These steps follow Railway's documented features
 (Docker image services, reference variables, private networking, volumes);
@@ -17,14 +17,14 @@ variables and private hostnames below use them.
 | Service | Source | Public domain |
 |---|---|---|
 | `Postgres` | Railway's PostgreSQL database | none |
-| `backend` | Docker image `ghcr.io/stdevmac/payverge-backend:X.Y.Z` | **none** |
-| `frontend` | Docker image `ghcr.io/stdevmac/payverge-frontend:X.Y.Z` | yes, port 3000 |
+| `backend` | Docker image `ghcr.io/nekzad/namakdan-backend:X.Y.Z` | **none** |
+| `frontend` | Docker image `ghcr.io/nekzad/namakdan-frontend:X.Y.Z` | yes, port 3000 |
 
 Only the frontend gets a domain. It proxies `/api/v1/*` and `/media/*` to the
 backend over the private network, so the whole app is one origin.
 
 `X.Y.Z` is one release tag for both images (the newest
-[release](https://github.com/stdevMac/payverge/releases), not `latest`, so a
+[release](https://github.com/nekzad/namakdan/releases), not `latest`, so a
 redeploy never moves one service to a newer release than the other); change
 both together to upgrade.
 

@@ -1,6 +1,6 @@
 # Licence tooling
 
-Payverge is Apache-2.0 (`LICENSE`), with required attributions in `NOTICE`.
+Namakdan is Apache-2.0 (`LICENSE`), with required attributions in `NOTICE`.
 The scripts here check that what we ship stays compatible with that, and they
 regenerate the dependency list in `docs/licensing/THIRD_PARTY_LICENSES.md`.
 
@@ -31,7 +31,7 @@ Requirements:
   does not match go tool version Y".
 - go-licenses v2. The scripts use `$GO_LICENSES`, then `go-licenses` on PATH,
   then `go install github.com/google/go-licenses/v2@v2.0.1` into
-  `~/.cache/payverge/go-licenses/`. The install needs network once. Set
+  `~/.cache/namakdan/go-licenses/`. The install needs network once. Set
   `GO_LICENSES_VERSION` to try another release.
 - `node` and an installed `frontend/node_modules` (`npm ci`). The lockfile
   leaves out the licence of about 150 packages; those licences are read from
@@ -45,7 +45,7 @@ the backend image. The run matches the image build: `GOOS=linux`,
 `CGO_ENABLED=0`, and no build tags. Caller `GOFLAGS` are dropped. A package
 with no licence file, or with a licence go-licenses cannot classify, fails
 too. Reciprocal licences such as MPL-2.0 pass: they are file-level and
-Payverge does not modify the files. MPL-2.0 still requires telling users of
+Namakdan does not modify the files. MPL-2.0 still requires telling users of
 the binary where the source is, so every MPL module in the default build
 must be named in the root NOTICE with a source link for the pinned version;
 check.sh fails otherwise.
@@ -54,7 +54,7 @@ check.sh fails otherwise.
   (GPL-3.0), so that channel sits behind the opt-in `whatsapp` build tag. Run
   `LICENSES_GO_TAGS=whatsapp scripts/licenses/check.sh --skip-npm` to confirm
   that the tagged build fails the gate.
-- **Payverge's own module is skipped.** It is passed as an `--ignore` prefix.
+- **Namakdan's own module is skipped.** It is passed as an `--ignore` prefix.
   The prefix comes from `go list -m`, so renaming the module needs no edit
   here.
 - **Overrides** (`go-overrides.tsv`). go-licenses has no override feature,

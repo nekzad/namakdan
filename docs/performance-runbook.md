@@ -1,4 +1,4 @@
-# Payverge Performance Runbook
+# Namakdan Performance Runbook
 
 Last updated: 2026-10-03.
 
@@ -18,7 +18,7 @@ Primary references:
 | `backend/perf/k6/README.md` | HTTP load tests, profiles, k6 thresholds |
 | `backend/perf/seed/README.md` | Deterministic fixture seeding |
 | `backend/perf/staging/README.md` | Staging perf stack |
-| `backend/perf/grafana/payverge-perf.json` | Grafana dashboard for flow latency and process metrics |
+| `backend/perf/grafana/namakdan-perf.json` | Grafana dashboard for flow latency and process metrics |
 | `summary.md` | Historical notes and recorded before/after benchmark results |
 
 ## First 10 Minutes Of A Prod Incident
@@ -118,10 +118,10 @@ CPU profile:
 curl -fsS \
   -H "X-Pprof-Token: $PPROF_TOKEN" \
   "$BACKEND_URL/debug/pprof/profile?seconds=30" \
-  -o /tmp/payverge-cpu.pprof
+  -o /tmp/namakdan-cpu.pprof
 
-go tool pprof -top /tmp/payverge-cpu.pprof
-go tool pprof -http=:0 /tmp/payverge-cpu.pprof
+go tool pprof -top /tmp/namakdan-cpu.pprof
+go tool pprof -http=:0 /tmp/namakdan-cpu.pprof
 ```
 
 Heap profile:
@@ -130,9 +130,9 @@ Heap profile:
 curl -fsS \
   -H "X-Pprof-Token: $PPROF_TOKEN" \
   "$BACKEND_URL/debug/pprof/heap" \
-  -o /tmp/payverge-heap.pprof
+  -o /tmp/namakdan-heap.pprof
 
-go tool pprof -top /tmp/payverge-heap.pprof
+go tool pprof -top /tmp/namakdan-heap.pprof
 ```
 
 Goroutines and heap snapshot bundle:
@@ -141,7 +141,7 @@ Goroutines and heap snapshot bundle:
 curl -fsS \
   -H "X-Pprof-Token: $PPROF_TOKEN" \
   "$BACKEND_URL/internal/_pprof_snapshot" \
-  -o /tmp/payverge-pprof-snapshot.zip
+  -o /tmp/namakdan-pprof-snapshot.zip
 ```
 
 When production is under severe load, prefer a 10-30 second CPU profile. Avoid repeated long profiles during saturation.

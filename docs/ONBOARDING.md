@@ -1,14 +1,14 @@
-# Onboarding Guide: Payverge
+# Onboarding Guide: Namakdan
 
 Scannable 2-minute orientation for new contributors and AI agents joining the project. For deeper detail see `AGENTS.md` (canonical) and `CLAUDE.md`.
 
 ## Overview
-AI-powered restaurant management platform with Web3 (USDC) payment support. Monorepo containing a Next.js operator dashboard + guest-facing flows, a Go/Gin API, and a plain Markdown documentation tree (no build step). On-chain code is limited to USDC verification on the backend and ERC-20 / Wagmi wallet flows on the frontend — no custom Payverge contracts ship in the bundle.
+AI-powered restaurant management platform with Web3 (USDC) payment support. Monorepo containing a Next.js operator dashboard + guest-facing flows, a Go/Gin API, and a plain Markdown documentation tree (no build step). On-chain code is limited to USDC verification on the backend and ERC-20 / Wagmi wallet flows on the frontend — no custom Namakdan contracts ship in the bundle.
 
 ## Tech Stack
 | Layer | Technology | Notes |
 |---|---|---|
-| Frontend | Next.js 15.5 (App Router) + React 19 | package name `payverge-frontend` |
+| Frontend | Next.js 15.5 (App Router) + React 19 | package name `namakdan-frontend` |
 | UI | NextUI 2.4 + Tailwind 3.4 + lucide-react | DM Serif Display headings, DM Sans body |
 | Web3 | Wagmi 3 + Viem 2 | USDC reads only; `ethers` is **not** a direct dependency |
 | State | Zustand + TanStack Query | |
@@ -22,7 +22,7 @@ AI-powered restaurant management platform with Web3 (USDC) payment support. Mono
 3 code workspaces plus the self-hosting stack in one repo:
 
 ```
-payverge/
+namakdan/
 ├── frontend/   Next.js 15 App Router — operator dashboard + guest flows
 ├── backend/    Go/Gin API — handlers → services → GORM/PG
 ├── deploy/     Self-hosting compose, Caddy, install.sh
@@ -89,7 +89,7 @@ Backend is a layered monolith (handlers → services → database). Frontend tal
 - **Plugins**: register via `init()` + `plugins.RegisterPluginInitializer(...)` + blank-import in `cmd/app/main.go`.
 - **Money**: `int64` cents in DB, `float64` dollars on the JSON wire (`models_json.go`) — both ends must honor this.
 - **Server components**: do not import a shared axios instance. Use raw `fetch`.
-- **`NEXT_PUBLIC_*`**: build-time inline. Runtime settings go through `getPublicConfig()` (`frontend/src/config/publicConfig.ts`, rendered as `window.__PAYVERGE_ENV__`), so one image serves any domain.
+- **`NEXT_PUBLIC_*`**: build-time inline. Runtime settings go through `getPublicConfig()` (`frontend/src/config/publicConfig.ts`, rendered as `window.__NAMAKDAN_ENV__`), so one image serves any domain.
 
 ## Common Tasks
 ```

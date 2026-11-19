@@ -8,7 +8,7 @@
 
 ## Context
 
-Payverge has AI surfaces that anonymous visitors can reach (the guest AI
+Namakdan has AI surfaces that anonymous visitors can reach (the guest AI
 waiter, the public concierge) and owner tools that run multi-step agent
 loops. Each model call costs money. A self-hoster may not want AI at all, or
 may run a local model. A model can also say things the business never

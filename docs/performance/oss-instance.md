@@ -21,7 +21,7 @@ Benchmark: `BenchmarkInstanceInfoHandler` in
 ```
 cd backend
 env -u PUBLIC_URL -u FRONTEND_URL -u BASE_URL -u APP_BASE_URL -u OPENROUTER_API_KEY -u BILLING_MODE \
-  PLUGIN_SECRET_KEY=payverge-hermetic-test-key-00000 GO_ENV=test \
+  PLUGIN_SECRET_KEY=namakdan-hermetic-test-key-00000 GO_ENV=test \
   go test -short -count=3 -run '^$' -bench BenchmarkInstanceInfoHandler -benchmem ./internal/server
 ```
 
@@ -89,7 +89,7 @@ create no order rows and that a 64-byte id replays on retry.
 
 The Mercado Pago bill description (QR and Point), the Mercado Pago POS name
 and nameless-store fallback, and the PayPal `brand_name` now read
-`config.ProductName()` instead of a `"Payverge"` literal. Each is built once
+`config.ProductName()` instead of a `"Namakdan"` literal. Each is built once
 per outbound provider call, next to an HTTPS round trip to the provider: one
 `os.Getenv`, a rune-capped trim and a `fmt.Sprintf`. There are no new queries,
 preloads or JSON reads, so no benchmark was needed.

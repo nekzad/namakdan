@@ -1,8 +1,8 @@
 # Security checklist
 
-Payverge stores customer data and the payment credentials restaurants
+Namakdan stores customer data and the payment credentials restaurants
 connect. This page lists what the operator of an instance is responsible
-for. To report a vulnerability in Payverge itself, see
+for. To report a vulnerability in Namakdan itself, see
 [SECURITY.md](../../.github/SECURITY.md).
 
 ## Before you go live
@@ -28,7 +28,7 @@ for. To report a vulnerability in Payverge itself, see
 ## What is exposed
 
 In `deploy/docker-compose.yml`, Caddy is the only service with published
-ports. The backend and frontend listen only on the `payverge_edge` Docker
+ports. The backend and frontend listen only on the `namakdan_edge` Docker
 network (`<project>_edge` when `COMPOSE_PROJECT_NAME` is set); Postgres is on the internal `db` network with no route to the
 internet and no published port. Do not add `ports:` to them in an override
 file: the backend then sees connections that did not pass Caddy's header
@@ -62,18 +62,18 @@ All are off or minimal by default.
 |---|---|---|
 | `GET /api/v1/health/live` | none | Returns `{"status":"alive"}` while the process runs. Safe for any uptime monitor. |
 | `GET /api/v1/health/ready` | `HEALTH_DETAIL_TOKEN` for the detail | Without a valid token it returns only `{"status":"ready"}` (200) or `{"status":"not ready"}` (503), so public probes cannot fingerprint the instance. With `Authorization: Bearer <token>` it shows each dependency. A `?token=` query parameter is not accepted. |
-| `GET /metrics` | `METRICS_TOKEN` / `METRICS_TOKENS` | Prometheus, `Authorization: Bearer <token>`. In production the route is not registered at all without a token. Not routed by Caddy; scrape it from a container on `payverge_edge` ([deploy/README.md](../../deploy/README.md#metrics-and-logs)). |
+| `GET /metrics` | `METRICS_TOKEN` / `METRICS_TOKENS` | Prometheus, `Authorization: Bearer <token>`. In production the route is not registered at all without a token. Not routed by Caddy; scrape it from a container on `namakdan_edge` ([deploy/README.md](../../deploy/README.md#metrics-and-logs)). |
 | `GET /internal/_pprof_snapshot` | `PPROF_TOKEN` in `X-Pprof-Token` | Go profiling. Not registered unless `PPROF_TOKEN` is set. Leave it unset except while debugging a performance problem, then remove it. |
 
 Generate tokens with `openssl rand -hex 32`.
 
 ## Admin MCP API
 
-Setting `PAYVERGE_ADMIN_MCP_TOKEN_SHA256` (or the clear-text
-`PAYVERGE_ADMIN_MCP_TOKEN`) turns on an API that lets an AI assistant run
+Setting `NAMAKDAN_ADMIN_MCP_TOKEN_SHA256` (or the clear-text
+`NAMAKDAN_ADMIN_MCP_TOKEN`) turns on an API that lets an AI assistant run
 platform-admin actions. Leave it off unless you use it. If you do: store only
 the SHA-256 hash in `.env`, restrict callers with
-`PAYVERGE_ADMIN_MCP_ALLOWED_IPS`, and rotate the token if a machine that held
+`NAMAKDAN_ADMIN_MCP_ALLOWED_IPS`, and rotate the token if a machine that held
 it is lost.
 
 The token works only on a fixed set of diagnostic routes: health, fiscal

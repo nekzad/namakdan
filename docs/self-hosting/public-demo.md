@@ -1,6 +1,6 @@
 # Running a public demo
 
-This page sets up a public demo like `demo.payverge.io`. Anyone can open it,
+This page sets up a public demo like `demo.example.test`. Anyone can open it,
 enter a seeded restaurant with one click and change things. Every night at
 03:00 UTC the database and the uploads go back to a pristine snapshot.
 
@@ -38,7 +38,7 @@ session to anyone who asks.
   **Enter demo as Staff (kitchen)** and **Enter demo as Staff (waiter)**.
   They call `POST /api/v1/auth/demo/login`, which answers 404 unless
   `DEMO_MODE` is on. No password is published, and none exists.
-  - The owner is `owner@demo.payverge.invalid`. It is a non-admin account
+  - The owner is `owner@demo.namakdan.invalid`. It is a non-admin account
     that owns the demo venues and cannot receive mail.
   - The staff buttons sign in seeded staff of the core venue.
   - A demo owner session is valid only while `DEMO_MODE` is on.
@@ -140,7 +140,7 @@ demo is meant to be poked at.
 ## DNS and firewall
 
 - Create an `A` record (and `AAAA`, if the host has IPv6) for
-  `demo.payverge.io` pointing at the host.
+  `demo.example.test` pointing at the host.
 - Open TCP 80 and 443 and UDP 443. Caddy obtains the certificate itself.
 - Behind Cloudflare, set `EDGE=cloudflare` as in
   [reverse-proxies.md](reverse-proxies.md).
@@ -149,17 +149,17 @@ demo is meant to be poked at.
 
 Run this from a clone of the repository. The downloaded installer does not
 ship `deploy/demo/`. This page and the units in `deploy/demo/systemd/`
-assume the clone is `/opt/payverge`, so the deploy directory is
-`/opt/payverge/deploy`. Every later command runs from there.
+assume the clone is `/opt/namakdan`, so the deploy directory is
+`/opt/namakdan/deploy`. Every later command runs from there.
 
 ```bash
-git clone https://github.com/stdevMac/payverge.git /opt/payverge
-cd /opt/payverge
+git clone https://github.com/nekzad/namakdan.git /opt/namakdan
+cd /opt/namakdan
 git checkout v1.2.3   # the newest release; main can be ahead of it
 cd deploy
 
-COMPOSE_PROJECT_NAME=payverge-demo \
-  ./install.sh --domain demo.payverge.io --admin-email you@example.com --demo --no-start
+COMPOSE_PROJECT_NAME=namakdan-demo \
+  ./install.sh --domain demo.example.test --admin-email you@example.com --demo --no-start
 
 # Layer the demo overlay on every docker compose command in this directory.
 # Edit the key rather than appending, and keep docker-compose.build.yml when
@@ -177,7 +177,7 @@ The first boot seeds the showroom. Check it, then take the pristine snapshot
 before anyone else can reach the site:
 
 ```bash
-curl -s https://demo.payverge.io/api/v1/instance | grep -o '"demo":{[^}]*}'
+curl -s https://demo.example.test/api/v1/instance | grep -o '"demo":{[^}]*}'
 # "demo":{"enabled":true,"mode":true,"reset_utc":"03:00"}
 
 demo/reset-demo.sh --snapshot   # writes demo/pristine/ (gitignored, mode 600)
@@ -196,20 +196,20 @@ snapshot goes through `--maintenance`; see
 
 ## Enable the nightly reset
 
-The units assume the deploy directory is `/opt/payverge/deploy`. If yours is
+The units assume the deploy directory is `/opt/namakdan/deploy`. If yours is
 somewhere else, edit `WorkingDirectory`, `EnvironmentFile`,
 `DEMO_COMPOSE_DIR` and `ExecStart` in both `.service` files first.
 
 ```bash
-sudo cp demo/systemd/payverge-demo-reset*.service demo/systemd/payverge-demo-reset*.timer /etc/systemd/system/
+sudo cp demo/systemd/namakdan-demo-reset*.service demo/systemd/namakdan-demo-reset*.timer /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable --now payverge-demo-reset.timer payverge-demo-reset-check.timer
-systemctl list-timers 'payverge-demo-reset*'          # reset at 03:00 UTC, watchdog hourly
-sudo systemctl start payverge-demo-reset.service      # one reset now, to prove it
-journalctl -u payverge-demo-reset.service -n 50
+sudo systemctl enable --now namakdan-demo-reset.timer namakdan-demo-reset-check.timer
+systemctl list-timers 'namakdan-demo-reset*'          # reset at 03:00 UTC, watchdog hourly
+sudo systemctl start namakdan-demo-reset.service      # one reset now, to prove it
+journalctl -u namakdan-demo-reset.service -n 50
 ```
 
-The watchdog (`payverge-demo-reset-check`) runs `reset-demo.sh --check`
+The watchdog (`namakdan-demo-reset-check`) runs `reset-demo.sh --check`
 every hour. It fails, and posts to `DEMO_ALERT_URL`, when the last good
 reset is older than `DEMO_RESET_MAX_AGE_HOURS` (default 26). That catches a
 stopped timer, a run killed halfway, or a reset that keeps failing, so
@@ -220,11 +220,11 @@ snapshot's age instead, so a lost stamp raises an alert rather than hiding
 a stopped reset.
 
 Optional settings go in `demo/reset.env` in the deploy directory
-(`/opt/payverge/deploy/demo/reset.env`; `*.env` files are gitignored). Both
+(`/opt/namakdan/deploy/demo/reset.env`; `*.env` files are gitignored). Both
 units read it:
 
 ```bash
-DEMO_HEALTH_URL=https://demo.payverge.io/api/v1/health/ready   # also check through the edge
+DEMO_HEALTH_URL=https://demo.example.test/api/v1/health/ready   # also check through the edge
 DEMO_ALERT_URL=https://ntfy.sh/<private-topic>                 # POSTed one line on failure
 DEMO_HEALTH_TIMEOUT=300
 DEMO_RESET_MAX_AGE_HOURS=26                                    # watchdog threshold
@@ -304,12 +304,12 @@ and container logs until Docker rotates them.
 ### Uptime
 
 Point an external monitor (Uptime Kuma, Better Stack, a cron `curl`) at
-`https://demo.payverge.io/api/v1/health/ready`.
+`https://demo.example.test/api/v1/health/ready`.
 
 - Expect a short gap at 03:00 UTC. Silence alerts for 03:00–03:10 UTC, or
   raise the failure threshold.
-- Alert separately on a failed `payverge-demo-reset.service` or
-  `payverge-demo-reset-check.service`. Either set `OnFailure=` in the units
+- Alert separately on a failed `namakdan-demo-reset.service` or
+  `namakdan-demo-reset-check.service`. Either set `OnFailure=` in the units
   or use `DEMO_ALERT_URL`.
 
 ## Rotate the admin password
@@ -379,8 +379,8 @@ Then run `docker compose up -d backend`.
 ## Teardown
 
 ```bash
-sudo systemctl disable --now payverge-demo-reset.timer payverge-demo-reset-check.timer
-sudo rm /etc/systemd/system/payverge-demo-reset{,-check}.{service,timer}
+sudo systemctl disable --now namakdan-demo-reset.timer namakdan-demo-reset-check.timer
+sudo rm /etc/systemd/system/namakdan-demo-reset{,-check}.{service,timer}
 sudo systemctl daemon-reload
 docker compose down --volumes      # in the deploy directory: this project only
 rm -rf demo/pristine

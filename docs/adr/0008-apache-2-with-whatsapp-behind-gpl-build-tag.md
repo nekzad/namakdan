@@ -5,7 +5,7 @@
 
 ## Context
 
-Payverge is released under the Apache License 2.0, a permissive licence with
+Namakdan is released under the Apache License 2.0, a permissive licence with
 an explicit patent grant. One optional feature, the WhatsApp AI-waiter
 channel, uses `whatsmeow` (MPL-2.0), which depends on `go.mau.fi/libsignal`
 (GPL-3.0). Linking GPL-3.0 code makes the resulting binary as a whole subject
@@ -14,7 +14,7 @@ take GPL obligations to run a restaurant.
 
 ## Decision
 
-- All Payverge source code is Apache-2.0.
+- All Namakdan source code is Apache-2.0.
 - Every file that imports `go.mau.fi/*` carries `//go:build whatsapp`. The
   default build compiles a stub instead, which reports that WhatsApp is not
   built in.

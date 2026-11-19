@@ -3,7 +3,7 @@
 Guests pay a bill by card through Stripe, PayPal or MercadoPago, or in USDC on
 Base. Each restaurant connects its own provider account in the dashboard
 (**Settings → Payments**); the money goes straight to that account, and
-Payverge takes no fee. As the operator of the instance you only provide the
+Namakdan takes no fee. As the operator of the instance you only provide the
 platform pieces: webhook secrets, the OAuth apps behind the "Connect" buttons,
 and an RPC for USDC.
 
@@ -178,8 +178,8 @@ no secret is configured.
 
 Failed webhooks (every provider's) have no screen in the admin UI. Review
 them through the API with a platform-admin token, or with the
-`payverge_list_failed_webhooks` / `payverge_ack_failed_webhook` tools in
-[tools/payverge-admin-mcp](../../tools/payverge-admin-mcp/README.md):
+`namakdan_list_failed_webhooks` / `namakdan_ack_failed_webhook` tools in
+[tools/namakdan-admin-mcp](../../tools/namakdan-admin-mcp/README.md):
 
 | Method and path | What it does |
 |---|---|
@@ -192,12 +192,12 @@ the event from the provider's dashboard.
 ### Refunds and disputes that arrive before the payment
 
 Providers do not deliver events in order. A refund, a dispute or a dispute
-reversal can reach Payverge before the event for the payment it applies to,
+reversal can reach Namakdan before the event for the payment it applies to,
 for example when a restaurant refunds from the Stripe dashboard while the
-payment event is still being retried. Payverge does not drop such an event:
+payment event is still being retried. Namakdan does not drop such an event:
 
 - When the event names one of the restaurant's bills and the payment is not
-  on that bill yet, or it is a dispute for a payment Payverge has not
+  on that bill yet, or it is a dispute for a payment Namakdan has not
   recorded (Stripe and PayPal dispute events often name no bill), the backend answers `503 Capture not recorded yet; retry
   later` with `Retry-After: 300`. The provider redelivers it on its own
   schedule, and the first delivery after the payment is recorded is applied
@@ -205,17 +205,17 @@ payment event is still being retried. Payverge does not drop such an event:
   misconfiguration.
 - While it waits, the event's `webhook_events` row has status
   `retry_pending`. It does not appear in `GET /api/v1/admin/webhooks/failed`,
-  and it counts in `payverge_payment_webhook_processing_failures_total` with
+  and it counts in `namakdan_payment_webhook_processing_failures_total` with
   `reason="capture_pending"`, which the
   [alert rule](../runbooks/alerts.md#1-payment-webhook-failures) excludes.
 - The wait is bounded at 48 hours, inside the providers' redelivery window
   of about three days. Age is measured from the provider's signed event
   timestamp (Stripe `created`, PayPal `create_time`) or the first time
-  Payverge stored the event, whichever is older. MercadoPago's
+  Namakdan stored the event, whichever is older. MercadoPago's
   `date_created` is not covered by its signature, so MercadoPago events are
   aged from first-seen only. Past the bound the event is acknowledged with
   `200`, a warning is logged, the counter
-  `payverge_payment_webhook_unsupported_actions_total{action="capture_pending.expired"}`
+  `namakdan_payment_webhook_unsupported_actions_total{action="capture_pending.expired"}`
   is incremented and a payment-review alert is raised in the dashboard: on
   the bill when the event named one, otherwise on the restaurant (resource
   type `webhook_event`). Nothing was applied to the ledger: reconcile it by
@@ -223,7 +223,7 @@ payment event is still being retried. Payverge does not drop such an event:
 - If the provider stops redelivering before the bound, a background sweeper
   (every 15 minutes) expires `retry_pending` rows older than 48 hours the
   same way, so the alert is raised even without another delivery.
-- If Payverge itself refunded the payment because the bill could not take it
+- If Namakdan itself refunded the payment because the bill could not take it
   (for example the bill was already settled), the provider's refund event is
   acknowledged straight away.
 - MercadoPago notifications carry only an id; the backend fetches the
@@ -231,8 +231,8 @@ payment event is still being retried. Payverge does not drop such an event:
   recorded is never reported as approved again, so such an event ends at the
   48-hour acknowledgement and alert.
 - A refund that names no bill of the restaurant is acknowledged as before:
-  Payverge's own charges always carry the bill reference, so it is a charge
-  Payverge did not create.
+  Namakdan's own charges always carry the bill reference, so it is a charge
+  Namakdan did not create.
 
 To see events waiting for their payment:
 

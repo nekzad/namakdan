@@ -14,7 +14,7 @@
 # per-fixture fingerprints as a second layer.
 #
 # Requires gitleaks >= 8.25 (`[[allowlists]]`, `targetRules`, `condition`).
-title = "Payverge gitleaks config"
+title = "Namakdan gitleaks config"
 
 [extend]
 useDefault = true
@@ -51,7 +51,7 @@ regexes = [
 [[allowlists]]
 description = "The hermetic backend test key (scripts/ci/backend-env.sh, scripts/verify-backend.sh, perf runbooks)"
 regexes = [
-  '''^payverge-hermetic-test-key-0+$''',
+  '''^namakdan-hermetic-test-key-0+$''',
 ]
 
 [[allowlists]]

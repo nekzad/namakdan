@@ -9,6 +9,9 @@ trap 'rm -rf "$TMP"' EXIT
 
 pass=0
 fail=0
+legacy_product='pay''verge'
+legacy_io="${legacy_product}.io"
+legacy_com="${legacy_product}.com"
 
 new_repo() {
   rm -rf "$TMP/repo"
@@ -45,39 +48,41 @@ expect "clean" 0
 expect "clean-backend-only" 0 --backend-only
 
 # Backend non-test Go literal fails (untracked files are scanned too).
-put backend/internal/x/bad.go 'const u = "https://payverge.io/x"'
+put backend/internal/x/bad.go "const u = \"https://${legacy_io}/x\""
 expect "backend-go" 1 --backend-only
 grep -q 'backend/internal/x/bad.go:1:' "$TMP/out" || { fail=$((fail + 1)); echo "FAIL backend-go: hit not listed"; }
 rm "$TMP/repo/backend/internal/x/bad.go"
 
 # Case-insensitive.
-put backend/cmd/app/bad.go 'const u = "PAYVERGE.IO"'
+put backend/cmd/app/bad.go "const u = \"${legacy_io^^}\""
 expect "case-insensitive" 1 --backend-only
 rm "$TMP/repo/backend/cmd/app/bad.go"
 
-# The legacy payverge.com apex is caught too.
-put backend/internal/telegram/bad.go 'return "https://app.payverge.com"'
+# The second reserved apex is caught too.
+put backend/internal/telegram/bad.go "return \"https://app.${legacy_com}\""
 expect "legacy-com-apex" 1 --backend-only
 grep -q 'backend/internal/telegram/bad.go:1:' "$TMP/out" || { fail=$((fail + 1)); echo "FAIL legacy-com-apex: hit not listed"; }
 rm "$TMP/repo/backend/internal/telegram/bad.go"
 
 # Email templates are scanned.
-put backend/email/layout/base_eng.html '<a href="https://payverge.io">x</a>'
+put backend/email/layout/base_eng.html "<a href=\"https://${legacy_io}\">x</a>"
 expect "email-template" 1 --backend-only
 rm "$TMP/repo/backend/email/layout/base_eng.html"
 
-# Tests, testdata, fixtures, and the backend brand-default module are allowed.
-put backend/internal/x/x_test.go 'const u = "https://payverge.io"'
-put backend/internal/llm/testdata/menu.json '{"u":"https://payverge.io"}'
-put backend/internal/config/instance.go 'const UpstreamDomain = "payverge.io"'
-expect "backend-allowlist" 0 --backend-only
+# Tests and testdata are allowed.
+put backend/internal/x/x_test.go "const u = \"https://${legacy_io}\""
+put backend/internal/llm/testdata/menu.json "{\"u\":\"https://${legacy_io}\"}"
+expect "backend-fixtures" 0 --backend-only
+put backend/internal/config/instance.go "const UntrustedDomain = \"${legacy_io}\""
+expect "backend-config-hit" 1 --backend-only
+rm "$TMP/repo/backend/internal/config/instance.go"
 
 # Out-of-scope backend paths (SQL demo scripts, perf) are not scanned.
-put backend/scripts/demo.sql "-- https://payverge.io"
+put backend/scripts/demo.sql "-- https://${legacy_io}"
 expect "backend-out-of-scope" 0 --backend-only
 
 # Frontend hits fail the full run but not --backend-only.
-put frontend/src/lib/site.ts 'export const SITE = "https://payverge.io";'
+put frontend/src/lib/site.ts "export const SITE = \"https://${legacy_io}\";"
 expect "frontend-full" 1
 expect "frontend-backend-only" 0 --backend-only
 expect "frontend-only" 1 --frontend-only
@@ -87,18 +92,18 @@ grep -q 'site.ts:1:' "$TMP/out" && { fail=$((fail + 1)); echo "FAIL frontend-cou
 rm "$TMP/repo/frontend/src/lib/site.ts"
 
 # Frontend tests, mocks, and Markdown content are allowed.
-put frontend/src/lib/site.test.ts 'it("x", () => "https://payverge.io")'
-put frontend/src/lib/__mocks__/m.ts 'export default "https://payverge.io"'
-put frontend/src/content/blog/post.md 'See https://payverge.io'
+put frontend/src/lib/site.test.ts "it(\"x\", () => \"https://${legacy_io}\")"
+put frontend/src/lib/__mocks__/m.ts "export default \"https://${legacy_io}\""
+put frontend/src/content/blog/post.md "See https://${legacy_io}"
 expect "frontend-allowlist" 0
 
 # The frontend brand module is excluded. KNOWN_DEBT is empty, so the former
 # debt files (legal/tools copy) are scanned like any other file.
-put frontend/src/config/brand.ts '// never payverge.io'
+put frontend/src/config/brand.ts '// no domain literal'
 expect "frontend-brand-allowed" 0 --frontend-only
 grep -q 'known-debt' "$TMP/out" && { fail=$((fail + 1)); echo "FAIL frontend-debt: no debt is left, so no warning"; }
 expect "release-brand-allowed" 0 --frontend-only --release
-put frontend/src/i18n/messages/en/legal.json '{"m":"legal@payverge.io"}'
+put frontend/src/i18n/messages/en/legal.json "{\"m\":\"legal@${legacy_io}\"}"
 expect "frontend-former-debt-fails" 1 --frontend-only
 expect "release-former-debt-fails" 1 --frontend-only --release
 grep -q 'legal.json:1:' "$TMP/out" || { fail=$((fail + 1)); echo "FAIL release-debt: hit not listed"; }
@@ -106,7 +111,7 @@ rm -rf "$TMP/repo/frontend/src/i18n" "$TMP/repo/frontend/src/config"
 
 # Gitignored files are skipped.
 put .gitignore 'frontend/src/generated/'
-put frontend/src/generated/out.ts 'export const u = "https://payverge.io";'
+put frontend/src/generated/out.ts "export const u = \"https://${legacy_io}\";"
 expect "gitignored" 0
 
 # Usage errors.

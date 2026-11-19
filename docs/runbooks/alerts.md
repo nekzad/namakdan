@@ -1,6 +1,6 @@
 # Alert Response Runbook
 
-**When to use this runbook:** a Prometheus alert on a Payverge backend fired,
+**When to use this runbook:** a Prometheus alert on a Namakdan backend fired,
 or you are writing alert rules and need to know what each signal means.
 
 It covers four alert families: payment webhook failures, orphaned fiscal
@@ -18,19 +18,19 @@ raw value.
 Database checks below use:
 
 ```sh
-docker compose exec postgres psql -U payverge -d payverge
+docker compose exec postgres psql -U namakdan -d namakdan
 ```
 
 ---
 
 ## 1. Payment webhook failures
 
-**Signal:** `payverge_payment_webhook_processing_failures_total{plugin, reason}`
+**Signal:** `namakdan_payment_webhook_processing_failures_total{plugin, reason}`
 counts payment-provider webhook events that were received but not processed.
 
 ```promql
 sum by (plugin, reason) (
-  increase(payverge_payment_webhook_processing_failures_total{reason!="capture_pending"}[15m])
+  increase(namakdan_payment_webhook_processing_failures_total{reason!="capture_pending"}[15m])
 ) > 0
 ```
 
@@ -44,13 +44,13 @@ background sweeper does the same for an event the provider stopped
 redelivering, so the alert fires either way:
 
 ```promql
-increase(payverge_payment_webhook_unsupported_actions_total{action="capture_pending.expired"}[1h]) > 0
+increase(namakdan_payment_webhook_unsupported_actions_total{action="capture_pending.expired"}[1h]) > 0
 ```
 
 **What it means:** a provider (Stripe, PayPal, Mercado Pago) sent an event
-and Payverge did not apply it. A payment may show as pending on a bill even
+and Namakdan did not apply it. A payment may show as pending on a bill even
 though the guest paid. A burst with a signature-related `reason` almost always
-means the webhook secret in Payverge no longer matches the provider's.
+means the webhook secret in Namakdan no longer matches the provider's.
 
 **What to do:**
 
@@ -85,17 +85,17 @@ means the webhook secret in Payverge no longer matches the provider's.
 
 ## 2. Orphaned fiscal authorization (CAE)
 
-**Signal:** `payverge_fiscal_orphaned_cae_total` counts ARCA (AFIP)
+**Signal:** `namakdan_fiscal_orphaned_cae_total` counts ARCA (AFIP)
 authorizations whose local receipt row could not be saved.
 
 ```promql
-increase(payverge_fiscal_orphaned_cae_total[1h]) > 0
+increase(namakdan_fiscal_orphaned_cae_total[1h]) > 0
 ```
 
 Page on the first occurrence. There is no safe threshold above zero.
 
 **What it means:** ARCA issued a CAE, which consumed a legal invoice number,
-but Payverge failed to record the receipt after its bounded retries. The job
+but Namakdan failed to record the receipt after its bounded retries. The job
 is marked `failed_permanent` with `last_error_code = 'persist_failed_terminal'`
 and is never retried on purpose: issuing again would request a new number and
 create a duplicate legal invoice.
@@ -132,10 +132,10 @@ with the Prometheus blackbox exporter (or any HTTP monitor) and alert on the
 probe:
 
 ```promql
-probe_success{job="payverge-ready"} == 0
+probe_success{job="namakdan-ready"} == 0
 ```
 
-Add `up{job="payverge-backend"} == 0` for the scrape itself.
+Add `up{job="namakdan-backend"} == 0` for the scrape itself.
 
 **What it means:** the backend is up but a dependency it needs is not: the
 database, or a component checked at startup (JWT, plugins, network, email,
@@ -172,30 +172,30 @@ has its own signal:
 
 | Queue | Signal | Dead state |
 |---|---|---|
-| Fiscal receipt delivery (artifact, email, print) | `payverge_fiscal_delivery_dead_letters_total{channel}` | `fiscal_delivery_tasks.status = 'dead'` |
-| Transactional email outbox | `payverge_email_outbox_failed_total{template, reason}` | `email_outbox.status = 'failed'` |
-| Plugin notifications (Telegram and others) | `payverge_plugin_notification_failed_total{plugin, event_type, reason}` | `plugin_notification_deliveries.status = 'failed'` |
+| Fiscal receipt delivery (artifact, email, print) | `namakdan_fiscal_delivery_dead_letters_total{channel}` | `fiscal_delivery_tasks.status = 'dead'` |
+| Transactional email outbox | `namakdan_email_outbox_failed_total{template, reason}` | `email_outbox.status = 'failed'` |
+| Plugin notifications (Telegram and others) | `namakdan_plugin_notification_failed_total{plugin, event_type, reason}` | `plugin_notification_deliveries.status = 'failed'` |
 
 ```promql
-sum by (channel) (increase(payverge_fiscal_delivery_dead_letters_total[1h])) > 0
+sum by (channel) (increase(namakdan_fiscal_delivery_dead_letters_total[1h])) > 0
 ```
 
 ```promql
-sum by (template, reason) (increase(payverge_email_outbox_failed_total[1h])) > 0
+sum by (template, reason) (increase(namakdan_email_outbox_failed_total[1h])) > 0
 ```
 
 ```promql
-sum by (plugin, reason) (increase(payverge_plugin_notification_failed_total[1h])) > 5
+sum by (plugin, reason) (increase(namakdan_plugin_notification_failed_total[1h])) > 5
 ```
 
 A growing backlog is the early warning before dead letters:
 
 ```promql
-payverge_fiscal_delivery_oldest_age_seconds > 1800
+namakdan_fiscal_delivery_oldest_age_seconds > 1800
 ```
 
 ```promql
-payverge_email_outbox_queue_depth > 100
+namakdan_email_outbox_queue_depth > 100
 ```
 
 **What it means:** a receipt was authorized but never reached the guest or

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://payverge.io/schemas/advertised-feature-contract.json",
-  "title": "Payverge Advertised Feature Contract",
+  "$id": "https://example.test/schemas/advertised-feature-contract.json",
+  "title": "Namakdan Advertised Feature Contract",
   "description": "Registry of public product claims (marketing, operator, legal) with evidence paths and honest status. Used by frontend/scripts/check-advertised-feature-contract.ts.",
   "type": "object",
   "additionalProperties": false,

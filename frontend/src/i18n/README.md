@@ -1,7 +1,7 @@
-# Payverge Internationalization System
+# Namakdan Internationalization System
 
-A comprehensive internationalization (i18n) system for the Payverge platform supporting multiple languages with easy extensibility.
-Payverge runs a **custom, in-repo translation system** — there is no `next-intl`
+A comprehensive internationalization (i18n) system for the Namakdan platform supporting multiple languages with easy extensibility.
+Namakdan runs a **custom, in-repo translation system** — there is no `next-intl`
 and no `TranslationProvider`/`config.ts` (those were removed). Translations are
 plain JSON message files consumed through two providers.
 

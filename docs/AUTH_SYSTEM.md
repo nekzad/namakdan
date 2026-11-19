@@ -1,6 +1,6 @@
 # Authentication
 
-How people sign in to Payverge, what the server issues when they do, and how a
+How people sign in to Namakdan, what the server issues when they do, and how a
 session ends. The operator settings (first admin, password resets, who may sign
 up) are in [self-hosting/admin.md](self-hosting/admin.md); this page explains
 the mechanism behind them.
@@ -139,9 +139,9 @@ A platform admin is an operator whose `users.role` is `admin`.
 request rather than trusting the token. The first admin comes from
 `ADMIN_EMAIL` and `ADMIN_PASSWORD` or the `admin create` command; see
 [admin.md](self-hosting/admin.md). The admin MCP server authenticates with its
-own token, `PAYVERGE_ADMIN_MCP_TOKEN`, accepted only on an allowlisted set of
+own token, `NAMAKDAN_ADMIN_MCP_TOKEN`, accepted only on an allowlisted set of
 admin routes; see
-[tools/payverge-admin-mcp/README.md](../tools/payverge-admin-mcp/README.md).
+[tools/namakdan-admin-mcp/README.md](../tools/namakdan-admin-mcp/README.md).
 
 ### Who may sign up
 

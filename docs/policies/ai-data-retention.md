@@ -2,7 +2,7 @@
 
 _Last updated: 2026-07-18._
 
-This document describes how Payverge stores, retains, and deletes data produced
+This document describes how Namakdan stores, retains, and deletes data produced
 by its AI features, and the legal basis for those choices. It is the source of
 truth that the retention janitors, privacy class map (`internal/llm/privacy.go`),
 and the PII redaction package (`internal/pii`) implement.
@@ -18,7 +18,7 @@ through WhatsApp or replace third-party platform policies.
 | Feature | Privacy class | ZDR | Automatic retention | Permanent deletion |
 |---|---|---|---|---|
 | `waiter` | customer-sensitive | yes | 90 days | business closure purge; janitor |
-| `waiter_whatsapp` | customer-sensitive | yes | 90 days (Payverge transcript) | business closure purge; janitor |
+| `waiter_whatsapp` | customer-sensitive | yes | 90 days (Namakdan transcript) | business closure purge; janitor |
 | `ops_assistant` | business-confidential | yes | 30 days after the last message | janitor; closure purge |
 | `director` | business-confidential | yes | account lifetime | archive vs permanent delete; closure purge |
 | `wizard` / `extraction` / `image` / `marketing` | business-confidential | yes | account / draft lifetime | owner delete + closure purge |
@@ -61,7 +61,7 @@ resume. Owner `DeleteBusiness` and admin permanent closure call
 
 Rationale for the split: guest transcripts may contain third-party personal
 data (and special-category health data — see §5) collected from people who are
-not Payverge account holders, so storage limitation (GDPR Art. 5(1)(e)) requires
+not Namakdan account holders, so storage limitation (GDPR Art. 5(1)(e)) requires
 a short, automatic window. Director/wizard threads belong to the authenticated
 owner who created them; indefinite-with-archival mirrors how the owner's other
 business records are retained, and the owner can delete them at will.
@@ -97,9 +97,9 @@ is ever stored; the 90-day window is the primary storage-limitation control.
 Guest and owner messages are sent to the LLM provider **OpenRouter**
 (`internal/llm/openrouter`) for inference. OpenRouter is a third-party processor;
 its sub-processor and data-handling terms govern transient processing of message
-content. Payverge stores only the redacted transcript on its own
+content. Namakdan stores only the redacted transcript on its own
 infrastructure; the prompt sent to OpenRouter is not separately retained by
-Payverge beyond the transcript record.
+Namakdan beyond the transcript record.
 
 ## 7. Deletion on request
 
@@ -114,7 +114,7 @@ Payverge beyond the transcript record.
   uses (`DeleteExpiredAiWaiterTranscripts` deletes messages by
   `conversation_id IN (...)` first, then the conversations): for a targeted
   erasure, delete the message rows for the conversation id(s), then the
-  conversation row(s). Operators forward erasure requests to Payverge support,
+  conversation row(s). Operators forward erasure requests to Namakdan support,
   who locate rows by business + table + approximate timestamp.
 - **Owner data**: Director/wizard threads are deleted when the owner archives or
   deletes them, or on account closure.

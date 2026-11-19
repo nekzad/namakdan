@@ -85,5 +85,5 @@ Axios instance is **client-only**; in server components and tests use raw `fetch
 ## Build Flags
 - `NEXT_OUTPUT_STANDALONE=1` → standalone bundle for Docker.
 - `NEXT_STRICT_BUILD=1` / `CI=true` → enforce TS + ESLint on build.
-- Runtime config: `src/config/publicConfig.ts` reads `PUBLIC_ENV_KEYS` from the process environment at request time and publishes them as `window.__PAYVERGE_ENV__`. Examples: `PUBLIC_URL`, `NETWORK`, and `PUBLIC_RPC_URL` (the runtime name for the `RPC_URL` key).
-- `NEXT_PUBLIC_*` build args are only a legacy fallback, used when that runtime env and `window.__PAYVERGE_ENV__` are both empty.
+- Runtime config: `src/config/publicConfig.ts` reads `PUBLIC_ENV_KEYS` from the process environment at request time and publishes them as `window.__NAMAKDAN_ENV__`. Examples: `PUBLIC_URL`, `NETWORK`, and `PUBLIC_RPC_URL` (the runtime name for the `RPC_URL` key).
+- `NEXT_PUBLIC_*` build args are only a legacy fallback, used when that runtime env and `window.__NAMAKDAN_ENV__` are both empty.

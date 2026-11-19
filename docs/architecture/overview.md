@@ -1,6 +1,6 @@
 # Architecture overview
 
-Payverge is two processes and a database. The backend is one Go binary that
+Namakdan is two processes and a database. The backend is one Go binary that
 owns every rule about money, permissions and data. The frontend is a Next.js
 server that renders pages and, optionally, proxies API calls. Postgres holds
 all durable state.
@@ -34,9 +34,9 @@ flowchart LR
 | Reverse proxy | Your choice | Terminates TLS and publishes one origin. The self-hosting stack in [deploy/](../../deploy/README.md) runs Caddy with automatic HTTPS. |
 
 Two Compose files run the stack. [deploy/docker-compose.yml](../../deploy/docker-compose.yml)
-is for running Payverge: published images, Caddy, Postgres and a nightly
+is for running Namakdan: published images, Caddy, Postgres and a nightly
 backup. The root [docker-compose.yml](../../docker-compose.yml) is for
-working on Payverge: it builds the backend and frontend from the checkout
+working on Namakdan: it builds the backend and frontend from the checkout
 and binds them to `127.0.0.1`.
 
 Every external service is optional except the Base RPC, which defaults to
@@ -57,7 +57,7 @@ browser calls the API at `${PUBLIC_URL}/api/v1` and loads images from
 
 The frontend image is built once and configured at runtime: the server reads
 its environment per request and hands the public subset to the browser as
-`window.__PAYVERGE_ENV__`
+`window.__NAMAKDAN_ENV__`
 ([publicConfig.ts](../../frontend/src/config/publicConfig.ts)). See
 [ADR 0006](../adr/0006-same-origin-api-and-runtime-frontend-config.md) and
 [self-hosting/frontend-config.md](../self-hosting/frontend-config.md).

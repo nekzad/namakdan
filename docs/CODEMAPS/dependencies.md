@@ -68,7 +68,7 @@ axios 1.x                  HTTP (client only — SSR-unsafe)
 
 ## Infra / Tooling
 - **Docker Compose** (`docker-compose.yml` local stack; self-host production files under `deploy/`)
-- **Caddy** TLS + reverse proxy: stock `caddy:2` with the checked-in config in `deploy/` (`Caddyfile`, `Caddyfile.cloudflare`, `payverge.caddy`, `cloudflare-cidrs.caddy`)
+- **Caddy** TLS + reverse proxy: stock `caddy:2` with the checked-in config in `deploy/` (`Caddyfile`, `Caddyfile.cloudflare`, `namakdan.caddy`, `cloudflare-cidrs.caddy`)
 - **GitHub Actions**: `ci.yml` (pull request and main gate, aggregated by `ci-ok`), `e2e.yml` (compose Playwright journeys, label `e2e` and nightly), `acceptance.yml` (weekly one-click self-host acceptance), `codeql.yml`, `scorecard.yml` and `release.yml` (release-please, signed multi-arch images, release assets). CI reads Go from `backend/go.mod` and Node from `.nvmrc`.
 - **Pre-commit hook**: guest and operator locale-parity validators plus `i18n:check` (`make install-hooks`)
 

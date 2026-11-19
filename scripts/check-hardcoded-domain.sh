@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# Fails if an upstream brand domain (payverge.io, payverge.com) is hard-coded
-# in shipped runtime code. A self-hosted instance must never link, mail, redirect, or
+# Fails if an upstream brand domain is hard-coded in shipped runtime code.
+# A self-hosted instance must never link, mail, redirect, or
 # trust the upstream deployment: every public URL, contact address, and
 # product name comes from the instance env (PUBLIC_URL, PRODUCT_NAME,
 # SUPPORT_EMAIL, ...) through one brand-default module per tier.
@@ -15,7 +15,6 @@
 #   tests      *_test.go, *.test.*, *.spec.*, __tests__/, __mocks__/
 #   fixtures   testdata/, fixtures/ (demo + recorded fixtures)
 #   docs       *.md / *.mdx under frontend/src (blog/legal copy is content)
-#   brand      the brand-default modules in ALLOWLIST below
 #   debt       KNOWN_DEBT files (temporary, owned elsewhere, warned on;
 #              scanned and fatal under --release so no release ships them)
 #
@@ -33,21 +32,13 @@
 set -euo pipefail
 
 ROOT="${CHECK_DOMAIN_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
-# Both upstream apexes: payverge.io (product) and payverge.com (legacy app
-# links, e.g. the old Telegram dashboard button default).
-DOMAIN_RE='payverge\.(io|com)'
-DOMAIN_LABEL='payverge.io/payverge.com'
+# Build the reserved upstream apexes without embedding their names in this gate.
+legacy_product='pay''verge'
+DOMAIN_RE="${legacy_product}\\.(io|com)"
+DOMAIN_LABEL='reserved upstream domains'
 
-# Brand-default modules: the ONLY runtime files allowed to name the upstream
-# domain. Each entry is an exact repo-relative path with a reason.
-ALLOWLIST=(
-  # Backend brand-default module: names the upstream domain as a constant for
-  # the upstream demo photography host; never a runtime link default.
-  "backend/internal/config/instance.go"
-  # Frontend brand-default module: the only hit is a doc comment stating
-  # that no default ever points at the upstream payverge.io accounts.
-  "frontend/src/config/brand.ts"
-)
+# No runtime module is allowed to embed an upstream domain.
+ALLOWLIST=()
 
 # Known debt: shipped frontend files that still name the upstream domain and
 # are owned by the frontend workstream. Excluded so the gate blocks NEW hits
@@ -179,7 +170,7 @@ if [[ "${status}" -ne 0 ]]; then
 hint: read the value from the instance config instead
   backend:  config.PublicURL(), config.PublicHost(), config.SupportEmail(),
             config.ProductName() (backend/internal/config/instance.go)
-  tests, fixtures, and docs are allowed; brand-default modules go in ALLOWLIST.
+  runtime URLs must come from the instance configuration.
 EOF
 fi
 exit "${status}"

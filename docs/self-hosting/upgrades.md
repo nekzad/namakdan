@@ -1,14 +1,14 @@
 # Upgrades
 
-Payverge ships as versioned images (`ghcr.io/stdevmac/payverge-backend` and
+Namakdan ships as versioned images (`ghcr.io/nekzad/namakdan-backend` and
 `-frontend`) plus a deploy bundle per release. The version your instance runs
-is `PAYVERGE_VERSION` in `.env`. The command reference is in
+is `NAMAKDAN_VERSION` in `.env`. The command reference is in
 [deploy/README.md](../../deploy/README.md#upgrades).
 
 ## Choosing a version policy
 
 - **Pinned (recommended).** The installer writes the exact version, for
-  example `PAYVERGE_VERSION=1.2.3`. Nothing changes until you upgrade.
+  example `NAMAKDAN_VERSION=1.2.3`. Nothing changes until you upgrade.
 - **`latest`.** Every `docker compose pull` moves you to the newest release,
   including its database migrations. Fine for a trial, risky for a restaurant
   in service.
@@ -25,7 +25,7 @@ is `PAYVERGE_VERSION` in `.env`. The command reference is in
 ## Upgrading
 
 ```sh
-cd /opt/payverge                 # the install directory
+cd /opt/namakdan                 # the install directory
 bash install.sh --version 1.3.0
 ```
 
@@ -54,7 +54,7 @@ to upgrade from and to.
 
 Migrations only go forward, and an older backend refuses to start on a newer
 schema. So a rollback is a restore of the set taken **before** the upgrade,
-with `PAYVERGE_VERSION` set back to the old version. Anything written after
+with `NAMAKDAN_VERSION` set back to the old version. Anything written after
 the upgrade is lost. The exact commands are in
 [deploy/README.md](../../deploy/README.md#upgrades); name the set explicitly
 (`daily/<time>`), because `latest` may already be a post-upgrade set.
@@ -80,23 +80,23 @@ was taken on. Moving the data is a one-time step.
    cannot download them again: this copy is how you roll back.
 
    The images matter as much as the files. A pre-release install may be
-   pinned to `PAYVERGE_VERSION=1.0.0`, the tag the public release reuses, so
+   pinned to `NAMAKDAN_VERSION=1.0.0`, the tag the public release reuses, so
    the upgrade's pull replaces the images it runs. The 1.0.0 installer tags
    the cached images as `<version>-pg15` before it pulls (it prints the tag,
    or a warning when it cannot), and the rollback below uses that tag. To
    keep a copy off the Docker data root as well:
 
    ```sh
-   docker save ghcr.io/stdevmac/payverge-backend:1.0.0 \
-     ghcr.io/stdevmac/payverge-frontend:1.0.0 | gzip > ~/payverge-pre-release-images.tar.gz
+   docker save ghcr.io/nekzad/namakdan-backend:1.0.0 \
+     ghcr.io/nekzad/namakdan-frontend:1.0.0 | gzip > ~/namakdan-pre-release-images.tar.gz
    ```
 2. Fetch the installer of the new release instead of running the
    `install.sh` already in the directory. An older copy has no PostgreSQL 18
    guard and would start the new release on the wrong data:
 
    ```sh
-   cd /opt/payverge                 # the install directory
-   curl -fsSLO https://github.com/stdevMac/payverge/releases/latest/download/install.sh
+   cd /opt/namakdan                 # the install directory
+   curl -fsSLO https://github.com/nekzad/namakdan/releases/latest/download/install.sh
    bash install.sh --version 1.0.0
    ```
 
@@ -108,7 +108,7 @@ was taken on. Moving the data is a one-time step.
   database to 18 with the provider's tool. Nothing was changed.
 - `postgres major version 18 does not match the genesis baseline's 15`: a
   backend from before 1.0.0 reached PostgreSQL 18 data. This happens when
-  `PAYVERGE_VERSION` alone is set back after the upgrade, or when a managed
+  `NAMAKDAN_VERSION` alone is set back after the upgrade, or when a managed
   database was upgraded before the new release was deployed. Deploy 1.0.0,
   or roll back completely (old deploy files and PostgreSQL 15 data, see
   [Rolling back to PostgreSQL 15](#rolling-back-to-postgresql-15)).
@@ -130,7 +130,7 @@ red, and the backend never starts.
 
 ```sh
 ./upgrade-postgres.sh --dry-run   # what it will do; changes nothing
-./upgrade-postgres.sh             # asks before stopping Payverge
+./upgrade-postgres.sh             # asks before stopping Namakdan
 ```
 
 It:
@@ -145,7 +145,7 @@ It:
    any restore error other than the expected "role already exists" for the
    superuser, stops it: the new volume is removed and the stack is left
    stopped with the `db` volume as it was;
-4. starts Payverge (`--no-start` skips this).
+4. starts Namakdan (`--no-start` skips this).
 
 Expect a few minutes per GB of database. The dump needs free disk space
 in `backups/` of roughly the size of the data, compressed. Custom edits to
@@ -160,7 +160,7 @@ before the upgrade, exactly as [Rolling back](#rolling-back) restores the
 pre-upgrade backup. Here that data is still in place: the `db` volume holds
 the PostgreSQL 15 cluster as `upgrade-postgres.sh` dumped it, and the new
 release mounts it read-only. Put back the deploy files you kept, set
-`PAYVERGE_VERSION` in `.env` to the tag the installer printed for the kept
+`NAMAKDAN_VERSION` in `.env` to the tag the installer printed for the kept
 images (for example `1.0.0-pg15`), and start them:
 
 ```sh
@@ -180,7 +180,7 @@ The upgrade records a checksum of the 15 cluster's `global/pg_control` in
 start on that copy (`install.sh` stops, and the postgres service logs why
 and waits) instead of silently serving older data. Before trying the upgrade
 again, remove the stale copy: `docker volume rm <project>_pgdata` (the
-project is `payverge` unless `COMPOSE_PROJECT_NAME` says otherwise), then
+project is `namakdan` unless `COMPOSE_PROJECT_NAME` says otherwise), then
 run `./upgrade-postgres.sh`.
 
 ### After the upgrade

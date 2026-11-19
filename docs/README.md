@@ -1,10 +1,10 @@
-# Payverge documentation
+# Namakdan documentation
 
 Pick a starting point by what you came to do.
 
 | You want to | Start with |
 |---|---|
-| Run Payverge for your restaurant or group | [deploy/README.md](../deploy/README.md) |
+| Run Namakdan for your restaurant or group | [deploy/README.md](../deploy/README.md) |
 | Judge the code in twenty minutes | [code-tour.md](code-tour.md) |
 | Understand how it fits together | [architecture/overview.md](architecture/overview.md) |
 | Understand the AI features and their limits | [ai/README.md](ai/README.md) |
@@ -102,7 +102,7 @@ disagree, the code is right.
 | Performance evidence | [performance/](performance/) |
 | Design | [design/](design/) |
 | Product | [product/](product/) |
-| Improvement backlog | [GitHub issues](https://github.com/stdevMac/payverge/issues) |
+| Improvement backlog | [GitHub issues](https://github.com/nekzad/namakdan/issues) |
 
 ## Directory map
 

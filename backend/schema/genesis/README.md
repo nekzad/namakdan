@@ -1,7 +1,7 @@
 # Genesis schema baseline
 
 This directory holds a **schema-only** SQL baseline equal to what a **fresh
-Postgres 18** database looks like after Payverge's production startup
+Postgres 18** database looks like after Namakdan's production startup
 reconciliation — the same sequence as `cmd/app/main.go` and
 `database.ReconcileReferenceSchema`.
 

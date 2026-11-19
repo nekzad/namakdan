@@ -1,4 +1,4 @@
-# Payverge Marketing Screenshot Extension
+# Namakdan Marketing Screenshot Extension
 
 One-click curated marketing screenshots, captured from your own logged-in
 Chrome session against real data.
@@ -18,7 +18,7 @@ Chrome session against real data.
    extension captures the visible viewport at your screen's pixel ratio; it does
    not force a viewport.
 3. Click the extension icon, tick the shots you want, click **Run**.
-4. Screenshots land in `Downloads/payverge-shots/<YYYY-MM-DD>/`.
+4. Screenshots land in `Downloads/namakdan-shots/<YYYY-MM-DD>/`.
 
 The guest-menu and storefront shots point at the **real business you're logged
 into**: the extension resolves that business's `custom_url` and a live

@@ -41,17 +41,17 @@ and your `.env` there first.
 
 ```sh
 mkdir drill && cd drill
-cp -R /opt/payverge/. .             # or unpack the same release's deploy files
+cp -R /opt/namakdan/. .             # or unpack the same release's deploy files
 mkdir -p backups/daily && cp -R /path/to/copied/set backups/daily/
-docker compose -p payverge-drill up -d --wait postgres
-docker compose -p payverge-drill --profile restore run --rm restore latest --yes
-docker compose -p payverge-drill exec -T postgres \
+docker compose -p namakdan-drill up -d --wait postgres
+docker compose -p namakdan-drill --profile restore run --rm restore latest --yes
+docker compose -p namakdan-drill exec -T postgres \
   sh -c 'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "SELECT count(*) FROM businesses;"'
-docker compose -p payverge-drill --profile '*' down -v    # delete the drill
+docker compose -p namakdan-drill --profile '*' down -v    # delete the drill
 ```
 
 The count should match production on the day of the set. To click through
-the restored data, also run `docker compose -p payverge-drill up -d` with
+the restored data, also run `docker compose -p namakdan-drill up -d` with
 `HTTP_PORT=127.0.0.1:8080`, `HTTPS_PORT=127.0.0.1:8443` and
 `EDGE_SUBNET=172.30.1.0/24` (the live stack holds the default subnet) set in
 the drill's `.env`, and remove it the same way.

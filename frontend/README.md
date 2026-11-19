@@ -1,6 +1,6 @@
-# Payverge frontend
+# Namakdan frontend
 
-This directory is the Next.js 15 App Router frontend of Payverge. It serves
+This directory is the Next.js 15 App Router frontend of Namakdan. It serves
 the operator console and the guest QR ordering and payment flow.
 
 The UI is TypeScript, styled with Tailwind CSS and NextUI. Client state is

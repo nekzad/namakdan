@@ -1,6 +1,6 @@
-# Installing Payverge
+# Installing Namakdan
 
-The supported way to run Payverge is the Docker Compose stack in
+The supported way to run Namakdan is the Docker Compose stack in
 [`deploy/`](../../deploy/README.md): Caddy (TLS), the frontend, the backend,
 Postgres and a nightly backup job. This page covers what to prepare and the
 choices you make while installing. The step-by-step reference stays in
@@ -53,7 +53,7 @@ not see. That does not matter here, because only Caddy publishes ports.
 ## 2. Run the installer
 
 ```sh
-curl -fsSLO https://github.com/stdevMac/payverge/releases/latest/download/install.sh
+curl -fsSLO https://github.com/nekzad/namakdan/releases/latest/download/install.sh
 less install.sh
 bash install.sh
 ```
@@ -78,26 +78,26 @@ Every option is a flag or an environment variable. The flags are explained in
 
 | Flag | Environment | Default |
 |---|---|---|
-| `--domain NAME` | `PAYVERGE_DOMAIN` | asked |
-| `--admin-email EMAIL` | `PAYVERGE_ADMIN_EMAIL` | asked |
-| `--acme-email EMAIL` | `PAYVERGE_ACME_EMAIL` | none |
-| `--demo` / `--no-demo` | `PAYVERGE_DEMO` | asked |
-| `--dir DIR` | `PAYVERGE_DIR` | `/opt/payverge` as root, else `~/payverge`; in place when run from a clone |
-| `--version V` | `PAYVERGE_INSTALL_VERSION` | latest release, then pinned in `.env` |
-| `--http-port [ADDR:]N` | `PAYVERGE_HTTP_PORT` | `80` (`127.0.0.1:80` for a `localhost` trial) |
-| `--https-port [ADDR:]N` | `PAYVERGE_HTTPS_PORT` | `443` (`127.0.0.1:443` for a `localhost` trial) |
-| `-y`, `--yes` | `PAYVERGE_YES` | prompt |
-| `--dry-run` | `PAYVERGE_DRY_RUN` | off |
-| `--force` | `PAYVERGE_FORCE` | off |
-| `--build` | `PAYVERGE_BUILD` | off |
+| `--domain NAME` | `NAMAKDAN_DOMAIN` | asked |
+| `--admin-email EMAIL` | `NAMAKDAN_ADMIN_EMAIL` | asked |
+| `--acme-email EMAIL` | `NAMAKDAN_ACME_EMAIL` | none |
+| `--demo` / `--no-demo` | `NAMAKDAN_DEMO` | asked |
+| `--dir DIR` | `NAMAKDAN_DIR` | `/opt/namakdan` as root, else `~/namakdan`; in place when run from a clone |
+| `--version V` | `NAMAKDAN_INSTALL_VERSION` | latest release, then pinned in `.env` |
+| `--http-port [ADDR:]N` | `NAMAKDAN_HTTP_PORT` | `80` (`127.0.0.1:80` for a `localhost` trial) |
+| `--https-port [ADDR:]N` | `NAMAKDAN_HTTPS_PORT` | `443` (`127.0.0.1:443` for a `localhost` trial) |
+| `-y`, `--yes` | `NAMAKDAN_YES` | prompt |
+| `--dry-run` | `NAMAKDAN_DRY_RUN` | off |
+| `--force` | `NAMAKDAN_FORCE` | off |
+| `--build` | `NAMAKDAN_BUILD` | off |
 | `--no-start` | – | off |
-| `--no-backup` | `PAYVERGE_NO_BACKUP` | off |
-| `--require-signature` | `PAYVERGE_REQUIRE_SIGNATURE` | off: a downloaded release is checked against `SHA256SUMS`, and that file's cosign signature is checked only when `cosign` is installed. With the flag, a missing `cosign` stops the installer before the download, and a failed signature stops it before any release file is installed. |
-| – | `PAYVERGE_READY_TIMEOUT` | `600`: seconds to wait for `/api/v1/health/ready` |
-| – | `PAYVERGE_DOCKER_TIMEOUT` | `30`: seconds before an unresponsive Docker daemon counts as down |
-| – | `PAYVERGE_RELEASES_URL` | `https://github.com/stdevMac/payverge/releases`: a mirror laid out like GitHub releases (`download/vX.Y.Z/...`), for air-gapped or pinned installs |
+| `--no-backup` | `NAMAKDAN_NO_BACKUP` | off |
+| `--require-signature` | `NAMAKDAN_REQUIRE_SIGNATURE` | off: a downloaded release is checked against `SHA256SUMS`, and that file's cosign signature is checked only when `cosign` is installed. With the flag, a missing `cosign` stops the installer before the download, and a failed signature stops it before any release file is installed. |
+| – | `NAMAKDAN_READY_TIMEOUT` | `600`: seconds to wait for `/api/v1/health/ready` |
+| – | `NAMAKDAN_DOCKER_TIMEOUT` | `30`: seconds before an unresponsive Docker daemon counts as down |
+| – | `NAMAKDAN_RELEASES_URL` | `https://github.com/nekzad/namakdan/releases`: a mirror laid out like GitHub releases (`download/vX.Y.Z/...`), for air-gapped or pinned installs |
 
-`PAYVERGE_VERSION` is not an installer option: it is the image tag the
+`NAMAKDAN_VERSION` is not an installer option: it is the image tag the
 installer writes into `.env` ([upgrades.md](upgrades.md)).
 
 ## Without the installer

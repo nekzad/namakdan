@@ -1,9 +1,9 @@
 ---
 name: upgrade
-description: Upgrade a self-hosted Payverge server to a newer release by reading the release notes, backing up the database and uploaded files, pulling or building the new version, watching the startup migrations, verifying the instance, and rolling back by restoring the backup if needed. Use when someone asks to update, upgrade or patch their Payverge instance, or when the backend stops starting after an upgrade.
+description: Upgrade a self-hosted Namakdan server to a newer release by reading the release notes, backing up the database and uploaded files, pulling or building the new version, watching the startup migrations, verifying the instance, and rolling back by restoring the backup if needed. Use when someone asks to update, upgrade or patch their Namakdan instance, or when the backend stops starting after an upgrade.
 ---
 
-# Upgrade a Payverge server
+# Upgrade a Namakdan server
 
 Three facts shape every step:
 
@@ -61,7 +61,7 @@ whole line instead of leaving a small, valid-looking `.gz` behind:
 ```bash
 set -o pipefail
 mkdir -p backups && chmod 700 backups
-BACKUP="backups/payverge_$(date +%Y%m%d_%H%M%S).sql.gz"
+BACKUP="backups/namakdan_$(date +%Y%m%d_%H%M%S).sql.gz"
 docker compose exec -T postgres sh -c 'pg_dump -U "$POSTGRES_USER" -d "$POSTGRES_DB"' | gzip > "$BACKUP" \
   && gunzip -t "$BACKUP" \
   && echo "backup: $BACKUP  tables: $(gunzip -c "$BACKUP" | grep -c '^CREATE TABLE')" \
@@ -93,7 +93,7 @@ the file literally.
 ## 3. Upgrade
 
 Image-based install (`deploy/`). The images are pinned by
-`PAYVERGE_VERSION` in `.env` (the installer writes the exact release, for
+`NAMAKDAN_VERSION` in `.env` (the installer writes the exact release, for
 example `1.2.3`), so a bare `docker compose pull` fetches the same release
 again. Move the pin first. Either let the installer do it, which also
 refreshes the release files, then pulls and restarts:
@@ -102,14 +102,14 @@ refreshes the release files, then pulls and restarts:
 bash install.sh --version X.Y.Z
 ```
 
-or set `PAYVERGE_VERSION=X.Y.Z` in `.env` with an editor and run:
+or set `NAMAKDAN_VERSION=X.Y.Z` in `.env` with an editor and run:
 
 ```bash
 docker compose pull
 docker compose up -d
 ```
 
-`PAYVERGE_VERSION=latest` follows the newest release on every pull. When
+`NAMAKDAN_VERSION=latest` follows the newest release on every pull. When
 `deploy/` lives in a git clone and you upgrade by hand, check out the
 matching tag first (`git fetch --tags && git checkout vX.Y.Z`), so the
 compose file matches the images. See "Upgrades" in `deploy/README.md`.
@@ -141,14 +141,14 @@ one of those, with the operator:
    predates the PostgreSQL 18 guard:
 
    ```bash
-   curl -fsSLO https://github.com/stdevMac/payverge/releases/latest/download/install.sh
+   curl -fsSLO https://github.com/nekzad/namakdan/releases/latest/download/install.sh
    bash install.sh --version 1.0.0
    ```
 
 `install.sh` stops before starting anything and names `./upgrade-postgres.sh`
 (and `docker compose logs postgres` shows "this install's database is
 PostgreSQL 15"). Then the data has to be moved once. In the install
-directory, with the operator's go-ahead (Payverge is offline while it runs):
+directory, with the operator's go-ahead (Namakdan is offline while it runs):
 
 ```bash
 ./upgrade-postgres.sh --dry-run
@@ -159,7 +159,7 @@ It dumps with PostgreSQL 15, restores into 18 on a fresh `pgdata` volume,
 compares the row count of every table and starts the stack. Tell the
 operator where the dump went (`backups/pg18-upgrade-<time>/`). It never
 touches the `db` volume. Rolling back is `docker compose down`, putting the
-copied deploy files back with `PAYVERGE_VERSION` set to the kept `-pg15`
+copied deploy files back with `NAMAKDAN_VERSION` set to the kept `-pg15`
 tag, and `docker compose up -d`: PostgreSQL 15 runs on
 `db` again and everything written on 18 is lost, as with any restore of the
 pre-upgrade state. Never remove `db` unless the operator asks, after the
@@ -198,9 +198,9 @@ docker compose ps
   `Authorization: Bearer $HEALTH_DETAIL_TOKEN`, as described in
   `.claude/skills/troubleshoot/SKILL.md`.
 - Sign in to the dashboard and open one table page (`/t/<table_code>`).
-- With the MCP tools, `payverge_instance_status` and, with an admin token,
-  `payverge_health_snapshot`.
-- If the operator runs `tools/payverge-admin-mcp` from a clone, update that
+- With the MCP tools, `namakdan_instance_status` and, with an admin token,
+  `namakdan_health_snapshot`.
+- If the operator runs `tools/namakdan-admin-mcp` from a clone, update that
   clone too. A tool that answers `not_found` for a whole route means the
   backend and the MCP server are from different releases.
 
@@ -222,7 +222,7 @@ upgrade. Say this plainly before you start.
      | gzip > "backups/failed_upgrade_$(date +%Y%m%d_%H%M%S).sql.gz"
    ```
 
-2. Go back to the previous version: set `PAYVERGE_VERSION` in `.env` back
+2. Go back to the previous version: set `NAMAKDAN_VERSION` in `.env` back
    to the release you recorded in step 1 (image-based install), or
    `git checkout <previous tag>` (source checkout).
    If the upgrade crossed PostgreSQL 15 to 18, do not restore into 18:
@@ -252,7 +252,7 @@ upgrade. Say this plainly before you start.
 
    ```bash
    set -o pipefail
-   BACKUP=backups/payverge_YYYYMMDD_HHMMSS.sql.gz   # the file from step 2
+   BACKUP=backups/namakdan_YYYYMMDD_HHMMSS.sql.gz   # the file from step 2
    test -s "$BACKUP" && gunzip -t "$BACKUP" \
      && [ "$(gunzip -c "$BACKUP" | grep -c '^CREATE TABLE')" -gt 0 ] \
      && docker compose --env-file .env exec -T postgres sh -c \

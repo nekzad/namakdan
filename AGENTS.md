@@ -1,6 +1,6 @@
-# Payverge — Agent Guide
+# Namakdan — Agent Guide
 
-This document is the single source of truth for AI coding agents (and the humans working with them) on the Payverge codebase. Read it before making any non-trivial change. Payverge was built largely through agentic development; the rules below are the ones that kept agent-written changes safe in production, and most of them are enforced by tests.
+This document is the single source of truth for AI coding agents (and the humans working with them) on the Namakdan codebase. Read it before making any non-trivial change. Namakdan was built largely through agentic development; the rules below are the ones that kept agent-written changes safe in production, and most of them are enforced by tests.
 
 > **New here?** Start with `docs/ONBOARDING.md` for a 2-minute scannable orientation, then return to this guide for depth.
 >
@@ -10,7 +10,7 @@ This document is the single source of truth for AI coding agents (and the humans
 
 ## 1. Project Overview
 
-**Payverge** is an AI-powered restaurant management platform that bridges traditional hospitality operations with modern automation and Web3 payments. It provides:
+**Namakdan** is an AI-powered restaurant management platform that bridges traditional hospitality operations with modern automation and Web3 payments. It provides:
 
 - **AI Waiter** — autonomous guest service with multilingual support
 - **Director Console** — strategic analytics and proactive insights for owners
@@ -20,7 +20,7 @@ This document is the single source of truth for AI coding agents (and the humans
 - **Delivery Management** — driver tracking and delivery zones
 - **Inventory & Recipes** — stock tracking with recipe-based deductions
 - **CRM** — customer relationship management with tags and notes
-- **USDC Payments** — on-chain USDC transfers verified by the backend (no custom Payverge contracts)
+- **USDC Payments** — on-chain USDC transfers verified by the backend (no custom Namakdan contracts)
 - **Traditional Payments** — Stripe, PayPal and MercadoPago plugins
 - **Fiscal Receipts** — ARCA/AFIP electronic invoicing for Argentina
 - **Staff Management with RBAC** — role-based access control per business
@@ -79,7 +79,7 @@ The codebase lives in a monorepo with three main workspaces:
 ## 3. Repository Structure
 
 ```
-payverge/
+namakdan/
 ├── backend/
 │   ├── cmd/app/
 │   │   └── main.go              # Application entry point; all routes wired here
@@ -395,7 +395,7 @@ All routes are wired in `backend/cmd/app/main.go`. The API is organized under `/
 | `/business/<id>/dashboard` | A venue's dashboard (`?tab=`) |
 | `/admin` | Platform admin |
 
-The project's landing page (payverge.io) is the separate static site in `site/` (see `site/README.md`), not part of the app.
+The project's landing page (example.test) is the separate static site in `site/` (see `site/README.md`), not part of the app.
 
 ### Kitchen/orders toggle semantics
 
@@ -560,7 +560,7 @@ npx jest --watchman=false --runInBand
 `e2e.yml` runs Playwright against the compose stack, `acceptance.yml` runs the weekly one-click self-host acceptance, `codeql.yml` and `scorecard.yml` do static analysis, and `release.yml` (release-please) builds multi-arch images, an SBOM and the `install.sh` release assets. A published image is not a deployment; rolling it out to a host is always a separate step.
 
 ### Frontend Build Behavior
-- Browser-visible settings are runtime config, not build-time: `window.__PAYVERGE_ENV__` is rendered from the container environment by `src/config/publicConfig.ts`, so one image serves any domain (see `docs/self-hosting/frontend-config.md`). Do not add new `NEXT_PUBLIC_*` variables for runtime settings; an ESLint rule guards direct reads
+- Browser-visible settings are runtime config, not build-time: `window.__NAMAKDAN_ENV__` is rendered from the container environment by `src/config/publicConfig.ts`, so one image serves any domain (see `docs/self-hosting/frontend-config.md`). Do not add new `NEXT_PUBLIC_*` variables for runtime settings; an ESLint rule guards direct reads
 - `NEXT_OUTPUT_STANDALONE=1` produces standalone output for Docker
 - `NEXT_STRICT_BUILD=1` or `CI=true` enforces TypeScript and ESLint checks during build
 - Local dev allows `ignoreBuildErrors` and `ignoreDuringBuilds` for faster iteration
@@ -599,7 +599,7 @@ gitignored in the same commit that introduces it, and
 
 ### Operator playbooks (skills)
 
-Step-by-step playbooks for people who run Payverge. Each is one plain
+Step-by-step playbooks for people who run Namakdan. Each is one plain
 Markdown file with `name` and `description` frontmatter. Claude Code loads
 them automatically. Any other agent can read the file and follow it, for
 example: "Read `.claude/skills/upgrade/SKILL.md` and follow it."
@@ -615,7 +615,7 @@ example: "Read `.claude/skills/upgrade/SKILL.md` and follow it."
 | Diagnose a server that is down or misbehaving | `.claude/skills/troubleshoot/SKILL.md` |
 
 `docs/agents/README.md` explains how the skills fit with the in-app AI and
-the admin MCP server (`tools/payverge-admin-mcp/`). A new skill goes in
+the admin MCP server (`tools/namakdan-admin-mcp/`). A new skill goes in
 `.claude/skills/<name>/SKILL.md` and gets a row here.
 
 ---
@@ -637,7 +637,7 @@ plugins.
    registered initializer once `PluginService` exists
    (`plugins.InitializeAllPlugins`), in name-sorted order — do NOT rely on a
    specific ordering beyond that (see `internal/plugins/init.go`).
-2. **Blank import in `cmd/app/main.go`.** Add `_ "github.com/stdevmac/payverge/backend/internal/plugins/<name>"`
+2. **Blank import in `cmd/app/main.go`.** Add `_ "github.com/nekzad/namakdan/backend/internal/plugins/<name>"`
    to the import block so the package's `init()` runs. (Telegram is imported
    with an alias, not blank, only because `main.go` needs its instance for the
    webhook reply sender — most plugins use the blank form.)

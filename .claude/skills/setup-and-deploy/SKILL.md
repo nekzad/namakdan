@@ -1,9 +1,9 @@
 ---
 name: setup-and-deploy
-description: Install a self-hosted Payverge server with Docker Compose and Caddy, create the first platform admin, optionally load demo data, and verify the instance is healthy. Use when someone wants to deploy, install or stand up Payverge on a VPS, a home server or a restaurant LAN.
+description: Install a self-hosted Namakdan server with Docker Compose and Caddy, create the first platform admin, optionally load demo data, and verify the instance is healthy. Use when someone wants to deploy, install or stand up Namakdan on a VPS, a home server or a restaurant LAN.
 ---
 
-# Set up and deploy Payverge
+# Set up and deploy Namakdan
 
 The goal is a running instance at the operator's URL, with one platform admin
 who can sign in and a green `/api/v1/health/ready`.
@@ -52,7 +52,7 @@ ls deploy/ 2>/dev/null   # deploy/docker-compose.yml, Caddyfile, .env.example, i
 ## Path A: the installer
 
 ```bash
-curl -fsSL https://github.com/stdevMac/payverge/releases/latest/download/install.sh -o install.sh
+curl -fsSL https://github.com/nekzad/namakdan/releases/latest/download/install.sh -o install.sh
 less install.sh          # read it before running it; it is also in the repo as deploy/install.sh
 bash install.sh
 ```
@@ -69,9 +69,9 @@ copy it into the conversation or into a file.
 ## Path B: by hand with `deploy/`
 
 ```bash
-git clone https://github.com/stdevMac/payverge.git
-cd payverge
-git checkout v1.2.3   # the newest tag on https://github.com/stdevMac/payverge/releases/latest
+git clone https://github.com/nekzad/namakdan.git
+cd namakdan
+git checkout v1.2.3   # the newest tag on https://github.com/nekzad/namakdan/releases/latest
 cd deploy
 cp .env.example .env && chmod 600 .env
 ```

@@ -1,6 +1,6 @@
-# AI in Payverge
+# AI in Namakdan
 
-Payverge has five AI surfaces. Each one keeps working, in a reduced form or
+Namakdan has five AI surfaces. Each one keeps working, in a reduced form or
 with an explicit "not configured" answer, when no language model is
 configured. Every claim below links to the code that implements it. If code
 and docs disagree, the code wins. Please file the drift as a bug.

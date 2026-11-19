@@ -1,49 +1,49 @@
 # Changelog
 
-All notable changes to Payverge are documented here, newest first. GitHub
+All notable changes to Namakdan are documented here, newest first. GitHub
 Releases are the canonical release notes; this file mirrors them. The format
 and versioning rules are described in
 [docs/governance/RELEASING.md](governance/RELEASING.md), and the project
 follows [Semantic Versioning](https://semver.org/).
 
-## [1.0.2](https://github.com/stdevMac/payverge/compare/v1.0.1...v1.0.2) (2026-10-11)
+## [1.0.2](https://github.com/nekzad/namakdan/compare/v1.0.1...v1.0.2) (2026-10-11)
 
 
 ### Fixes
 
-* **deploy:** forward media rate limits and AI retention settings to the backend ([c13a9c9](https://github.com/stdevMac/payverge/commit/c13a9c9cc938320de3196f44d687e46f8d326b22))
-* **deploy:** require a domain at the installer prompt, withdraw HSTS on trial names and flag an unreachable install ([a291d0c](https://github.com/stdevMac/payverge/commit/a291d0c4afc50dadaf468f8fb4d66f4c935bc636))
-* **deps:** Caddy 2.11.7, and the October minor and patch dependency updates for the backend and frontend, including fast-copy 4.1.2 ([GHSA-jggr-w7fw-pc2j](https://github.com/advisories/GHSA-jggr-w7fw-pc2j)) ([#37](https://github.com/stdevMac/payverge/pull/37), [#45](https://github.com/stdevMac/payverge/pull/45))
+* **deploy:** forward media rate limits and AI retention settings to the backend ([c13a9c9](https://github.com/nekzad/namakdan/commit/c13a9c9cc938320de3196f44d687e46f8d326b22))
+* **deploy:** require a domain at the installer prompt, withdraw HSTS on trial names and flag an unreachable install ([a291d0c](https://github.com/nekzad/namakdan/commit/a291d0c4afc50dadaf468f8fb4d66f4c935bc636))
+* **deps:** Caddy 2.11.7, and the October minor and patch dependency updates for the backend and frontend, including fast-copy 4.1.2 ([GHSA-jggr-w7fw-pc2j](https://github.com/advisories/GHSA-jggr-w7fw-pc2j)) ([#37](https://github.com/nekzad/namakdan/pull/37), [#45](https://github.com/nekzad/namakdan/pull/45))
 
 
 ### Other changes
 
-* **self-hosting:** pin manual installs to a release tag and correct the proxy-trust defaults ([5116e8c](https://github.com/stdevMac/payverge/commit/5116e8c5531908ff87c6567785db8add68aefb07))
+* **self-hosting:** pin manual installs to a release tag and correct the proxy-trust defaults ([5116e8c](https://github.com/nekzad/namakdan/commit/5116e8c5531908ff87c6567785db8add68aefb07))
 
-## [1.0.1](https://github.com/stdevMac/payverge/compare/v1.0.0...v1.0.1) (2026-10-11)
+## [1.0.1](https://github.com/nekzad/namakdan/compare/v1.0.0...v1.0.1) (2026-10-11)
 
 
 ### Fixes
 
-* **chat:** cap message and announcement length ([6268185](https://github.com/stdevMac/payverge/commit/6268185dcfcfcc06804ed8f57d30c5dfaff3afa6))
-* **config:** accept loopback http PUBLIC_URL in the production instance check ([0760dde](https://github.com/stdevMac/payverge/commit/0760dde7bb379aa05f0321cfb7cb46d0bef57282))
-* **dashboard:** let staff demo sign-in reach the venue ([cabe42e](https://github.com/stdevMac/payverge/commit/cabe42e0bf7679f1a4264476eb1a9abc13e200a9))
-* **demo:** refuse outside image URLs and hide fiscal invoicing on the public demo ([b134f1c](https://github.com/stdevMac/payverge/commit/b134f1cb543fedc01c06ec16498f22336ba8e82c))
-* **security:** address CodeQL hardening findings ([a626083](https://github.com/stdevMac/payverge/commit/a626083a1c0e3cd7d30b2fa0b42ae07bf8f52098))
-* **security:** keep API keys out of logged outbound HTTP errors ([b360dc3](https://github.com/stdevMac/payverge/commit/b360dc3d9b71732aa6f6402fc50532fe53646356))
+* **chat:** cap message and announcement length ([6268185](https://github.com/nekzad/namakdan/commit/6268185dcfcfcc06804ed8f57d30c5dfaff3afa6))
+* **config:** accept loopback http PUBLIC_URL in the production instance check ([0760dde](https://github.com/nekzad/namakdan/commit/0760dde7bb379aa05f0321cfb7cb46d0bef57282))
+* **dashboard:** let staff demo sign-in reach the venue ([cabe42e](https://github.com/nekzad/namakdan/commit/cabe42e0bf7679f1a4264476eb1a9abc13e200a9))
+* **demo:** refuse outside image URLs and hide fiscal invoicing on the public demo ([b134f1c](https://github.com/nekzad/namakdan/commit/b134f1cb543fedc01c06ec16498f22336ba8e82c))
+* **security:** address CodeQL hardening findings ([a626083](https://github.com/nekzad/namakdan/commit/a626083a1c0e3cd7d30b2fa0b42ae07bf8f52098))
+* **security:** keep API keys out of logged outbound HTTP errors ([b360dc3](https://github.com/nekzad/namakdan/commit/b360dc3d9b71732aa6f6402fc50532fe53646356))
 
 
 ### Other changes
 
-* correct guides that drifted from the tree ([1bcf1bb](https://github.com/stdevMac/payverge/commit/1bcf1bb97d57b6ebdfd3f1d44b9b928959332108))
-* **deploy:** forward documented secrets and fix operator skills ([7bf82df](https://github.com/stdevMac/payverge/commit/7bf82dfbf000d20a901b4d49f6a6f04863fb2f85))
-* remove pre-release private-history residue ([44d46e6](https://github.com/stdevMac/payverge/commit/44d46e6a86bc1ffe98678a6fb3d63a213ff8443a))
-* **site:** confirm six landing launch gates for v1.0.0 ([338620c](https://github.com/stdevMac/payverge/commit/338620c7ee8a848fbb69fea13f629a72e117048a))
-* **site:** qualify the language claim and add robots.txt ([a5bcf81](https://github.com/stdevMac/payverge/commit/a5bcf81a7001c6f6051a3cdcf75d75960bb14eed))
+* correct guides that drifted from the tree ([1bcf1bb](https://github.com/nekzad/namakdan/commit/1bcf1bb97d57b6ebdfd3f1d44b9b928959332108))
+* **deploy:** forward documented secrets and fix operator skills ([7bf82df](https://github.com/nekzad/namakdan/commit/7bf82dfbf000d20a901b4d49f6a6f04863fb2f85))
+* remove pre-release private-history residue ([44d46e6](https://github.com/nekzad/namakdan/commit/44d46e6a86bc1ffe98678a6fb3d63a213ff8443a))
+* **site:** confirm six landing launch gates for v1.0.0 ([338620c](https://github.com/nekzad/namakdan/commit/338620c7ee8a848fbb69fea13f629a72e117048a))
+* **site:** qualify the language claim and add robots.txt ([a5bcf81](https://github.com/nekzad/namakdan/commit/a5bcf81a7001c6f6051a3cdcf75d75960bb14eed))
 
 ## [1.0.0] - 2026-10-09
 
-Payverge's first public release under the Apache License 2.0. The system was
+Namakdan's first public release under the Apache License 2.0. The system was
 built for, and run in, production restaurant operations during 2025 and 2026,
 and is now an open, community-maintained project. This release publishes the
 whole platform as a single initial commit.
@@ -194,7 +194,7 @@ were built from pre-release source and run PostgreSQL 15.
   one-shot restore job, and a Cloudflare variant of the Caddy configuration
   is included.
 - **Release images** on GitHub Container Registry,
-  ghcr.io/stdevmac/payverge-backend and ghcr.io/stdevmac/payverge-frontend,
+  ghcr.io/nekzad/namakdan-backend and ghcr.io/nekzad/namakdan-frontend,
   for linux/amd64 and linux/arm64, with SBOM and SLSA provenance
   attestations and keyless cosign signatures. They
   carry no deployment-specific settings, so one image serves any domain.
@@ -212,7 +212,7 @@ were built from pre-release source and run PostgreSQL 15.
   cases, plus Playwright end-to-end specs.
 - `AGENTS.md`, `CLAUDE.md` and compact code maps, so coding agents can work in
   the codebase safely.
-- `tools/payverge-admin-mcp`: a Model Context Protocol (MCP) server for
+- `tools/namakdan-admin-mcp`: a Model Context Protocol (MCP) server for
   administering an instance from MCP-compatible agents.
 - Agent playbooks in `.claude/skills/` for self-hosters and contributors:
   `setup-and-deploy`, `upgrade`, `troubleshoot`, `configure-restaurant`,
@@ -221,10 +221,10 @@ were built from pre-release source and run PostgreSQL 15.
 ### Project
 
 - Licensed under Apache-2.0. Contributions use the Developer Certificate of
-  Origin; there is no CLA. The Payverge name and logo are covered by
+  Origin; there is no CLA. The Namakdan name and logo are covered by
   `TRADEMARKS.md`.
 - Community files: contributing guide, code of conduct, security policy,
   support guide, issue and pull request templates, and governance and release
   documentation.
 
-[1.0.0]: https://github.com/stdevMac/payverge/releases/tag/v1.0.0
+[1.0.0]: https://github.com/nekzad/namakdan/releases/tag/v1.0.0

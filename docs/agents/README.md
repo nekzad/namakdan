@@ -1,13 +1,13 @@
 # Agents and AI configuration
 
-Payverge can be set up and run with help from AI at three levels. None of
+Namakdan can be set up and run with help from AI at three levels. None of
 them needs a code change to turn on.
 
 1. **In-app AI.** Language-model features inside the product: the guest AI
    waiter, the ops assistant, the director console and the menu wizard.
    Restaurant staff use them in the dashboard. You enable them with server
    environment variables.
-2. **MCP configuration tools.** [`tools/payverge-admin-mcp`](../../tools/payverge-admin-mcp/README.md)
+2. **MCP configuration tools.** [`tools/namakdan-admin-mcp`](../../tools/namakdan-admin-mcp/README.md)
    is a dependency-free MCP server. It gives an AI agent (Claude Code, Claude
    Desktop, Codex, Cursor or any MCP client) 34 tools. The tools set up a
    restaurant and diagnose a platform through HTTP endpoints the backend
@@ -15,7 +15,7 @@ them needs a code change to turn on.
 3. **Coding-agent skills.** Seven Markdown playbooks in
    [`.claude/skills/`](../../.claude/skills/) walk a coding agent with a
    shell through installing, configuring, rebranding, translating, extending,
-   upgrading and troubleshooting a Payverge instance.
+   upgrading and troubleshooting a Namakdan instance.
 
 To learn how the in-app AI works inside, read [docs/ai/README.md](../ai/README.md).
 For repository conventions, read [AGENTS.md](../../AGENTS.md).
@@ -28,9 +28,9 @@ For repository conventions, read [AGENTS.md](../../AGENTS.md).
   |-- coding agent: Claude Code, Codex, Cursor, ...
   |     reads .claude/skills/<name>/SKILL.md, then uses
   |     |-- a shell     docker compose, git, npm, go       -> the server and the repository
-  |     `-- MCP tools   tools/payverge-admin-mcp           -> /api/v1 (owner session or admin token)
+  |     `-- MCP tools   tools/namakdan-admin-mcp           -> /api/v1 (owner session or admin token)
   |
-  `-- browser: the Payverge dashboard
+  `-- browser: the Namakdan dashboard
         `-- in-app AI   waiter, ops assistant, director,   -> the LLM provider in the server env
                         menu wizard
 ```
@@ -41,7 +41,7 @@ For repository conventions, read [AGENTS.md](../../AGENTS.md).
 - The **MCP tools** act as a restaurant owner (`/api/v1/inside/*`) or as the
   platform admin (`/api/v1/admin/*`). Every write previews first
   (`dry_run: true`) and applies only when the agent calls again with
-  `dry_run: false`. `PAYVERGE_MCP_BUSINESS_IDS` limits the owner tools and
+  `dry_run: false`. `NAMAKDAN_MCP_BUSINESS_IDS` limits the owner tools and
   the two admin tools that read one business. The platform admin token is
   instance-wide: its health, error-log, webhook and fiscal tools see every
   tenant, so set it only for diagnostics.
@@ -121,7 +121,7 @@ docker compose up -d backend     # recreates the container with the new env
 curl -s https://pos.example.com/api/v1/instance | jq .features.ai   # true
 ```
 
-From an agent, `payverge_instance_status` (MCP) reports the same thing. If it
+From an agent, `namakdan_instance_status` (MCP) reports the same thing. If it
 is still `false`, the backend log says why at startup, for example
 `no LLM provider configured ... AI features disabled` or
 `LLM_BASE_URL is not an absolute http(s) URL; AI features disabled`.
@@ -130,7 +130,7 @@ is still `false`, the backend log says why at startup, for example
 
 | Surface | Where staff find it | With no provider | With a provider |
 |---|---|---|---|
-| Guest AI waiter | The table page (`/t/<table_code>`). Toggle `ai_enabled` (on by default) in the dashboard's AI Waiter tab or with `payverge_update_ai_settings`. `business_page_ai_enabled` puts it on the public business page too. | Basic mode (`ai_waiter_mode: "basic"`): answers come from the menu snapshot. Guests order from the menu, not by chat. | `ai_waiter_mode: "llm"`: cart requests such as "add two empanadas" go to the model, and the server validates them before anything reaches the cart. |
+| Guest AI waiter | The table page (`/t/<table_code>`). Toggle `ai_enabled` (on by default) in the dashboard's AI Waiter tab or with `namakdan_update_ai_settings`. `business_page_ai_enabled` puts it on the public business page too. | Basic mode (`ai_waiter_mode: "basic"`): answers come from the menu snapshot. Guests order from the menu, not by chat. | `ai_waiter_mode: "llm"`: cart requests such as "add two empanadas" go to the model, and the server validates them before anything reaches the cart. |
 | Ops assistant | The assistant widget in the dashboard ([OpsAssistantWidget.tsx](../../frontend/src/components/opsAssistant/OpsAssistantWidget.tsx)) | `503` | Answers questions about the business |
 | Director console | The Director console tab ([DirectorConsole/](../../frontend/src/components/business/DirectorConsole/)) | Briefings, insights, threads and the propose, apply and undo rail work. Chat returns `503 ai_not_configured`. | Free-form chat as well |
 | Menu wizard and extraction | Menu builder onboarding ([AIMenuOnboarding/](../../frontend/src/components/business/MenuBuilder/AIMenuOnboarding/)) | `503 ai_not_configured` | Extracts a menu from photos or a PDF, builds one in a guided chat, and generates dish images |
@@ -180,10 +180,10 @@ The skills share four rules:
 A skill is a folder holding one `SKILL.md`: YAML frontmatter with `name` and
 `description`, then plain Markdown. The bodies use no Claude-specific syntax.
 Steps are shell commands, file paths in this repository, or MCP tool names
-from [tools/payverge-admin-mcp](../../tools/payverge-admin-mcp/README.md).
+from [tools/namakdan-admin-mcp](../../tools/namakdan-admin-mcp/README.md).
 
 - **Claude Code** loads `.claude/skills/` automatically when it runs in a
-  clone. Describe the task ("upgrade my Payverge server"), or type the
+  clone. Describe the task ("upgrade my Namakdan server"), or type the
   skill's name as a slash command, for example `/upgrade`.
 - **Codex and other agents that read `AGENTS.md`.** `AGENTS.md` lists the
   skills under "Operator playbooks". Point the agent at one explicitly:
@@ -196,7 +196,7 @@ from [tools/payverge-admin-mcp](../../tools/payverge-admin-mcp/README.md).
 - **MCP.** Any agent that speaks MCP can use the configuration tools.
   Registration snippets for Claude Code, Claude Desktop, Codex and generic
   clients are in the
-  [client configuration](../../tools/payverge-admin-mcp/README.md#client-configuration)
+  [client configuration](../../tools/namakdan-admin-mcp/README.md#client-configuration)
   section of the MCP README.
 
 To add a skill, create `.claude/skills/<name>/SKILL.md` with the same
@@ -216,7 +216,7 @@ step in a path or command that exists, add it to the table above and to
   a commented example in `deploy/.env.example`.
 - [docs/self-hosting/admin.md](../self-hosting/admin.md): the first admin,
   password resets, sign-up mode and demo data.
-- [tools/payverge-admin-mcp/README.md](../../tools/payverge-admin-mcp/README.md):
+- [tools/namakdan-admin-mcp/README.md](../../tools/namakdan-admin-mcp/README.md):
   every MCP tool, its endpoint and the permission it needs.
 - [AGENTS.md](../../AGENTS.md): repository map and conventions for coding
   agents.

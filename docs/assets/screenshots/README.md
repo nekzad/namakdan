@@ -41,10 +41,10 @@ Nothing is mocked. The only addition is a label on the staff AI screens saying n
 cd frontend && npm ci && cd ..          # playwright and sharp come from here
 # an install made with `deploy/install.sh --demo` serves Bodegón Mesa Larga on
 # "/" (PRIMARY_VENUE=bodegon-mesa-larga); the script shoots the demo grill,
-# parrilla-quebracho-azul, unless PAYVERGE_VENUE names another slug
+# parrilla-quebracho-azul, unless NAMAKDAN_VENUE names another slug
 # compose also reads OPENROUTER_API_KEY, LLM_BASE_URL and LLM_API_KEY from your
 # shell: unset them before installing or the "no model" shots will have one
-PAYVERGE_URL=https://localhost PAYVERGE_EMAIL=you@example.com PAYVERGE_PASSWORD=... \
+NAMAKDAN_URL=https://localhost NAMAKDAN_EMAIL=you@example.com NAMAKDAN_PASSWORD=... \
   node tools/screenshots/capture.mjs
 ```
 
@@ -52,13 +52,13 @@ The script prints each file and its size. It keeps every PNG here under
 300 KB and every site WebP under the 150 KB cap that `site/tools/check.mjs`
 enforces. It places an order and records a payment on the install it points
 at, so only point it at a throwaway demo install. Set `ONLY=name,name` to
-recapture some shots, and `PAYVERGE_TABLE` to pick the table.
+recapture some shots, and `NAMAKDAN_TABLE` to pick the table.
 
 Desktop shots are 1440x900. Guest shots are 390x844 at 2x pixel density.
 
 ## License
 
-The screenshots show Payverge's own UI and the project-made demo content. They
+The screenshots show Namakdan's own UI and the project-made demo content. They
 are released under the repository's [Apache License 2.0](../../../LICENSE). The
-Payverge name and logo that appear in them are covered by
+Namakdan name and logo that appear in them are covered by
 [TRADEMARKS.md](../../../TRADEMARKS.md), not by the code license.

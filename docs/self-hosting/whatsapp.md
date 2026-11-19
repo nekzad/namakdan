@@ -1,6 +1,6 @@
 # WhatsApp channel (optional, GPL-3.0 build)
 
-Payverge is Apache-2.0, and the backend image the project publishes contains
+Namakdan is Apache-2.0, and the backend image the project publishes contains
 **no WhatsApp code**. The WhatsApp AI-waiter channel is opt-in at two levels:
 
 1. **Build time**: compile the backend with the `whatsapp` Go build tag. This
@@ -55,7 +55,7 @@ on" (`requested` is `false`) apart from "turned on but failed to start"
 | `go.mau.fi/util` | MPL-2.0 | no |
 | `go.mau.fi/libsignal` | **GPL-3.0** | no |
 
-The Payverge source code stays Apache-2.0 in every case. Apache-2.0 code can be
+The Namakdan source code stays Apache-2.0 in every case. Apache-2.0 code can be
 combined with GPL-3.0 code, so building the tagged binary is allowed.
 
 The **tagged binary**, and any image that contains it, is a combined work that
@@ -101,7 +101,7 @@ What the project guarantees:
 - `make check-gpl-free` (see [Licence gate](#licence-gate-for-contributors))
   proves that the default dependency graph contains no `go.mau.fi` package.
 
-**Never push a whatsapp-tagged image to a public registry under the Payverge
+**Never push a whatsapp-tagged image to a public registry under the Namakdan
 name.** If you need one across machines, keep it in a private registry that
 only you can pull from.
 
@@ -113,7 +113,7 @@ only you can pull from.
 
 ```bash
 # From the repository root.
-docker build --build-arg GO_TAGS=whatsapp -t payverge-backend:whatsapp ./backend
+docker build --build-arg GO_TAGS=whatsapp -t namakdan-backend:whatsapp ./backend
 ```
 
 With the development compose stack, `docker-compose.yml` builds the backend
@@ -173,9 +173,9 @@ to `false`. A `workflowcontract` test fails if it stops forwarding it.
 
 Leave `WHATSAPP_STORE_NAME` unset. Despite its name, the backend passes it to
 whatsmeow's `sqlstore.New` as a database connection string. With the default
-value (`payverge_whatsapp_store`) that open fails, and the manager falls back to
+value (`namakdan_whatsapp_store`) that open fails, and the manager falls back to
 the backend's own Postgres pool. That fallback is the supported setup: session
-data lives in the Payverge database (see [Database](#database)).
+data lives in the Namakdan database (see [Database](#database)).
 
 Next, open **Business → AI Waiter → Overview**. The WhatsApp channel card shows
 a **Connect WhatsApp** button. Connecting, disconnecting and reading the
@@ -224,7 +224,7 @@ Viewers who only have `settings:read` see the channel status but no QR code.
   shipped binary:
 
   ```bash
-  docker create --name wa-check payverge-backend:whatsapp
+  docker create --name wa-check namakdan-backend:whatsapp
   docker cp wa-check:/app/server ./server-whatsapp && docker rm wa-check
   go version -m ./server-whatsapp | grep -E 'tags=|go.mau.fi'
   ```
@@ -265,9 +265,9 @@ and then `scripts/ci/check-gpl-free.sh`. The gate checks three things:
 Two notes on licences in the dependency graph:
 
 - **go-ethereum.** `go-licenses` reports it as GPL-3.0 because it reads the
-  repository-root `COPYING` file. The library packages Payverge links are
+  repository-root `COPYING` file. The library packages Namakdan links are
   LGPL-3.0. The GPL `cmd/` tree is on the denylist.
-- **golang/freetype.** It is dual-licensed; Payverge elects the FreeType
+- **golang/freetype.** It is dual-licensed; Namakdan elects the FreeType
   License.
 
 When you add WhatsApp code:

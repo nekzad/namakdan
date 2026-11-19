@@ -2,11 +2,11 @@
 
 Last updated: 2026-05-22
 
-This document describes the current invoice/fiscal compliance implementation in Payverge after the latest frontend productization pass. The user-facing product is now called **Invoices**. The backend still uses the word **fiscal** because it models country-specific official document issuance, audit records, provider contracts, and tax-authority integration boundaries.
+This document describes the current invoice/fiscal compliance implementation in Namakdan after the latest frontend productization pass. The user-facing product is now called **Invoices**. The backend still uses the word **fiscal** because it models country-specific official document issuance, audit records, provider contracts, and tax-authority integration boundaries.
 
 ## Product Intent
 
-Payverge already has bills, payments, receipts, accounting, and payment plugins. Invoices add a separate official-document layer for markets where the restaurant may need an authorized fiscal receipt or e-invoice tied to a paid sale.
+Namakdan already has bills, payments, receipts, accounting, and payment plugins. Invoices add a separate official-document layer for markets where the restaurant may need an authorized fiscal receipt or e-invoice tied to a paid sale.
 
 The key product principle is operator control:
 
@@ -258,7 +258,7 @@ Responsibilities:
 
 Why idempotency matters:
 
-Payment webhooks, manual staff retries, and plugin confirmation paths can fire more than once. Official invoices must not be duplicated just because Payverge received the same payment event twice.
+Payment webhooks, manual staff retries, and plugin confirmation paths can fire more than once. Official invoices must not be duplicated just because Namakdan received the same payment event twice.
 
 ### Provider Contract
 
@@ -294,7 +294,7 @@ Package:
 Current pieces:
 
 - `provider.go`: ARCA provider shape using a `WSFEClient` interface.
-- `mapper.go`: maps Payverge issue input into WSFE payload shape.
+- `mapper.go`: maps Namakdan issue input into WSFE payload shape.
 - `qr.go`: builds ARCA QR verification payload.
 - Tests for mapping, provider flow, and QR generation.
 

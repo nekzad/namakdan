@@ -4,7 +4,7 @@ Last updated: 2026-08-11
 
 ## Scope
 
-This runbook covers the Payverge Telegram notification plugin in production:
+This runbook covers the Namakdan Telegram notification plugin in production:
 
 - dashboard connection flow
 - Telegram webhook ingestion
@@ -60,7 +60,7 @@ The endpoint rejects requests with an invalid webhook secret.
 2. Set `TELEGRAM_WEBHOOK_SECRET` on backend instances.
 3. Deploy or restart backend instances.
 4. Re-run `setWebhook` with the new `secret_token`.
-5. Confirm `payverge_telegram_webhook_updates_total{status="unauthorized"}` does not spike after rotation.
+5. Confirm `namakdan_telegram_webhook_updates_total{status="unauthorized"}` does not spike after rotation.
 
 During rotation, keep the window between backend deploy and Telegram `setWebhook` update as short as possible.
 
@@ -145,37 +145,37 @@ Important config fields:
 
 Prometheus metrics:
 
-- `payverge_telegram_connection_tokens_issued_total`
-- `payverge_telegram_connection_tokens_consumed_total`
-- `payverge_telegram_connection_failures_total{reason}`
-- `payverge_telegram_webhook_updates_total{status}`
-- `payverge_plugin_notification_enqueued_total{plugin,event_type}`
-- `payverge_plugin_notification_delivered_total{plugin,event_type}`
-- `payverge_plugin_notification_failed_total{plugin,event_type,reason}`
-- `payverge_plugin_notification_retried_total{plugin,event_type,reason}`
-- `payverge_plugin_notification_queue_depth{plugin}`
-- `payverge_plugin_notification_delivery_latency_seconds{plugin,event_type}`
-- `payverge_telegram_send_attempts_total{status,reason}`
-- `payverge_telegram_send_duration_seconds{status,reason}`
-- `payverge_telegram_connected_businesses`
+- `namakdan_telegram_connection_tokens_issued_total`
+- `namakdan_telegram_connection_tokens_consumed_total`
+- `namakdan_telegram_connection_failures_total{reason}`
+- `namakdan_telegram_webhook_updates_total{status}`
+- `namakdan_plugin_notification_enqueued_total{plugin,event_type}`
+- `namakdan_plugin_notification_delivered_total{plugin,event_type}`
+- `namakdan_plugin_notification_failed_total{plugin,event_type,reason}`
+- `namakdan_plugin_notification_retried_total{plugin,event_type,reason}`
+- `namakdan_plugin_notification_queue_depth{plugin}`
+- `namakdan_plugin_notification_delivery_latency_seconds{plugin,event_type}`
+- `namakdan_telegram_send_attempts_total{status,reason}`
+- `namakdan_telegram_send_duration_seconds{status,reason}`
+- `namakdan_telegram_connected_businesses`
 
 Recommended alerts:
 
-- Webhook unauthorized spike: `payverge_telegram_webhook_updates_total{status="unauthorized"}` increases unexpectedly.
+- Webhook unauthorized spike: `namakdan_telegram_webhook_updates_total{status="unauthorized"}` increases unexpectedly.
 - Webhook processing failures: `status="processing_failed"` above baseline.
-- Queue backlog: `payverge_plugin_notification_queue_depth{plugin="telegram"}` remains above 100 for more than 10 minutes.
-- Retry/failure spike: high rate of `payverge_plugin_notification_retried_total` or `failed_total`.
-- Telegram rate limiting: `payverge_telegram_send_attempts_total{reason="telegram_rate_limited"}` increases.
+- Queue backlog: `namakdan_plugin_notification_queue_depth{plugin="telegram"}` remains above 100 for more than 10 minutes.
+- Retry/failure spike: high rate of `namakdan_plugin_notification_retried_total` or `failed_total`.
+- Telegram rate limiting: `namakdan_telegram_send_attempts_total{reason="telegram_rate_limited"}` increases.
 - Degraded businesses: investigate configs with non-empty `last_error`.
 
 Suggested dashboard panels:
 
-- Connected businesses: `payverge_telegram_connected_businesses`
-- Send success rate: rate of `payverge_telegram_send_attempts_total{status="sent"}`
-- Send failures by reason: rate of `payverge_telegram_send_attempts_total{status!="sent"}`
-- Queue depth: `payverge_plugin_notification_queue_depth{plugin="telegram"}`
-- Delivery latency p95: histogram quantile for `payverge_plugin_notification_delivery_latency_seconds{plugin="telegram"}`
-- Webhook updates by status: rate of `payverge_telegram_webhook_updates_total`
+- Connected businesses: `namakdan_telegram_connected_businesses`
+- Send success rate: rate of `namakdan_telegram_send_attempts_total{status="sent"}`
+- Send failures by reason: rate of `namakdan_telegram_send_attempts_total{status!="sent"}`
+- Queue depth: `namakdan_plugin_notification_queue_depth{plugin="telegram"}`
+- Delivery latency p95: histogram quantile for `namakdan_plugin_notification_delivery_latency_seconds{plugin="telegram"}`
+- Webhook updates by status: rate of `namakdan_telegram_webhook_updates_total`
 
 ## Operational checks
 
@@ -229,8 +229,8 @@ Check:
 
 Relevant metrics:
 
-- `payverge_telegram_connection_failures_total{reason}`
-- `payverge_telegram_webhook_updates_total{status}`
+- `namakdan_telegram_connection_failures_total{reason}`
+- `namakdan_telegram_webhook_updates_total{status}`
 
 Recovery:
 
@@ -244,7 +244,7 @@ Check:
 
 - `TELEGRAM_TOKEN` is set (the delivery worker runs iff the token is set)
 - worker logs for processing failures
-- `payverge_plugin_notification_queue_depth{plugin="telegram"}`
+- `namakdan_plugin_notification_queue_depth{plugin="telegram"}`
 - database rows in `retry` or `processing`
 
 Recovery:

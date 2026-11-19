@@ -12,7 +12,7 @@ a PaaS, `deploy/platforms/` has starting points:
 | Railway | `deploy/platforms/railway/README.md` (UI steps) | untested |
 
 "Untested" means exactly that: the files follow each platform's documentation
-and the Payverge env contract, but nobody has deployed them yet. Reports and
+and the Namakdan env contract, but nobody has deployed them yet. Reports and
 fixes are welcome.
 
 Setup steps per platform: [deploy/platforms/README.md](../../deploy/platforms/README.md).
@@ -51,7 +51,7 @@ Disks on Render and volumes on Railway pin a service to one instance anyway.
 **No Caddy edge.** What the compose stack's Caddy adds and you do not get
 here:
 
-- the edge default headers in `deploy/payverge.caddy`; the Next app and the
+- the edge default headers in `deploy/namakdan.caddy`; the Next app and the
   backend set their own security headers (including HSTS from
   `frontend/next.config.mjs`), so this is a second layer, not the only one;
 - Caddy's response compression and its long upstream timeouts. The

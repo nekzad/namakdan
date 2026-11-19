@@ -21,29 +21,29 @@ you fully trust the network — the backend has no public surface yet).
 ## 2. Copy compose + env to the host
 
 ```bash
-ssh user@perf-host "mkdir -p ~/payverge-perf"
-scp backend/perf/staging/docker-compose.staging-perf.yml user@perf-host:~/payverge-perf/docker-compose.yml
+ssh user@perf-host "mkdir -p ~/namakdan-perf"
+scp backend/perf/staging/docker-compose.staging-perf.yml user@perf-host:~/namakdan-perf/docker-compose.yml
 cp  backend/perf/staging/.env.example backend/perf/staging/.env  # then edit secrets
-scp backend/perf/staging/.env user@perf-host:~/payverge-perf/.env
+scp backend/perf/staging/.env user@perf-host:~/namakdan-perf/.env
 ```
 
 Or use the Makefile helpers: `PERF_HOST=user@perf-host make perf-staging-up`.
 
-The compose file pulls `${PAYVERGE_IMAGE_PREFIX}-backend:${PAYVERGE_IMAGE_TAG}` (the release image name is `ghcr.io/stdevmac/payverge-backend`)
+The compose file pulls `${NAMAKDAN_IMAGE_PREFIX}-backend:${NAMAKDAN_IMAGE_TAG}` (the release image name is `ghcr.io/nekzad/namakdan-backend`)
 (`pull_policy: always`). No `perf-latest` tag is published from this
 repository, so build the backend image, push it to a registry the VM can pull
 from, and set both variables in `.env`:
 
 ```bash
-docker build -t registry.example.com/payverge-backend:perf-latest backend
-docker push registry.example.com/payverge-backend:perf-latest
-# .env: PAYVERGE_IMAGE_PREFIX=registry.example.com/payverge
+docker build -t registry.example.com/namakdan-backend:perf-latest backend
+docker push registry.example.com/namakdan-backend:perf-latest
+# .env: NAMAKDAN_IMAGE_PREFIX=registry.example.com/namakdan
 ```
 
 ## 3. Bring up
 
 ```bash
-ssh user@perf-host "cd ~/payverge-perf && docker compose --env-file .env up -d"
+ssh user@perf-host "cd ~/namakdan-perf && docker compose --env-file .env up -d"
 ```
 
 Watch logs: `make perf-staging-logs PERF_HOST=user@perf-host`.
@@ -56,7 +56,7 @@ isn't reachable from your machine, open an SSH tunnel first:
 ```bash
 ssh -L 5432:postgres:5432 user@perf-host
 # in another shell:
-DATABASE_URL='postgres://payverge:PASSWORD@127.0.0.1:5432/payverge?sslmode=disable' \
+DATABASE_URL='postgres://namakdan:PASSWORD@127.0.0.1:5432/namakdan?sslmode=disable' \
   make perf-staging-seed
 ```
 
@@ -73,17 +73,17 @@ Launch D5 proof uses `backend/perf/k6/Makefile`: `burst`, `soak_1h`, and
 observer alongside k6 and enforce its CSV afterward:
 
 ```bash
-OUTPUT_DIR=/tmp/payverge-perf-results DURATION_SECONDS=3600 \
+OUTPUT_DIR=/tmp/namakdan-perf-results DURATION_SECONDS=3600 \
   bash backend/perf/observe/capture.sh
 bash backend/perf/observe/evaluate.sh \
-  /tmp/payverge-perf-results/capacity-observations.csv
+  /tmp/namakdan-perf-results/capacity-observations.csv
 ```
 
 ## 6. Tear down
 
 ```bash
 make perf-staging-down PERF_HOST=user@perf-host
-# Or, to also wipe Postgres data: ssh user@perf-host "cd ~/payverge-perf && docker compose down -v"
+# Or, to also wipe Postgres data: ssh user@perf-host "cd ~/namakdan-perf && docker compose down -v"
 ```
 
 ## Safety

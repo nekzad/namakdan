@@ -9,7 +9,7 @@ provider), no S3 (local storage), no AI key, no analytics.
 | File | Purpose |
 |---|---|
 | `zero-accounts.sh` | The acceptance flow. Compose mode (default) or `--target` mode. |
-| `compose.acceptance.yml` | Overlay on `deploy/docker-compose.yml` + `deploy/docker-compose.build.yml`: tags images `payverge-*:oss-accept` and binds Caddy to `127.0.0.1` only. |
+| `compose.acceptance.yml` | Overlay on `deploy/docker-compose.yml` + `deploy/docker-compose.build.yml`: tags images `namakdan-*:oss-accept` and binds Caddy to `127.0.0.1` only. |
 | `boot-native.sh` | Starts a natively built backend in `--production` mode with only generated secrets and a PostgreSQL connection. Used by the PR CI job. |
 
 ## Compose mode (weekly workflow, `.github/workflows/acceptance.yml`)
@@ -17,7 +17,7 @@ provider), no S3 (local storage), no AI key, no analytics.
 ```bash
 scripts/acceptance/zero-accounts.sh            # build, boot, test, tear down
 scripts/acceptance/zero-accounts.sh --keep     # leave the stack running
-scripts/acceptance/zero-accounts.sh --no-build # reuse payverge-*:oss-accept images
+scripts/acceptance/zero-accounts.sh --no-build # reuse namakdan-*:oss-accept images
 ```
 
 Needs Docker with Compose v2, `curl`, `jq`, `openssl`. Generates a throwaway
@@ -35,9 +35,9 @@ the backend log is printed first. Images are left tagged `:oss-accept` for
 ## Target mode (PR CI job `boot-zero-accounts` in `ci.yml`)
 
 ```bash
-export ACCEPTANCE_STATE=/tmp/payverge-acceptance DB_PASSWORD="$PGPASSWORD"  # empty PG18 db "payverge"
-(cd backend && go build -o /tmp/payverge-backend ./cmd/app)
-PAYVERGE_BIN=/tmp/payverge-backend scripts/acceptance/boot-native.sh start
+export ACCEPTANCE_STATE=/tmp/namakdan-acceptance DB_PASSWORD="$PGPASSWORD"  # empty PG18 db "namakdan"
+(cd backend && go build -o /tmp/namakdan-backend ./cmd/app)
+NAMAKDAN_BIN=/tmp/namakdan-backend scripts/acceptance/boot-native.sh start
 set -a; source "$ACCEPTANCE_STATE/boot.env"; set +a
 scripts/acceptance/zero-accounts.sh --target http://127.0.0.1:8080 \
   --backend-log "$ACCEPTANCE_STATE/backend.log" \
@@ -66,8 +66,8 @@ No images, no Docker-in-Docker. The frontend smoke is skipped in this mode.
     venue directory (200), or redirect to `/dashboard` while nothing is
     published; `/?invite_code=...` redirects to `/dashboard` keeping its
     query; `/pricing` is 404; `/dashboard`, `/staff/login` and
-    `/t/<code>` return 200, embed `window.__PAYVERGE_ENV__` with this
-    instance's `PUBLIC_URL`, and never mention `payverge.io`. There is no
+    `/t/<code>` return 200, embed `window.__NAMAKDAN_ENV__` with this
+    instance's `PUBLIC_URL`, and never mention `example.test`. There is no
     `/login` route in the frontend.
 12. Upgrade: `compose up -d` again plus `compose restart` (or `--restart-cmd`)
     keeps the business, menu, order, bill and photo.

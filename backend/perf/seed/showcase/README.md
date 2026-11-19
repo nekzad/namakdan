@@ -1,7 +1,7 @@
 # Showcase seed — "Trattoria Bella Vista"
 
 A hand-curated, single-business fixture used to capture marketing screenshots
-(features page, FirstRunWizard previews) against a running Payverge stack.
+(features page, FirstRunWizard previews) against a running Namakdan stack.
 
 The general-purpose perf seed in `../` produces random "Item 1 / Item 2"
 fixtures suitable for benchmarking. This one is the opposite: one realistic
@@ -61,7 +61,7 @@ user is created.
 If you're running Postgres outside compose (e.g. local dev DB):
 
 ```bash
-DSN='postgres://payverge:payverge_password@localhost:5432/payverge?sslmode=disable' \
+DSN='postgres://namakdan:namakdan_password@localhost:5432/namakdan?sslmode=disable' \
   ./scripts/seed-showcase.sh --host
 ```
 

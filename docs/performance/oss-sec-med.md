@@ -12,7 +12,7 @@ named by the Backend Performance Gate (many-route middleware, public guest
 routes), so each one records a before/after run.
 
 Environment: Apple M3, darwin/arm64, in-memory SQLite fixtures, hermetic test
-env (`PLUGIN_SECRET_KEY=payverge-hermetic-test-key-00000 GO_ENV=test`, URL and
+env (`PLUGIN_SECRET_KEY=namakdan-hermetic-test-key-00000 GO_ENV=test`, URL and
 provider env vars unset). Other builds were running on the same machine,
 so ns/op carries noise; B/op and allocs/op are the stable signal.
 

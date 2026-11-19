@@ -1,6 +1,6 @@
 # Money flow
 
-This page covers how Payverge stores amounts, how a bill is totalled and
+This page covers how Namakdan stores amounts, how a bill is totalled and
 split, and how a payment becomes "paid" exactly once. The design decision
 behind the storage format is [ADR 0003](../adr/0003-money-as-int64-cents.md).
 
@@ -153,7 +153,7 @@ double-tapped "confirm" button safe.
 ## Crypto (USDC on Base)
 
 Off per business until its owner turns it on; there is no instance-wide
-switch. Payverge never holds a private key.
+switch. Namakdan never holds a private key.
 
 - **The RPC is always there.** `RPC_URL` defaults to the public Base mainnet
   endpoint, so every instance can verify USDC transfers. In production,

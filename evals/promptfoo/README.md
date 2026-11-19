@@ -1,7 +1,7 @@
-# Payverge Model Benchmark
+# Namakdan Model Benchmark
 
 Promptfoo suite that benchmarks candidate LLMs (`google/gemini-2.5-flash` — the
-production default — vs `openai/gpt-4o-mini`) across Payverge's AI surfaces, using
+production default — vs `openai/gpt-4o-mini`) across Namakdan's AI surfaces, using
 the **real production prompts** over OpenRouter.
 
 ## What makes this faithful

@@ -86,9 +86,9 @@ jobs:
           # The second pass catches broken ON CONFLICT clauses and other
           # non-idempotent fixture writes.
           for _ in 1 2; do
-            docker compose exec -T postgres psql -U payverge -d payverge \
+            docker compose exec -T postgres psql -U namakdan -d namakdan \
               -v ON_ERROR_STOP=1 -f - < backend/scripts/demo_seed.sql
-            docker compose exec -T postgres psql -U payverge -d payverge \
+            docker compose exec -T postgres psql -U namakdan -d namakdan \
               -v ON_ERROR_STOP=1 -f - < backend/scripts/verify_demo_seed.sql
           done
 

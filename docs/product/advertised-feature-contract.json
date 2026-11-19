@@ -1486,7 +1486,7 @@
       "prerequisites": [],
       "evidence": [
         {
-          "path": "deploy/payverge.caddy",
+          "path": "deploy/namakdan.caddy",
           "note": "Self-host Caddy edge that terminates TLS and serves the frontend, /api/v1 and /media on one origin."
         },
         {
@@ -1542,12 +1542,12 @@
         "global"
       ],
       "prerequisites": [
-        "Card payments via Stripe/PayPal/MercadoPago only — Payverge stores no PANs"
+        "Card payments via Stripe/PayPal/MercadoPago only — Namakdan stores no PANs"
       ],
       "evidence": [
         {
           "path": "backend/internal/plugins/stripe/stripe.go",
-          "note": "Card data collected via Stripe Checkout, not stored by Payverge."
+          "note": "Card data collected via Stripe Checkout, not stored by Namakdan."
         },
         {
           "path": "backend/internal/server/guest_handlers.go",

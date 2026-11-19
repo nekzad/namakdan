@@ -1,6 +1,6 @@
 # Reverse proxies and client IPs
 
-Payverge rate-limits logins, payments and the public API per client IP, and
+Namakdan rate-limits logins, payments and the public API per client IP, and
 writes that IP to the audit log. Both only work if every hop between the
 visitor and the backend passes the real address along, and if each hop
 believes only the hops it should. A mistake here fails one of two ways:
@@ -59,7 +59,7 @@ network spoof client IPs.
 
 The backend (Gin) reads `X-Forwarded-For` only when the TCP peer is in
 `TRUSTED_PROXIES`, a comma-separated list of CIDRs or IPs. Its peers in the
-deploy stack are Caddy and the frontend, both on the `payverge_edge` Docker
+deploy stack are Caddy and the frontend, both on the `namakdan_edge` Docker
 network (`<project>_edge` when `COMPOSE_PROJECT_NAME` is set; `docker network ls --filter label=com.docker.compose.network=edge` prints the exact name).
 
 **Default.** An unset `TRUSTED_PROXIES` means loopback only,

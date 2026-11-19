@@ -1,7 +1,7 @@
 # Locale Registry
 
 The `locales/registry.json` file is the **single source of truth** for every
-locale Payverge supports — operator dashboard, guest storefront, blog, emails,
+locale Namakdan supports — operator dashboard, guest storefront, blog, emails,
 prompts, all of it. Editing translations anywhere starts here.
 
 For step-by-step instructions on adding a new locale (either side), read

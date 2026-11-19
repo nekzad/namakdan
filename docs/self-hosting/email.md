@@ -1,19 +1,19 @@
 # Email
 
-Payverge sends transactional email: address verification, password resets,
+Namakdan sends transactional email: address verification, password resets,
 staff invites, receipts, reservation confirmations and lifecycle notices. A
 fresh install needs **no email account**. With nothing configured, mail is not
 sent. The backend logs metadata only (template, recipient count and a hash)
 and nothing goes to a third party.
 
-To deliver real mail, point Payverge at any SMTP server, or at Resend or
+To deliver real mail, point Namakdan at any SMTP server, or at Resend or
 Postmark.
 
 ## Quick start
 
 | Goal | Set |
 |---|---|
-| Try Payverge, no mail delivery | nothing |
+| Try Namakdan, no mail delivery | nothing |
 | Deliver through your own mailbox or relay | `EMAIL_PROVIDER=smtp`, `SMTP_HOST`, `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_FROM` |
 | Deliver through Resend | `RESEND_API_KEY` (or `EMAIL_PROVIDER=resend` with `EMAIL_API_KEY`), `FROM_EMAIL`, `FROM_EMAIL_UPDATES` |
 | Deliver through Postmark | `EMAIL_PROVIDER=postmark`, `EMAIL_API_KEY`, `FROM_EMAIL`, `FROM_EMAIL_UPDATES` |
@@ -166,7 +166,7 @@ first. An account whose email/password credential was never verified is
 therefore:
 
 - **not merged by Google sign-in.** When someone signs in with Google using
-  the same address, Payverge drops the unproven password only if the account
+  the same address, Namakdan drops the unproven password only if the account
   was never used: no session, linked wallet or other sign-in method, and no
   workspace except one a seller's onboarding link created together with the
   account. Any account that was used, which includes every off-mode sign-up
@@ -275,7 +275,7 @@ deduplicates on the key itself.
 
 ## Bounces and suppression
 
-Payverge keeps its own suppression list in the `email_suppressions` table. It
+Namakdan keeps its own suppression list in the `email_suppressions` table. It
 is checked before **every** send, whatever the provider. A suppressed address
 is skipped without contacting the provider.
 
@@ -294,7 +294,7 @@ SMTP `550` refusals are deliberately not auto-suppressed: relays also use
 wrongly block valid recipients. To suppress an address by hand:
 
 ```bash
-docker compose exec postgres psql -U payverge -d payverge -c \
+docker compose exec postgres psql -U namakdan -d namakdan -c \
   "INSERT INTO email_suppressions (email, reason, provider, suppressed_at, last_event_at)
    VALUES (lower('someone@example.com'), 'manual', 'smtp', now(), now())
    ON CONFLICT (email) DO NOTHING;"
@@ -370,7 +370,7 @@ follow the same pattern on port 587.
 
 ### Catching all mail locally with Mailpit
 
-For development, or to inspect what Payverge sends, run
+For development, or to inspect what Namakdan sends, run
 [Mailpit](https://mailpit.axllent.org/) next to the stack, for example in a
 `docker-compose.override.yml`:
 

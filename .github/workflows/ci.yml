@@ -145,7 +145,7 @@ jobs:
             test rules /m/alerts.test.yml
 
       - name: Admin MCP server tests
-        working-directory: tools/payverge-admin-mcp
+        working-directory: tools/namakdan-admin-mcp
         run: |
           npm test
           npm run check
@@ -317,11 +317,11 @@ jobs:
       postgres:
         image: postgres:18@sha256:74935e72241653ca55e0414067e6d8763aceb8a810eb51b452253ec3dcfc4336 # postgres:18
         env:
-          POSTGRES_USER: payverge
+          POSTGRES_USER: namakdan
           # Throwaway service database; a per-run value keeps the literal out of
           # the repo (the secret-denylist contract rejects committed secrets).
           POSTGRES_PASSWORD: acceptance-ci-${{ github.run_id }}-${{ github.run_attempt }}
-          POSTGRES_DB: payverge
+          POSTGRES_DB: namakdan
         ports:
           - 5432:5432
         options: >-
@@ -330,8 +330,8 @@ jobs:
           --health-timeout 5s
           --health-retries 20
     env:
-      ACCEPTANCE_STATE: /tmp/payverge-acceptance
-      PAYVERGE_BIN: /tmp/payverge-backend
+      ACCEPTANCE_STATE: /tmp/namakdan-acceptance
+      NAMAKDAN_BIN: /tmp/namakdan-backend
       DB_PASSWORD: acceptance-ci-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -345,7 +345,7 @@ jobs:
 
       - name: Build the backend
         working-directory: backend
-        run: go build -o "$PAYVERGE_BIN" ./cmd/app
+        run: go build -o "$NAMAKDAN_BIN" ./cmd/app
 
       - name: Boot in production mode and run the API acceptance flow
         run: |

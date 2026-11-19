@@ -82,7 +82,7 @@ updates:
           - patch
 
   - package-ecosystem: npm
-    directory: /tools/payverge-admin-mcp
+    directory: /tools/namakdan-admin-mcp
     schedule:
       interval: weekly
       day: monday

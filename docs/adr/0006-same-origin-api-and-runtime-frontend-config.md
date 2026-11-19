@@ -21,7 +21,7 @@ CORS preflights, cross-site cookie rules and two TLS names to manage.
   server proxies them itself, streaming bodies and event streams.
 - **Runtime configuration.** The frontend server reads its environment per
   request and writes a whitelisted public subset into the page as
-  `window.__PAYVERGE_ENV__`, from a nonce'd inline script. Only a few
+  `window.__NAMAKDAN_ENV__`, from a nonce'd inline script. Only a few
   build-identity values remain build-time.
 - **Runtime capabilities.** `GET /api/v1/instance` tells the frontend the
   product name, branding, billing and registration modes and which optional

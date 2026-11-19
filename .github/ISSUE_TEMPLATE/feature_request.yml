@@ -6,9 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for the suggestion. Large or open-ended ideas get a better hearing in [Discussions, Ideas](https://github.com/stdevMac/payverge/discussions) first; open an issue once the shape is clear.
+        Thanks for the suggestion. Large or open-ended ideas get a better hearing in [Discussions, Ideas](https://github.com/nekzad/namakdan/discussions) first; open an issue once the shape is clear.
 
-        Payverge aims to be **self-hostable with zero third-party accounts**. Features that need an external service should be optional and degrade gracefully when it is not configured.
+        Namakdan aims to be **self-hostable with zero third-party accounts**. Features that need an external service should be optional and degrade gracefully when it is not configured.
 
   - type: textarea
     id: problem
@@ -23,7 +23,7 @@ body:
     id: proposal
     attributes:
       label: Proposed solution
-      description: What should Payverge do? Include UI sketches, API shapes or configuration if you have them.
+      description: What should Namakdan do? Include UI sketches, API shapes or configuration if you have them.
     validations:
       required: true
 
@@ -64,7 +64,7 @@ body:
         - Restaurant owners and managers
         - Floor and kitchen staff
         - Guests
-        - People self-hosting Payverge
+        - People self-hosting Namakdan
         - Developers and integrators
     validations:
       required: true

@@ -1,6 +1,6 @@
 # Argentina — AFIP/ARCA electronic invoicing (factura electrónica)
 
-Payverge can issue real AFIP/ARCA‑authorized electronic invoices (factura A/B/C and
+Namakdan can issue real AFIP/ARCA‑authorized electronic invoices (factura A/B/C and
 notas de crédito) for Argentine businesses. This guide is the operator + deployer
 setup path. The fiscal engine is **dark by default** and only activates per business
 once credentials are uploaded, validated, and the worker is enabled.
@@ -45,9 +45,9 @@ bounded exponential backoff with jitter. Terminal failures go **`dead`** after
 
 **SLO / observability**
 
-- Metrics: `payverge_fiscal_delivery_pending`,
-  `payverge_fiscal_delivery_oldest_age_seconds`,
-  `payverge_fiscal_delivery_*_total` / `_duration_seconds` by channel.
+- Metrics: `namakdan_fiscal_delivery_pending`,
+  `namakdan_fiscal_delivery_oldest_age_seconds`,
+  `namakdan_fiscal_delivery_*_total` / `_duration_seconds` by channel.
 - Target: email/artifact delivery within a few minutes of authorization under
   healthy transports; page when oldest pending age exceeds ~30m or dead-letter
   rate spikes.
@@ -62,7 +62,7 @@ bounded exponential backoff with jitter. Terminal failures go **`dead`** after
 1. **CUIT** of the business (responsable inscripto, monotributo, or exento).
 2. **A digital certificate for web services.** In AFIP's *Administración de
    Certificados Digitales*, generate a CSR, obtain the `.crt`, and keep the matching
-   private key (`.key`). This is the cert Payverge uses to sign the WSAA Login Ticket
+   private key (`.key`). This is the cert Namakdan uses to sign the WSAA Login Ticket
    Request — it is **not** your AFIP website password.
 3. **Authorize the web service** `wsfe` (Facturación Electrónica) for that
    certificate/computador fiscal in *Administrador de Relaciones de Clave Fiscal*.
@@ -74,7 +74,7 @@ Without steps 3 and 4, WSAA login or `FECAESolicitar` will reject — validation
 
 ---
 
-## Operator setup in Payverge
+## Operator setup in Namakdan
 
 1. **Fiscal → Settings**: choose mode, environment, enter CUIT, tax condition
    (`monotributo` / `responsable_inscripto` / `exento`), and the point of sale.
@@ -86,7 +86,7 @@ Without steps 3 and 4, WSAA login or `FECAESolicitar` will reject — validation
 2. **Fiscal → Credentials**: upload the `.crt` and `.key` (or a combined `.pem`).
    The key is encrypted at rest (AES‑GCM, see deployment below) and is **never**
    shown again — only a fingerprint + expiry are displayed.
-3. **Validate**: press *Validate*. Payverge performs a live `FEDummy` health check +
+3. **Validate**: press *Validate*. Namakdan performs a live `FEDummy` health check +
    a WSAA login round‑trip and flips `setup_status` to **ready** on success, or
    shows the AFIP/transport error inline on failure (status stays not‑ready).
 4. Once `ready`, paid bills issue automatically (in an automatic mode) or can be
@@ -123,7 +123,7 @@ AFIP endpoints resolved automatically from the per‑business `environment`:
 3. The worker always runs — gate the rollout **per business** instead: keep each
    business's fiscal `environment` on **homologación** until the e2e (below) is
    green for at least one real test CUIT, then switch that business to production.
-   Watch logs + the `payverge_fiscal_*` metrics.
+   Watch logs + the `namakdan_fiscal_*` metrics.
 
 > **Data‑compat note:** the receipt's `provider_receipt_id` stores the AFIP
 > comprobante key (`type-pos-number`) used by status reconciliation. The feature is
@@ -134,9 +134,9 @@ AFIP endpoints resolved automatically from the per‑business `environment`:
 ### Observability
 
 Prometheus series (gated like the rest of `/metrics`):
-- `payverge_fiscal_receipts_total{status}` — outcomes by terminal/transition status.
-- `payverge_fiscal_job_attempts_total{action}` — attempts by action.
-- `payverge_fiscal_jobs_queue_depth` — current due backlog.
+- `namakdan_fiscal_receipts_total{status}` — outcomes by terminal/transition status.
+- `namakdan_fiscal_job_attempts_total{action}` — attempts by action.
+- `namakdan_fiscal_jobs_queue_depth` — current due backlog.
 
 Alert if `queue_depth` climbs steadily (worker stuck) or
 `fiscal_receipts_total{status="failed_permanent"}` rises (systemic rejection).

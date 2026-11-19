@@ -2,7 +2,7 @@
 
 One frontend image serves any origin. The Next.js server reads its settings
 from the **container environment at request time**, and the browser gets the
-public subset through `window.__PAYVERGE_ENV__`. Changing `PUBLIC_URL`, the
+public subset through `window.__NAMAKDAN_ENV__`. Changing `PUBLIC_URL`, the
 API location, Sentry, analytics or media hosts needs a restart, not a rebuild.
 
 Source of truth: `frontend/src/config/publicConfig.ts` (browser-visible
@@ -14,10 +14,10 @@ values) and `frontend/src/config/serverConfig.ts` (server-only values).
    canonical runtime name first, then the legacy aliases, then the value
    inlined at build time (old-style images only), then the default.
 2. The root layout (`src/app/layout.tsx`) serializes the resolved values into
-   a nonce'd inline script, `window.__PAYVERGE_ENV__ = Object.freeze({...})`.
+   a nonce'd inline script, `window.__NAMAKDAN_ENV__ = Object.freeze({...})`.
    It is the first body script, so it runs before any page client module
    evaluates: those chunks are required from flight data that streams after
-   it. Then it dispatches a `payverge:public-env` event on `window`.
+   it. Then it dispatches a `namakdan:public-env` event on `window`.
    - `instrumentation-client.ts` is the exception. Next evaluates it from its
      async main chunk, which can run before the parser reaches the config
      script. It therefore initializes Sentry through `onPublicEnvReady()`:
@@ -63,7 +63,7 @@ way.
 | `SENTRY_DSN` | `FRONTEND_SENTRY_DSN`, `NEXT_PUBLIC_SENTRY_DSN` | empty (off) | `FRONTEND_` prefix so the backend's `SENTRY_DSN` is never published. |
 | `SENTRY_ENVIRONMENT`, `SENTRY_ENABLED`, `SENTRY_TRACES_SAMPLE_RATE`, `SENTRY_REPLAYS_SESSION_SAMPLE_RATE`, `SENTRY_REPLAYS_ON_ERROR_SAMPLE_RATE` | `FRONTEND_SENTRY_*`, `NEXT_PUBLIC_SENTRY_*` | empty | |
 | `POSTHOG_KEY`, `POSTHOG_HOST` | `POSTHOG_KEY`/`POSTHOG_HOST`, `NEXT_PUBLIC_POSTHOG_*` | empty | Plumbed through config and the CSP. The PostHog client itself is not wired yet (`src/lib/analytics/consentGate.ts`). |
-| `LIFI_INTEGRATOR` | `LIFI_INTEGRATOR`, `NEXT_PUBLIC_LIFI_INTEGRATOR` | `Payverge` | Cross-chain widget integrator id. |
+| `LIFI_INTEGRATOR` | `LIFI_INTEGRATOR`, `NEXT_PUBLIC_LIFI_INTEGRATOR` | `Namakdan` | Cross-chain widget integrator id. |
 
 `APP_BASE_URL` is **not** an alias of `PUBLIC_URL`. The backend uses it for
 its own API origin, so with a shared env file it would point canonicals at the
@@ -76,7 +76,7 @@ pipeline.
 
 | Variable | Used for |
 |---|---|
-| `NEXT_PUBLIC_RELEASE_SHA` | `<meta name="payverge-build">`, `window.__PAYVERGE_BUILD__` |
+| `NEXT_PUBLIC_RELEASE_SHA` | `<meta name="namakdan-build">`, `window.__NAMAKDAN_BUILD__` |
 | `NEXT_PUBLIC_VERSION` | same |
 | `NEXT_PUBLIC_BUILD_TIMESTAMP` | same, plus the sitemap `lastModified` for static routes |
 | `NEXT_PUBLIC_SENTRY_RELEASE` | Sentry release tag (matches uploaded source maps) |

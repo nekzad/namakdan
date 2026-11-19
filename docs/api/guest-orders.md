@@ -3,7 +3,7 @@
 Public endpoints that let a guest order from a table's QR code. No login is
 needed. The table code in the URL identifies both the table and the venue.
 
-There is no OpenAPI spec for the Payverge API yet. This page is the reference
+There is no OpenAPI spec for the Namakdan API yet. This page is the reference
 for these endpoints.
 
 ## Endpoints

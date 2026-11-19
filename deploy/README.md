@@ -1,6 +1,6 @@
-# Self-hosting Payverge
+# Self-hosting Namakdan
 
-This directory runs a complete Payverge instance on one server with Docker
+This directory runs a complete Namakdan instance on one server with Docker
 Compose. It needs no third-party account: TLS comes from Let's Encrypt (or
 Caddy's own CA for a local trial), uploads stay on a local volume, email is
 written to the log until you configure a provider, and AI features stay off
@@ -42,7 +42,7 @@ Contents: [Requirements](#requirements) ·
 Download the installer, read it, run it:
 
 ```sh
-curl -fsSLO https://github.com/stdevMac/payverge/releases/latest/download/install.sh
+curl -fsSLO https://github.com/nekzad/namakdan/releases/latest/download/install.sh
 less install.sh
 bash install.sh
 ```
@@ -60,12 +60,12 @@ demo restaurants. Then it:
    **once** and then removed from `.env`, so save it in your password manager.
    If step 4 failed, it then says which check failed and exits non-zero.
 
-As root it installs into `/opt/payverge`; otherwise into `~/payverge`. For an
+As root it installs into `/opt/namakdan`; otherwise into `~/namakdan`. For an
 unattended install, pass everything as flags:
 
 ```sh
 bash install.sh --yes --domain pos.example.com --admin-email you@example.com \
-  --acme-email you@example.com --version 1.2.3 --dir /opt/payverge
+  --acme-email you@example.com --version 1.2.3 --dir /opt/namakdan
 ```
 
 | Flag | Meaning |
@@ -85,16 +85,16 @@ bash install.sh --yes --domain pos.example.com --admin-email you@example.com \
 | `--no-backup` | Upgrade without taking a backup set first (see [Upgrades](#upgrades)). |
 | `--require-signature` | Verify `SHA256SUMS` with cosign before installing a release. Refuse to install if cosign is missing or the signature does not check. |
 
-Each flag can also come from the environment: `PAYVERGE_DOMAIN`,
-`PAYVERGE_ADMIN_EMAIL`, `PAYVERGE_ACME_EMAIL`, `PAYVERGE_DEMO`, `PAYVERGE_DIR`,
-`PAYVERGE_INSTALL_VERSION`, `PAYVERGE_HTTP_PORT`, `PAYVERGE_HTTPS_PORT`,
-`PAYVERGE_YES`, `PAYVERGE_DRY_RUN`, `PAYVERGE_FORCE`, `PAYVERGE_BUILD`,
-`PAYVERGE_NO_BACKUP` and `PAYVERGE_REQUIRE_SIGNATURE`. Four more have no flag:
-`PAYVERGE_READY_TIMEOUT` (seconds to wait for the health check, default 600),
-`PAYVERGE_PROBE_ATTEMPTS` (tries, 5 seconds apart, of the public check,
-default 24), `PAYVERGE_DOCKER_TIMEOUT`
+Each flag can also come from the environment: `NAMAKDAN_DOMAIN`,
+`NAMAKDAN_ADMIN_EMAIL`, `NAMAKDAN_ACME_EMAIL`, `NAMAKDAN_DEMO`, `NAMAKDAN_DIR`,
+`NAMAKDAN_INSTALL_VERSION`, `NAMAKDAN_HTTP_PORT`, `NAMAKDAN_HTTPS_PORT`,
+`NAMAKDAN_YES`, `NAMAKDAN_DRY_RUN`, `NAMAKDAN_FORCE`, `NAMAKDAN_BUILD`,
+`NAMAKDAN_NO_BACKUP` and `NAMAKDAN_REQUIRE_SIGNATURE`. Four more have no flag:
+`NAMAKDAN_READY_TIMEOUT` (seconds to wait for the health check, default 600),
+`NAMAKDAN_PROBE_ATTEMPTS` (tries, 5 seconds apart, of the public check,
+default 24), `NAMAKDAN_DOCKER_TIMEOUT`
 (seconds before an unresponsive Docker daemon counts as down, default 30) and
-`PAYVERGE_RELEASES_URL` (a mirror laid out like GitHub releases).
+`NAMAKDAN_RELEASES_URL` (a mirror laid out like GitHub releases).
 
 When a step fails, the installer stops and names the line and the command
 that failed, and nothing after it runs. If the containers do not start, it
@@ -113,9 +113,9 @@ only while `COMPOSE_FILE` is unset. When `.env` sets `COMPOSE_FILE` (as
 ### From a clone
 
 ```sh
-git clone https://github.com/stdevMac/payverge.git
-cd payverge
-git checkout v1.2.3   # the newest release: https://github.com/stdevMac/payverge/releases/latest
+git clone https://github.com/nekzad/namakdan.git
+cd namakdan
+git checkout v1.2.3   # the newest release: https://github.com/nekzad/namakdan/releases/latest
 ./deploy/install.sh
 ```
 
@@ -123,21 +123,21 @@ Check out a release tag first. `main` can be ahead of the newest release, and
 its deploy files (the Caddy version, for one) have not shipped yet.
 
 Run from a clone, the installer works in place in `deploy/`. With no
-`--version` and no `--build`, it pins `PAYVERGE_VERSION` to the newest
+`--version` and no `--build`, it pins `NAMAKDAN_VERSION` to the newest
 published release and never writes `latest`. `--build`, or an existing `.env`
 whose `COMPOSE_FILE` lists `docker-compose.build.yml`, pins
-`PAYVERGE_VERSION=local` (the images are `payverge-*:local`). A re-run keeps
+`NAMAKDAN_VERSION=local` (the images are `namakdan-*:local`). A re-run keeps
 the version already in `.env`, except a leftover `local` when nothing is
 being built, which is resolved to a release. With `--dir` it copies the
 deploy files somewhere else first. To upgrade a release install, run its own
-copy: `bash /opt/payverge/install.sh --version 1.3.0` (an install from before
+copy: `bash /opt/namakdan/install.sh --version 1.3.0` (an install from before
 the first public release fetches the new installer first; see
 [PostgreSQL 15 to 18](#postgresql-15-to-18)).
 
 ### By hand
 
-In the unpacked release tarball (`payverge-deploy-<version>.tar.gz` on the
-[release page](https://github.com/stdevMac/payverge/releases/latest)), or in
+In the unpacked release tarball (`namakdan-deploy-<version>.tar.gz` on the
+[release page](https://github.com/nekzad/namakdan/releases/latest)), or in
 `deploy/` of a clone checked out at a release tag:
 
 ```sh
@@ -167,10 +167,10 @@ Caddy issues the certificate for `localhost` (and for `*.localhost`, `*.local`,
 browsers warn until you trust that CA:
 
 ```sh
-docker compose cp caddy:/data/caddy/pki/authorities/local/root.crt ./payverge-local-ca.crt
+docker compose cp caddy:/data/caddy/pki/authorities/local/root.crt ./namakdan-local-ca.crt
 ```
 
-Import `payverge-local-ca.crt` into the system or browser trust store, or
+Import `namakdan-local-ca.crt` into the system or browser trust store, or
 accept the warning once. A `localhost` trial publishes Caddy on `127.0.0.1`
 only, so other machines on your network cannot reach it; pass
 `--https-port 0.0.0.0:443` to open it up. If ports 80 and 443 are already in
@@ -201,12 +201,12 @@ value in single quotes.
 
 | Topic | Guide |
 |---|---|
-| First admin, signups (`REGISTRATION_MODE`), demo data | [docs/self-hosting/admin.md](https://github.com/stdevMac/payverge/blob/main/docs/self-hosting/admin.md) |
-| Email: SMTP, Resend, Postmark, or log only | [docs/self-hosting/email.md](https://github.com/stdevMac/payverge/blob/main/docs/self-hosting/email.md) |
-| AI: OpenRouter, Ollama or any OpenAI-compatible endpoint, budgets | [docs/self-hosting/ai.md](https://github.com/stdevMac/payverge/blob/main/docs/self-hosting/ai.md) |
-| Uploads: local volume, S3, R2, MinIO | [docs/self-hosting/storage.md](https://github.com/stdevMac/payverge/blob/main/docs/self-hosting/storage.md) |
-| Frontend settings: network, analytics, maintenance mode | [docs/self-hosting/frontend-config.md](https://github.com/stdevMac/payverge/blob/main/docs/self-hosting/frontend-config.md) |
-| WhatsApp (needs a source build) | [docs/self-hosting/whatsapp.md](https://github.com/stdevMac/payverge/blob/main/docs/self-hosting/whatsapp.md) |
+| First admin, signups (`REGISTRATION_MODE`), demo data | [docs/self-hosting/admin.md](https://github.com/nekzad/namakdan/blob/main/docs/self-hosting/admin.md) |
+| Email: SMTP, Resend, Postmark, or log only | [docs/self-hosting/email.md](https://github.com/nekzad/namakdan/blob/main/docs/self-hosting/email.md) |
+| AI: OpenRouter, Ollama or any OpenAI-compatible endpoint, budgets | [docs/self-hosting/ai.md](https://github.com/nekzad/namakdan/blob/main/docs/self-hosting/ai.md) |
+| Uploads: local volume, S3, R2, MinIO | [docs/self-hosting/storage.md](https://github.com/nekzad/namakdan/blob/main/docs/self-hosting/storage.md) |
+| Frontend settings: network, analytics, maintenance mode | [docs/self-hosting/frontend-config.md](https://github.com/nekzad/namakdan/blob/main/docs/self-hosting/frontend-config.md) |
+| WhatsApp (needs a source build) | [docs/self-hosting/whatsapp.md](https://github.com/nekzad/namakdan/blob/main/docs/self-hosting/whatsapp.md) |
 
 Those guides were written for the repository's development compose and
 sometimes say "the root `.env`". For this stack it is the `.env` in this
@@ -248,7 +248,7 @@ docker compose exec -T backend /app/server demo reset --owner-email you@example.
 
 ## Upgrades
 
-The installer pins the image version in `.env` (`PAYVERGE_VERSION=1.2.3`).
+The installer pins the image version in `.env` (`NAMAKDAN_VERSION=1.2.3`).
 To upgrade:
 
 ```sh
@@ -267,12 +267,12 @@ exact commands that restore it. `--no-backup` skips the backup; only use it
 when you have just taken one. It does not skip keeping the images of an
 install from before the first public release under `VERSION-pg15`.
 
-By hand, take the backup yourself first, then set `PAYVERGE_VERSION` in `.env`
+By hand, take the backup yourself first, then set `NAMAKDAN_VERSION` in `.env`
 and pull and start:
 
 ```sh
 docker compose run --rm backup once
-# set PAYVERGE_VERSION=1.3.0 in .env
+# set NAMAKDAN_VERSION=1.3.0 in .env
 docker compose pull
 docker compose up -d
 docker compose up -d --force-recreate --no-deps caddy   # load a changed Caddyfile
@@ -283,13 +283,13 @@ Read the release notes first, because a release can add a required setting.
 The backend applies new database migrations when it starts. Migrations only
 run forward, and an older backend refuses to start on a newer schema. **To
 roll back, restore the backup you took before the upgrade**, with
-`PAYVERGE_VERSION` set to the old version. Name that set explicitly (the
+`NAMAKDAN_VERSION` set to the old version. Name that set explicitly (the
 installer printed it): a nightly set taken after the upgrade already has the
 new schema.
 
 ```sh
 docker compose stop backend frontend
-# set PAYVERGE_VERSION back to the old version in .env
+# set NAMAKDAN_VERSION back to the old version in .env
 ls backups/daily              # the set taken before the upgrade, e.g. 20261003T091500Z
 docker compose --profile restore run --rm restore daily/20261003T091500Z --yes
 docker compose up -d
@@ -309,7 +309,7 @@ shares that tag with the release), then fetch the new installer rather
 than running the old local `install.sh`, which has no PostgreSQL 18 guard:
 
 ```sh
-curl -fsSLO https://github.com/stdevMac/payverge/releases/latest/download/install.sh
+curl -fsSLO https://github.com/nekzad/namakdan/releases/latest/download/install.sh
 bash install.sh --version 1.0.0
 ```
 
@@ -324,7 +324,7 @@ an empty database. Move the data once:
 
 The `db` volume is never removed, and the dump and row counts stay in
 `backups/pg18-upgrade-<time>/`. To roll back, run `docker compose down`, put
-back the deploy files you kept with `PAYVERGE_VERSION` set to the kept tag
+back the deploy files you kept with `NAMAKDAN_VERSION` set to the kept tag
 the installer printed, and `docker compose up -d`: PostgreSQL 15
 runs on `db` again, and what was written on 18 is lost. A backend that
 reports `postgres major version X does not match the genesis baseline's Y`
@@ -335,15 +335,15 @@ is running against the other major's data. Details:
 
 The release workflow signs the backend and frontend images with a keyless
 cosign signature tied to `.github/workflows/release.yml`. `docker compose pull`
-does not check it, and `PAYVERGE_VERSION` is a tag, which can be moved. To
+does not check it, and `NAMAKDAN_VERSION` is a tag, which can be moved. To
 check what you run, install [cosign](https://docs.sigstore.dev/cosign/system_config/installation/)
 and verify each image before starting it:
 
 ```sh
 for image in backend frontend; do
-  cosign verify "ghcr.io/stdevmac/payverge-$image:1.3.0" \
+  cosign verify "ghcr.io/nekzad/namakdan-$image:1.3.0" \
     --certificate-oidc-issuer https://token.actions.githubusercontent.com \
-    --certificate-identity https://github.com/stdevMac/payverge/.github/workflows/release.yml@refs/heads/main
+    --certificate-identity https://github.com/nekzad/namakdan/.github/workflows/release.yml@refs/heads/main
 done
 ```
 
@@ -354,12 +354,12 @@ digest in `docker-compose.override.yml`:
 ```yaml
 services:
   backend:
-    image: ghcr.io/stdevmac/payverge-backend:1.3.0@sha256:<digest from cosign>
+    image: ghcr.io/nekzad/namakdan-backend:1.3.0@sha256:<digest from cosign>
   frontend:
-    image: ghcr.io/stdevmac/payverge-frontend:1.3.0@sha256:<digest from cosign>
+    image: ghcr.io/nekzad/namakdan-frontend:1.3.0@sha256:<digest from cosign>
 ```
 
-The pin wins over `PAYVERGE_VERSION`, so update or remove it on every upgrade,
+The pin wins over `NAMAKDAN_VERSION`, so update or remove it on every upgrade,
 including one done with `install.sh --version`.
 
 The installer checks the release tarball against `SHA256SUMS`. Both files
@@ -367,10 +367,10 @@ come from the same release, so the checksum alone catches a damaged download,
 not a replaced one. Releases also publish `SHA256SUMS.sigstore.json`, a
 keyless cosign bundle for `SHA256SUMS` (`cosign sign-blob --bundle`). When
 `cosign` is on `PATH`, the installer verifies that bundle against the release
-workflow (`https://github.com/stdevMac/payverge/.github/workflows/release.yml@refs/heads/main`,
+workflow (`https://github.com/nekzad/namakdan/.github/workflows/release.yml@refs/heads/main`,
 issuer `https://token.actions.githubusercontent.com`) before trusting the
 checksums. Without cosign it checks only the checksum and says how to require
-the signature. `--require-signature` (`PAYVERGE_REQUIRE_SIGNATURE=1`) refuses
+the signature. `--require-signature` (`NAMAKDAN_REQUIRE_SIGNATURE=1`) refuses
 to install unless that check succeeds. Install cosign from
 https://docs.sigstore.dev/cosign/system_config/installation/.
 
@@ -455,8 +455,8 @@ or `monthly/2026-10`. Add `--skip-storage` to restore only the database.
 
 The job checks the set against its `SHA256SUMS` first, then refuses to run
 while anything else is connected to the database. It runs `pg_restore` into a
-temporary database (`payverge_restore`) and unpacks the uploads (and MinIO
-data) into a `.payverge-restore-staging` directory inside each volume. Only
+temporary database (`namakdan_restore`) and unpacks the uploads (and MinIO
+data) into a `.namakdan-restore-staging` directory inside each volume. Only
 when all of that succeeded does it rename the restored database into place and
 swap the volume contents; a corrupt dump or archive leaves the live data as it
 was. The volumes need free space for a second copy of the set while it runs.
@@ -495,7 +495,7 @@ Then set the following in `.env` and run `docker compose up -d`:
 
 ```sh
 COMPOSE_PROFILES=backup,backup-offsite
-RCLONE_REMOTE=offsite:payverge-backups
+RCLONE_REMOTE=offsite:namakdan-backups
 # copy (default) keeps sets that were pruned here; sync mirrors the pruning.
 RCLONE_MODE=copy
 ```
@@ -518,16 +518,16 @@ MINIO_ROOT_PASSWORD=<generated>
 S3_ENDPOINT=http://minio:9000
 S3_PROTECTED_ENDPOINT=http://minio:9000
 S3_FORCE_PATH_STYLE=true
-S3_BUCKET=payverge-public
-S3_PROTECTED_BUCKET=payverge-protected
-AWS_ACCESS_KEY=payverge-app
+S3_BUCKET=namakdan-public
+S3_PROTECTED_BUCKET=namakdan-protected
+AWS_ACCESS_KEY=namakdan-app
 AWS_SECRET_KEY=<generated>
-AWS_PROTECTED_ACCESS_KEY=payverge-app
+AWS_PROTECTED_ACCESS_KEY=namakdan-app
 AWS_PROTECTED_SECRET_KEY=<same as AWS_SECRET_KEY>
 ```
 
 Start it with `docker compose up -d`. `minio-init` creates both buckets with
-anonymous access off, and creates the `payverge-app` user so that the backend
+anonymous access off, and creates the `namakdan-app` user so that the backend
 never holds the root credentials. Files are served to browsers through the
 backend at `/media/...`, so MinIO is never exposed. The nightly backup
 includes the MinIO volume.
@@ -587,7 +587,7 @@ it (the backend also trusts loopback). No other private range is trusted.
 Neither app publishes a host port, so only Caddy (and, for the backend, the
 frontend's proxy) can reach them. The binaries alone trust less: loopback only
 for the backend and nothing for the frontend. If `172.30.0.0/24` is already
-used on the host (a second Payverge stack, a VPN), set another `EDGE_SUBNET`
+used on the host (a second Namakdan stack, a VPN), set another `EDGE_SUBNET`
 in `.env` before the first start; changing it later means `docker compose
 down` first, so the network is recreated.
 
@@ -644,13 +644,13 @@ forwards plain HTTP to Caddy on a loopback port.
    no longer does.
 
 3. Tell Caddy to trust that server. Docker hands the connections it accepts on
-   `127.0.0.1:8080` to Caddy from the gateway address of the `payverge_edge`
+   `127.0.0.1:8080` to Caddy from the gateway address of the `namakdan_edge`
    network (`<project>_edge` when `COMPOSE_PROJECT_NAME` is set;
    `docker network ls --filter label=com.docker.compose.network=edge` prints the exact name). With the stack running,
    print that address:
 
    ```sh
-   docker network inspect payverge_edge --format '{{range .IPAM.Config}}{{.Gateway}}{{end}}'
+   docker network inspect namakdan_edge --format '{{range .IPAM.Config}}{{.Gateway}}{{end}}'
    ```
 
    Set it in `.env`, for example `TRUSTED_PROXY_CIDRS=172.18.0.1/32`, and run
@@ -691,8 +691,8 @@ From a clone, build the images instead of pulling them:
 ```
 
 This sets `COMPOSE_FILE=docker-compose.yml:docker-compose.build.yml` and
-`PAYVERGE_VERSION=local` in `.env`, so every later `docker compose` command
-builds `payverge-backend:local` and `payverge-frontend:local` from
+`NAMAKDAN_VERSION=local` in `.env`, so every later `docker compose` command
+builds `namakdan-backend:local` and `namakdan-frontend:local` from
 `../backend` and `../frontend`. The first build takes 10 to 30 minutes and
 about 8 GB of RAM.
 After `git pull`, run `docker compose up -d --build`.
@@ -700,7 +700,7 @@ After `git pull`, run `docker compose up -d --build`.
 WhatsApp messaging uses a GPL-3.0 library and is left out of the published
 images. To include it, set `GO_TAGS=whatsapp` in `.env` and build from
 source; the resulting backend image is then distributed under GPL-3.0 terms.
-See [docs/self-hosting/whatsapp.md](https://github.com/stdevMac/payverge/blob/main/docs/self-hosting/whatsapp.md).
+See [docs/self-hosting/whatsapp.md](https://github.com/nekzad/namakdan/blob/main/docs/self-hosting/whatsapp.md).
 
 ## Metrics and logs
 
@@ -713,7 +713,7 @@ Logs are rotated at 10 MB, keeping 5 files per service.
 
 Prometheus metrics are served by the backend at `http://backend:8080/metrics`.
 That path is not routed through Caddy, so scrape it from a container on the
-`payverge_edge` network (`<project>_edge` when `COMPOSE_PROJECT_NAME` is set; `docker network ls --filter label=com.docker.compose.network=edge` prints the exact name), with `METRICS_TOKEN` set in
+`namakdan_edge` network (`<project>_edge` when `COMPOSE_PROJECT_NAME` is set; `docker network ls --filter label=com.docker.compose.network=edge` prints the exact name), with `METRICS_TOKEN` set in
 `.env` as the bearer token.
 
 `monitoring/alerts.yml` holds Prometheus alerting rules for the failures that
@@ -747,7 +747,7 @@ another project), that value reaches the containers instead. Check with
 `env -u NAME docker compose up -d`.
 
 **"Database migration failed" or "Schema verification failed" after a
-downgrade.** The image is older than the data. Set `PAYVERGE_VERSION` back to
+downgrade.** The image is older than the data. Set `NAMAKDAN_VERSION` back to
 the version you upgraded to, or restore a backup taken with the older version
 ([Upgrades](#upgrades)).
 

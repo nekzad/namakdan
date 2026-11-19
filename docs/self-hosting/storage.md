@@ -1,6 +1,6 @@
 # Storage
 
-Payverge stores two kinds of objects:
+Namakdan stores two kinds of objects:
 
 - **Public objects.** Menu photos, logos, partner icons, AI-generated dish images
   and demo assets. Guests and operators load them in the browser.
@@ -156,8 +156,8 @@ protected/tmp/
 bind-mount a host directory instead, make it writable by 65532:
 
 ```bash
-sudo install -d -o 65532 -g 65532 -m 0700 /srv/payverge/storage
-# compose: - /srv/payverge/storage:/data/storage
+sudo install -d -o 65532 -g 65532 -m 0700 /srv/namakdan/storage
+# compose: - /srv/namakdan/storage:/data/storage
 ```
 
 **Outside Docker.** `make run` uses `./data/storage` relative to `backend/`;
@@ -174,16 +174,16 @@ the `meta/` sidecars: they hold the content types.
 ```bash
 # Backup (the volume name is <compose project>_backend_storage)
 docker run --rm \
-  -v payverge_backend_storage:/data/storage:ro \
+  -v namakdan_backend_storage:/data/storage:ro \
   -v "$PWD":/backup \
-  alpine tar czf /backup/payverge-storage-$(date +%F).tgz -C /data storage
+  alpine tar czf /backup/namakdan-storage-$(date +%F).tgz -C /data storage
 
 # Restore (with the backend stopped)
 docker compose stop backend
 docker run --rm \
-  -v payverge_backend_storage:/data/storage \
+  -v namakdan_backend_storage:/data/storage \
   -v "$PWD":/backup \
-  alpine sh -c 'tar xzf /backup/payverge-storage-YYYY-MM-DD.tgz -C /data && chown -R 65532:65532 /data/storage'
+  alpine sh -c 'tar xzf /backup/namakdan-storage-YYYY-MM-DD.tgz -C /data && chown -R 65532:65532 /data/storage'
 docker compose start backend
 ```
 
@@ -202,12 +202,12 @@ STORAGE_DRIVER=s3
 S3_ENDPOINT=http://minio:9000
 S3_FORCE_PATH_STYLE=true
 AWS_REGION=us-east-1
-S3_BUCKET=payverge
+S3_BUCKET=namakdan
 AWS_ACCESS_KEY=...
 AWS_SECRET_KEY=...
 # Optional: a second, private bucket. Otherwise protected objects use the
 # "protected/" prefix of S3_BUCKET.
-S3_PROTECTED_BUCKET=payverge-protected
+S3_PROTECTED_BUCKET=namakdan-protected
 ```
 
 Keep both buckets **private**: no anonymous read policy. Public objects reach
@@ -218,8 +218,8 @@ browsers through `/media`.
 ```dotenv
 STORAGE_DRIVER=s3
 S3_ENDPOINT=https://<account_id>.r2.cloudflarestorage.com
-S3_BUCKET=payverge-public
-S3_PROTECTED_BUCKET=payverge-protected
+S3_BUCKET=namakdan-public
+S3_PROTECTED_BUCKET=namakdan-protected
 AWS_ACCESS_KEY=...
 AWS_SECRET_KEY=...
 # Optional: serve public images straight from an R2 custom domain
@@ -302,9 +302,9 @@ their own private bucket with `S3_PROTECTED_BUCKET` first.
 keys, then switch the driver:
 
 ```bash
-aws s3 sync /data/storage/public/objects/    s3://payverge/                  --endpoint-url "$S3_ENDPOINT"
-aws s3 sync /data/storage/protected/objects/ s3://payverge-protected/        --endpoint-url "$S3_ENDPOINT"
-# shared-bucket mode instead: s3://payverge/protected/
+aws s3 sync /data/storage/public/objects/    s3://namakdan/                  --endpoint-url "$S3_ENDPOINT"
+aws s3 sync /data/storage/protected/objects/ s3://namakdan-protected/        --endpoint-url "$S3_ENDPOINT"
+# shared-bucket mode instead: s3://namakdan/protected/
 ```
 
 Existing `/media/...` URLs keep resolving. Content types come from the file

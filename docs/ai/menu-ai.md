@@ -1,6 +1,6 @@
 # Menu AI
 
-Menu AI helps an owner get a menu into Payverge quickly. It has three parts:
+Menu AI helps an owner get a menu into Namakdan quickly. It has three parts:
 
 - **Extraction**: photograph or scan a paper menu and get structured
   categories and items back.

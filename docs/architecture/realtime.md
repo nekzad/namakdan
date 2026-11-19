@@ -1,7 +1,7 @@
 # Realtime
 
 Kitchen screens, the floor view, a guest's split screen and the AI chat all
-update without a reload. Payverge does this with **server-sent events**
+update without a reload. Namakdan does this with **server-sent events**
 (SSE) over ordinary HTTP, plus polling as a safety net. There is no
 WebSocket endpoint. The decision is recorded in
 [ADR 0004](../adr/0004-sse-instead-of-websockets.md).

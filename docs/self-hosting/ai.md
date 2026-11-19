@@ -1,6 +1,6 @@
 # AI providers (self-hosting)
 
-AI is optional. Payverge runs without any LLM provider: menu, tables, orders,
+AI is optional. Namakdan runs without any LLM provider: menu, tables, orders,
 bills, KDS and payments never call a model, and the guest AI waiter falls back
 to its no-key mode. `GET /api/v1/instance` reports `features.ai=false` so the
 UI can hide AI-only surfaces.
@@ -58,7 +58,7 @@ LLM_BASE_URL=http://host.docker.internal:11434/v1
 LLM_BASE_URL=http://vllm:8000/v1
 OPENROUTER_MODEL_CHAT=Qwen/Qwen2.5-14B-Instruct
 
-# LiteLLM proxy (routes to any vendor; keeps vendor keys out of Payverge)
+# LiteLLM proxy (routes to any vendor; keeps vendor keys out of Namakdan)
 LLM_BASE_URL=http://litellm:4000/v1
 LLM_API_KEY=sk-litellm-...
 
@@ -176,7 +176,7 @@ settings rather than environment variables:
 | Setting | Default | Effect |
 |---|---|---|
 | daily limit | `500` | images one business may generate per UTC day; the next request gets `429 image_daily_limit_reached` |
-| monthly alert | `2000` | per-business monthly count that raises an operator alert (Sentry event and the `payverge_ai_image_monthly_alerts_total` metric); never blocks |
+| monthly alert | `2000` | per-business monthly count that raises an operator alert (Sentry event and the `namakdan_ai_image_monthly_alerts_total` metric); never blocks |
 
 Show or change them from the server binary. A change applies to the next
 request; no restart is needed. Both values must be positive.
@@ -238,7 +238,7 @@ mode and `audit` otherwise, and it only matters on OpenRouter:
 
 ## Data retention
 
-Payverge deletes AI conversation history on its own. Hourly janitors in the
+Namakdan deletes AI conversation history on its own. Hourly janitors in the
 backend remove:
 
 | Data | Deleted after | Variable |

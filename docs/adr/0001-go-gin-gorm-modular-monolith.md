@@ -5,7 +5,7 @@
 
 ## Context
 
-Payverge handles money, permissions and fiscal records for restaurants. The
+Namakdan handles money, permissions and fiscal records for restaurants. The
 same rules must hold for a guest paying from a phone, a waiter on a tablet,
 a payment webhook and a background job. The team is small, and the project
 must also be easy for one person to self-host.

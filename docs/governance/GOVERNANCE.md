@@ -1,15 +1,14 @@
 # Governance
 
-This document describes who makes decisions about Payverge, how they are made,
+This document describes who makes decisions about Namakdan, how they are made,
 and how contributors take on more responsibility. It is deliberately small: the
 project has one lead maintainer, and the process should match its size.
 
 ## Model: project lead (BDFL)
 
-Payverge follows a **benevolent dictator for life (BDFL)** model.
+Namakdan follows a **benevolent dictator for life (BDFL)** model.
 
-- **Project lead:** Marcos Maceo ([@stdevMac](https://github.com/stdevMac)),
-  the original author and copyright holder.
+- **Project lead:** the owner of the [Namakdan repository](https://github.com/nekzad/namakdan).
 - The project lead sets direction, has the final say on any decision, and owns
   the repository settings, release keys and the security advisory process.
 - "For life" means "until the lead steps down or hands over". See
@@ -23,11 +22,11 @@ document will change to share decisions more widely, through the process in
 
 | Role | Who | Can |
 | --- | --- | --- |
-| **User** | Anyone running or evaluating Payverge | Ask questions, report bugs, propose features |
+| **User** | Anyone running or evaluating Namakdan | Ask questions, report bugs, propose features |
 | **Contributor** | Anyone whose pull request, review, translation or documentation has been merged | Everything a user can, plus be credited in release notes |
 | **Triager** | Contributors invited to help manage issues | Label, deduplicate, transfer to Discussions, and close issues and Discussions |
 | **Maintainer** | Contributors granted write access | Review and merge pull requests, handle security reports, cut releases when delegated |
-| **Project lead** | Marcos Maceo | Everything above, plus final decisions, repository administration and governance changes |
+| **Project lead** | Repository owner | Everything above, plus final decisions, repository administration and governance changes |
 
 Current maintainers are listed in [`.github/CODEOWNERS`](../../.github/CODEOWNERS).
 
@@ -123,13 +122,13 @@ Conduct violation, or for misuse of access. That decision is final.
   no CLA. Contributors certify their right to contribute with the
   [Developer Certificate of Origin](../../.github/CONTRIBUTING.md#developer-certificate-of-origin-dco)
   (`git commit -s`), and keep the copyright to their contributions.
-- The "Payverge" name and logo are not licensed under Apache-2.0. See
+- The "Namakdan" name and logo are not licensed under Apache-2.0. See
   [TRADEMARKS.md](../../TRADEMARKS.md). A fork offered to other people as a
   hosted service or as a distributed product uses its own name and logo.
 
 ## Continuity
 
-If the project lead can no longer maintain Payverge, they may name a successor
+If the project lead can no longer maintain Namakdan, they may name a successor
 lead from the maintainers. If the project goes quiet with no successor, the
 license lets anyone continue it as a fork, under a different name as
 TRADEMARKS.md requires.

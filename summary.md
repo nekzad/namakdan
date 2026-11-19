@@ -766,7 +766,7 @@ Hardware: Apple M3 (`darwin/arm64`), `-benchmem -count=3`.
 Fixture: SQLite in-memory, single connection; 5-line and 50-line runs with
 created/paid/voided actor staff + staff payees.
 
-### `BenchmarkGetPayrollRunDetail` (`github.com/stdevmac/payverge/backend/internal/accounting`)
+### `BenchmarkGetPayrollRunDetail` (`github.com/nekzad/namakdan/backend/internal/accounting`)
 
 | Benchmark | phase | ns/op | B/op | allocs/op | body_B (service JSON) |
 | --- | --- | ---: | ---: | ---: | ---: |
@@ -1161,7 +1161,7 @@ Lets us measure perf locally and gate regressions in CI.
 - **k6 load-test scenarios** (`backend/perf/k6/`): menu_browse, checkout, sse_kitchen, mixed_peak. Profiles: smoke, lunch_rush, dinner_rush, soak_4h.
 - **Staging-perf docker-compose** (`backend/perf/staging/`) for soak tests.
 - **GitHub Actions**: perf-bench (PR + nightly) and perf-drift (weekly) workflows (since retired; compare runs locally per `backend/perf/bench/README.md`).
-- **Grafana dashboard** (`backend/perf/grafana/payverge-perf.json`).
+- **Grafana dashboard** (`backend/perf/grafana/namakdan-perf.json`).
 - **Docs**: `backend/perf/bench/README.md` covers the suite end-to-end.
 
 ### Layer 2 — perf iterations on OrderCreate + MenuGet (6 commits)
@@ -1443,7 +1443,7 @@ Fixed-iteration runs use `-benchtime=100x` to keep the side-effecting handler be
 - `go test ./internal/server -run 'TestRequireBillBusinessAccess|TestRequireActiveSubscriptionForBill|TestGetBill' -count=1` ✅
 - `go test ./internal/server ./internal/handlers ./internal/database -run '^$' -count=1` ✅
 - `go test ./cmd/app ./internal/server ./internal/handlers ./internal/database ./internal/services ./internal/fiscal ./internal/services/print ./internal/services/print/formatters ./internal/crm ./internal/splitting -count=1` ✅
-- `go test ./... -count=1 -timeout=120s` ⚠️ all printed unit packages passed; failed only in `github.com/stdevmac/payverge/backend/internal/testperf` because `TestStartPostgresReturnsUsableDB` timed out waiting for Docker/Testcontainers.
+- `go test ./... -count=1 -timeout=120s` ⚠️ all printed unit packages passed; failed only in `github.com/nekzad/namakdan/backend/internal/testperf` because `TestStartPostgresReturnsUsableDB` timed out waiting for Docker/Testcontainers.
 - `JWT_SECRET_KEY=local-dev-secret go test -run=^$ -bench='BenchmarkGuest(MenuByTableCode|OpenBillByTableCode|TableStatusByCode|CreateBillByTableCode|CreateOrder)$' -benchmem -count=1 -benchtime=50x ./internal/server/...` ✅ (last successful guest flow run before the post-create order reload removal)
 - `JWT_SECRET_KEY=local-dev-secret go test -run=^$ -bench='BenchmarkGuest(CreateOrder|CreateBillByTableCode)$' -benchmem -count=1 -benchtime=50x ./internal/server/...` ⚠️ blocked after code cleanup: Docker/Testcontainers became unresponsive; benchmark process was terminated after the test binary sat idle waiting on Docker.
 
@@ -1809,7 +1809,7 @@ consumer (the Slice 2 schedule builder) is not yet wired.
 
 Benchmark gate records (Apple M3, in-memory SQLite, `go test -benchmem -count=3`). These paths are new endpoints / new aggregates, so the measured run is the recorded baseline (no pre-change production path to diff against). Access-shape regression tests pin query shape; numbers live in plan task notes and `{SCRATCH}/perf-wave*.txt`.
 
-### Wave 3 Task 3 — `BenchmarkSubscriptionValueSummarySQLite` (`github.com/stdevmac/payverge/backend/internal/handlers`)
+### Wave 3 Task 3 — `BenchmarkSubscriptionValueSummarySQLite` (`github.com/nekzad/namakdan/backend/internal/handlers`)
 
 | Run | ns/op | B/op | allocs/op |
 |-----|------:|-----:|----------:|
@@ -1819,7 +1819,7 @@ Benchmark gate records (Apple M3, in-memory SQLite, `go test -benchmem -count=3`
 
 **Median / recorded baseline:** ~**1,003,175 ns/op**, **~187 KB/op**, **877 allocs/op**. Access-shape: ≤4 SELECTs, zero `SELECT *`.
 
-### Wave 3 Task 4 — `BenchmarkGetAiAttributedOrderValueSQLite` (`github.com/stdevmac/payverge/backend/internal/database`)
+### Wave 3 Task 4 — `BenchmarkGetAiAttributedOrderValueSQLite` (`github.com/nekzad/namakdan/backend/internal/database`)
 
 | Run | ns/op | B/op | allocs/op |
 |-----|------:|-----:|----------:|
@@ -1829,7 +1829,7 @@ Benchmark gate records (Apple M3, in-memory SQLite, `go test -benchmem -count=3`
 
 **Median / recorded baseline:** ~**423,875 ns/op**, **~7.1 KB/op**, **65 allocs/op**. Access-shape: 1 aggregate SELECT, zero `SELECT *`.
 
-### Wave 4 Task 18 — `BenchmarkGetTipsByStaff` (`github.com/stdevmac/payverge/backend/internal/analytics`)
+### Wave 4 Task 18 — `BenchmarkGetTipsByStaff` (`github.com/nekzad/namakdan/backend/internal/analytics`)
 
 | Run | ns/op | B/op | allocs/op |
 |-----|------:|-----:|----------:|
@@ -1839,7 +1839,7 @@ Benchmark gate records (Apple M3, in-memory SQLite, `go test -benchmem -count=3`
 
 **Median / recorded baseline:** ~**1,266,911 ns/op**, **~11.4 KB/op**, **266 allocs/op**. Single aggregate SELECT with `COALESCE(closed_by, created_by)` attribution.
 
-### Wave 4 Task 19 — `BenchmarkGetReservationGuestHistory` (`github.com/stdevmac/payverge/backend/internal/database`)
+### Wave 4 Task 19 — `BenchmarkGetReservationGuestHistory` (`github.com/nekzad/namakdan/backend/internal/database`)
 
 | Run | ns/op | B/op | allocs/op |
 |-----|------:|-----:|----------:|
@@ -1858,7 +1858,7 @@ revocation `Updates` maps only fire on revoke paths.
 
 Hardware: Apple M3 (`darwin/arm64`), `-benchmem -count=3`.
 
-### `BenchmarkRefreshTokenRotation` (`github.com/stdevmac/payverge/backend/internal/server`)
+### `BenchmarkRefreshTokenRotation` (`github.com/nekzad/namakdan/backend/internal/server`)
 
 | Phase | Run | ns/op | B/op | allocs/op |
 | --- | ---: | ---: | ---: | ---: |
@@ -2102,7 +2102,7 @@ Fixture: in-memory SQLite, single connection, absurdly high limits so the loop
 measures the success path only. Numbers recaptured on a quiet machine
 (prior first capture was load-contaminated: ~206k–305k ns/op with ~49% spread).
 
-### `BenchmarkReserveImageGeneration` (`github.com/stdevmac/payverge/backend/internal/database`)
+### `BenchmarkReserveImageGeneration` (`github.com/nekzad/namakdan/backend/internal/database`)
 
 | Run | ns/op | B/op | allocs/op |
 | ---: | ---: | ---: | ---: |

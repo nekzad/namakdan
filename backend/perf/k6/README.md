@@ -1,13 +1,13 @@
 # Capacity load harness
 
 This k6 package exercises the launch-critical D5 surfaces against an isolated
-Payverge stack: anonymous menus, authenticated operator reads, guest quotes and
+Namakdan stack: anonymous menus, authenticated operator reads, guest quotes and
 orders, callback validation, SSE, queue lag, and Go runtime telemetry.
 
 ## Safety boundary
 
 The default target is `http://127.0.0.1:8080`. Every Make target rejects a
-`payverge.io` hostname. Burst and soak profiles additionally require
+`example.test` hostname. Burst and soak profiles additionally require
 `PERF_EXTERNAL_CONFIRM=isolated-perf`; the five-times proof also requires the
 exact deployed `CANDIDATE_SHA`. Do not point these profiles at production or a
 shared staging database.
@@ -47,7 +47,7 @@ make smoke BASE_URL=http://127.0.0.1:8080
 ```
 
 The smoke lasts 20 seconds. It is the only profile intended for routine local
-execution. `build-k6` creates `/tmp/payverge-k6` with pinned xk6, k6, and
+execution. `build-k6` creates `/tmp/namakdan-k6` with pinned xk6, k6, and
 `xk6-sse` versions; the repository does not install a global binary.
 
 ## External-only profiles
@@ -80,17 +80,17 @@ for every request flow. It also gates dropped iterations, SSE event lag,
 goroutines, combined queue depth, and background-job lag. The canonical values
 and system ceilings live in `../capacity-contract.json`.
 
-Every run writes `/tmp/payverge-perf-results/capacity-summary.json` by default.
+Every run writes `/tmp/namakdan-perf-results/capacity-summary.json` by default.
 Set `RESULT_DIR` to retain it elsewhere. In parallel, capture host/container and
 PostgreSQL signals:
 
 ```bash
-OUTPUT_DIR=/tmp/payverge-perf-results \
+OUTPUT_DIR=/tmp/namakdan-perf-results \
 DURATION_SECONDS=3600 \
 bash ../observe/capture.sh
 
 bash ../observe/evaluate.sh \
-  /tmp/payverge-perf-results/capacity-observations.csv
+  /tmp/namakdan-perf-results/capacity-observations.csv
 ```
 
 The observation CSV contains CPU, memory, disk use, PostgreSQL connections,

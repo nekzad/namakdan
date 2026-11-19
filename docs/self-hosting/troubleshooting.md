@@ -15,7 +15,7 @@ More cases, with their fixes, are in
 
 **The installer stops with "the backend was not ready after 600s".** The first
 start downloads about 1 GB of images and runs the database setup. On a slow
-link, raise the limit with `PAYVERGE_READY_TIMEOUT=1200` and run the
+link, raise the limit with `NAMAKDAN_READY_TIMEOUT=1200` and run the
 installer again. Otherwise read `docker compose logs backend`.
 
 **The certificate is not issued.** DNS does not point at the server yet, port
@@ -24,7 +24,7 @@ switched on before the first certificate. See
 [install.md](install.md#dns) and [install.md](install.md#ports-and-firewall).
 
 **Port 80 or 443 is already in use.** Another web server owns them. Put
-Payverge behind it ([reverse-proxies.md](reverse-proxies.md)), or for a trial
+Namakdan behind it ([reverse-proxies.md](reverse-proxies.md)), or for a trial
 use `--http-port 8080 --https-port 8443`.
 
 ## The backend does not start
@@ -140,6 +140,6 @@ Stop the backend and frontend first: `docker compose stop backend frontend`.
 
 ## Asking for help
 
-When you open an issue, include the Payverge version (`PAYVERGE_VERSION`),
+When you open an issue, include the Namakdan version (`NAMAKDAN_VERSION`),
 `docker compose version`, `docker compose ps`, and the relevant log lines.
 Remove domains, emails and anything from `.env` first.

@@ -73,7 +73,7 @@ boots leave it alone (first row of the table).
 `admin reset-password`):
 
 - at least 12 characters, at most 72 bytes (the bcrypt limit);
-- not a known default such as `password123`, `adminadmin` or `payverge123`.
+- not a known default such as `password123`, `adminadmin` or `namakdan123`.
   The comparison ignores case and separators;
 - not containing a template placeholder such as `changeme`, `replaceme` or
   `yourpassword`;

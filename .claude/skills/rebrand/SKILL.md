@@ -1,11 +1,11 @@
 ---
 name: rebrand
-description: Give a Payverge instance or fork its own product name, logo, colour, contact addresses and domain, first through the backend's branding environment variables and then through the web app's built-in assets, metadata and message files. Use when someone wants to white-label, rename or rebrand Payverge, or must rebrand before offering a fork as a hosted service.
+description: Give a Namakdan instance or fork its own product name, logo, colour, contact addresses and domain, first through the backend's branding environment variables and then through the web app's built-in assets, metadata and message files. Use when someone wants to white-label, rename or rebrand Namakdan, or must rebrand before offering a fork as a hosted service.
 ---
 
-# Rebrand a Payverge instance
+# Rebrand a Namakdan instance
 
-"Payverge" and its logo and icons are trademarks. They are not licensed
+"Namakdan" and its logo and icons are trademarks. They are not licensed
 under Apache-2.0 beyond nominative use. Running your own copy for yourself is
 fine. **Offering a fork as a hosted service or a distributed product needs
 your own name and logo.** Read `TRADEMARKS.md` first and tell the operator
@@ -32,7 +32,7 @@ project reads:
 | Variable | Default | Meaning |
 |---|---|---|
 | `PUBLIC_URL` | none (required in production) | Canonical `https://` origin. QR links, email links, CORS and redirects all follow it. |
-| `PRODUCT_NAME` | `Payverge` | Product name |
+| `PRODUCT_NAME` | `Namakdan` | Product name |
 | `COMPANY_NAME` | `PRODUCT_NAME` | Who operates the service |
 | `LEGAL_ENTITY` | `COMPANY_NAME`, if set | Legal name in footers and terms |
 | `COMPANY_ADDRESS` | empty | Postal address in marketing-email footers |
@@ -56,11 +56,11 @@ sender name, logo and footer.
 These are code changes in a fork. Work on a branch, and stage files by
 explicit path. Never use `git add -A`.
 
-1. **Inventory first.** List every place that still says Payverge:
+1. **Inventory first.** List every place that still says Namakdan:
 
    ```bash
-   git grep -n -i "payverge" -- frontend/src frontend/public ':!*.test.*' ':!**/__tests__/**' | wc -l
-   git grep -l -i "payverge" -- frontend/src frontend/public ':!*.test.*' ':!**/__tests__/**'
+   git grep -n -i "namakdan" -- frontend/src frontend/public ':!*.test.*' ':!**/__tests__/**' | wc -l
+   git grep -l -i "namakdan" -- frontend/src frontend/public ':!*.test.*' ':!**/__tests__/**'
    ```
 
    Show the operator the counts by folder and agree on the scope before
@@ -68,7 +68,9 @@ explicit path. Never use `git add -A`.
 
 2. **Images.** Replace these files with the operator's own, keeping each
    file name and pixel size:
-   - `frontend/public/images/PayvergeLogo.*` and `frontend/public/images/logo.*`
+   - `frontend/public/images/namakdan-logo-light.svg`,
+     `frontend/public/images/namakdan-logo-dark.svg`,
+     `frontend/public/images/namakdan-mark.svg` and `logo.svg`
    - `frontend/public/favicon*`, `frontend/public/apple-touch-icon.png`,
      `frontend/public/android-chrome-*` and `frontend/public/maskable-icon-*`
 
@@ -104,7 +106,7 @@ explicit path. Never use `git add -A`.
 
 7. **Tests that pin copy.** Some tests assert metadata and public copy, for
    example the `*.metadata.test.ts` files next to the pages. Find them with
-   `git grep -l -i payverge -- 'frontend/src/**/*.test.*'`. Update their
+   `git grep -l -i namakdan -- 'frontend/src/**/*.test.*'`. Update their
    expectations in the same commit, and say so in the commit message.
 
 8. **Verify.** Run these from `frontend/`:
@@ -119,7 +121,7 @@ explicit path. Never use `git add -A`.
 
 9. **Ship.** Build and publish your own frontend image from
    `frontend/Dockerfile`. Then point the `frontend` service in your compose
-   file at that image instead of the upstream `ghcr.io/stdevmac/payverge-*`
+   file at that image instead of the upstream `ghcr.io/nekzad/namakdan-*`
    frontend image.
    Rebuild the backend image too if you changed anything under `backend/`.
 
@@ -129,12 +131,12 @@ explicit path. Never use `git add -A`.
   `deploy/.env.example`) to the new host.
 - Existing printed QR codes encode the old host. Tell the operator to
   reprint them, or to keep a redirect from the old host.
-- Upstream docs and tests keep `payverge.io` on purpose. Do not rewrite them
+- Upstream docs and tests keep `example.test` on purpose. Do not rewrite them
   as part of a rebrand.
 
 ## Do not
 
 - Remove `LICENSE`, `NOTICE` or copyright lines.
-- Imply that the Payverge authors endorse or operate the fork.
-- Name the fork, its domain or its app-store listing "Payverge" or anything
+- Imply that the Namakdan authors endorse or operate the fork.
+- Name the fork, its domain or its app-store listing "Namakdan" or anything
   confusingly similar.

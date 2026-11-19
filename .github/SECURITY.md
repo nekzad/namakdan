@@ -1,6 +1,6 @@
 # Security Policy
 
-Payverge processes payments and stores restaurant and guest data. We take
+Namakdan processes payments and stores restaurant and guest data. We take
 vulnerability reports seriously and appreciate the work that goes into them.
 
 ## Reporting a vulnerability
@@ -10,7 +10,7 @@ problem.**
 
 Report it privately through GitHub's private vulnerability reporting:
 
-**[Report a vulnerability](https://github.com/stdevMac/payverge/security/advisories/new)**
+**[Report a vulnerability](https://github.com/nekzad/namakdan/security/advisories/new)**
 (repository **Security** tab, then **Report a vulnerability**).
 
 This opens a private advisory that only you and the maintainers can see. We can
@@ -46,7 +46,7 @@ backports; upgrade to get the fix.
 
 ## Response targets
 
-Payverge is community-maintained and has no paid security team. These are
+Namakdan is community-maintained and has no paid security team. These are
 targets we work to, not contractual guarantees.
 
 | Stage | Target |
@@ -81,7 +81,7 @@ where it qualifies, a CVE requested through GitHub.
   allowed to run, or spending beyond the configured budget.
 - Deployment files shipped here (Compose files and reverse-proxy
   configuration) and the container images published from this repository.
-- `tools/payverge-admin-mcp`.
+- `tools/namakdan-admin-mcp`.
 
 Especially valuable: cross-tenant data access, authentication or permission
 bypass, settling a bill more than once or for the wrong amount, webhook forgery,
@@ -102,7 +102,7 @@ leaks of secrets or personal data, SSRF, injection, and remote code execution.
   actions.
 - Vulnerabilities in third-party services (payment providers, LLM providers,
   blockchain RPC endpoints, email providers). Report them to the vendor.
-- Known-vulnerable dependencies with no reachable path in Payverge. Dependabot
+- Known-vulnerable dependencies with no reachable path in Namakdan. Dependabot
   tracks these, and a regular pull request is welcome.
 - Builds with optional, non-default build tags (for example `-tags whatsapp`)
   when the issue is in the upstream library.
@@ -138,7 +138,7 @@ when you deploy.
   them to match your deployment, or every guest appears to come from the
   proxy's address.
 - **The admin MCP IP allowlist uses the client IP the backend sees.** That
-  allowlist (`PAYVERGE_ADMIN_MCP_ALLOWED_IPS`, loopback by default) is only as
+  allowlist (`NAMAKDAN_ADMIN_MCP_ALLOWED_IPS`, loopback by default) is only as
   reliable as your `TRUSTED_PROXIES` setting. Loopback is accepted only for
   direct local connections that carry no forwarding headers.
 - **You own the deployment's security.** That includes TLS, strong unique
@@ -166,5 +166,5 @@ when you deploy.
   add it to "Known limitations" in plain language, without exploit details or
   file:line references. Unfixed findings stay in private advisories until a
   fix ships.
-  Forks: replace stdevMac/payverge in the links above with your repository.
+  Forks: replace nekzad/namakdan in the links above with your repository.
 -->

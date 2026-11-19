@@ -1,6 +1,6 @@
 # Instance API
 
-`GET /api/v1/instance` describes this Payverge install: its brand and contacts,
+`GET /api/v1/instance` describes this Namakdan install: its brand and contacts,
 how sign-up works, and which optional integrations are configured.
 The frontend reads it on the server and in the browser to brand the UI and to
 hide features this install cannot serve.
@@ -8,7 +8,7 @@ hide features this install cannot serve.
 The endpoint is public and needs no login. The response holds display values
 and booleans only. It never includes keys, tokens, DSNs or third-party hosts.
 
-There is no OpenAPI spec for the Payverge API yet. This page is the reference
+There is no OpenAPI spec for the Namakdan API yet. This page is the reference
 for this endpoint. The handler is `backend/internal/server/instance_handler.go`.
 
 ## Request
@@ -50,7 +50,7 @@ GET /api/v1/instance
 
 | Field | Source | Notes |
 |---|---|---|
-| `product_name` | `PRODUCT_NAME` | Defaults to `Payverge`. |
+| `product_name` | `PRODUCT_NAME` | Defaults to `Namakdan`. |
 | `company_name` | `COMPANY_NAME` | Defaults to `product_name`. |
 | `legal_entity` | `LEGAL_ENTITY` | Defaults to `COMPANY_NAME` when that is set, otherwise empty. |
 | `logo_url` | `LOGO_URL` | An absolute http(s) URL or a root-relative path. An invalid value is ignored and reported as empty. The frontend's Content-Security-Policy only allows images from its own origin, the API origin and `MEDIA_ORIGINS`, so host the logo there (for example under `/media/`) or add its origin to `MEDIA_ORIGINS`. |

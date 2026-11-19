@@ -167,7 +167,7 @@ Allergen answers are safety-relevant, so the model is never their source.
   so those asks keep the refusal instead of guessing.
 
 The menu's allergen data is entered by the owner. The disclaimer exists
-because Payverge cannot check it.
+because Namakdan cannot check it.
 
 ## Alcohol
 
