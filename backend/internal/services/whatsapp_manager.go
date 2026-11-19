@@ -13,10 +13,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/guardrails"
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/guardrails"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/logger"
 
 	"go.mau.fi/whatsmeow"
 	"go.mau.fi/whatsmeow/proto/waE2E"
@@ -179,7 +179,7 @@ func NewWhatsAppManager(db *database.DB, aiService *AIService) (*WhatsAppManager
 	// WHATSAPP_STORE_NAME (B14); the default keeps existing deployments intact.
 	storeName := os.Getenv("WHATSAPP_STORE_NAME")
 	if storeName == "" {
-		storeName = "payverge_whatsapp_store"
+		storeName = "namakdan_whatsapp_store"
 	}
 	container, err := sqlstore.New(context.Background(), "postgres", storeName, waLog.Stdout("database", "DEBUG", true))
 	if err != nil {

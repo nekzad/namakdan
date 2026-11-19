@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/testperf"
+	"github.com/nekzad/namakdan/backend/internal/testperf"
 )
 
 // setupAIImageUsagePostgres pins GetDB() to a fresh testcontainer Postgres and

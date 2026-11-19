@@ -3,8 +3,8 @@ package handlers
 import (
 	"github.com/gin-gonic/gin"
 
-	"github.com/stdevmac/payverge/backend/internal/guestsession"
-	"github.com/stdevmac/payverge/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/guestsession"
+	"github.com/nekzad/namakdan/backend/internal/server"
 )
 
 // guestPayerSession returns the guest session fingerprint to stamp on a

@@ -3,7 +3,7 @@ package plugins
 import (
 	"net/url"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // Plugin represents a plugin interface that all plugins must implement

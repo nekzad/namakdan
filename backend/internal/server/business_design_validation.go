@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // The public page interpolates these values into a <style> tag and CSS

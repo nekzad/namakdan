@@ -6,8 +6,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 func TestWaitlistCreateSendsPendingNotConfirmation(t *testing.T) {

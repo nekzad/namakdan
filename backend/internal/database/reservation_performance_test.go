@@ -145,7 +145,7 @@ func TestGetReservationStatsUsesSingleAggregateQuery(t *testing.T) {
 	}).Error)
 
 	queryCount := 0
-	callbackName := "payverge:test_reservation_stats_query_counter"
+	callbackName := "namakdan:test_reservation_stats_query_counter"
 	require.NoError(t, db.Callback().Query().Before("gorm:query").Register(callbackName, func(tx *gorm.DB) {
 		queryCount++
 	}))

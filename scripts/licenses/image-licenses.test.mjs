@@ -41,7 +41,7 @@ test("both images copy LICENSES/ and declare the LGPL in their licence label", (
       assert.ok(read(image, "LICENSES", name).equals(read("LICENSES", name)), `${image}/LICENSES/${name} must be a byte-identical copy of LICENSES/${name}`);
     }
     const dockerfile = read(image, "Dockerfile").toString("utf8");
-    assert.match(dockerfile, /^COPY (--chown=\S+ )?LICENSES\/ \/usr\/share\/doc\/payverge\/LICENSES\/$/m, `${image}/Dockerfile must copy LICENSES/`);
+    assert.match(dockerfile, /^COPY (--chown=\S+ )?LICENSES\/ \/usr\/share\/doc\/namakdan\/LICENSES\/$/m, `${image}/Dockerfile must copy LICENSES/`);
     assert.match(dockerfile, /org\.opencontainers\.image\.licenses="Apache-2\.0 AND LGPL-3\.0-or-later"/, `${image}/Dockerfile licence label`);
   }
 });

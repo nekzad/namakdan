@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const LIB = path.join(HERE, "lib.sh");
-const work = mkdtempSync(path.join(tmpdir(), "payverge-licenses-lib-"));
+const work = mkdtempSync(path.join(tmpdir(), "namakdan-licenses-lib-"));
 after(() => rmSync(work, { recursive: true, force: true }));
 
 // Sources lib.sh and runs `script` with the given positional arguments.

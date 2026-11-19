@@ -9,8 +9,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	"github.com/stdevmac/payverge/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/server"
 )
 
 type TelegramWebhookProcessor interface {

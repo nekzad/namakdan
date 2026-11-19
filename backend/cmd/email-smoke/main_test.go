@@ -3,8 +3,8 @@ package main
 import (
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/emails"
 )
 
 func clearSmokeEnv(t *testing.T) {

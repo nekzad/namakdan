@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/services/director_actions"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/services/director_actions"
 )
 
 // ProposePriceChangeTool stages (dry-run only) a bulk/scoped price adjustment.

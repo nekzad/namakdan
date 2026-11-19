@@ -11,8 +11,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/server"
 )
 
 // TestGetTimeseriesReturnsZeroFilledBuckets verifies that a valid [from,to] range

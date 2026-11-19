@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // ErrInvalidDeliveryTransition is returned by UpdateDeliveryStatus when a write

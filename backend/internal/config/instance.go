@@ -2,12 +2,8 @@ package config
 
 // Instance identity for self-hosted deployments.
 //
-// This file is the single backend "brand-default" module: it is the only
-// non-test Go file allowed to carry the upstream brand domain literal
-// (scripts/check-hardcoded-domain.sh allowlists it). Everything else that
-// needs a public URL, a product name, or a contact address reads it through
-// the accessors below so an operator can rebrand an instance with env vars
-// alone and never ship links to the upstream project's domain.
+// Public URLs, product names and contact addresses come from the instance
+// environment so operators can rebrand without changing application code.
 //
 // Env contract (all optional outside production):
 //
@@ -16,7 +12,7 @@ package config
 //	                   host only. The CORS and redirect
 //	                   allow-list defaults trust exactly the PUBLIC_URL origin,
 //	                   never APP_BASE_URL and never an implicit www./apex twin.
-//	PRODUCT_NAME       display name (default "Payverge").
+//	PRODUCT_NAME       display name (default "Namakdan").
 //	COMPANY_NAME       operator company (default PRODUCT_NAME).
 //	LEGAL_ENTITY       legal entity for footers/terms (default COMPANY_NAME when set, else empty).
 //	SUPPORT_EMAIL      support contact (default empty: nothing is rendered).
@@ -40,8 +36,8 @@ import (
 
 const (
 	// DefaultProductName is the product name shown when PRODUCT_NAME is unset.
-	DefaultProductName = "Payverge"
-	// DefaultBrandColor is the upstream primary color (deep teal).
+	DefaultProductName = "Namakdan"
+	// DefaultBrandColor is the default deep teal brand color.
 	DefaultBrandColor = "#1a6b6a"
 	// DefaultDevPublicURL is the development fallback when no public URL env
 	// var is set. Production refuses to boot without one (ValidateInstance).
@@ -49,11 +45,6 @@ const (
 	// DefaultDevAPIBaseURL is the development fallback for the API origin.
 	DefaultDevAPIBaseURL = "http://localhost:8080"
 
-	// UpstreamDomain is the upstream project's domain. It is NEVER a runtime
-	// default for links, cookies, CORS, or redirects; tests use it to prove
-	// the upstream host is rejected. Demo photography is served from the
-	// instance's own storage (s3.PublicURL), not from an upstream bucket.
-	UpstreamDomain = "payverge.io"
 )
 
 // publicURLEnvKeys names the instance public URL env var. PUBLIC_URL is the
@@ -214,7 +205,7 @@ func NormalizePublicURL(raw string) (string, error) {
 	return scheme + "://" + strings.ToLower(u.Host), nil
 }
 
-// ProductName is the instance display name (PRODUCT_NAME, default "Payverge").
+// ProductName is the instance display name (PRODUCT_NAME, default "Namakdan").
 func ProductName() string {
 	if v := cleanDisplayValue(os.Getenv("PRODUCT_NAME"), 80); v != "" {
 		return v

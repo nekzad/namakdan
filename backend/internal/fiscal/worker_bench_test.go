@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

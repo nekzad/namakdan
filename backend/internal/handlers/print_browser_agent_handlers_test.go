@@ -13,7 +13,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func TestPrintJobHandlers_ClaimBrowserJob_CrossTenantDenial(t *testing.T) {

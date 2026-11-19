@@ -7,7 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/stdevmac/payverge/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/server"
 )
 
 // TestAuthMiddlewaresSetNoStore verifies the authenticated middlewares emit

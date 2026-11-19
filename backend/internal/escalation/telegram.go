@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/httpclientx"
+	"github.com/nekzad/namakdan/backend/internal/httpclientx"
 )
 
 // TelegramNotifier posts escalation messages to a DEDICATED support-escalation

@@ -3,7 +3,7 @@ package director_tools
 import (
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // plateCostForItem returns the dollars-per-plate cost for a menu item.

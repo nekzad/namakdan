@@ -10,11 +10,11 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/locales"
-	"github.com/stdevmac/payverge/backend/internal/s3"
-	marketingcampaign "github.com/stdevmac/payverge/backend/internal/services/marketing"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/locales"
+	"github.com/nekzad/namakdan/backend/internal/s3"
+	marketingcampaign "github.com/nekzad/namakdan/backend/internal/services/marketing"
 
 	"github.com/google/uuid"
 )
@@ -609,9 +609,9 @@ func buildMarketingCaptionPrompt(input MarketingCreativeBrief) (system, user str
 	if len(brief.MustInclude) == 0 {
 		mustIncludeHint = "No must_include phrases were supplied."
 	}
-	venueRule := "If business_name is present, you may name that venue. Never mention Payverge, demo lounges, or hashtags that start with #Payverge."
+	venueRule := "If business_name is present, you may name that venue. Never mention Namakdan, demo lounges, or hashtags that start with #Namakdan."
 	if strings.TrimSpace(brief.BusinessName) == "" {
-		venueRule = "Do not name the restaurant. Never mention Payverge, demo venues, or hashtags that start with #Payverge."
+		venueRule = "Do not name the restaurant. Never mention Namakdan, demo venues, or hashtags that start with #Namakdan."
 	}
 	system = fmt.Sprintf(`You are a social-media copywriter for restaurants. Write ONE short, factual caption for an Instagram/Facebook post.
 Write in the exact locale %s and use this exact regional register: %s. Do not silently substitute a base language or another regional variety.

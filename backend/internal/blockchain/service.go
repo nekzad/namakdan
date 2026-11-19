@@ -18,8 +18,8 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/txhash"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/txhash"
 )
 
 // usdcVerifyRPCTimeout bounds each on-chain receipt lookup. go-ethereum's
@@ -142,7 +142,7 @@ func resolveMinConfirmations(production bool) uint64 {
 
 // BlockchainService verifies inbound USDC transfers used by the live crypto
 // and cross-chain guest payment paths. The legacy custom-contract surface
-// (PayvergePayments and friends) was removed; this service no longer signs
+// (NamakdanPayments and friends) was removed; this service no longer signs
 // transactions or holds a contract address.
 type BlockchainService struct {
 	client           rpcClient

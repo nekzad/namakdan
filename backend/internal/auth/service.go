@@ -9,8 +9,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/verification"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/verification"
 
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
@@ -93,7 +93,7 @@ func dummyPasswordHash() string {
 	dummyPasswordOnce.Do(func() {
 		// A fixed 27-byte input at DefaultCost cannot fail; on the
 		// impossible error the compare runs against "" and still rejects.
-		hash, _ := bcrypt.GenerateFromPassword([]byte("payverge-login-timing-dummy"), bcrypt.DefaultCost)
+		hash, _ := bcrypt.GenerateFromPassword([]byte("namakdan-login-timing-dummy"), bcrypt.DefaultCost)
 		dummyPassword = string(hash)
 	})
 	return dummyPassword

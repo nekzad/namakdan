@@ -10,17 +10,17 @@ import { landedOnRequestedPage } from "./lib/navigation.js";
 import { chooseTargetTab } from "./lib/targetTab.js";
 import { shots as ALL_SHOTS, defaults } from "./shots.js";
 
-const LOG = "[payverge-shots]";
+const LOG = "[namakdan-shots]";
 
 // Service-worker consoles are invisible outside DevTools, so surface crashes
-// and the last run's outcome as tiny files under payverge-shots/debug/. This
+// and the last run's outcome as tiny files under namakdan-shots/debug/. This
 // is how skip/error reasons stay diagnosable after the popup has closed.
 function debugBeacon(name, text) {
   try {
     chrome.downloads
       .download({
         url: "data:text/plain;charset=utf-8," + encodeURIComponent(text || name),
-        filename: `payverge-shots/debug/${name}.txt`,
+        filename: `namakdan-shots/debug/${name}.txt`,
         saveAs: false,
         conflictAction: "overwrite",
       })
@@ -140,7 +140,7 @@ async function waitForReady(tabId, shot) {
 // Shape mirrors frontend/src/lib/analytics/consentGate.ts.
 function seedConsentDecline() {
   try {
-    const KEY = "payverge_cookie_consent";
+    const KEY = "namakdan_cookie_consent";
     if (!localStorage.getItem(KEY)) {
       localStorage.setItem(
         KEY,
@@ -159,8 +159,8 @@ function seedConsentDecline() {
 }
 
 // Injected into the page to resolve the business's storefront slug + a live
-// table code. Runs in the PAGE context (payverge.io) so the request is
-// same-site to api.payverge.io and the SameSite=Lax session cookie is sent — a
+// table code. Runs in the PAGE context (example.test) so the request is
+// same-site to api.example.test and the SameSite=Lax session cookie is sent — a
 // background fetch is cross-site and would be unauthenticated. Self-contained.
 async function resolveInPage(apiBase, businessId, needCustomUrl, needTable) {
   const out = {};

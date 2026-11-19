@@ -9,7 +9,7 @@ import (
 // BusinessKind classifies a business for the admin registry and ops surfaces.
 // real  — production signups
 // demo  — Demo Center seeder output (is_demo=true)
-// test  — CI / local fixtures (@payverge.test, @payverge.local, etc.)
+// test  — CI / local fixtures (@example.test, @example.test, etc.)
 type BusinessKind string
 
 const (
@@ -156,7 +156,7 @@ func ListBusinessesForAdmin(filter AdminBusinessFilter) ([]Business, int64, erro
 }
 
 // Business lock denial codes. A business the server administrator suspended
-// (is_active=false) or closed (closed_at) is the only lock Payverge has;
+// (is_active=false) or closed (closed_at) is the only lock Namakdan has;
 // every operator surface reports it with one of these codes.
 const (
 	BusinessLockCodeSuspended = "business_suspended"

@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/services"
 
 	sentry "github.com/getsentry/sentry-go"
 	"github.com/prometheus/client_golang/prometheus/testutil"
@@ -96,7 +96,7 @@ func TestReserveGenerateRefundImage_AlertsOnRealReservation(t *testing.T) {
 		business,
 		func() (*services.GeneratedImage, error) {
 			return &services.GeneratedImage{
-				URL: "https://images.payverge.io/x.png", MIMEType: "image/png",
+				URL: "https://images.example.test/x.png", MIMEType: "image/png",
 			}, nil
 		},
 	)
@@ -129,7 +129,7 @@ func TestReserveGenerateRefundImage_DoesNotAlertWhenTheCrossingFails(t *testing.
 		business,
 		func() (*services.GeneratedImage, error) {
 			return &services.GeneratedImage{
-				URL: "https://images.payverge.io/x.png", MIMEType: "image/png",
+				URL: "https://images.example.test/x.png", MIMEType: "image/png",
 			}, nil
 		},
 	)

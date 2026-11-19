@@ -13,10 +13,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	"github.com/stdevmac/payverge/backend/internal/plugins/stripe"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/plugins/stripe"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 func TestStripeConnectDeauth_MarksOAuthBusinessReauthRequired(t *testing.T) {
@@ -59,7 +59,7 @@ func TestStripeConnectDeauth_MarksOAuthBusinessReauthRequired(t *testing.T) {
 		"data": map[string]interface{}{
 			"object": map[string]interface{}{
 				"id":   "ca_app",
-				"name": "Payverge",
+				"name": "Namakdan",
 			},
 		},
 	})
@@ -243,7 +243,7 @@ func TestStripeOAuthCallback_ThenConnectDeauth_PlatformSecret(t *testing.T) {
 		BaseTokenURL: tokenServer.URL, HTTPClient: tokenServer.Client(),
 	}
 	h := NewStripeOAuthHandlers(services.NewPluginService(database.GetDBWrapper()), client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 	state := "state-e2e-migrate"
 	h.stateStore.Put(state, stripeOAuthState{
 		businessID: business.ID, expiresAt: time.Now().Add(time.Minute),
@@ -339,7 +339,7 @@ func TestStripeConnectDeauth_AfterManualToOAuthMerge_UsesPlatformSecret(t *testi
 		"type":    "account.application.deauthorized",
 		"account": "acct_migrated_from_manual",
 		"data": map[string]interface{}{
-			"object": map[string]interface{}{"id": "ca_app", "name": "Payverge"},
+			"object": map[string]interface{}{"id": "ca_app", "name": "Namakdan"},
 		},
 	})
 	require.NoError(t, err)

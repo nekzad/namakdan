@@ -13,7 +13,7 @@ import (
 func contractEvent(action, provider, testCase string) string {
 	event := map[string]string{
 		"Action":  action,
-		"Package": "github.com/stdevmac/payverge/backend/internal/handlers",
+		"Package": "github.com/nekzad/namakdan/backend/internal/handlers",
 		"Test":    fmt.Sprintf("TestProductionPaymentProviderContract/%s/signature/%s", provider, testCase),
 	}
 	encoded, _ := json.Marshal(event)
@@ -26,7 +26,7 @@ func completeExecutableEvents() []byte {
 		for _, testCase := range ExecutableCases {
 			event := map[string]string{
 				"Action":  "pass",
-				"Package": "github.com/stdevmac/payverge/backend/internal/handlers",
+				"Package": "github.com/nekzad/namakdan/backend/internal/handlers",
 				"Test":    fmt.Sprintf("TestProductionPaymentProviderContract/%s/%s", provider, testCase.ID),
 			}
 			encoded, _ := json.Marshal(event)
@@ -58,7 +58,7 @@ func TestBuildHermeticProofReportsCompleteExecutableMatrix(t *testing.T) {
 
 func TestBuildHermeticProofIgnoresPassingParentTestEvents(t *testing.T) {
 	input := append([]byte(nil), completeExecutableEvents()...)
-	input = append(input, []byte(`{"Action":"pass","Package":"github.com/stdevmac/payverge/backend/internal/handlers","Test":"TestProductionPaymentProviderContract/paypal/signature"}`+"\n")...)
+	input = append(input, []byte(`{"Action":"pass","Package":"github.com/nekzad/namakdan/backend/internal/handlers","Test":"TestProductionPaymentProviderContract/paypal/signature"}`+"\n")...)
 
 	_, err := BuildHermeticProof(bytes.NewReader(input), "0123456789abcdef0123456789abcdef01234567", time.Now().UTC())
 	require.NoError(t, err)
@@ -95,7 +95,7 @@ func TestBuildHermeticProofRejectsInvalidSourceSHA(t *testing.T) {
 func TestBuildHermeticProofRejectsContractEventsFromAnotherPackage(t *testing.T) {
 	input := bytes.Replace(
 		completeExecutableEvents(),
-		[]byte(`"Package":"github.com/stdevmac/payverge/backend/internal/handlers"`),
+		[]byte(`"Package":"github.com/nekzad/namakdan/backend/internal/handlers"`),
 		[]byte(`"Package":"example.invalid/handlers"`),
 		1,
 	)

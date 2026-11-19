@@ -81,8 +81,8 @@ func sendSentrySynthetic(ctx context.Context, client *http.Client, rawDSN string
 		Timestamp:   now.UTC().Format(time.RFC3339Nano),
 		Platform:    "other",
 		Level:       "info",
-		Logger:      "payverge.synthetic",
-		Message:     "Payverge production synthetic event",
+		Logger:      "namakdan.synthetic",
+		Message:     "Namakdan production synthetic event",
 		Environment: "production",
 		Tags: map[string]string{
 			"synthetic": "true",
@@ -100,8 +100,8 @@ func sendSentrySynthetic(ctx context.Context, client *http.Client, rawDSN string
 		return "", fmt.Errorf("create Sentry request: %w", err)
 	}
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("User-Agent", "payverge-production-synthetic/1.0")
-	req.Header.Set("X-Sentry-Auth", fmt.Sprintf("Sentry sentry_version=7, sentry_client=payverge-production-synthetic/1.0, sentry_key=%s", publicKey))
+	req.Header.Set("User-Agent", "namakdan-production-synthetic/1.0")
+	req.Header.Set("X-Sentry-Auth", fmt.Sprintf("Sentry sentry_version=7, sentry_client=namakdan-production-synthetic/1.0, sentry_key=%s", publicKey))
 
 	resp, err := client.Do(req)
 	if err != nil {

@@ -3,7 +3,7 @@ package ar
 import (
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/fiscal"
+	"github.com/nekzad/namakdan/backend/internal/fiscal"
 )
 
 // TestVATAlicuotaID locks F-ALICUOTA: the WSFE IVA alícuota id is DERIVED from the

@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // #902: the Director's only clock was generated_at in UTC, next to a bare IANA

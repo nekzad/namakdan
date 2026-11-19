@@ -13,7 +13,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/s3"
+	"github.com/nekzad/namakdan/backend/internal/s3"
 
 	"github.com/stretchr/testify/require"
 )
@@ -47,7 +47,7 @@ func TestValidateGeneratedImageDelivery(t *testing.T) {
 				return body, tc.contentType, nil
 			}
 			image := &GeneratedImage{
-				URL:      "https://images.payverge.io/menu_items/ai_generated/dish",
+				URL:      "https://images.example.test/menu_items/ai_generated/dish",
 				MIMEType: tc.contentType,
 			}
 			err := validateGeneratedImageDelivery(context.Background(), image, fetch)
@@ -195,7 +195,7 @@ func validateDeliveredBytes(t *testing.T, mime string, data []byte) error {
 	t.Helper()
 	return validateGeneratedImageDelivery(
 		context.Background(),
-		&GeneratedImage{URL: "https://images.payverge.io/menu_items/ai_generated/dish", MIMEType: mime},
+		&GeneratedImage{URL: "https://images.example.test/menu_items/ai_generated/dish", MIMEType: mime},
 		func(context.Context, string) ([]byte, string, error) {
 			return bytes.Clone(data), mime, nil
 		},
@@ -207,7 +207,7 @@ func TestValidateGeneratedImageDeliveryRejectsNonCanonicalHost(t *testing.T) {
 		context.Background(),
 		&GeneratedImage{URL: "https://attacker.example/dish.png", MIMEType: "image/png"},
 		func(_ context.Context, rawURL string) ([]byte, string, error) {
-			if err := s3.ValidatePublicAssetURL(rawURL, "images.payverge.io"); err != nil {
+			if err := s3.ValidatePublicAssetURL(rawURL, "images.example.test"); err != nil {
 				return nil, "", err
 			}
 			return nil, "", errors.New("unexpected fetch")

@@ -1,4 +1,4 @@
-# Payverge on Render -- Blueprint.
+# Namakdan on Render -- Blueprint.
 #
 # STATUS: untested on Render. Written against https://render.com/docs/blueprint-spec
 # and checked offline for structure only. Read the Render section of
@@ -11,13 +11,13 @@
 # /media/* to a private backend service over Render's private network, so the
 # whole app lives on one origin. Postgres is a Render database; uploads live
 # on a disk attached to the backend. Disks need a paid plan and pin a service
-# to one instance -- which Payverge needs anyway (in-memory rate limits,
+# to one instance -- which Namakdan needs anyway (in-memory rate limits,
 # wallet challenges and SSE hubs).
 
 databases:
-  - name: payverge-db
-    databaseName: payverge
-    user: payverge
+  - name: namakdan-db
+    databaseName: namakdan
+    user: namakdan
     plan: basic-256mb
     # The backend refuses any other major than its genesis baseline (18).
     postgresMajorVersion: "18"
@@ -25,13 +25,13 @@ databases:
 
 services:
   - type: pserv
-    name: payverge-backend
+    name: namakdan-backend
     runtime: image
     # A release tag, never latest: a redeploy must not move the backend to a
     # newer release (and schema) than the frontend. release-please bumps it.
     image:
       # x-release-please-start-version
-      url: ghcr.io/stdevmac/payverge-backend:1.0.2
+      url: ghcr.io/nekzad/namakdan-backend:1.0.2
       # x-release-please-end
     plan: starter
     numInstances: 1
@@ -39,7 +39,7 @@ services:
     # database location from the DB_* variables below when no --db-* flag is
     # given, and production mode from APP_ENV.
     disk:
-      name: payverge-storage
+      name: namakdan-storage
       mountPath: /data/storage
       sizeGB: 5
     envVars:
@@ -47,29 +47,29 @@ services:
         value: production
       - key: PORT
         value: "8080"
-      # The public origin: https://payverge-frontend-xxxx.onrender.com or your
+      # The public origin: https://your-service.onrender.com or your
       # custom domain. Must match the frontend's PUBLIC_URL exactly.
       - key: PUBLIC_URL
         sync: false
       - key: DB_PASSWORD
         fromDatabase:
-          name: payverge-db
+          name: namakdan-db
           property: password
       - key: DB_HOST
         fromDatabase:
-          name: payverge-db
+          name: namakdan-db
           property: host
       - key: DB_PORT
         fromDatabase:
-          name: payverge-db
+          name: namakdan-db
           property: port
       - key: DB_USER
         fromDatabase:
-          name: payverge-db
+          name: namakdan-db
           property: user
       - key: DB_NAME
         fromDatabase:
-          name: payverge-db
+          name: namakdan-db
           property: database
       # Render's internal connections are on its private network; the
       # server's default (require) would refuse them if TLS is not offered.
@@ -111,11 +111,11 @@ services:
         sync: false
 
   - type: web
-    name: payverge-frontend
+    name: namakdan-frontend
     runtime: image
     image:
       # x-release-please-start-version
-      url: ghcr.io/stdevmac/payverge-frontend:1.0.2
+      url: ghcr.io/nekzad/namakdan-frontend:1.0.2
       # x-release-please-end
     plan: starter
     numInstances: 1
@@ -131,7 +131,7 @@ services:
       - key: BACKEND_HOSTPORT
         fromService:
           type: pserv
-          name: payverge-backend
+          name: namakdan-backend
           property: hostport
       # Render's router reaches the web service over its private 10.x network;
       # trusting it keeps the client's X-Forwarded-For chain so the backend

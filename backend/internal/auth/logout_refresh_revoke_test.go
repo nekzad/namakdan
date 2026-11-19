@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/session"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"

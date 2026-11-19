@@ -9,10 +9,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/session"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 
 	"github.com/golang-jwt/jwt/v4"
 )

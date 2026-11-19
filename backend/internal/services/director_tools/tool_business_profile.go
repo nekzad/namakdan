@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 // BusinessProfileTool returns the calling business's identity fields —

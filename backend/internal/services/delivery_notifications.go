@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // publicSiteBaseURL returns the frontend origin used in guest-facing links

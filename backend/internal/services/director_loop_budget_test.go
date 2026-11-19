@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/services/director_tools"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/services/director_tools"
 
 	"github.com/stretchr/testify/require"
 )

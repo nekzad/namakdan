@@ -11,18 +11,18 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func TestGetBusinessByCustomURLProductionLikePayloadSize(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	setupPublicStorefrontAccessDB(t, nil)
 
-	business := createPublicBusinessRouteTestBusiness(t, "payverge-core-demo-kitchen", true, true)
+	business := createPublicBusinessRouteTestBusiness(t, "namakdan-core-demo-kitchen", true, true)
 	require.NoError(t, database.GetDB().Model(business).Updates(map[string]interface{}{
 		"is_demo":     true,
 		"kind":        database.BusinessKindDemo,
-		"description": "A Payverge showcase restaurant with realistic operational demo data.",
+		"description": "A Namakdan showcase restaurant with realistic operational demo data.",
 	}).Error)
 
 	for i := 0; i < 3; i++ {

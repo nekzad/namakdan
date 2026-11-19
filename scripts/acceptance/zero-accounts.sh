@@ -29,7 +29,7 @@ usage() {
   cat <<'EOF'
 Options:
   --keep               do not tear the stack down at the end
-  --no-build           reuse existing payverge-*:oss-accept images
+  --no-build           reuse existing namakdan-*:oss-accept images
   --project NAME       compose project name (default oss-acceptance-<pid>)
   --target URL         skip compose; test the backend at URL (API steps only).
                        Needs ADMIN_EMAIL and ADMIN_PASSWORD in the environment.
@@ -60,7 +60,7 @@ for tool in curl jq openssl; do
   command -v "$tool" >/dev/null || { echo "FAIL: $tool is required" >&2; exit 2; }
 done
 
-WORK="$(mktemp -d "${TMPDIR:-/tmp}/payverge-acceptance.XXXXXX")"
+WORK="$(mktemp -d "${TMPDIR:-/tmp}/namakdan-acceptance.XXXXXX")"
 STEP="setup"
 SSE_PID=""
 
@@ -173,7 +173,7 @@ ADMIN_PASSWORD=$ADMIN_PASSWORD
 DB_PASSWORD=$(openssl rand -hex 24)
 JWT_SECRET_KEY=$(openssl rand -base64 48 | tr -d "\n")
 PLUGIN_SECRET_KEY=$(openssl rand -hex 32)
-PAYVERGE_VERSION=oss-accept
+NAMAKDAN_VERSION=oss-accept
 COMPOSE_PROFILES=
 EMAIL_PROVIDER=log
 # Not the default 172.30.0.0/24: a stack already running on this host has it.
@@ -364,10 +364,10 @@ if [[ -z "$TARGET" ]]; then
   for page in /dashboard /staff/login "/t/$CODE"; do
     code="$("${CURL[@]}" -o "$WORK/page.html" -w '%{http_code}' "$BASE$page")" || fail "GET $page failed"
     [[ "$code" == 200 ]] || fail "GET $page: HTTP $code"
-    grep -q 'window.__PAYVERGE_ENV__' "$WORK/page.html" || fail "GET $page: window.__PAYVERGE_ENV__ missing"
+    grep -q 'window.__NAMAKDAN_ENV__' "$WORK/page.html" || fail "GET $page: window.__NAMAKDAN_ENV__ missing"
     grep -q "https://localhost:$HTTPS_PORT" "$WORK/page.html" || fail "GET $page: PUBLIC_URL not in the runtime config"
-    if grep -qi 'payverge\.io' "$WORK/page.html"; then
-      fail "GET $page: HTML mentions payverge.io: $(grep -oi '.\{40\}payverge\.io.\{40\}' "$WORK/page.html" | head -3)"
+    if grep -qi 'namakdan\.io' "$WORK/page.html"; then
+      fail "GET $page: HTML mentions example.test: $(grep -oi '.\{40\}namakdan\.io.\{40\}' "$WORK/page.html" | head -3)"
     fi
     log "GET $page 200"
   done

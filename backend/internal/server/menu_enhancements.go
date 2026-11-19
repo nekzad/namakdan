@@ -11,9 +11,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -899,8 +899,8 @@ var allowedMenuImageOfferScopes = map[string]struct{}{
 	"all":      {},
 }
 
-// payvergeImageCurrencies is the closed ISO-4217 set Payverge seeds by default.
-var payvergeImageCurrencies = map[string]struct{}{
+// namakdanImageCurrencies is the closed ISO-4217 set Namakdan seeds by default.
+var namakdanImageCurrencies = map[string]struct{}{
 	"USD": {}, "EUR": {}, "GBP": {}, "JPY": {}, "AUD": {}, "CAD": {}, "CHF": {},
 	"CNY": {}, "ARS": {}, "AED": {}, "BRL": {}, "MXN": {}, "INR": {}, "KRW": {},
 	"SGD": {}, "HKD": {}, "NOK": {}, "SEK": {}, "DKK": {}, "PLN": {}, "CLP": {},
@@ -973,7 +973,7 @@ func normalizeGenerateImageRequest(req GenerateImageRequest) (services.MenuImage
 		if len(currency) != 3 {
 			return services.MenuImagePrompt{}, fmt.Errorf("currency must be a 3-letter ISO code")
 		}
-		if _, ok := payvergeImageCurrencies[currency]; !ok {
+		if _, ok := namakdanImageCurrencies[currency]; !ok {
 			return services.MenuImagePrompt{}, fmt.Errorf("unsupported currency %q", currency)
 		}
 	}

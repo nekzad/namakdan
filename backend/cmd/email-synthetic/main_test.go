@@ -20,7 +20,7 @@ func setBaseSyntheticEnv(t *testing.T) {
 	t.Setenv("SMTP_PASSWORD", "")
 	t.Setenv("SMTP_FROM", "")
 	t.Setenv("SMTP_TLS", "")
-	t.Setenv("FROM_EMAIL", "noreply@payverge.io")
+	t.Setenv("FROM_EMAIL", "noreply@example.test")
 	t.Setenv("EMAIL_SYNTHETIC_MODE", "provider")
 	t.Setenv("EMAIL_SYNTHETIC_RECIPIENT", "seed@example.com")
 	t.Setenv("EMAIL_SYNTHETIC_GMAIL_RECIPIENT", "")

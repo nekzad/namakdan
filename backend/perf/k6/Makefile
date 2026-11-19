@@ -1,7 +1,7 @@
 BASE_URL ?= http://127.0.0.1:8080
-RESULT_DIR ?= /tmp/payverge-perf-results
+RESULT_DIR ?= /tmp/namakdan-perf-results
 SUMMARY_PATH := $(RESULT_DIR)/capacity-summary.json
-K6_BIN ?= /tmp/payverge-k6
+K6_BIN ?= /tmp/namakdan-k6
 
 .PHONY: build-k6 smoke capacity burst soak_1h candidate_5x guard-local guard-external
 
@@ -10,7 +10,7 @@ build-k6: ## Build the pinned k6 binary with real SSE support.
 
 guard-local:
 	@case "$(BASE_URL)" in \
-	  *payverge.io*) echo "Refusing Payverge staging/production load target: $(BASE_URL)"; exit 1 ;; \
+	  *example.test*) echo "Refusing Namakdan staging/production load target: $(BASE_URL)"; exit 1 ;; \
 	  *) ;; \
 	esac
 	@mkdir -p "$(RESULT_DIR)"

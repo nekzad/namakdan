@@ -1,6 +1,6 @@
 package server
 
-import "github.com/stdevmac/payverge/backend/internal/services"
+import "github.com/nekzad/namakdan/backend/internal/services"
 
 var whatsAppManager *services.WhatsAppManager
 

@@ -7,11 +7,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/emails"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/schedclaim"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/schedclaim"
 )
 
 // LifecycleScheduler manages business lifecycle email campaigns

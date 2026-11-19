@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // Canonical allergen IDs — must match frontend/src/constants/menu-tags.ts ALLERGENS.

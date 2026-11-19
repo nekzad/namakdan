@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // houseRailDrawer mirrors what cashregister.ensureDemoHouseCashSessionTx

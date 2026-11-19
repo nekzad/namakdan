@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // Finding 35: public CustomURL must never embed admin user id or plan-tier
@@ -87,7 +87,7 @@ func TestIsReservedPublicSlug(t *testing.T) {
 	for _, s := range []string{"admin", "api", "demo", "b", "internal", "demo-foo", "admin-1", "b-x", "API", "Demo-Lounge"} {
 		require.True(t, database.IsReservedPublicSlug(s), s)
 	}
-	for _, s := range []string{"payverge-core-demo-kitchen", "my-restaurant", "aurora", "demoed", "cab"} {
+	for _, s := range []string{"namakdan-core-demo-kitchen", "my-restaurant", "aurora", "demoed", "cab"} {
 		require.False(t, database.IsReservedPublicSlug(s), s)
 	}
 }
@@ -147,7 +147,7 @@ func TestLegacyAdminKeySlugIsRewrittenOnEnsure(t *testing.T) {
 	bid := fmt.Sprintf("demo-admin-%d-secondary", admin.ID)
 	require.NoError(t, db.Create(&database.Business{
 		BusinessId:      bid,
-		Name:            "Payverge AI Pro Demo Lounge",
+		Name:            "Namakdan AI Pro Demo Lounge",
 		CustomURL:       legacy,
 		IsActive:        true,
 		IsDemo:          true,

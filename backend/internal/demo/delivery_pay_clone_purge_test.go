@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // #855: the pay-online delivery fixture expires after 15 minutes, so EVERY

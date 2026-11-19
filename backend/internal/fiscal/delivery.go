@@ -8,8 +8,8 @@ import (
 	"github.com/go-pdf/fpdf"
 	"github.com/skip2/go-qrcode"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/fiscal/display"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/fiscal/display"
 )
 
 // RenderAFIPQRPNG encodes the AFIP QR payload URL (receipt.QRPayload) to a PNG.
@@ -258,7 +258,7 @@ func writeMoneyRow(pdf *fpdf.Fpdf, tr func(string) string, width float64, label 
 // block ("Régimen de Transparencia Fiscal al Consumidor", Ley 27.743) required
 // on B-type documents issued to final consumers — mandatory for all
 // Responsables Inscriptos since 2025-04-01. vatCents is the IVA contained in
-// the (VAT-inclusive) total. Payverge does not itemize other national indirect
+// the (VAT-inclusive) total. Namakdan does not itemize other national indirect
 // taxes on restaurant bills, so that line legally discloses ARS 0,00.
 func writeTransparencyLegend(pdf *fpdf.Fpdf, tr func(string) string, width float64, vatCents int64) {
 	pdf.SetFont("Helvetica", "B", 9)

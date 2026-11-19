@@ -19,7 +19,7 @@ func hasValidationError(errors []ValidationError, field string) bool {
 func TestValidateConfig_RequiresJWTSecretKey(t *testing.T) {
 	t.Setenv("JWT_SECRET_KEY", "")
 
-	errors := ValidateConfig("localhost", "user", "password", "payverge", false)
+	errors := ValidateConfig("localhost", "user", "password", "namakdan", false)
 
 	assert.True(t, hasValidationError(errors, "JWT_SECRET_KEY"))
 }
@@ -27,7 +27,7 @@ func TestValidateConfig_RequiresJWTSecretKey(t *testing.T) {
 func TestValidateConfig_RejectsShortJWTSecretKey(t *testing.T) {
 	t.Setenv("JWT_SECRET_KEY", "short-secret")
 
-	errors := ValidateConfig("localhost", "user", "password", "payverge", false)
+	errors := ValidateConfig("localhost", "user", "password", "namakdan", false)
 
 	assert.True(t, hasValidationError(errors, "JWT_SECRET_KEY"))
 }
@@ -35,7 +35,7 @@ func TestValidateConfig_RejectsShortJWTSecretKey(t *testing.T) {
 func TestValidateConfig_AcceptsStrongJWTSecretKey(t *testing.T) {
 	t.Setenv("JWT_SECRET_KEY", "0123456789abcdefghijklmnopqrstuv")
 
-	errors := ValidateConfig("localhost", "user", "password", "payverge", false)
+	errors := ValidateConfig("localhost", "user", "password", "namakdan", false)
 
 	assert.False(t, hasValidationError(errors, "JWT_SECRET_KEY"))
 }
@@ -44,7 +44,7 @@ func TestValidateConfig_RejectsKnownDatabasePasswordDefaultInProduction(t *testi
 	t.Setenv("JWT_SECRET_KEY", "an-acceptably-long-production-jwt-secret-key-value")
 	t.Setenv("PLUGIN_SECRET_KEY", "0123456789abcdef0123456789abcdef")
 
-	errors := ValidateConfig("postgres", "payverge", "payverge_password", "payverge", true)
+	errors := ValidateConfig("postgres", "namakdan", "namakdan_password", "namakdan", true)
 
 	assert.True(t, hasValidationError(errors, "db-password"))
 }
@@ -55,7 +55,7 @@ func TestValidateConfig_AllowsDatabasePasswordDefaultOutsideProduction(t *testin
 	t.Setenv("ENV", "development")
 	t.Setenv("APP_ENV", "")
 
-	errors := ValidateConfig("postgres", "payverge", "payverge_password", "payverge", false)
+	errors := ValidateConfig("postgres", "namakdan", "namakdan_password", "namakdan", false)
 
 	assert.False(t, hasValidationError(errors, "db-password"))
 }
@@ -95,7 +95,7 @@ func TestValidateConfig_AcceptsBase64PluginSecretKeyInProduction(t *testing.T) {
 	t.Setenv("JWT_SECRET_KEY", "0123456789abcdefghijklmnopqrstuv")
 	t.Setenv("PLUGIN_SECRET_KEY", base64.StdEncoding.EncodeToString([]byte(unitPluginKeyRaw)))
 
-	errors := ValidateConfig("localhost", "user", "password", "payverge", true)
+	errors := ValidateConfig("localhost", "user", "password", "namakdan", true)
 
 	assert.False(t, hasValidationError(errors, "PLUGIN_SECRET_KEY"))
 }
@@ -106,26 +106,26 @@ func TestValidateConfig_RejectsMalformedPluginSecretKeyInProduction(t *testing.T
 	t.Setenv("JWT_SECRET_KEY", "0123456789abcdefghijklmnopqrstuv")
 	t.Setenv("PLUGIN_SECRET_KEY", "too-short")
 
-	errors := ValidateConfig("localhost", "user", "password", "payverge", true)
+	errors := ValidateConfig("localhost", "user", "password", "namakdan", true)
 
 	assert.True(t, hasValidationError(errors, "PLUGIN_SECRET_KEY"))
 }
 
 func TestValidateConfig_RejectsKnownDevJWTSecretInProduction(t *testing.T) {
-	t.Setenv("JWT_SECRET_KEY", "payverge_local_dev_jwt_secret_2026")
+	t.Setenv("JWT_SECRET_KEY", "namakdan_local_dev_jwt_secret_2026")
 	t.Setenv("ENV", "production")
 
-	errors := ValidateConfig("localhost", "user", "password", "payverge", false)
+	errors := ValidateConfig("localhost", "user", "password", "namakdan", false)
 
 	assert.True(t, hasValidationError(errors, "JWT_SECRET_KEY"))
 }
 
 func TestValidateConfig_AllowsKnownDevJWTSecretOutsideProduction(t *testing.T) {
-	t.Setenv("JWT_SECRET_KEY", "payverge_local_dev_jwt_secret_2026")
+	t.Setenv("JWT_SECRET_KEY", "namakdan_local_dev_jwt_secret_2026")
 	t.Setenv("ENV", "development")
 	t.Setenv("APP_ENV", "")
 
-	errors := ValidateConfig("localhost", "user", "password", "payverge", false)
+	errors := ValidateConfig("localhost", "user", "password", "namakdan", false)
 
 	assert.False(t, hasValidationError(errors, "JWT_SECRET_KEY"))
 }
@@ -135,7 +135,7 @@ func TestValidateConfig_RejectsExamplePlaceholderJWTSecretInProduction(t *testin
 	t.Setenv("ENV", "production")
 	t.Setenv("APP_ENV", "")
 
-	errors := ValidateConfig("localhost", "user", "password", "payverge", false)
+	errors := ValidateConfig("localhost", "user", "password", "namakdan", false)
 
 	assert.True(t, hasValidationError(errors, "JWT_SECRET_KEY"))
 }
@@ -144,7 +144,7 @@ func TestValidateConfig_RejectsExamplePlaceholderJWTSecretWithFlagInProduction(t
 	t.Setenv("JWT_SECRET_KEY", "replace_with_at_least_32_random_characters_1234567890")
 	t.Setenv("ENV", "development")
 
-	errors := ValidateConfig("localhost", "user", "password", "payverge", true)
+	errors := ValidateConfig("localhost", "user", "password", "namakdan", true)
 
 	assert.True(t, hasValidationError(errors, "JWT_SECRET_KEY"))
 }
@@ -153,7 +153,7 @@ func TestValidateConfig_AcceptsRandom53CharSecretInProduction(t *testing.T) {
 	t.Setenv("JWT_SECRET_KEY", "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6A7B8C9")
 	t.Setenv("ENV", "production")
 
-	errors := ValidateConfig("localhost", "user", "password", "payverge", false)
+	errors := ValidateConfig("localhost", "user", "password", "namakdan", false)
 
 	assert.False(t, hasValidationError(errors, "JWT_SECRET_KEY"))
 }
@@ -306,23 +306,23 @@ func TestValidateConfig_RejectsPublishedSecretsInProduction(t *testing.T) {
 	t.Setenv("ENV", "production")
 	t.Setenv("APP_ENV", "")
 
-	t.Setenv("JWT_SECRET_KEY", "payverge_local_dev_jwt_secret_2026_min32")
-	t.Setenv("PLUGIN_SECRET_KEY", "payverge-local-plugin-secret-key")
-	errors := ValidateConfig("localhost", "user", "unit-db-password-8c4f1d907e2a", "payverge", false)
+	t.Setenv("JWT_SECRET_KEY", "namakdan_local_dev_jwt_secret_2026_min32")
+	t.Setenv("PLUGIN_SECRET_KEY", "namakdan-local-plugin-secret-key")
+	errors := ValidateConfig("localhost", "user", "unit-db-password-8c4f1d907e2a", "namakdan", false)
 	assert.True(t, hasValidationError(errors, "JWT_SECRET_KEY"))
 	assert.True(t, hasValidationError(errors, "PLUGIN_SECRET_KEY"))
 
-	errors = ValidateConfig("localhost", "user", "payverge_password", "payverge", false)
+	errors = ValidateConfig("localhost", "user", "namakdan_password", "namakdan", false)
 	assert.True(t, hasValidationError(errors, "db-password"))
 }
 
 func TestValidateConfig_DevelopmentAllowsDevDefaults(t *testing.T) {
 	t.Setenv("ENV", "development")
 	t.Setenv("APP_ENV", "")
-	t.Setenv("JWT_SECRET_KEY", "payverge_local_dev_jwt_secret_2026_min32")
+	t.Setenv("JWT_SECRET_KEY", "namakdan_local_dev_jwt_secret_2026_min32")
 	t.Setenv("PLUGIN_SECRET_KEY", "")
 
-	errors := ValidateConfig("localhost", "user", "payverge_password", "payverge", false)
+	errors := ValidateConfig("localhost", "user", "namakdan_password", "namakdan", false)
 
 	assert.Empty(t, errors)
 }

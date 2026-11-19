@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -85,7 +85,7 @@ func TestEffectivePermissions_CustomGrantNoDeny_Allowed(t *testing.T) {
 // 3) An "owner-only by default" money permission (bills:refund) is NOT a role
 // default — a plain manager is denied — but IS delegable: an owner may grant it
 // to a specific manager, making it effective. An explicit deny still overrides.
-// (Payverge's documented separation-of-duties model keeps a delegation escape
+// (Namakdan's documented separation-of-duties model keeps a delegation escape
 // hatch; nothing is non-delegable today — see server.OwnerOnlyPermissions.)
 func TestEffectivePermissions_OwnerOnlyByDefault_DelegableByGrant(t *testing.T) {
 	_ = setupEffectiveDenyTestDB(t)

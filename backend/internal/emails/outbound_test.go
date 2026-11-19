@@ -34,11 +34,11 @@ func TestEmailServerRecordsOutboundSendWithProviderMessageID(t *testing.T) {
 	db := suppressionTestDB(t)
 	store := NewGormOutboundStore(db)
 	provider := &receiptProviderStub{id: "re_msg_123"}
-	server, err := NewEmailServer(provider, "noreply@payverge.io", "updates@payverge.io", resolveTemplatesRoot(t))
+	server, err := NewEmailServer(provider, "noreply@example.test", "updates@example.test", resolveTemplatesRoot(t))
 	require.NoError(t, err)
 	server.SetOutboundStore(store)
 
-	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://payverge.io/reset", "en"))
+	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://example.test/reset", "en"))
 
 	var rec EmailOutboundSend
 	require.NoError(t, db.Where("provider_message_id = ?", "re_msg_123").First(&rec).Error)

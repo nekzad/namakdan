@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/analytics"
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/analytics"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 // PopularItemsProvider is the analytics-service slice the menu top/under

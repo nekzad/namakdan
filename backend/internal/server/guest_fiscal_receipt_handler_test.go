@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/runtimecontrol"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/runtimecontrol"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -113,7 +113,7 @@ func assertGuestFiscalReceiptNotAuthorized(t *testing.T, w *httptest.ResponseRec
 	body := strings.ToLower(w.Body.String())
 	require.NotContains(t, body, `"status":"authorized"`)
 	require.NotContains(t, body, "auth-")
-	require.NotContains(t, body, "payverge.local")
+	require.NotContains(t, body, "example.test")
 	if w.Code == http.StatusOK {
 		var parsed map[string]any
 		require.NoError(t, json.Unmarshal(w.Body.Bytes(), &parsed))
@@ -217,15 +217,15 @@ func TestGetGuestFiscalReceiptHidesDemoSeedAuthorized(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	setupGuestFiscalReceiptTestDB(t)
 	// Production currently ships fiscal_enabled=false; demo seed still writes
-	// authorized rows with AUTH-<id> / DEMO-<id> / payverge.local placeholders.
+	// authorized rows with AUTH-<id> / DEMO-<id> / example.test placeholders.
 	bill := seedGuestFiscalBillFor(t, "tok-demo-seed-1", database.Business{
-		Name: "Payverge Core Demo Kitchen", OwnerAddress: "0xdemo",
+		Name: "Namakdan Core Demo Kitchen", OwnerAddress: "0xdemo",
 		Kind: database.BusinessKindDemo, IsDemo: true,
 	})
 	seedAuthorizedGuestFiscalReceipt(t, bill,
 		fmt.Sprintf("DEMO-%d", bill.ID),
 		fmt.Sprintf("AUTH-%d", bill.ID),
-		fmt.Sprintf("https://payverge.local/fiscal/%d", bill.ID),
+		fmt.Sprintf("https://example.test/fiscal/%d", bill.ID),
 		"fiscal/demo/receipt.pdf",
 	)
 
@@ -285,7 +285,7 @@ func TestGetGuestFiscalReceiptHidesPlaceholderMarkers(t *testing.T) {
 	}{
 		{"auth-prefix", "tok-ph-auth", "00000001", "AUTH-99", "https://www.arca.gob.ar/fe/qr/?p=x"},
 		{"demo-number", "tok-ph-num", "DEMO-99", "71234567890123", "https://www.arca.gob.ar/fe/qr/?p=x"},
-		{"local-qr", "tok-ph-qr", "00000001", "71234567890123", "https://payverge.local/fiscal/99"},
+		{"local-qr", "tok-ph-qr", "00000001", "71234567890123", "https://example.test/fiscal/99"},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
@@ -309,7 +309,7 @@ func TestGetGuestFiscalReceiptPDFHidesDemoSeed(t *testing.T) {
 	seedAuthorizedGuestFiscalReceipt(t, bill,
 		fmt.Sprintf("DEMO-%d", bill.ID),
 		fmt.Sprintf("AUTH-%d", bill.ID),
-		fmt.Sprintf("https://payverge.local/fiscal/%d", bill.ID),
+		fmt.Sprintf("https://example.test/fiscal/%d", bill.ID),
 		"fiscal/demo/receipt.pdf",
 	)
 
@@ -320,5 +320,5 @@ func TestGetGuestFiscalReceiptPDFHidesDemoSeed(t *testing.T) {
 	GetGuestFiscalReceiptPDF(c)
 	assert.Equal(t, http.StatusNotFound, w.Code)
 	assert.NotContains(t, w.Body.String(), "AUTH-")
-	assert.NotContains(t, w.Body.String(), "payverge.local")
+	assert.NotContains(t, w.Body.String(), "example.test")
 }

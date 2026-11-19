@@ -2,6 +2,7 @@ package config
 
 import (
 	"encoding/base64"
+	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -106,21 +107,21 @@ func TestOSSPreflightMatrix(t *testing.T) {
 		{
 			name: "compose default JWT secret fails",
 			mutate: func(in *ProductionInputs) {
-				in.JWTSecretKey = "payverge_local_dev_jwt_secret_2026_min32"
+				in.JWTSecretKey = "namakdan_local_dev_jwt_secret_2026_min32"
 			},
 			wantCodes: []string{"jwt.secret.unsafe"},
 		},
 		{
 			name: "retired plugin fallback key fails",
 			mutate: func(in *ProductionInputs) {
-				in.PluginSecretKey = "payverge-local-plugin-secret-key"
+				in.PluginSecretKey = "namakdan-local-plugin-secret-key"
 			},
 			wantCodes: []string{"plugin_secret.unsafe"},
 		},
 		{
 			name: "compose default database password fails",
 			mutate: func(in *ProductionInputs) {
-				in.DBPassword = "payverge_password"
+				in.DBPassword = "namakdan_password"
 			},
 			wantCodes: []string{"database.password.unsafe"},
 		},
@@ -270,8 +271,8 @@ func TestDeployDefaults(t *testing.T) {
 	assert.Equal(t, "data", DataDir())
 	t.Setenv("STORAGE_DIR", "uploads")
 	assert.Equal(t, "data", DataDir())
-	t.Setenv("DATA_DIR", "/var/lib/payverge/")
-	assert.Equal(t, "/var/lib/payverge", DataDir())
+	t.Setenv("DATA_DIR", "/var/lib/namakdan/")
+	assert.Equal(t, filepath.Clean("/var/lib/namakdan"), DataDir())
 }
 
 func TestPathWithin(t *testing.T) {

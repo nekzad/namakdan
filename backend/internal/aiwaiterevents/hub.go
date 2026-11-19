@@ -11,7 +11,7 @@ import (
 	"errors"
 	"sync"
 
-	"github.com/stdevmac/payverge/backend/internal/assistantcontract"
+	"github.com/nekzad/namakdan/backend/internal/assistantcontract"
 )
 
 // ErrLimit is returned when a conversation or the process is already at its

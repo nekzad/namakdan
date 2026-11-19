@@ -3,7 +3,7 @@ package server
 import (
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // Issue 942: guests state an allergy by NAMING the allergen — "soy alérgico al

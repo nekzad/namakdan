@@ -3,7 +3,7 @@ package services
 import (
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/analytics"
+	"github.com/nekzad/namakdan/backend/internal/analytics"
 
 	"github.com/stretchr/testify/assert"
 )

@@ -6,13 +6,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	appconfig "github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	"github.com/stdevmac/payverge/backend/internal/money"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	"github.com/stdevmac/payverge/backend/internal/plugins/pluginurl"
-	"github.com/stdevmac/payverge/backend/internal/plugins/webhookhmac"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	appconfig "github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/money"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/plugins/pluginurl"
+	"github.com/nekzad/namakdan/backend/internal/plugins/webhookhmac"
+	"github.com/nekzad/namakdan/backend/internal/services"
 	"io"
 	"log"
 	"net/http"
@@ -858,7 +858,7 @@ func (m *MercadoPagoPlugin) CreateBillPayment(businessID uint, billID uint, amou
 		}
 		preferenceMetadata[key] = value
 	}
-	preferenceMetadata["payverge_tracker_id"] = trackerID
+	preferenceMetadata["namakdan_tracker_id"] = trackerID
 
 	// Create MercadoPago Checkout Pro preference request
 	preferenceRequest := PaymentPreferenceRequest{
@@ -915,7 +915,7 @@ func (m *MercadoPagoPlugin) CreateBillPayment(businessID uint, billID uint, amou
 		Status:      "pending",
 		Metadata: map[string]interface{}{
 			"preference_id":       preferenceID,
-			"payverge_tracker_id": trackerID,
+			"namakdan_tracker_id": trackerID,
 			"bill_id":             billID,
 			"business_id":         businessID,
 			// amount_cents is the same canonical value the preference charged so
@@ -1601,7 +1601,7 @@ func (m *MercadoPagoPlugin) handleOrderUpdated(businessID uint, webhookData map[
 		TransactionID: order.ID,
 		Metadata: map[string]interface{}{
 			// Tracker rows for Point/QR store ParticipantAddr = order id.
-			"payverge_tracker_id": order.ID,
+			"namakdan_tracker_id": order.ID,
 		},
 		Success: true,
 		Message: "Order status updated",

@@ -11,9 +11,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	"github.com/stdevmac/payverge/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/session"
 
 	"github.com/prometheus/client_golang/prometheus"
 	dto "github.com/prometheus/client_model/go"

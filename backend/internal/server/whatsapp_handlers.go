@@ -9,7 +9,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // ConnectWhatsApp initiates the connection process and returns a QR code stream or string

@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 // KitchenStatusTool is a READ of live kitchen tickets and kitchen-role staff.

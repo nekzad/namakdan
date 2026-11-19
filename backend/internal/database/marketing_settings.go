@@ -6,7 +6,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/stdevmac/payverge/backend/internal/locales"
+	"github.com/nekzad/namakdan/backend/internal/locales"
 )
 
 // knownMarketingPlays is the canonical set of play keys the automation settings

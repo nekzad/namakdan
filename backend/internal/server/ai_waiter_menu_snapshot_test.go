@@ -9,10 +9,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/s3"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/s3"
+	"github.com/nekzad/namakdan/backend/internal/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -72,10 +72,10 @@ func translatedWaiterMenuSnapshotFixture(t *testing.T) (*database.Business, []da
 			Items: []database.MenuItem{
 				{
 					ID: "550e8400-e29b-41d4-a716-446655440000", Name: "Harvest Bowl", Description: "Greens and grains",
-					Price: 18.5, Currency: "USD", Images: []string{"https://cdn.payverge.test/harvest.jpg"},
+					Price: 18.5, Currency: "USD", Images: []string{"https://cdn.example.test/harvest.jpg"},
 					Allergens: []string{"Dairy"}, DietaryTags: []string{"Vegetarian"}, IsAvailable: true, SortOrder: 2,
 				},
-				{ID: "7", Name: "House Soup", Price: 9, Currency: "USD", Image: "https://cdn.payverge.test/soup.jpg", IsAvailable: true, SortOrder: 1},
+				{ID: "7", Name: "House Soup", Price: 9, Currency: "USD", Image: "https://cdn.example.test/soup.jpg", IsAvailable: true, SortOrder: 1},
 				{ID: "manual-off", Name: "Seasonal Tart", Price: 12, Currency: "USD", IsAvailable: false, SortOrder: 3},
 				{ID: "operator-hidden", Name: "Secret Supper", Price: 50, Currency: "USD", IsAvailable: true, SortOrder: 4},
 				{ID: "depleted", Name: "Sold Out Steak", Price: 42, Currency: "USD", IsAvailable: true, SortOrder: 5},
@@ -117,7 +117,7 @@ func translatedWaiterMenuSnapshotFixture(t *testing.T) (*database.Business, []da
 		return string(encoded)
 	}
 	bundles, _ := applyTranslationsToBundles([]database.Bundle{
-		{ID: 7, BusinessID: businessID, Name: "Lunch duo", Price: 24, Currency: "USD", Image: "https://cdn.payverge.test/lunch.jpg", Items: bundleItems("7", "550e8400-e29b-41d4-a716-446655440000"), IsActive: true},
+		{ID: 7, BusinessID: businessID, Name: "Lunch duo", Price: 24, Currency: "USD", Image: "https://cdn.example.test/lunch.jpg", Items: bundleItems("7", "550e8400-e29b-41d4-a716-446655440000"), IsActive: true},
 		{ID: 8, BusinessID: businessID, Name: "Secret bundle", Price: 30, Items: bundleItems("operator-hidden"), IsActive: true},
 		{ID: 10, BusinessID: businessID, Name: "Seasonal bundle", Price: 20, Items: bundleItems("manual-off"), IsActive: true},
 		{ID: 11, BusinessID: businessID, Name: "Malformed bundle", Price: 20, Items: "not-json", IsActive: true},
@@ -142,7 +142,7 @@ func buildOpenWaiterSnapshotFixture(t *testing.T) WaiterMenuSnapshot {
 		Business: business, Locale: " es-ar ", Mode: "ordering", BusinessOpen: true,
 		Categories: categories, Offers: offers, Bundles: bundles,
 		HiddenItemIDs: waiterFixtureHiddenIDs(), SoldOutItemIDs: waiterFixtureSoldOutIDs(),
-		TrustedImageHost: "cdn.payverge.test",
+		TrustedImageHost: "cdn.example.test",
 	})
 	require.NoError(t, err)
 	return snapshot
@@ -165,7 +165,7 @@ func TestBuildWaiterMenuSnapshot(t *testing.T) {
 		require.True(t, ok)
 		require.Equal(t, bowlKey.ID, bowl.ID, "UUID identity must round trip without coercion")
 		require.Equal(t, "Bowl de la cosecha", bowl.DisplayName)
-		require.Equal(t, "https://cdn.payverge.test/harvest.jpg", bowl.ImageURL)
+		require.Equal(t, "https://cdn.example.test/harvest.jpg", bowl.ImageURL)
 		require.Equal(t, []string{"Lácteos"}, bowl.Allergens)
 		require.True(t, bowl.Available)
 		require.True(t, bowl.Orderable)
@@ -222,7 +222,7 @@ func TestBuildWaiterMenuSnapshot(t *testing.T) {
 			Business: business, Locale: "es-AR", Mode: "ordering", BusinessOpen: true,
 			Categories: categories, Offers: offers, Bundles: bundles,
 			HiddenItemIDs: waiterFixtureHiddenIDs(), SoldOutItemIDs: waiterFixtureSoldOutIDs(),
-			TrustedImageHost: "cdn.payverge.test",
+			TrustedImageHost: "cdn.example.test",
 		})
 		require.NoError(t, err)
 
@@ -453,17 +453,17 @@ func TestBuildWaiterMenuSnapshot_SanitizesEveryImageProjection(t *testing.T) {
 	require.NoError(t, err)
 	snapshot, err := BuildWaiterMenuSnapshot(WaiterMenuSnapshotInput{
 		Business: business, Locale: "en", Mode: "ordering", BusinessOpen: true,
-		TrustedImageHost: "images.payverge.io",
+		TrustedImageHost: "images.example.test",
 		Categories: []database.MenuCategory{{
 			ID: "mains", Name: "Mains", Items: []database.MenuItem{{
 				ID: "item-1", Name: "Safe dish", IsAvailable: true,
 				Image:            "javascript:alert('item')",
-				Images:           []string{" https://images.payverge.io/menu/safe.jpg ", "data:image/svg+xml,bad", "https://evil.example/item.jpg", ":// malformed"},
-				CompositionImage: "https://prot-images.payverge.io/menu/composition.jpg",
+				Images:           []string{" https://images.example.test/menu/safe.jpg ", "data:image/svg+xml,bad", "https://evil.example/item.jpg", ":// malformed"},
+				CompositionImage: "https://prot-images.example.test/menu/composition.jpg",
 			}},
 		}},
 		Bundles: []database.Bundle{
-			{ID: 1, BusinessID: business.ID, Name: "Safe bundle", Image: " https://images.payverge.io/bundles/safe.jpg ", Items: string(refs), IsActive: true},
+			{ID: 1, BusinessID: business.ID, Name: "Safe bundle", Image: " https://images.example.test/bundles/safe.jpg ", Items: string(refs), IsActive: true},
 			{ID: 2, BusinessID: business.ID, Name: "Unsafe bundle", Image: "https://foreign.example/bundle.jpg", Items: string(refs), IsActive: true},
 		},
 		Offers: []database.Offer{{
@@ -472,21 +472,21 @@ func TestBuildWaiterMenuSnapshot_SanitizesEveryImageProjection(t *testing.T) {
 	})
 	require.NoError(t, err)
 
-	require.Equal(t, "https://images.payverge.io/menu/safe.jpg", snapshot.ByKey[WaiterMenuEntityKey{Type: "menu_item", ID: "item-1"}].ImageURL)
-	require.Equal(t, "https://images.payverge.io/bundles/safe.jpg", snapshot.ByKey[WaiterMenuEntityKey{Type: "bundle", ID: "1"}].ImageURL)
+	require.Equal(t, "https://images.example.test/menu/safe.jpg", snapshot.ByKey[WaiterMenuEntityKey{Type: "menu_item", ID: "item-1"}].ImageURL)
+	require.Equal(t, "https://images.example.test/bundles/safe.jpg", snapshot.ByKey[WaiterMenuEntityKey{Type: "bundle", ID: "1"}].ImageURL)
 	require.Empty(t, snapshot.ByKey[WaiterMenuEntityKey{Type: "bundle", ID: "2"}].ImageURL)
 	require.Empty(t, snapshot.ByKey[WaiterMenuEntityKey{Type: "offer", ID: "1"}].ImageURL)
 	visibleItem := snapshot.VisibleMenuCategories()[0].Items[0]
 	require.Empty(t, visibleItem.Image)
 	require.Empty(t, visibleItem.CompositionImage)
-	require.Equal(t, []string{"https://images.payverge.io/menu/safe.jpg"}, visibleItem.Images)
+	require.Equal(t, []string{"https://images.example.test/menu/safe.jpg"}, visibleItem.Images)
 
 	projection := snapshot.PromptMenuJSON() + snapshot.PromptBundlesJSON() + snapshot.PromptOffersJSON()
-	for _, unsafe := range []string{"javascript:", "data:image", "evil.example", "foreign.example", "prot-images.payverge.io", ":// malformed"} {
+	for _, unsafe := range []string{"javascript:", "data:image", "evil.example", "foreign.example", "prot-images.example.test", ":// malformed"} {
 		require.NotContains(t, projection, unsafe)
 	}
-	require.Contains(t, projection, "https://images.payverge.io/menu/safe.jpg")
-	require.Contains(t, projection, "https://images.payverge.io/bundles/safe.jpg")
+	require.Contains(t, projection, "https://images.example.test/menu/safe.jpg")
+	require.Contains(t, projection, "https://images.example.test/bundles/safe.jpg")
 	for _, key := range []WaiterMenuEntityKey{
 		{Type: "menu_item", ID: "item-1"},
 		{Type: "bundle", ID: "1"},
@@ -730,8 +730,8 @@ func TestSanitizeWaiterMenuImageURLAcceptsOwnMedia(t *testing.T) {
 	} {
 		require.Equal(t, strings.TrimSpace(keep), sanitizeWaiterMenuImageURL(keep, ""), keep)
 	}
-	require.Equal(t, "https://cdn.payverge.test/harvest.jpg",
-		sanitizeWaiterMenuImageURL("https://cdn.payverge.test/harvest.jpg", "cdn.payverge.test"))
+	require.Equal(t, "https://cdn.example.test/harvest.jpg",
+		sanitizeWaiterMenuImageURL("https://cdn.example.test/harvest.jpg", "cdn.example.test"))
 
 	for _, drop := range []string{
 		"https://evil.test/media/businesses/42/a.png",
@@ -741,9 +741,9 @@ func TestSanitizeWaiterMenuImageURLAcceptsOwnMedia(t *testing.T) {
 		"/media/businesses/42/contracts/nda.pdf",
 		"/media/a.png?x=1",
 		"javascript:alert(1)",
-		"http://cdn.payverge.test/harvest.jpg",
+		"http://cdn.example.test/harvest.jpg",
 		"",
 	} {
-		require.Empty(t, sanitizeWaiterMenuImageURL(drop, "cdn.payverge.test"), drop)
+		require.Empty(t, sanitizeWaiterMenuImageURL(drop, "cdn.example.test"), drop)
 	}
 }

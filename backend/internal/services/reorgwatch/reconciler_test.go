@@ -12,7 +12,7 @@ import (
 	"gorm.io/gorm"
 	glog "gorm.io/gorm/logger"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // --- fakes ---------------------------------------------------------------

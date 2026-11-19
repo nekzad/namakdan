@@ -4,10 +4,10 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/emails"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -128,7 +128,7 @@ func SendPlatformUpdate(c *gin.Context) {
 	dashboardURL := config.PublicURL() + "/dashboard"
 
 	for email, name := range recipientEmails {
-		if err := emails.EmailServerInstance.SendPayvergeUpdateEmail(
+		if err := emails.EmailServerInstance.SendNamakdanUpdateEmail(
 			[]string{email},
 			name,
 			req.UpdateTitle,

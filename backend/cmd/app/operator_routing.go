@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/stdevmac/payverge/backend/internal/emails"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/server"
 )
 
 // operatorRoutingGaps lists the operator-routing settings that are unset.

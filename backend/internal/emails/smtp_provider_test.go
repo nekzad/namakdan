@@ -258,7 +258,7 @@ func testTLS(t *testing.T) (server *tls.Config, client *tls.Config) {
 
 func sampleMessage() EmailMessage {
 	return EmailMessage{
-		From:           "Payverge <noreply@example.test>",
+		From:           "Namakdan <noreply@example.test>",
 		To:             []string{"owner@example.test"},
 		Subject:        "Verify your email — Café",
 		HTMLBody:       `<html><head><style>p{color:red}</style></head><body><p>Hello &amp; welcome</p><a href="https://app.example.test/verify-email?token=abc&amp;x=1">Verify</a></body></html>`,
@@ -320,7 +320,7 @@ func TestSMTPProviderDeliversMultipartMessageOverPlainLoopback(t *testing.T) {
 	if err != nil || subject != "Verify your email — Café" {
 		t.Errorf("subject=%q err=%v", subject, err)
 	}
-	if got := parsed.Header.Get("X-Payverge-Idempotency-Key"); got != "verify:42" {
+	if got := parsed.Header.Get("x-namakdan-Idempotency-Key"); got != "verify:42" {
 		t.Errorf("idempotency header=%q", got)
 	}
 	if got := parsed.Header.Get("List-Unsubscribe"); got != "<https://app.example.test/u>" {

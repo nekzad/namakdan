@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/config"
 )
 
 // SendCriticalInboxSeed renders and sends the four launch-critical templates
@@ -29,11 +29,11 @@ func SendCriticalInboxSeed(server *EmailServer, recipients []string, seedID stri
 		if err := server.SendPasswordResetEmail([]string{to}, config.PublicURL()+"/reset-password?token="+seedID, "en"); err != nil {
 			return fmt.Errorf("password-reset seed: %w", err)
 		}
-		if err := server.SendStaffInvitationEmail([]string{to}, "Payverge Inbox Seed", "Inbox Seed", "manager", config.PublicURL()+"/staff/invitation?token="+seedID, "en", 7); err != nil {
+		if err := server.SendStaffInvitationEmail([]string{to}, "Namakdan Inbox Seed", "Inbox Seed", "manager", config.PublicURL()+"/staff/invitation?token="+seedID, "en", 7); err != nil {
 			return fmt.Errorf("invitation seed: %w", err)
 		}
 		if err := server.SendPaymentReceiptEmail(
-			[]string{to}, "Payverge Inbox Seed", "August 1, 2026", "Test", seedID,
+			[]string{to}, "Namakdan Inbox Seed", "August 1, 2026", "Test", seedID,
 			[]map[string]interface{}{{"name": "Inbox seed", "quantity": 1, "line_total": "$0.01"}}, "$0.01", "en",
 		); err != nil {
 			return fmt.Errorf("receipt seed: %w", err)

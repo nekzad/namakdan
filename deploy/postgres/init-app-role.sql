@@ -5,7 +5,7 @@
 -- The entrypoint creates POSTGRES_USER (postgres) as the superuser and
 -- POSTGRES_DB. This file then:
 --
---   1. creates PAYVERGE_DB_USER, the role the backend, backup and restore log
+--   1. creates NAMAKDAN_DB_USER, the role the backend, backup and restore log
 --      in as, with DB_PASSWORD: LOGIN, NOSUPERUSER, NOCREATEROLE,
 --      NOREPLICATION, NOBYPASSRLS. It keeps CREATEDB because restore.sh
 --      restores into a temporary database and swaps it in;
@@ -20,17 +20,17 @@
 -- SQL rather than a shell script: the entrypoint runs a .sh only when the
 -- mounted file is executable, which a download or a bind mount may not keep.
 -- \getenv keeps the password off any command line.
-\getenv app_user PAYVERGE_DB_USER
+\getenv app_user NAMAKDAN_DB_USER
 \getenv app_password POSTGRES_PASSWORD
 \getenv dbname POSTGRES_DB
 
-SELECT set_config('payverge.app_user', :'app_user', false);
+SELECT set_config('namakdan.app_user', :'app_user', false);
 DO $$
 BEGIN
-	IF current_setting('payverge.app_user') = '' THEN
-		RAISE EXCEPTION 'init-app-role: PAYVERGE_DB_USER (DB_USER) is empty';
+	IF current_setting('namakdan.app_user') = '' THEN
+		RAISE EXCEPTION 'init-app-role: NAMAKDAN_DB_USER (DB_USER) is empty';
 	END IF;
-	IF current_setting('payverge.app_user') = current_user THEN
+	IF current_setting('namakdan.app_user') = current_user THEN
 		RAISE EXCEPTION 'init-app-role: DB_USER must not be ''%'' (the superuser); pick another name in .env', current_user;
 	END IF;
 END

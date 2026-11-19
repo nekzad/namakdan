@@ -9,7 +9,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/stdevmac/payverge/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/server"
 )
 
 // RejectEmptyPasswordResetEmail returns 400 before the auth rate limiter so

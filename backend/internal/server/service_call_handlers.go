@@ -5,9 +5,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
-	operational_alerts "github.com/stdevmac/payverge/backend/internal/services/operational_alerts"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
+	operational_alerts "github.com/nekzad/namakdan/backend/internal/services/operational_alerts"
 
 	"github.com/gin-gonic/gin"
 )

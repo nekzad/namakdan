@@ -10,7 +10,7 @@ import (
 	"github.com/jackc/pgx/v5"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/schema/genesis"
+	"github.com/nekzad/namakdan/backend/schema/genesis"
 )
 
 // DBClass is how a connected database relates to the migration/bootstrap lifecycle.
@@ -438,7 +438,7 @@ func checkPostgresMajor(serverVersionNum, want int) error {
 	case got < want:
 		return fmt.Errorf("postgres major version %d does not match the genesis baseline's %d: the server is older than this release supports; upgrade the database to PostgreSQL %d first (self-host: back up, then run deploy/upgrade-postgres.sh; managed database: upgrade it to PostgreSQL %d in your provider's console) and restart; see docs/self-hosting/upgrades.md \"PostgreSQL 18\"", got, want, want, want)
 	case got > want:
-		return fmt.Errorf("postgres major version %d does not match the genesis baseline's %d: the database was upgraded past what this Payverge release supports, so an older Payverge is running against an upgraded database; deploy the Payverge release that matches PostgreSQL %d, or restore the backup taken before the PostgreSQL upgrade; see docs/self-hosting/upgrades.md \"PostgreSQL 18\"", got, want, got)
+		return fmt.Errorf("postgres major version %d does not match the genesis baseline's %d: the database was upgraded past what this Namakdan release supports, so an older Namakdan is running against an upgraded database; deploy the Namakdan release that matches PostgreSQL %d, or restore the backup taken before the PostgreSQL upgrade; see docs/self-hosting/upgrades.md \"PostgreSQL 18\"", got, want, got)
 	}
 	return nil
 }

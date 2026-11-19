@@ -16,7 +16,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // P6e: two sequential concurrent charge-lock acquisitions on the same bill must
@@ -191,7 +191,7 @@ func TestChargeMercadoPagoQR_ConcurrentSecondGets409(t *testing.T) {
 	mergeMercadoPagoConfigFields(t, business.ID,
 		database.MergeBusinessPluginConfigField{Key: "mp_user_id", Value: "123"},
 		database.MergeBusinessPluginConfigField{Key: "mp_store_id", Value: "store-1"},
-		database.MergeBusinessPluginConfigField{Key: "mp_external_pos_id", Value: "payverge-pos-cached"},
+		database.MergeBusinessPluginConfigField{Key: "mp_external_pos_id", Value: "namakdan-pos-cached"},
 	)
 
 	bill := createPointTestBill(t, business.ID, 1000, 0)

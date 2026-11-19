@@ -28,7 +28,7 @@ func TestInstanceDefaults(t *testing.T) {
 	if got := PublicHost(); got != "localhost:3000" {
 		t.Fatalf("PublicHost = %q", got)
 	}
-	if ProductName() != "Payverge" || CompanyName() != "Payverge" {
+	if ProductName() != "Namakdan" || CompanyName() != "Namakdan" {
 		t.Fatalf("names = %q %q", ProductName(), CompanyName())
 	}
 	if LegalEntity() != "" || SupportEmail() != "" || SecurityEmail() != "" || LogoURL() != "" {
@@ -244,12 +244,12 @@ func TestRedirectDefaultsFollowPublicURL(t *testing.T) {
 		t.Errorf("APP_DOMAIN must extend the default: %v", err)
 	}
 	t.Setenv("APP_DOMAIN", "")
-	upstream := "https://" + UpstreamDomain + "/payment/success"
-	if _, err := ValidateRedirectURL(upstream, true); err == nil {
-		t.Fatal("the upstream domain must not be an implicit redirect target")
+	untrusted := "https://untrusted.example/payment/success"
+	if _, err := ValidateRedirectURL(untrusted, true); err == nil {
+		t.Fatal("an untrusted domain must not be an implicit redirect target")
 	}
 	t.Setenv("PUBLIC_URL", "")
-	if _, err := ValidateRedirectURL(upstream, true); err == nil {
+	if _, err := ValidateRedirectURL(untrusted, true); err == nil {
 		t.Fatal("no default redirect domains without a configured public URL")
 	}
 }

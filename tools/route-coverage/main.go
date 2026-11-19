@@ -7,7 +7,7 @@
 // functions), then looks for a caller of each route in:
 //
 //   - frontend/src                     (the web app)
-//   - tools/payverge-admin-mcp/src     (the operator MCP server)
+//   - tools/namakdan-admin-mcp/src     (the operator MCP server)
 //   - docs/api                         (the public API reference)
 //
 // A caller is any string or template literal whose path matches the route:
@@ -395,7 +395,7 @@ func collectCallers(repo string) ([][]string, error) {
 	}
 
 	codeExt := map[string]bool{".ts": true, ".tsx": true, ".js": true, ".jsx": true, ".mjs": true}
-	for _, dir := range []string{"frontend/src", "tools/payverge-admin-mcp/src"} {
+	for _, dir := range []string{"frontend/src", "tools/namakdan-admin-mcp/src"} {
 		err := filepath.WalkDir(filepath.Join(repo, dir), func(path string, d fs.DirEntry, err error) error {
 			if err != nil {
 				return err

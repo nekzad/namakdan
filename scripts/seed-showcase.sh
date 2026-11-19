@@ -13,7 +13,7 @@
 #
 # The script is idempotent — re-running it is a no-op for rows that already
 # exist. To regenerate from scratch:
-#   docker compose exec postgres psql -U payverge -d payverge \
+#   docker compose exec postgres psql -U namakdan -d namakdan \
 #     -c "DELETE FROM businesses WHERE business_id = 'showcase-bellavista';"
 #
 # Then re-run this script.
@@ -36,7 +36,7 @@ done
 if [[ "$HOST_MODE" -eq 1 ]]; then
   if [[ -z "${DSN:-}" ]]; then
     echo "DSN env var required when using --host. Example:" >&2
-    echo "  DSN='postgres://payverge:payverge_password@localhost:5432/payverge?sslmode=disable' ./scripts/seed-showcase.sh --host --owner-email=you@example.com" >&2
+    echo "  DSN='postgres://namakdan:namakdan_password@localhost:5432/namakdan?sslmode=disable' ./scripts/seed-showcase.sh --host --owner-email=you@example.com" >&2
     exit 1
   fi
   cd backend

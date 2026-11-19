@@ -3,8 +3,8 @@
 //
 //   ./deploy/install.sh --build --domain localhost --admin-email you@example.com --demo
 //   cd frontend && npm ci                      # provides playwright and sharp
-//   PAYVERGE_URL=https://localhost:18443 \
-//   PAYVERGE_EMAIL=you@example.com PAYVERGE_PASSWORD=... \
+//   NAMAKDAN_URL=https://localhost:18443 \
+//   NAMAKDAN_EMAIL=you@example.com NAMAKDAN_PASSWORD=... \
 //     node tools/screenshots/capture.mjs
 //
 // It plays one real dinner service against the demo venue: a guest scans a
@@ -22,11 +22,11 @@
 // Writes PNGs to docs/assets/screenshots/ and a lighter WebP subset to
 // site/assets/screenshots/. An install made with --demo serves Bodegón Mesa
 // Larga on "/" (PRIMARY_VENUE=bodegon-mesa-larga); these shots default to the
-// parrilla-quebracho-azul venue instead (PAYVERGE_VENUE below).
+// parrilla-quebracho-azul venue instead (NAMAKDAN_VENUE below).
 //
-// Env: PAYVERGE_URL (default https://localhost:18443), PAYVERGE_EMAIL,
-// PAYVERGE_PASSWORD (owner/admin of the demo), PAYVERGE_VENUE (slug, default
-// parrilla-quebracho-azul), PAYVERGE_TABLE (table code; default: the first
+// Env: NAMAKDAN_URL (default https://localhost:18443), NAMAKDAN_EMAIL,
+// NAMAKDAN_PASSWORD (owner/admin of the demo), NAMAKDAN_VENUE (slug, default
+// parrilla-quebracho-azul), NAMAKDAN_TABLE (table code; default: the first
 // table of that venue with no open bill), ONLY (comma list of shot names).
 
 import { createRequire } from 'node:module';
@@ -41,13 +41,13 @@ const require = createRequire(join(repo, 'frontend', 'package.json'));
 const { chromium, request } = require('playwright');
 const sharp = require('sharp');
 
-const BASE = (process.env.PAYVERGE_URL || 'https://localhost:18443').replace(/\/$/, '');
-const EMAIL = process.env.PAYVERGE_EMAIL;
-const PASSWORD = process.env.PAYVERGE_PASSWORD;
-const VENUE = process.env.PAYVERGE_VENUE || 'parrilla-quebracho-azul';
+const BASE = (process.env.NAMAKDAN_URL || 'https://localhost:18443').replace(/\/$/, '');
+const EMAIL = process.env.NAMAKDAN_EMAIL;
+const PASSWORD = process.env.NAMAKDAN_PASSWORD;
+const VENUE = process.env.NAMAKDAN_VENUE || 'parrilla-quebracho-azul';
 const ONLY = (process.env.ONLY || '').split(',').filter(Boolean);
 if (!EMAIL || !PASSWORD) {
-  console.error('Set PAYVERGE_EMAIL and PAYVERGE_PASSWORD (the demo owner login).');
+  console.error('Set NAMAKDAN_EMAIL and NAMAKDAN_PASSWORD (the demo owner login).');
   process.exit(2);
 }
 
@@ -71,13 +71,13 @@ const SITE_SHOTS = {
 const DESKTOP = { viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 };
 const MOBILE = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true };
 
-const raw = mkdtempSync(join(tmpdir(), 'payverge-shots-'));
+const raw = mkdtempSync(join(tmpdir(), 'namakdan-shots-'));
 const taken = [];
 
 const consent = () => {
   try {
     localStorage.setItem(
-      'payverge_cookie_consent',
+      'namakdan_cookie_consent',
       JSON.stringify({ version: 1, analytics: false, marketing: false, decidedAt: '2026-01-01T00:00:00Z' }),
     );
   } catch {}
@@ -163,7 +163,7 @@ async function guestBill(code) {
   const res = await api.get(`guest/table/${code}/bill`);
   return res.ok() ? (await res.json()).bill : null;
 }
-let TABLE = process.env.PAYVERGE_TABLE;
+let TABLE = process.env.NAMAKDAN_TABLE;
 if (!TABLE) {
   for (const t of tables.filter((t) => t.is_active)) {
     if (!(await guestBill(t.table_code))) {
@@ -172,7 +172,7 @@ if (!TABLE) {
     }
   }
 }
-if (!TABLE) throw new Error('No free table found; pass PAYVERGE_TABLE.');
+if (!TABLE) throw new Error('No free table found; pass NAMAKDAN_TABLE.');
 console.log(`venue ${venue.name} (#${BIZ}), table ${TABLE}`);
 
 // Staff open the cash register before service, as they would on a real shift.

@@ -10,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/auth"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/auth"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/session"
 
 	"github.com/stretchr/testify/require"
 	"gorm.io/driver/sqlite"
@@ -171,7 +171,7 @@ func TestReadPasswordFromStdin(t *testing.T) {
 func TestParseServerDBFlags(t *testing.T) {
 	got := parseServerDBFlags([]string{"/app/server", "--production", "--db-host", "postgres", "--db-port=6543", "-db-user", "pv", "--db-name", "pvdb", "--db-sslmode", "disable", "--db-password", "secret", "--s3-bucket", "b"})
 	require.Equal(t, map[string]string{"db-host": "postgres", "db-port": "6543", "db-user": "pv", "db-name": "pvdb", "db-sslmode": "disable"}, got)
-	require.Empty(t, parseServerDBFlags([]string{"/usr/bin/postgres", "--db-host", "x"}), "only a payverge server argv is trusted")
+	require.Empty(t, parseServerDBFlags([]string{"/usr/bin/postgres", "--db-host", "x"}), "only a namakdan server argv is trusted")
 	require.Empty(t, parseServerDBFlags(nil))
 }
 
@@ -186,12 +186,12 @@ func TestResolveCLIDBConfigPrecedence(t *testing.T) {
 	}
 	got := resolveCLIDBConfig(env, cliDBConfig{User: "flag-user"})
 	require.Equal(t, cliDBConfig{
-		Host: "env-host", Port: "7000", User: "flag-user", Name: "payverge", SSLMode: "disable", Password: "env-secret",
+		Host: "env-host", Port: "7000", User: "flag-user", Name: "namakdan", SSLMode: "disable", Password: "env-secret",
 	}, got, "flag > env > running server argv > defaults; password only from DB_PASSWORD")
 
 	env.serverArgs = nil
 	env.getenv = func(string) string { return "" }
-	require.Equal(t, cliDBConfig{Host: "localhost", Port: "5432", User: "payverge", Name: "payverge", SSLMode: "require"}, resolveCLIDBConfig(env, cliDBConfig{}))
+	require.Equal(t, cliDBConfig{Host: "localhost", Port: "5432", User: "namakdan", Name: "namakdan", SSLMode: "require"}, resolveCLIDBConfig(env, cliDBConfig{}))
 }
 
 func TestAdminCreateRejectsBadInputBeforeTouchingTheDatabase(t *testing.T) {

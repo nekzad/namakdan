@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/telegram"
+	"github.com/nekzad/namakdan/backend/internal/telegram"
 )
 
 // TestNewBoundedBotHasTimeout verifies that BoundedTelegramClient returns an

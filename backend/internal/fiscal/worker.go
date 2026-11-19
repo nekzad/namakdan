@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	operational_alerts "github.com/stdevmac/payverge/backend/internal/services/operational_alerts"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	operational_alerts "github.com/nekzad/namakdan/backend/internal/services/operational_alerts"
 
 	sentry "github.com/getsentry/sentry-go"
 	"gorm.io/gorm"

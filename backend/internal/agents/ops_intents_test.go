@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/agents/ops_guides"
+	"github.com/nekzad/namakdan/backend/internal/agents/ops_guides"
 
 	"github.com/stretchr/testify/require"
 )

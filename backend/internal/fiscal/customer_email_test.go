@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // The guest-entered fiscal email must be the FIRST link in the recipient

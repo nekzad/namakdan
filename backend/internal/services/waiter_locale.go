@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/llmeval/langid"
-	"github.com/stdevmac/payverge/backend/internal/locales"
+	"github.com/nekzad/namakdan/backend/internal/llmeval/langid"
+	"github.com/nekzad/namakdan/backend/internal/locales"
 )
 
 // ResolveWaiterConversationLocale picks the language for a WhatsApp (or similar)

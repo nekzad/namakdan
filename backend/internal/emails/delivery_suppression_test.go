@@ -46,22 +46,22 @@ func TestEmailServerBlocksDurablySuppressedRecipient(t *testing.T) {
 	}))
 
 	provider := &suppressionProviderStub{}
-	server, err := NewEmailServer(provider, "noreply@payverge.io", "updates@payverge.io", resolveTemplatesRoot(t))
+	server, err := NewEmailServer(provider, "noreply@example.test", "updates@example.test", resolveTemplatesRoot(t))
 	require.NoError(t, err)
 	server.SetSuppressionStore(store)
 
-	err = server.SendPasswordResetEmail([]string{"BLOCKED@example.test"}, "https://payverge.io/reset", "en")
+	err = server.SendPasswordResetEmail([]string{"BLOCKED@example.test"}, "https://example.test/reset", "en")
 	require.ErrorIs(t, err, ErrRecipientSuppressed)
 	require.Zero(t, provider.calls, "suppressed mail must never reach the provider")
 }
 
 func TestEmailServerFailsClosedWhenSuppressionLookupFails(t *testing.T) {
 	provider := &suppressionProviderStub{}
-	server, err := NewEmailServer(provider, "noreply@payverge.io", "updates@payverge.io", resolveTemplatesRoot(t))
+	server, err := NewEmailServer(provider, "noreply@example.test", "updates@example.test", resolveTemplatesRoot(t))
 	require.NoError(t, err)
 	server.SetSuppressionStore(failingSuppressionStore{err: errors.New("database unavailable")})
 
-	err = server.SendEmailVerificationEmail([]string{"owner@example.test"}, "Owner", "https://payverge.io/verify", "en")
+	err = server.SendEmailVerificationEmail([]string{"owner@example.test"}, "Owner", "https://example.test/verify", "en")
 	require.Error(t, err)
 	require.ErrorContains(t, err, "suppression lookup")
 	require.Zero(t, provider.calls)
@@ -77,16 +77,16 @@ func (p *deadlineProvider) Send(ctx context.Context, _ EmailMessage) error {
 
 func TestEmailServerProviderTimeoutFailsClosed(t *testing.T) {
 	provider := &deadlineProvider{}
-	server, err := NewEmailServer(provider, "noreply@payverge.io", "updates@payverge.io", resolveTemplatesRoot(t))
+	server, err := NewEmailServer(provider, "noreply@example.test", "updates@example.test", resolveTemplatesRoot(t))
 	require.NoError(t, err)
 	server.sendTimeout = 10 * time.Millisecond
 
-	err = server.SendPasswordResetEmail([]string{"owner@example.test"}, "https://payverge.io/reset", "en")
+	err = server.SendPasswordResetEmail([]string{"owner@example.test"}, "https://example.test/reset", "en")
 	require.ErrorIs(t, err, context.DeadlineExceeded)
 	require.True(t, provider.sawDeadline)
 }
 
 func TestNewEmailServerRejectsInvalidSender(t *testing.T) {
-	_, err := NewEmailServer(&suppressionProviderStub{}, "not-an-email", "updates@payverge.io", resolveTemplatesRoot(t))
+	_, err := NewEmailServer(&suppressionProviderStub{}, "not-an-email", "updates@example.test", resolveTemplatesRoot(t))
 	require.ErrorContains(t, err, "transactional sender")
 }

@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // Canonical plugin name constants. These are the `Plugin.Name` values seeded

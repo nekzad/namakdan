@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func seedDeliveryTriple(t *testing.T, svc *DeliveryService, businessID uint) (database.Bill, database.Order, database.DeliveryOrder) {

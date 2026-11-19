@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-# Backup staleness monitor for Payverge production.
+# Backup staleness monitor for Namakdan production.
 # Intended to run from host cron (see crontab line below). Reads the
 # .last-local-success and .last-upload-success markers written by
 # backup-db.sh out of the backup_data volume, verifies the remote S3
@@ -14,12 +14,12 @@ set -euo pipefail
 # Environment (usually sourced from the repo root .env):
 #   TELEGRAM_ESCALATION_BOT_TOKEN  bot token for alerts (required to alert)
 #   TELEGRAM_ESCALATION_CHAT_ID    chat to alert (required to alert)
-#   BACKUP_VOLUME                  docker volume name (default: payverge_backup_data;
+#   BACKUP_VOLUME                  docker volume name (default: namakdan_backup_data;
 #                                  confirm with `docker volume ls | grep backup_data`)
 #   MAX_LOCAL_AGE_SECONDS          local marker staleness threshold (default 28800 = 8h)
 #   MAX_UPLOAD_AGE_SECONDS         upload marker staleness threshold (default 28800)
 #   S3_BACKUP_ENDPOINT             optional (e.g. R2); passed to aws as --endpoint-url
-#   NODE_EXPORTER_TEXTFILE_DIR     optional; when set, writes payverge_backup_check.prom
+#   NODE_EXPORTER_TEXTFILE_DIR     optional; when set, writes namakdan_backup_check.prom
 #
 # Exit codes:
 #   0 — all checks healthy
@@ -28,11 +28,11 @@ set -euo pipefail
 #       (operator will NOT be notified)
 #
 # Crontab (as the deploy user; adjust the checkout path):
-#   17 * * * * cd /path/to/payverge && set -a && . ./.env && set +a && ./backend/scripts/check-backup-age.sh >> /var/log/payverge-backup-check.log 2>&1
+#   17 * * * * cd /path/to/namakdan && set -a && . ./.env && set +a && ./backend/scripts/check-backup-age.sh >> /var/log/namakdan-backup-check.log 2>&1
 
 MAX_LOCAL_AGE_SECONDS="${MAX_LOCAL_AGE_SECONDS:-28800}"
 MAX_UPLOAD_AGE_SECONDS="${MAX_UPLOAD_AGE_SECONDS:-28800}"
-BACKUP_VOLUME="${BACKUP_VOLUME:-payverge_backup_data}"
+BACKUP_VOLUME="${BACKUP_VOLUME:-namakdan_backup_data}"
 TELEGRAM_ESCALATION_BOT_TOKEN="${TELEGRAM_ESCALATION_BOT_TOKEN:-}"
 TELEGRAM_ESCALATION_CHAT_ID="${TELEGRAM_ESCALATION_CHAT_ID:-}"
 S3_BACKUP_ENDPOINT="${S3_BACKUP_ENDPOINT:-}"
@@ -79,7 +79,7 @@ alert() {
     if curl -sS -m 15 -X POST \
       "https://api.telegram.org/bot${TELEGRAM_ESCALATION_BOT_TOKEN}/sendMessage" \
       --data-urlencode "chat_id=${TELEGRAM_ESCALATION_CHAT_ID}" \
-      --data-urlencode "text=🚨 Payverge backup alert: ${message}" \
+      --data-urlencode "text=🚨 Namakdan backup alert: ${message}" \
       > /dev/null; then
       ALERT_DELIVERED=1
     else
@@ -222,21 +222,21 @@ write_prometheus_metrics() {
 
   local now_epoch
   now_epoch=$(date -u +%s)
-  local prom_file="${NODE_EXPORTER_TEXTFILE_DIR}/payverge_backup_check.prom"
+  local prom_file="${NODE_EXPORTER_TEXTFILE_DIR}/namakdan_backup_check.prom"
   local tmp_file="${prom_file}.tmp.$$"
 
   cat > "${tmp_file}" <<EOF
-# HELP payverge_backup_check_success Whether the last backup check passed (1) or failed (0) per check type
-# TYPE payverge_backup_check_success gauge
-payverge_backup_check_success{type="local"} ${LOCAL_OK}
-payverge_backup_check_success{type="upload"} ${UPLOAD_OK}
-payverge_backup_check_success{type="remote_object"} ${REMOTE_OK}
-# HELP payverge_backup_check_last_run_timestamp Unix timestamp of the last monitor run
-# TYPE payverge_backup_check_last_run_timestamp gauge
-payverge_backup_check_last_run_timestamp ${now_epoch}
-# HELP payverge_backup_check_alert_delivered 1 if no problems or Telegram alert was delivered; 0 if problems exist and alert was not delivered
-# TYPE payverge_backup_check_alert_delivered gauge
-payverge_backup_check_alert_delivered ${ALERT_DELIVERED}
+# HELP namakdan_backup_check_success Whether the last backup check passed (1) or failed (0) per check type
+# TYPE namakdan_backup_check_success gauge
+namakdan_backup_check_success{type="local"} ${LOCAL_OK}
+namakdan_backup_check_success{type="upload"} ${UPLOAD_OK}
+namakdan_backup_check_success{type="remote_object"} ${REMOTE_OK}
+# HELP namakdan_backup_check_last_run_timestamp Unix timestamp of the last monitor run
+# TYPE namakdan_backup_check_last_run_timestamp gauge
+namakdan_backup_check_last_run_timestamp ${now_epoch}
+# HELP namakdan_backup_check_alert_delivered 1 if no problems or Telegram alert was delivered; 0 if problems exist and alert was not delivered
+# TYPE namakdan_backup_check_alert_delivered gauge
+namakdan_backup_check_alert_delivered ${ALERT_DELIVERED}
 EOF
   mv "${tmp_file}" "${prom_file}"
 }

@@ -6,9 +6,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/session"
 
 	"github.com/gin-gonic/gin"
 )
@@ -187,7 +187,7 @@ func ExportAccountData(c *gin.Context) {
 	// export crosses ~5MB we'll move to a signed S3 URL (see spec doc).
 	c.Header("Content-Type", "application/json")
 	c.Header("Content-Disposition",
-		"attachment; filename=\"payverge-account-export-"+now.Format("20060102-150405")+".json\"")
+		"attachment; filename=\"namakdan-account-export-"+now.Format("20060102-150405")+".json\"")
 	c.JSON(http.StatusOK, payload)
 }
 

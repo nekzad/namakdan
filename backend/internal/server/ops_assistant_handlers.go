@@ -8,11 +8,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/agents"
-	"github.com/stdevmac/payverge/backend/internal/agents/ops_guides"
-	"github.com/stdevmac/payverge/backend/internal/assistantcontract"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/agents"
+	"github.com/nekzad/namakdan/backend/internal/agents/ops_guides"
+	"github.com/nekzad/namakdan/backend/internal/assistantcontract"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/logger"
 
 	"github.com/gin-gonic/gin"
 )

@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/logger"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/time/rate"

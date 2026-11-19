@@ -1,12 +1,12 @@
 import { MCP_SERVER_VERSION } from "./mcpProtocol.mjs";
 
 const DEFAULT_TIMEOUT_MS = 30000;
-const USER_AGENT = `payverge-admin-mcp/${MCP_SERVER_VERSION}`;
+const USER_AGENT = `namakdan-admin-mcp/${MCP_SERVER_VERSION}`;
 
-export class PayvergeAdminClientError extends Error {
+export class NamakdanAdminClientError extends Error {
   constructor(message, { status, body, method, path, requestId, code } = {}) {
     super(message);
-    this.name = "PayvergeAdminClientError";
+    this.name = "NamakdanAdminClientError";
     this.status = status;
     this.body = body;
     this.method = method;
@@ -30,7 +30,7 @@ export class PayvergeAdminClientError extends Error {
 }
 
 /**
- * Thin JSON client for the Payverge HTTP API.
+ * Thin JSON client for the Namakdan HTTP API.
  *
  * Auth is one of:
  *   - token:          a static bearer token (admin MCP token, or an owner JWT);
@@ -41,21 +41,21 @@ export class PayvergeAdminClientError extends Error {
  *
  * Credentials never appear in thrown errors or their JSON form.
  */
-export class PayvergeAdminClient {
+export class NamakdanAdminClient {
   constructor({
     baseUrl,
     token,
     tokenProvider,
     anonymous = false,
-    label = "Payverge admin API",
+    label = "Namakdan admin API",
     timeoutMs = DEFAULT_TIMEOUT_MS,
     fetchImpl = globalThis.fetch,
   } = {}) {
     if (!baseUrl) {
-      throw new Error("PAYVERGE_API_BASE_URL is required");
+      throw new Error("NAMAKDAN_API_BASE_URL is required");
     }
     if (!token && !tokenProvider && !anonymous) {
-      throw new Error("PAYVERGE_ADMIN_TOKEN is required");
+      throw new Error("NAMAKDAN_ADMIN_TOKEN is required");
     }
     if (typeof fetchImpl !== "function") {
       throw new Error("fetch implementation is required");
@@ -96,7 +96,7 @@ export class PayvergeAdminClient {
       return await this.send(method, path, { query, body, extraHeaders, token });
     } catch (err) {
       if (
-        err instanceof PayvergeAdminClientError &&
+        err instanceof NamakdanAdminClientError &&
         err.status === 401 &&
         this.tokenProvider &&
         typeof this.tokenProvider.invalidate === "function"
@@ -146,7 +146,7 @@ export class PayvergeAdminClient {
       const parsed = await parseResponseBody(response);
 
       if (!response.ok) {
-        throw new PayvergeAdminClientError(
+        throw new NamakdanAdminClientError(
           `${this.label} ${method} ${path} failed with ${response.status}`,
           {
             status: response.status,
@@ -160,16 +160,16 @@ export class PayvergeAdminClient {
 
       return parsed;
     } catch (err) {
-      if (err instanceof PayvergeAdminClientError) {
+      if (err instanceof NamakdanAdminClientError) {
         throw err;
       }
       if (err?.name === "AbortError") {
-        throw new PayvergeAdminClientError(
+        throw new NamakdanAdminClientError(
           `${this.label} ${method} ${path} timed out after ${this.timeoutMs}ms`,
           { method, path },
         );
       }
-      throw new PayvergeAdminClientError(
+      throw new NamakdanAdminClientError(
         `${this.label} ${method} ${path} request failed: ${err?.message ?? String(err)}`,
         { method, path },
       );

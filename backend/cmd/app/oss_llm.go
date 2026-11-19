@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/llm/openrouter"
-	"github.com/stdevmac/payverge/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/llm/openrouter"
+	"github.com/nekzad/namakdan/backend/internal/logger"
 )
 
 // llmDisabledReason explains why startup will not build the AI service, or

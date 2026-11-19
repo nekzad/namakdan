@@ -12,7 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/emails"
 )
 
 // Staff invite / resend are tenant-triggered mail to an address the tenant

@@ -18,7 +18,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/stdevmac/payverge/backend/internal/utils"
+	"github.com/nekzad/namakdan/backend/internal/utils"
 )
 
 // CookieName is the guest session cookie shared by bill splitting, guest
@@ -35,7 +35,7 @@ func secret() []byte {
 	if s := strings.TrimSpace(os.Getenv("JWT_SECRET_KEY")); s != "" {
 		return []byte(s)
 	}
-	return []byte("payverge-dev-guest-split-session")
+	return []byte("namakdan-dev-guest-split-session")
 }
 
 // Sign returns the hex HMAC-SHA256 of a session id.

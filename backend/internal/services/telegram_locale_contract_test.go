@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/locales"
+	"github.com/nekzad/namakdan/backend/internal/locales"
 )
 
 // The Telegram-notification surface contract, mirroring the email surface

@@ -15,10 +15,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	appconfig "github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/plugins/mercadopago"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	appconfig "github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/plugins/mercadopago"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 func TestMercadoPagoOAuthStartReturnsAuthorizationURL(t *testing.T) {
@@ -28,7 +28,7 @@ func TestMercadoPagoOAuthStartReturnsAuthorizationURL(t *testing.T) {
 	client := &mercadopago.OAuthClient{
 		ClientID:     "test-client-id",
 		ClientSecret: "test-client-secret",
-		RedirectURI:  "https://api.payverge.io/api/v1/mercadopago/oauth/callback",
+		RedirectURI:  "https://api.example.test/api/v1/mercadopago/oauth/callback",
 		BaseAuthURL:  "https://auth.mercadopago.com",
 		BaseAPIURL:   "https://api.mercadopago.com",
 	}
@@ -71,12 +71,12 @@ func TestMercadoPagoOAuthCallbackRejectsForgedState(t *testing.T) {
 	client := &mercadopago.OAuthClient{
 		ClientID:     "id",
 		ClientSecret: "secret",
-		RedirectURI:  "https://api.payverge.io/api/v1/mercadopago/oauth/callback",
+		RedirectURI:  "https://api.example.test/api/v1/mercadopago/oauth/callback",
 		BaseAuthURL:  "https://auth.mercadopago.com",
 		BaseAPIURL:   "https://api.mercadopago.com",
 	}
 	h := NewMercadoPagoOAuthHandlers(nil, client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 
 	w := httptest.NewRecorder()
 	c, _ := gin.CreateTestContext(w)
@@ -124,13 +124,13 @@ func TestMercadoPagoOAuthCallbackHappyPath(t *testing.T) {
 	client := &mercadopago.OAuthClient{
 		ClientID:     "id",
 		ClientSecret: "secret",
-		RedirectURI:  "https://api.payverge.io/api/v1/mercadopago/oauth/callback",
+		RedirectURI:  "https://api.example.test/api/v1/mercadopago/oauth/callback",
 		BaseAuthURL:  "https://auth.mercadopago.com",
 		BaseAPIURL:   tokenServer.URL,
 		HTTPClient:   tokenServer.Client(),
 	}
 	h := NewMercadoPagoOAuthHandlers(services.NewPluginService(database.GetDBWrapper()), client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 	h.usersMeFn = func(ctx context.Context, accessToken, apiBase string) (string, int64, error) {
 		return "MLA", 999001, nil
 	}
@@ -200,11 +200,11 @@ func TestMercadoPagoOAuthCallbackReplacesTokens(t *testing.T) {
 
 	client := &mercadopago.OAuthClient{
 		ClientID: "id", ClientSecret: "secret",
-		RedirectURI: "https://api.payverge.io/api/v1/mercadopago/oauth/callback",
+		RedirectURI: "https://api.example.test/api/v1/mercadopago/oauth/callback",
 		BaseAPIURL:  tokenServer.URL, HTTPClient: tokenServer.Client(),
 	}
 	h := NewMercadoPagoOAuthHandlers(services.NewPluginService(database.GetDBWrapper()), client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 	h.usersMeFn = func(ctx context.Context, accessToken, apiBase string) (string, int64, error) {
 		return "MLA", 42, nil
 	}
@@ -269,11 +269,11 @@ func TestMercadoPagoOAuthCallback_PreservesConfigWhenPluginDisabled(t *testing.T
 
 	client := &mercadopago.OAuthClient{
 		ClientID: "id", ClientSecret: "secret",
-		RedirectURI: "https://api.payverge.io/api/v1/mercadopago/oauth/callback",
+		RedirectURI: "https://api.example.test/api/v1/mercadopago/oauth/callback",
 		BaseAPIURL:  tokenServer.URL, HTTPClient: tokenServer.Client(),
 	}
 	h := NewMercadoPagoOAuthHandlers(services.NewPluginService(database.GetDBWrapper()), client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 	h.usersMeFn = func(ctx context.Context, accessToken, apiBase string) (string, int64, error) {
 		return "MLA", 55, nil
 	}
@@ -342,11 +342,11 @@ func TestMercadoPagoOAuthCallback_ClearsPublicKeyWhenOmitted(t *testing.T) {
 
 	client := &mercadopago.OAuthClient{
 		ClientID: "id", ClientSecret: "secret",
-		RedirectURI: "https://api.payverge.io/api/v1/mercadopago/oauth/callback",
+		RedirectURI: "https://api.example.test/api/v1/mercadopago/oauth/callback",
 		BaseAPIURL:  tokenServer.URL, HTTPClient: tokenServer.Client(),
 	}
 	h := NewMercadoPagoOAuthHandlers(services.NewPluginService(database.GetDBWrapper()), client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 	h.usersMeFn = func(ctx context.Context, accessToken, apiBase string) (string, int64, error) {
 		return "MLA", 88, nil
 	}
@@ -400,11 +400,11 @@ func TestMercadoPagoOAuthCallback_RejectsSandboxLiveModeInProduction(t *testing.
 
 	client := &mercadopago.OAuthClient{
 		ClientID: "id", ClientSecret: "secret",
-		RedirectURI: "https://api.payverge.io/api/v1/mercadopago/oauth/callback",
+		RedirectURI: "https://api.example.test/api/v1/mercadopago/oauth/callback",
 		BaseAPIURL:  tokenServer.URL, HTTPClient: tokenServer.Client(),
 	}
 	h := NewMercadoPagoOAuthHandlers(services.NewPluginService(database.GetDBWrapper()), client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 	h.usersMeFn = func(ctx context.Context, accessToken, apiBase string) (string, int64, error) {
 		return "MLA", 77, nil
 	}
@@ -466,11 +466,11 @@ func TestMercadoPagoOAuthCallback_MergesExistingConfig(t *testing.T) {
 
 	client := &mercadopago.OAuthClient{
 		ClientID: "id", ClientSecret: "secret",
-		RedirectURI: "https://api.payverge.io/api/v1/mercadopago/oauth/callback",
+		RedirectURI: "https://api.example.test/api/v1/mercadopago/oauth/callback",
 		BaseAPIURL:  tokenServer.URL, HTTPClient: tokenServer.Client(),
 	}
 	h := NewMercadoPagoOAuthHandlers(services.NewPluginService(database.GetDBWrapper()), client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 	h.usersMeFn = func(ctx context.Context, accessToken, apiBase string) (string, int64, error) {
 		return "MLC", 99, nil // Chile — overwrites country when present
 	}
@@ -551,11 +551,11 @@ func TestMercadoPagoOAuthCallback_DecryptFailureAbortsWithoutPersist(t *testing.
 
 	client := &mercadopago.OAuthClient{
 		ClientID: "id", ClientSecret: "secret",
-		RedirectURI: "https://api.payverge.io/api/v1/mercadopago/oauth/callback",
+		RedirectURI: "https://api.example.test/api/v1/mercadopago/oauth/callback",
 		BaseAPIURL:  tokenServer.URL, HTTPClient: tokenServer.Client(),
 	}
 	h := NewMercadoPagoOAuthHandlers(services.NewPluginService(database.GetDBWrapper()), client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 	h.usersMeFn = func(ctx context.Context, accessToken, apiBase string) (string, int64, error) {
 		return "MLA", 222, nil
 	}
@@ -618,11 +618,11 @@ func TestMercadoPagoOAuthCallback_DifferentUserIDClearsStorePOS(t *testing.T) {
 
 	client := &mercadopago.OAuthClient{
 		ClientID: "id", ClientSecret: "secret",
-		RedirectURI: "https://api.payverge.io/api/v1/mercadopago/oauth/callback",
+		RedirectURI: "https://api.example.test/api/v1/mercadopago/oauth/callback",
 		BaseAPIURL:  tokenServer.URL, HTTPClient: tokenServer.Client(),
 	}
 	h := NewMercadoPagoOAuthHandlers(services.NewPluginService(database.GetDBWrapper()), client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 	h.usersMeFn = func(ctx context.Context, accessToken, apiBase string) (string, int64, error) {
 		return "MLA", 999, nil
 	}
@@ -678,11 +678,11 @@ func TestMercadoPagoOAuthCallback_SameUserIDPreservesStorePOS(t *testing.T) {
 
 	client := &mercadopago.OAuthClient{
 		ClientID: "id", ClientSecret: "secret",
-		RedirectURI: "https://api.payverge.io/api/v1/mercadopago/oauth/callback",
+		RedirectURI: "https://api.example.test/api/v1/mercadopago/oauth/callback",
 		BaseAPIURL:  tokenServer.URL, HTTPClient: tokenServer.Client(),
 	}
 	h := NewMercadoPagoOAuthHandlers(services.NewPluginService(database.GetDBWrapper()), client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 	h.usersMeFn = func(ctx context.Context, accessToken, apiBase string) (string, int64, error) {
 		return "MLA", 555, nil
 	}
@@ -736,11 +736,11 @@ func TestMercadoPagoOAuthCallback_UsersMeFailureKeepsTokenUserID(t *testing.T) {
 
 	client := &mercadopago.OAuthClient{
 		ClientID: "id", ClientSecret: "secret",
-		RedirectURI: "https://api.payverge.io/api/v1/mercadopago/oauth/callback",
+		RedirectURI: "https://api.example.test/api/v1/mercadopago/oauth/callback",
 		BaseAPIURL:  tokenServer.URL, HTTPClient: tokenServer.Client(),
 	}
 	h := NewMercadoPagoOAuthHandlers(services.NewPluginService(database.GetDBWrapper()), client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 	h.usersMeFn = func(ctx context.Context, accessToken, apiBase string) (string, int64, error) {
 		// Production fetch returns (0, err) on all error paths — must not overwrite.
 		return "", 0, fmt.Errorf("users/me unavailable: temporary outage")
@@ -804,11 +804,11 @@ func TestMercadoPagoOAuthCallback_UsersMeFailureZeroTokenLeavesUserIDUnset(t *te
 
 	client := &mercadopago.OAuthClient{
 		ClientID: "id", ClientSecret: "secret",
-		RedirectURI: "https://api.payverge.io/api/v1/mercadopago/oauth/callback",
+		RedirectURI: "https://api.example.test/api/v1/mercadopago/oauth/callback",
 		BaseAPIURL:  tokenServer.URL, HTTPClient: tokenServer.Client(),
 	}
 	h := NewMercadoPagoOAuthHandlers(services.NewPluginService(database.GetDBWrapper()), client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 	h.usersMeFn = func(ctx context.Context, accessToken, apiBase string) (string, int64, error) {
 		return "", 0, fmt.Errorf("users/me failed")
 	}
@@ -863,7 +863,7 @@ func TestMercadoPagoOAuthCallback_LandsOnThePluginsTab(t *testing.T) {
 		BaseAPIURL: tokenServer.URL, HTTPClient: tokenServer.Client(),
 	}
 	h := NewMercadoPagoOAuthHandlers(services.NewPluginService(database.GetDBWrapper()), client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 	h.usersMeFn = func(ctx context.Context, accessToken, apiBase string) (string, int64, error) {
 		return "MLA", 999777, nil
 	}
@@ -892,7 +892,7 @@ func TestMercadoPagoOAuthCallback_LandsOnThePluginsTab(t *testing.T) {
 func TestMercadoPagoOAuthCallback_UnknownBusinessRedirectsHome(t *testing.T) {
 	client := &mercadopago.OAuthClient{ClientID: "id", ClientSecret: "secret"}
 	h := NewMercadoPagoOAuthHandlers(nil, client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 
 	w := httptest.NewRecorder()
 	c, _ := gin.CreateTestContext(w)

@@ -12,18 +12,18 @@
 #
 # Needs docker. Publishes no ports (an internal network).
 #   POSTGRES_IMAGE        image to test (default: the one deploy/docker-compose.yml pins)
-#   PG_ROLE_TEST_PREFIX   container name prefix (default payverge-pg-role-test)
+#   PG_ROLE_TEST_PREFIX   container name prefix (default namakdan-pg-role-test)
 set -euo pipefail
 
 repo=$(cd "$(dirname "$0")/../.." && pwd)
 compose="$repo/deploy/docker-compose.yml"
 init="$repo/deploy/postgres/init-app-role.sql"
-prefix=${PG_ROLE_TEST_PREFIX:-payverge-pg-role-test}
+prefix=${PG_ROLE_TEST_PREFIX:-namakdan-pg-role-test}
 image=${POSTGRES_IMAGE:-$(awk '/^  postgres:/{p=1} p && /image:/{print $2; exit}' "$compose")}
 [ -n "$image" ] || { echo "could not read the postgres image from $compose" >&2; exit 1; }
 
-app_user=payverge
-db_name=payverge
+app_user=namakdan
+db_name=namakdan
 password=role-test-$RANDOM-$RANDOM
 main="$prefix-main"
 bad="$prefix-bad"
@@ -43,7 +43,7 @@ fail() { printf 'FAIL %s\n' "$1" >&2; failures=$((failures + 1)); }
 start() { # name db_user
 	docker run -d --name "$1" --network "$net" \
 		-e POSTGRES_DB="$db_name" -e POSTGRES_USER=postgres \
-		-e POSTGRES_PASSWORD="$password" -e PAYVERGE_DB_USER="$2" \
+		-e POSTGRES_PASSWORD="$password" -e NAMAKDAN_DB_USER="$2" \
 		-v "$init:/docker-entrypoint-initdb.d/10-app-role.sql:ro" \
 		"$image" >/dev/null
 }

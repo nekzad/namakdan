@@ -8,10 +8,10 @@
 #
 # Environment:
 #   ACCEPTANCE_STATE  directory for secrets, pid and log (required)
-#   PAYVERGE_BIN      backend binary (default: backend/bin/app)
+#   NAMAKDAN_BIN      backend binary (default: backend/bin/app)
 #   PORT              listen port (default 8080)
 #   DB_HOST DB_PORT DB_USER DB_PASSWORD DB_NAME
-#                     PostgreSQL (defaults 127.0.0.1 5432 payverge - payverge;
+#                     PostgreSQL (defaults 127.0.0.1 5432 namakdan - namakdan;
 #                     DB_PASSWORD is required: preflight rejects known defaults)
 #
 # The first start writes $ACCEPTANCE_STATE/boot.env (mode 600) with
@@ -22,13 +22,13 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 STATE="${ACCEPTANCE_STATE:?set ACCEPTANCE_STATE to a writable directory}"
-BIN="${PAYVERGE_BIN:-$ROOT/backend/bin/app}"
+BIN="${NAMAKDAN_BIN:-$ROOT/backend/bin/app}"
 PORT="${PORT:-8080}"
 DB_HOST="${DB_HOST:-127.0.0.1}"
 DB_PORT="${DB_PORT:-5432}"
-DB_USER="${DB_USER:-payverge}"
+DB_USER="${DB_USER:-namakdan}"
 DB_PASSWORD="${DB_PASSWORD:?set DB_PASSWORD (production preflight rejects development defaults)}"
-DB_NAME="${DB_NAME:-payverge}"
+DB_NAME="${DB_NAME:-namakdan}"
 PIDFILE="$STATE/backend.pid"
 
 mkdir -p "$STATE/storage"

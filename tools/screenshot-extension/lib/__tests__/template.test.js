@@ -3,10 +3,10 @@ import { extractContext, fillUrl } from "../template.js";
 describe("extractContext", () => {
   test("pulls businessId and origin from a dashboard URL", () => {
     const ctx = extractContext(
-      "https://payverge.io/business/abc123/dashboard?tab=analytics",
+      "https://example.test/business/abc123/dashboard?tab=analytics",
     );
     expect(ctx.businessId).toBe("abc123");
-    expect(ctx.origin).toBe("https://payverge.io");
+    expect(ctx.origin).toBe("https://example.test");
   });
 
   test("pulls tableCode from a guest menu URL", () => {
@@ -16,7 +16,7 @@ describe("extractContext", () => {
   });
 
   test("pulls customUrl from a storefront URL", () => {
-    const ctx = extractContext("https://payverge.io/b/joes-diner");
+    const ctx = extractContext("https://example.test/b/joes-diner");
     expect(ctx.customUrl).toBe("joes-diner");
   });
 });

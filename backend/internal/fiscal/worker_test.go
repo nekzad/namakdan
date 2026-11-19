@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	"github.com/stdevmac/payverge/backend/internal/runtimecontrol"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/runtimecontrol"
 
 	"github.com/prometheus/client_golang/prometheus/testutil"
 	"github.com/stretchr/testify/require"

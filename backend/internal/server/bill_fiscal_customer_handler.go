@@ -10,9 +10,9 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/fiscal"
-	"github.com/stdevmac/payverge/backend/internal/guestsession"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/fiscal"
+	"github.com/nekzad/namakdan/backend/internal/guestsession"
 
 	"github.com/gin-gonic/gin"
 )

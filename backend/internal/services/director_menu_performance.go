@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services/director_tools"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services/director_tools"
 )
 
 // menuPerfDish is an operator-facing row assembled from menu cards, tool

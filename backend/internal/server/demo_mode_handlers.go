@@ -6,9 +6,9 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/demomode"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/demomode"
 )
 
 // IssueDemoStaffSession signs staff in exactly like a staff login code would

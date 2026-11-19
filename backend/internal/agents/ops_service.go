@@ -10,15 +10,15 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/stdevmac/payverge/backend/internal/agents/ops_guides"
-	"github.com/stdevmac/payverge/backend/internal/assistantcontract"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/emails"
-	"github.com/stdevmac/payverge/backend/internal/guardrails"
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/pii"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/agents/ops_guides"
+	"github.com/nekzad/namakdan/backend/internal/assistantcontract"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/guardrails"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/pii"
+	"github.com/nekzad/namakdan/backend/internal/services"
 	"gorm.io/gorm"
 )
 
@@ -951,9 +951,9 @@ func (s *OpsAssistantService) scopeRecoveryResult(req OpsAskRequest, locale, msg
 	}
 	_ = database.SaveOpsAssistantMessage(userMsg)
 
-	answer := "I help with Payverge dashboard how-tos, navigation, and support requests. Ask me how to use a feature, or say if you want to contact support."
+	answer := "I help with Namakdan dashboard how-tos, navigation, and support requests. Ask me how to use a feature, or say if you want to contact support."
 	if locale == "es" || locale == "es-AR" || locale == "es-ar" {
-		answer = "Ayudo con guías del panel de Payverge, navegación y solicitudes de soporte. Pregúntame cómo usar una función, o di si quieres contactar soporte."
+		answer = "Ayudo con guías del panel de Namakdan, navegación y solicitudes de soporte. Pregúntame cómo usar una función, o di si quieres contactar soporte."
 	}
 	resp := StructuredResponse{
 		Answer:    answer,

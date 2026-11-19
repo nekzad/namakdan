@@ -1,4 +1,4 @@
-// Package geometry provides pure layout geometry helpers for Payverge Spaces.
+// Package geometry provides pure layout geometry helpers for Namakdan Spaces.
 //
 // Coordinate system (layout schema version 1):
 //   - Origin: top-left corner of the space bounding box

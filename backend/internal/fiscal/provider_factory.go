@@ -3,7 +3,7 @@ package fiscal
 import (
 	"context"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // ProviderFactory builds a ready-to-use Provider from the business's persisted

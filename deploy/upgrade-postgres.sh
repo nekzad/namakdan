@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# upgrade-postgres.sh: move a Payverge install from PostgreSQL 15 to 18.
+# upgrade-postgres.sh: move a Namakdan install from PostgreSQL 15 to 18.
 #
 # Installs from before PostgreSQL 18 keep their data at the root of the "db"
 # volume. PostgreSQL 18 keeps it in the "pgdata" volume, mounted at
@@ -84,7 +84,7 @@ done
 [[ -d $install_dir ]] || die "no such directory: $install_dir"
 install_dir=$(cd "$install_dir" && pwd)
 cd "$install_dir"
-[[ -f docker-compose.yml ]] || die "no docker-compose.yml in $install_dir; run this in the Payverge install directory"
+[[ -f docker-compose.yml ]] || die "no docker-compose.yml in $install_dir; run this in the Namakdan install directory"
 grep -q 'pgdata:/var/lib/postgresql' docker-compose.yml ||
 	die "docker-compose.yml here is from a release before PostgreSQL 18. Upgrade the release files first (bash install.sh --version <new>), then run this again."
 command -v docker >/dev/null 2>&1 || die "docker not found"
@@ -109,13 +109,13 @@ project=${COMPOSE_PROJECT_NAME:-$(env_get COMPOSE_PROJECT_NAME)}
 if [[ -z $project ]]; then
 	project=$(sed -n 's/^name:[[:space:]]*\([A-Za-z0-9_-]*\).*/\1/p' docker-compose.yml | head -n 1)
 fi
-project=${project:-payverge}
+project=${project:-namakdan}
 new_image=$(awk '/^  postgres:/{p=1} p && /image:/{print $2; exit}' docker-compose.yml)
 new_image=${new_image:-$NEW_IMAGE_DEFAULT}
 legacy_vol=${project}_db
 new_vol=${project}_pgdata
 app_user=$(env_get DB_USER)
-app_user=${app_user:-payverge}
+app_user=${app_user:-namakdan}
 backup_dir=$(env_get BACKUP_DIR)
 backup_dir=${backup_dir:-./backups}
 stamp=$(date -u +%Y%m%dT%H%M%SZ)
@@ -143,7 +143,7 @@ if [[ -n $new_version ]]; then
 	# A rollback since the upgrade (PostgreSQL 15 run on the db volume again)
 	# leaves pgdata stale; see postgres/pg18-guard.sh.
 	pgdata_state=$(docker run --rm --network none -v "$legacy_vol:/old:ro" -v "$new_vol:/new:ro" \
-		--entrypoint /bin/sh "$new_image" -c 'm=/new/payverge-pg15-control.cksum
+		--entrypoint /bin/sh "$new_image" -c 'm=/new/namakdan-pg15-control.cksum
 if [ -s "$m" ] && [ -s /old/global/pg_control ] &&
 	[ "$(cksum </old/global/pg_control | awk "{print \$1, \$2}")" != "$(cat "$m")" ]; then echo stale; fi')
 	if [[ $pgdata_state == *stale* ]]; then
@@ -162,7 +162,7 @@ fi
 
 say ""
 say "Plan:"
-say "  1. docker compose down          (stops Payverge; every volume is kept)"
+say "  1. docker compose down          (stops Namakdan; every volume is kept)"
 say "  2. PostgreSQL 15 on $legacy_vol: count rows, pg_dumpall into $dump_dir/"
 say "  3. PostgreSQL 18 on a new $new_vol: restore, ANALYZE, compare row counts"
 if [[ $no_start == 1 ]]; then
@@ -178,7 +178,7 @@ if [[ $dry_run == 1 ]]; then
 fi
 if [[ $yes != 1 ]]; then
 	[[ -t 0 ]] || die "no terminal to confirm on; re-run with --yes"
-	printf 'Payverge will be offline while this runs. Continue? [y/N] '
+	printf 'Namakdan will be offline while this runs. Continue? [y/N] '
 	read -r answer
 	[[ $answer == [yY] || $answer == [yY][eE][sS] ]] || die "stopped; nothing was changed"
 fi
@@ -191,7 +191,7 @@ cleanup() {
 	docker rm -f -v "$old_ctr" "$new_ctr" >/dev/null 2>&1 || true
 	if [[ $finished != 1 && $created_new == 1 ]]; then
 		docker volume rm "$new_vol" >/dev/null 2>&1 || true
-		printf 'error: the upgrade did not finish. %s was removed; %s is unchanged and Payverge is stopped.\n' "$new_vol" "$legacy_vol" >&2
+		printf 'error: the upgrade did not finish. %s was removed; %s is unchanged and Namakdan is stopped.\n' "$new_vol" "$legacy_vol" >&2
 		printf '       Start it again on PostgreSQL 15 with the deploy files you upgraded from (put them back, then docker compose up -d), or fix the cause and re-run this script.\n' >&2
 	fi
 }
@@ -231,7 +231,7 @@ row_counts() { # row_counts CONTAINER SUPERUSER
 
 # --- 1. stop -------------------------------------------------------------------
 
-step "Stopping Payverge (docker compose down; volumes are kept)"
+step "Stopping Namakdan (docker compose down; volumes are kept)"
 docker compose down
 mkdir -p "$dump_dir"
 chmod 700 "$dump_dir"
@@ -244,7 +244,7 @@ docker run -d --name "$old_ctr" --network none --shm-size 256m \
 wait_ready "$old_ctr"
 
 superuser=""
-for candidate in ${PG_SUPERUSER:-} postgres "$app_user" payverge; do
+for candidate in ${PG_SUPERUSER:-} postgres "$app_user" namakdan; do
 	if [[ $(psql_in "$old_ctr" "$candidate" postgres -At -c 'SELECT rolsuper FROM pg_roles WHERE rolname = current_user' 2>/dev/null) == t ]]; then
 		superuser=$candidate
 		break
@@ -324,7 +324,7 @@ note "$(wc -l <"$dump_dir/row-counts-pg18.txt" | tr -d ' ') tables, every row co
 docker stop -t 60 "$new_ctr" >/dev/null
 docker rm -v "$new_ctr" >/dev/null
 docker run --rm --network none -v "$new_vol:/new" --entrypoint /bin/sh "$new_image" \
-	-c 'printf "%s\n" "$1" >/new/payverge-pg15-control.cksum && chmod 644 /new/payverge-pg15-control.cksum' \
+	-c 'printf "%s\n" "$1" >/new/namakdan-pg15-control.cksum && chmod 644 /new/namakdan-pg15-control.cksum' \
 	sh "$legacy_control" >/dev/null
 finished=1
 
@@ -336,11 +336,11 @@ say "  $legacy_vol             the PostgreSQL 15 data, unchanged"
 say "  $dump_dir/   the dump, the row counts and the restore log"
 say "To roll back: docker compose down, put back the deploy files you upgraded from, then docker compose up -d."
 say "A rollback loses everything written on PostgreSQL 18. Before upgrading again after one,"
-say "remove the stale copy (Payverge refuses to start on it): docker volume rm $new_vol"
+say "remove the stale copy (Namakdan refuses to start on it): docker volume rm $new_vol"
 say "Once you are sure, free the space: docker volume rm $legacy_vol"
 if [[ $no_start == 1 ]]; then
-	say "Start Payverge with: docker compose up -d"
+	say "Start Namakdan with: docker compose up -d"
 	exit 0
 fi
-step "Starting Payverge (docker compose up -d)"
+step "Starting Namakdan (docker compose up -d)"
 docker compose up -d

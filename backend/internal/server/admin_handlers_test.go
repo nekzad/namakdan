@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -526,8 +526,8 @@ func TestAdminSurfacesShareBusinessCount(t *testing.T) {
 
 	now := time.Now()
 	realOwner := database.User{Email: "real-owner@cafe.com", Name: "Real", Role: "user"}
-	testOwner := database.User{Email: "fixture@payverge.test", Name: "Fixture", Role: "user"}
-	localOwner := database.User{Email: "local@payverge.local", Name: "Local", Role: "user"}
+	testOwner := database.User{Email: "fixture@example.test", Name: "Fixture", Role: "user"}
+	localOwner := database.User{Email: "local@example.test", Name: "Local", Role: "user"}
 	require.NoError(t, db.Create(&realOwner).Error)
 	require.NoError(t, db.Create(&testOwner).Error)
 	require.NoError(t, db.Create(&localOwner).Error)
@@ -540,9 +540,9 @@ func TestAdminSurfacesShareBusinessCount(t *testing.T) {
 	}{
 		{"surf-real-1", "Real One", "real1@cafe.com", database.BusinessKindReal, &realOwner.ID, false},
 		{"surf-real-2", "Real Two", "real2@cafe.com", database.BusinessKindReal, &realOwner.ID, false},
-		{"surf-demo", "Demo Seed", "demo@payverge.example", database.BusinessKindDemo, nil, true},
-		{"surf-test", "CI Fixture", "ci@payverge.test", database.BusinessKindTest, &testOwner.ID, false},
-		{"surf-local", "Local Fixture", "qa@payverge.local", database.BusinessKindTest, &localOwner.ID, false},
+		{"surf-demo", "Demo Seed", "demo@example.com", database.BusinessKindDemo, nil, true},
+		{"surf-test", "CI Fixture", "ci@example.test", database.BusinessKindTest, &testOwner.ID, false},
+		{"surf-local", "Local Fixture", "qa@example.test", database.BusinessKindTest, &localOwner.ID, false},
 	}
 	for _, s := range seed {
 		require.NoError(t, db.Create(&database.Business{
@@ -588,8 +588,8 @@ func TestAdminSurfacesShareBusinessCount(t *testing.T) {
 	assert.EqualValues(t, want, int64(len(emailResp.Businesses)),
 		"email business list must only include kind=real businesses")
 	for _, b := range emailResp.Businesses {
-		assert.NotContains(t, b.Email, "@payverge.test")
-		assert.NotContains(t, b.Email, "@payverge.local")
+		assert.NotContains(t, b.Email, "@example.test")
+		assert.NotContains(t, b.Email, "@example.test")
 	}
 
 	// Surface 4: fiscal summary scopes businesses_with_fiscal to kind=real.

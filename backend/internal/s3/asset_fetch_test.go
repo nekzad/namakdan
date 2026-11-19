@@ -29,7 +29,7 @@ func TestDownloadPublicAssetResponseContract(t *testing.T) {
 		}
 		return &http.Response{StatusCode: status, Header: headers, Body: io.NopCloser(bytes.NewReader(body))}, nil
 	})
-	const host = "images.payverge.io"
+	const host = "images.example.test"
 
 	data, contentType, err := downloadPublicAsset(
 		context.Background(), "https://"+host+"/ok", host, client,
@@ -46,25 +46,25 @@ func TestDownloadPublicAssetResponseContract(t *testing.T) {
 }
 
 func TestValidatePublicAssetURL(t *testing.T) {
-	const host = "assets.payverge.example.com"
+	const host = "assets.example.com.com"
 	cases := []struct {
 		name    string
 		url     string
 		allowed string
 		wantErr bool
 	}{
-		{"valid https same host", "https://assets.payverge.example.com/menu_items/x.png", host, false},
+		{"valid https same host", "https://assets.example.com.com/menu_items/x.png", host, false},
 		{"foreign host", "https://evil.example.com/x.png", host, true},
-		{"http scheme rejected", "http://assets.payverge.example.com/x.png", host, true},
-		{"empty allowed host", "https://assets.payverge.example.com/x.png", "", true},
+		{"http scheme rejected", "http://assets.example.com.com/x.png", host, true},
+		{"empty allowed host", "https://assets.example.com.com/x.png", "", true},
 		{"garbage url", "://not a url", host, true},
 		{"metadata ip", "https://169.254.169.254/latest/meta-data", host, true},
 		// SSRF host-confusion negatives (§D): every one of these must be rejected by
 		// the exact-equality host guard, NOT mistaken for the allowed bucket host.
-		{"hyphen-confusion host", "https://assets-payverge.example.com/x.png", host, true},
-		{"subdomain-injection suffix", "https://assets.payverge.example.com.evil.com/x.png", host, true},
-		{"userinfo confusion", "https://assets.payverge.example.com@evil.com/x.png", host, true},
-		{"case-variant host", "https://ASSETS.payverge.example.com/x.png", host, true},
+		{"hyphen-confusion host", "https://assets.example.com/x.png", host, true},
+		{"subdomain-injection suffix", "https://assets.example.com.com.evil.com/x.png", host, true},
+		{"userinfo confusion", "https://assets.example.com.com@evil.com/x.png", host, true},
+		{"case-variant host", "https://ASSETS.example.com.com/x.png", host, true},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
@@ -90,22 +90,22 @@ func TestConfigurePublicHost(t *testing.T) {
 
 	// A configured public base URL (e.g. Cloudflare R2 served via a custom
 	// domain) wins: the public host is that domain, not the write endpoint.
-	configurePublicHost("payverge-prod", "auto", "https://acct.r2.cloudflarestorage.com", "https://images.payverge.io")
-	require.Equal(t, "images.payverge.io", PublicHost())
+	configurePublicHost("namakdan-prod", "auto", "https://acct.r2.cloudflarestorage.com", "https://images.example.test")
+	require.Equal(t, "images.example.test", PublicHost())
 }
 
 func TestBuildLocation(t *testing.T) {
 	// With a base URL, the location is "<base>/<key>" (key maps 1:1 to the
 	// custom-domain path); the SDK write URL is ignored.
 	require.Equal(t,
-		"https://images.payverge.io/businesses/12/logo.png",
-		buildLocation("https://images.payverge.io", "businesses/12/logo.png",
-			"https://payverge-prod.acct.r2.cloudflarestorage.com/businesses/12/logo.png"),
+		"https://images.example.test/businesses/12/logo.png",
+		buildLocation("https://images.example.test", "businesses/12/logo.png",
+			"https://bucket.account-id.r2.cloudflarestorage.com/businesses/12/logo.png"),
 	)
 	// A trailing slash on the base URL does not double up.
 	require.Equal(t,
-		"https://images.payverge.io/a/b.png",
-		buildLocation("https://images.payverge.io/", "a/b.png", "fallback"),
+		"https://images.example.test/a/b.png",
+		buildLocation("https://images.example.test/", "a/b.png", "fallback"),
 	)
 	// No base URL => the SDK write URL is returned unchanged (legacy behavior).
 	require.Equal(t, "https://host/x.png", buildLocation("", "x.png", "https://host/x.png"))

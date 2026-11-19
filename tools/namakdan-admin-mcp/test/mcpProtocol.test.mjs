@@ -7,14 +7,14 @@ const tools = {
   listTools() {
     return [
       {
-        name: "payverge_health_snapshot",
+        name: "namakdan_health_snapshot",
         description: "Get health.",
         inputSchema: { type: "object", properties: {} },
       },
     ];
   },
   async callTool(name, args) {
-    assert.equal(name, "payverge_health_snapshot");
+    assert.equal(name, "namakdan_health_snapshot");
     assert.deepEqual(args, { includeErrors: true });
     return {
       content: [{ type: "text", text: "ok" }],
@@ -32,7 +32,7 @@ test("initialize returns MCP capabilities and server metadata", async () => {
   assert.equal(response.id, 1);
   assert.equal(response.result.protocolVersion, "2025-11-25");
   assert.deepEqual(response.result.capabilities, { tools: {} });
-  assert.equal(response.result.serverInfo.name, "payverge-admin-mcp");
+  assert.equal(response.result.serverInfo.name, "namakdan-admin-mcp");
 });
 
 test("tools/list exposes registered tool schemas", async () => {
@@ -41,7 +41,7 @@ test("tools/list exposes registered tool schemas", async () => {
     { tools },
   );
 
-  assert.equal(response.result.tools[0].name, "payverge_health_snapshot");
+  assert.equal(response.result.tools[0].name, "namakdan_health_snapshot");
 });
 
 test("tools/call delegates to the tool registry", async () => {
@@ -51,7 +51,7 @@ test("tools/call delegates to the tool registry", async () => {
       id: 3,
       method: "tools/call",
       params: {
-        name: "payverge_health_snapshot",
+        name: "namakdan_health_snapshot",
         arguments: { includeErrors: true },
       },
     },

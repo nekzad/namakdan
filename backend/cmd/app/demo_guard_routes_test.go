@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/demomode"
+	"github.com/nekzad/namakdan/backend/internal/demomode"
 )
 
 // TestDemoGuardRulesNameWiredRoutes keeps the public-demo deny list honest:

@@ -3,8 +3,8 @@ package emails
 import (
 	"log"
 
-	"github.com/stdevmac/payverge/backend/internal/locales"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/locales"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 )
 
 // EmailServerDispatcher wraps the EmailServer to implement NotificationDispatcher

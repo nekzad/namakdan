@@ -1,4 +1,4 @@
-// Package s3 is Payverge's object-storage layer. Despite the historical name
+// Package s3 is Namakdan's object-storage layer. Despite the historical name
 // it is driver-agnostic: Store (store.go) has a local-filesystem driver (the
 // self-host default, STORAGE_DRIVER=local) and an S3-compatible driver
 // (STORAGE_DRIVER=s3). The package-level helpers in this file and

@@ -10,8 +10,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // F9: manual-mode config without mp_user_id fetches /users/me and persists it.
@@ -28,10 +28,10 @@ func TestEnsureStoreAndPOS_ResolvesMPUserIDFromUsersMe(t *testing.T) {
 			_, _ = w.Write([]byte(`{"id":777888,"nickname":"manual-merchant"}`))
 		case r.Method == http.MethodPost && r.URL.Path == "/users/777888/stores":
 			atomic.AddInt32(&storePosts, 1)
-			_, _ = w.Write([]byte(`{"id":555,"external_id":"payverge-store-42"}`))
+			_, _ = w.Write([]byte(`{"id":555,"external_id":"namakdan-store-42"}`))
 		case r.Method == http.MethodPost && r.URL.Path == "/pos":
 			atomic.AddInt32(&posPosts, 1)
-			_, _ = w.Write([]byte(`{"id":666,"external_id":"PAYVERGEPOS42"}`))
+			_, _ = w.Write([]byte(`{"id":666,"external_id":"NAMAKDANPOS42"}`))
 		default:
 			t.Errorf("unexpected %s %s", r.Method, r.URL.Path)
 			http.NotFound(w, r)
@@ -52,7 +52,7 @@ func TestEnsureStoreAndPOS_ResolvesMPUserIDFromUsersMe(t *testing.T) {
 
 	externalPOSID, err := plugin.ensureStoreAndPOS(42)
 	require.NoError(t, err)
-	require.Equal(t, "PAYVERGEPOS42", externalPOSID)
+	require.Equal(t, "NAMAKDANPOS42", externalPOSID)
 	require.Equal(t, int32(1), atomic.LoadInt32(&usersMeCalls))
 	require.Equal(t, int32(1), atomic.LoadInt32(&storePosts))
 	require.Equal(t, int32(1), atomic.LoadInt32(&posPosts))
@@ -104,13 +104,13 @@ func TestEnsureStoreAndPOS_CreatesAndPersists(t *testing.T) {
 			body, err := io.ReadAll(r.Body)
 			require.NoError(t, err)
 			require.NoError(t, json.Unmarshal(body, &gotStore))
-			_, _ = w.Write([]byte(`{"id":12354567,"external_id":"payverge-store-42","name":"MercadoPago Refund Test"}`))
+			_, _ = w.Write([]byte(`{"id":12354567,"external_id":"namakdan-store-42","name":"MercadoPago Refund Test"}`))
 		case r.Method == http.MethodPost && r.URL.Path == "/pos":
 			atomic.AddInt32(&posPosts, 1)
 			body, err := io.ReadAll(r.Body)
 			require.NoError(t, err)
 			require.NoError(t, json.Unmarshal(body, &gotPOS))
-			_, _ = w.Write([]byte(`{"id":23545678,"external_id":"PAYVERGEPOS42","store_id":12354567}`))
+			_, _ = w.Write([]byte(`{"id":23545678,"external_id":"NAMAKDANPOS42","store_id":12354567}`))
 		default:
 			t.Errorf("unexpected %s %s", r.Method, r.URL.Path)
 			http.NotFound(w, r)
@@ -131,18 +131,18 @@ func TestEnsureStoreAndPOS_CreatesAndPersists(t *testing.T) {
 
 	externalPOSID, err := plugin.ensureStoreAndPOS(42)
 	require.NoError(t, err)
-	require.Equal(t, "PAYVERGEPOS42", externalPOSID)
+	require.Equal(t, "NAMAKDANPOS42", externalPOSID)
 
 	require.Equal(t, int32(1), atomic.LoadInt32(&storePosts))
 	require.Equal(t, int32(1), atomic.LoadInt32(&posPosts))
 
 	require.Equal(t, "MercadoPago Refund Test", gotStore["name"])
-	require.Equal(t, "payverge-store-42", gotStore["external_id"])
+	require.Equal(t, "namakdan-store-42", gotStore["external_id"])
 	require.NotNil(t, gotStore["location"])
 
 	require.Equal(t, "Acme POS", gotPOS["name"])
-	require.Equal(t, "payverge-store-42", gotPOS["external_store_id"])
-	require.Equal(t, "PAYVERGEPOS42", gotPOS["external_id"])
+	require.Equal(t, "namakdan-store-42", gotPOS["external_store_id"])
+	require.Equal(t, "NAMAKDANPOS42", gotPOS["external_id"])
 	// MP rejects non-alphanumeric POS external_ids ("external_id must be
 	// alphanumeric") — the store endpoint tolerates hyphens, the POS one doesn't.
 	require.Regexp(t, `^[A-Za-z0-9]+$`, gotPOS["external_id"])
@@ -153,7 +153,7 @@ func TestEnsureStoreAndPOS_CreatesAndPersists(t *testing.T) {
 	cfg, err := plugin.pluginService.GetPluginConfig(42, "mercadopago")
 	require.NoError(t, err)
 	require.Equal(t, "12354567", configString(cfg, configKeyMPStoreID))
-	require.Equal(t, "PAYVERGEPOS42", configString(cfg, configKeyMPExternalPOSID))
+	require.Equal(t, "NAMAKDANPOS42", configString(cfg, configKeyMPExternalPOSID))
 }
 
 func TestEnsureStoreAndPOS_IdempotentSecondCallZeroHTTP(t *testing.T) {
@@ -174,13 +174,13 @@ func TestEnsureStoreAndPOS_IdempotentSecondCallZeroHTTP(t *testing.T) {
 		"webhook_secret":     "mp-webhook-secret",
 		"mp_user_id":         "999001",
 		"mp_store_id":        "12354567",
-		"mp_external_pos_id": "payverge-pos-42",
+		"mp_external_pos_id": "namakdan-pos-42",
 	})
 	plugin := NewMercadoPagoPlugin(services.NewPluginService(database.GetDBWrapper()))
 
 	externalPOSID, err := plugin.ensureStoreAndPOS(42)
 	require.NoError(t, err)
-	require.Equal(t, "payverge-pos-42", externalPOSID)
+	require.Equal(t, "namakdan-pos-42", externalPOSID)
 	require.Equal(t, int32(0), atomic.LoadInt32(&httpCalls))
 }
 
@@ -199,16 +199,16 @@ func TestEnsureStoreAndPOS_AlreadyExistsUsesGETPos(t *testing.T) {
 			_, _ = w.Write([]byte(`{"message":"store already exists","error":"conflict"}`))
 		case r.Method == http.MethodGet && r.URL.Path == "/users/999001/stores/search":
 			atomic.AddInt32(&storeGets, 1)
-			require.Equal(t, "payverge-store-42", r.URL.Query().Get("external_id"))
-			_, _ = w.Write([]byte(`{"results":[{"id":12354567,"external_id":"payverge-store-42"}]}`))
+			require.Equal(t, "namakdan-store-42", r.URL.Query().Get("external_id"))
+			_, _ = w.Write([]byte(`{"results":[{"id":12354567,"external_id":"namakdan-store-42"}]}`))
 		case r.Method == http.MethodPost && r.URL.Path == "/pos":
 			atomic.AddInt32(&posPosts, 1)
 			w.WriteHeader(http.StatusConflict)
 			_, _ = w.Write([]byte(`{"message":"pos already exists","error":"conflict"}`))
 		case r.Method == http.MethodGet && r.URL.Path == "/pos":
 			atomic.AddInt32(&posGets, 1)
-			require.Equal(t, "PAYVERGEPOS42", r.URL.Query().Get("external_id"))
-			_, _ = w.Write([]byte(`{"id":23545678,"external_id":"PAYVERGEPOS42","store_id":12354567}`))
+			require.Equal(t, "NAMAKDANPOS42", r.URL.Query().Get("external_id"))
+			_, _ = w.Write([]byte(`{"id":23545678,"external_id":"NAMAKDANPOS42","store_id":12354567}`))
 		default:
 			t.Errorf("unexpected %s %s", r.Method, r.URL.String())
 			http.NotFound(w, r)
@@ -229,7 +229,7 @@ func TestEnsureStoreAndPOS_AlreadyExistsUsesGETPos(t *testing.T) {
 
 	externalPOSID, err := plugin.ensureStoreAndPOS(42)
 	require.NoError(t, err)
-	require.Equal(t, "PAYVERGEPOS42", externalPOSID)
+	require.Equal(t, "NAMAKDANPOS42", externalPOSID)
 
 	require.Equal(t, int32(1), atomic.LoadInt32(&storePosts))
 	require.Equal(t, int32(1), atomic.LoadInt32(&storeGets))
@@ -239,7 +239,7 @@ func TestEnsureStoreAndPOS_AlreadyExistsUsesGETPos(t *testing.T) {
 	cfg, err := plugin.pluginService.GetPluginConfig(42, "mercadopago")
 	require.NoError(t, err)
 	require.Equal(t, "12354567", configString(cfg, configKeyMPStoreID))
-	require.Equal(t, "PAYVERGEPOS42", configString(cfg, configKeyMPExternalPOSID))
+	require.Equal(t, "NAMAKDANPOS42", configString(cfg, configKeyMPExternalPOSID))
 
 	// After persist, a second call short-circuits with zero HTTP (server still
 	// fails loudly if anything is requested).
@@ -247,7 +247,7 @@ func TestEnsureStoreAndPOS_AlreadyExistsUsesGETPos(t *testing.T) {
 		atomic.LoadInt32(&posGets) + atomic.LoadInt32(&storeGets)
 	externalPOSID2, err := plugin.ensureStoreAndPOS(42)
 	require.NoError(t, err)
-	require.Equal(t, "PAYVERGEPOS42", externalPOSID2)
+	require.Equal(t, "NAMAKDANPOS42", externalPOSID2)
 	afterPosts := atomic.LoadInt32(&storePosts) + atomic.LoadInt32(&posPosts) +
 		atomic.LoadInt32(&posGets) + atomic.LoadInt32(&storeGets)
 	require.Equal(t, beforePosts, afterPosts, "second ensureStoreAndPOS must make zero HTTP")
@@ -258,7 +258,7 @@ func TestIsMercadoPagoAlreadyExists(t *testing.T) {
 	require.True(t, isMercadoPagoAlreadyExists(fmtErr("MercadoPago API error 400: external_id already exists")))
 	require.True(t, isMercadoPagoAlreadyExists(fmtErr("something already_exists in body")))
 	// Live sandbox shape for a duplicate store create.
-	require.True(t, isMercadoPagoAlreadyExists(fmtErr(`MercadoPago API error 400: {"error":"bad_request","message":"external id 'payverge-store-1' is already assigned to this user 3606264032"}`)))
+	require.True(t, isMercadoPagoAlreadyExists(fmtErr(`MercadoPago API error 400: {"error":"bad_request","message":"external id 'namakdan-store-1' is already assigned to this user 3606264032"}`)))
 	require.False(t, isMercadoPagoAlreadyExists(fmtErr("MercadoPago API error 500: boom")))
 	require.False(t, isMercadoPagoAlreadyExists(nil))
 }
@@ -292,9 +292,9 @@ func TestEnsureStoreAndPOS_NamelessBusinessUsesProductName(t *testing.T) {
 			body, err := io.ReadAll(r.Body)
 			require.NoError(t, err)
 			require.NoError(t, json.Unmarshal(body, &gotStore))
-			_, _ = w.Write([]byte(`{"id":12354567,"external_id":"payverge-store-42"}`))
+			_, _ = w.Write([]byte(`{"id":12354567,"external_id":"namakdan-store-42"}`))
 		case r.Method == http.MethodPost && r.URL.Path == "/pos":
-			_, _ = w.Write([]byte(`{"id":23545678,"external_id":"PAYVERGEPOS42","store_id":12354567}`))
+			_, _ = w.Write([]byte(`{"id":23545678,"external_id":"NAMAKDANPOS42","store_id":12354567}`))
 		default:
 			t.Errorf("unexpected %s %s", r.Method, r.URL.Path)
 			http.NotFound(w, r)

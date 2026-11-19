@@ -15,7 +15,7 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // tenantBudgetTestDB is a sqlite fixture with the two tables the budget reads:
@@ -684,7 +684,7 @@ func newBudgetTestServer(t testing.TB, provider EmailProvider, budget TenantMail
 	_, currentFile, _, ok := runtime.Caller(0)
 	require.True(t, ok)
 	templatesRoot := filepath.Join(filepath.Dir(currentFile), "..", "..", "email", "templates")
-	server, err := NewEmailServer(provider, "noreply@payverge.io", "updates@payverge.io", templatesRoot)
+	server, err := NewEmailServer(provider, "noreply@example.test", "updates@example.test", templatesRoot)
 	require.NoError(t, err)
 	server.retryBackoff = 0
 	server.maxSendAttempts = 1

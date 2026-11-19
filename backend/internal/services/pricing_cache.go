@@ -8,8 +8,8 @@ import (
 
 	"golang.org/x/sync/singleflight"
 
-	"github.com/stdevmac/payverge/backend/internal/boundedcache"
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/boundedcache"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // pricingSnapshot holds everything PriceOrderInputsByBusinessID needs to

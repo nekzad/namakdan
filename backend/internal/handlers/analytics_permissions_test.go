@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/analytics"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/analytics"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/server"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -518,7 +518,7 @@ func TestAnalyticsRoutes_DashboardSummariesBatchAllowsPlatformAdminListedDemo(t 
 	demoOwnerID := uint(99)
 	listedDemo := &database.Business{
 		BusinessId:      "demo-admin-1-core",
-		Name:            "Payverge Core Demo Kitchen",
+		Name:            "Namakdan Core Demo Kitchen",
 		OwnerAddress:    "0xDemoSeedOwner",
 		IsDemo:          true,
 		Kind:            database.BusinessKindDemo,
@@ -576,7 +576,7 @@ func TestAnalyticsRoutes_DashboardSummariesBatchAllowsDemoOwnerProjection(t *tes
 	ownerID := uint(8)
 	demo := &database.Business{
 		BusinessId:      "demo-owned-by-qa",
-		Name:            "Payverge AI Pro Demo Lounge",
+		Name:            "Namakdan AI Pro Demo Lounge",
 		OwnerAddress:    "0xSeedNotCaller",
 		IsDemo:          true,
 		Kind:            database.BusinessKindDemo,

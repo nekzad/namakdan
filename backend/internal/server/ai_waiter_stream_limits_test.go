@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/aiwaiterevents"
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/aiwaiterevents"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"

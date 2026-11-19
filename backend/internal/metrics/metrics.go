@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 var registerOnce sync.Once
@@ -116,14 +116,14 @@ func RecordAssistantTerminal(event llm.AITelemetryEvent) error {
 var (
 	AssistantResponsesTotal = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_assistant_responses_total",
+			Name: "namakdan_assistant_responses_total",
 			Help: "Terminal assistant responses by bounded surface, contract version, and outcome.",
 		},
 		[]string{"surface", "contract_version", "outcome"},
 	)
 	AssistantResponseSeconds = prometheus.NewHistogramVec(
 		prometheus.HistogramOpts{
-			Name:    "payverge_assistant_response_seconds",
+			Name:    "namakdan_assistant_response_seconds",
 			Help:    "Assistant request duration by bounded surface and contract version.",
 			Buckets: prometheus.DefBuckets,
 		},
@@ -131,7 +131,7 @@ var (
 	)
 	AssistantTimeToFirstContent = prometheus.NewHistogramVec(
 		prometheus.HistogramOpts{
-			Name:    "payverge_assistant_time_to_first_content_seconds",
+			Name:    "namakdan_assistant_time_to_first_content_seconds",
 			Help:    "Time to first assistant content by bounded surface and contract version.",
 			Buckets: prometheus.DefBuckets,
 		},
@@ -139,7 +139,7 @@ var (
 	)
 	AssistantValidationTotal = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_assistant_validation_total",
+			Name: "namakdan_assistant_validation_total",
 			Help: "Trusted assistant validation outcomes by bounded validation stage.",
 		},
 		[]string{"surface", "validation", "outcome"},
@@ -216,21 +216,21 @@ var (
 
 	TelegramConnectionTokensIssued = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Name: "payverge_telegram_connection_tokens_issued_total",
+			Name: "namakdan_telegram_connection_tokens_issued_total",
 			Help: "Total number of Telegram connection tokens issued",
 		},
 	)
 
 	TelegramConnectionTokensConsumed = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Name: "payverge_telegram_connection_tokens_consumed_total",
+			Name: "namakdan_telegram_connection_tokens_consumed_total",
 			Help: "Total number of Telegram connection tokens consumed",
 		},
 	)
 
 	TelegramConnectionFailures = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_telegram_connection_failures_total",
+			Name: "namakdan_telegram_connection_failures_total",
 			Help: "Total number of Telegram connection failures by reason",
 		},
 		[]string{"reason"},
@@ -238,7 +238,7 @@ var (
 
 	TelegramWebhookUpdates = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_telegram_webhook_updates_total",
+			Name: "namakdan_telegram_webhook_updates_total",
 			Help: "Total number of Telegram webhook updates by status",
 		},
 		[]string{"status"},
@@ -246,7 +246,7 @@ var (
 
 	SSEDroppedEvents = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_sse_dropped_events_total",
+			Name: "namakdan_sse_dropped_events_total",
 			Help: "Total number of SSE business events dropped because a subscriber buffer was full",
 		},
 		[]string{"event_type"},
@@ -254,7 +254,7 @@ var (
 
 	SSERejectedSubscriptions = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_sse_rejected_subscriptions_total",
+			Name: "namakdan_sse_rejected_subscriptions_total",
 			Help: "Total number of SSE subscriptions rejected by a concurrent-connection ceiling (reason: business|ip|guest_business|guest_ip)",
 		},
 		[]string{"reason"},
@@ -262,7 +262,7 @@ var (
 
 	OrderToKitchenSeconds = prometheus.NewHistogram(
 		prometheus.HistogramOpts{
-			Name:    "payverge_order_to_kitchen_seconds",
+			Name:    "namakdan_order_to_kitchen_seconds",
 			Help:    "Seconds from order creation to the first successful kitchen-ticket print for that order.",
 			Buckets: prometheus.ExponentialBuckets(1, 2, 14), // 1s → ~2.3h
 		},
@@ -270,7 +270,7 @@ var (
 
 	PluginNotificationEnqueued = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_plugin_notification_enqueued_total",
+			Name: "namakdan_plugin_notification_enqueued_total",
 			Help: "Total number of plugin notifications enqueued by plugin and event type",
 		},
 		[]string{"plugin", "event_type"},
@@ -278,7 +278,7 @@ var (
 
 	PluginNotificationDropped = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_plugin_notification_dropped_total",
+			Name: "namakdan_plugin_notification_dropped_total",
 			Help: "Total number of plugin notifications dropped at enqueue by plugin, event type, and reason",
 		},
 		[]string{"plugin", "event_type", "reason"},
@@ -286,14 +286,14 @@ var (
 
 	TelegramDeliveryAvailable = prometheus.NewGauge(
 		prometheus.GaugeOpts{
-			Name: "payverge_telegram_delivery_available",
+			Name: "namakdan_telegram_delivery_available",
 			Help: "1 when the Telegram notification worker is running (bot token configured), else 0",
 		},
 	)
 
 	PluginNotificationDelivered = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_plugin_notification_delivered_total",
+			Name: "namakdan_plugin_notification_delivered_total",
 			Help: "Total number of plugin notifications delivered by plugin and event type",
 		},
 		[]string{"plugin", "event_type"},
@@ -301,7 +301,7 @@ var (
 
 	PluginNotificationFailed = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_plugin_notification_failed_total",
+			Name: "namakdan_plugin_notification_failed_total",
 			Help: "Total number of plugin notifications failed by plugin, event type, and reason",
 		},
 		[]string{"plugin", "event_type", "reason"},
@@ -309,7 +309,7 @@ var (
 
 	PaymentWebhookUnsupportedActions = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_payment_webhook_unsupported_actions_total",
+			Name: "namakdan_payment_webhook_unsupported_actions_total",
 			Help: "Total number of unsupported payment webhook actions by plugin and action",
 		},
 		[]string{"plugin", "action"},
@@ -317,7 +317,7 @@ var (
 
 	PaymentReconciliationOutcomes = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_payment_reconciliation_outcomes_total",
+			Name: "namakdan_payment_reconciliation_outcomes_total",
 			Help: "Total authoritative provider reconciliation outcomes by provider and outcome",
 		},
 		[]string{"provider", "outcome"},
@@ -325,7 +325,7 @@ var (
 
 	PaymentReconciliationOldestPendingSeconds = prometheus.NewGaugeVec(
 		prometheus.GaugeOpts{
-			Name: "payverge_payment_reconciliation_oldest_pending_seconds",
+			Name: "namakdan_payment_reconciliation_oldest_pending_seconds",
 			Help: "Age in seconds of the oldest payment currently inspected by provider reconciliation",
 		},
 		[]string{"provider"},
@@ -333,7 +333,7 @@ var (
 
 	PluginNotificationRetried = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_plugin_notification_retried_total",
+			Name: "namakdan_plugin_notification_retried_total",
 			Help: "Total number of plugin notifications retried by plugin, event type, and reason",
 		},
 		[]string{"plugin", "event_type", "reason"},
@@ -341,7 +341,7 @@ var (
 
 	TelegramSendAttempts = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_telegram_send_attempts_total",
+			Name: "namakdan_telegram_send_attempts_total",
 			Help: "Total number of Telegram send attempts by status and reason",
 		},
 		[]string{"status", "reason"},
@@ -349,7 +349,7 @@ var (
 
 	PluginNotificationQueueDepth = prometheus.NewGaugeVec(
 		prometheus.GaugeOpts{
-			Name: "payverge_plugin_notification_queue_depth",
+			Name: "namakdan_plugin_notification_queue_depth",
 			Help: "Current due plugin notification queue depth by plugin",
 		},
 		[]string{"plugin"},
@@ -357,14 +357,14 @@ var (
 
 	TelegramConnectedBusinesses = prometheus.NewGauge(
 		prometheus.GaugeOpts{
-			Name: "payverge_telegram_connected_businesses",
+			Name: "namakdan_telegram_connected_businesses",
 			Help: "Current number of businesses with an active Telegram chat connection",
 		},
 	)
 
 	TelegramSendDuration = prometheus.NewHistogramVec(
 		prometheus.HistogramOpts{
-			Name:    "payverge_telegram_send_duration_seconds",
+			Name:    "namakdan_telegram_send_duration_seconds",
 			Help:    "Duration of Telegram notification send attempts",
 			Buckets: prometheus.ExponentialBuckets(0.01, 2, 12),
 		},
@@ -373,7 +373,7 @@ var (
 
 	PluginNotificationDeliveryLatency = prometheus.NewHistogramVec(
 		prometheus.HistogramOpts{
-			Name:    "payverge_plugin_notification_delivery_latency_seconds",
+			Name:    "namakdan_plugin_notification_delivery_latency_seconds",
 			Help:    "Latency from plugin notification enqueue to final delivery",
 			Buckets: prometheus.ExponentialBuckets(1, 2, 16),
 		},
@@ -383,7 +383,7 @@ var (
 	// Fiscal worker metrics (AFIP/ARCA job queue)
 	FiscalReceiptsTotal = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_fiscal_receipts_total",
+			Name: "namakdan_fiscal_receipts_total",
 			Help: "Total fiscal job outcomes by terminal/transition status (authorized, failed_retryable, failed_permanent, rejected)",
 		},
 		[]string{"status"},
@@ -391,7 +391,7 @@ var (
 
 	FiscalJobAttempts = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_fiscal_job_attempts_total",
+			Name: "namakdan_fiscal_job_attempts_total",
 			Help: "Total fiscal job processing attempts by action (issue_receipt, credit_note, status_check)",
 		},
 		[]string{"action"},
@@ -399,7 +399,7 @@ var (
 
 	FiscalJobsQueueDepth = prometheus.NewGauge(
 		prometheus.GaugeOpts{
-			Name: "payverge_fiscal_jobs_queue_depth",
+			Name: "namakdan_fiscal_jobs_queue_depth",
 			Help: "Current number of due, unlocked fiscal jobs awaiting processing",
 		},
 	)
@@ -411,7 +411,7 @@ var (
 	// operator-reconcile-by-hand event and should page.
 	FiscalOrphanedCAETotal = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Name: "payverge_fiscal_orphaned_cae_total",
+			Name: "namakdan_fiscal_orphaned_cae_total",
 			Help: "Count of authorized AFIP CAEs whose local receipt row failed to persist (orphaned legal invoice number; requires manual reconciliation).",
 		},
 	)
@@ -419,40 +419,40 @@ var (
 	// Wave 4 durable fiscal delivery metrics (per-channel tasks).
 	FiscalDeliveryPending = prometheus.NewGauge(
 		prometheus.GaugeOpts{
-			Name: "payverge_fiscal_delivery_pending",
+			Name: "namakdan_fiscal_delivery_pending",
 			Help: "Pending + leased fiscal delivery tasks awaiting execution",
 		},
 	)
 	FiscalDeliveryOldestAgeSeconds = prometheus.NewGauge(
 		prometheus.GaugeOpts{
-			Name: "payverge_fiscal_delivery_oldest_age_seconds",
+			Name: "namakdan_fiscal_delivery_oldest_age_seconds",
 			Help: "Age in seconds of the oldest pending fiscal delivery task",
 		},
 	)
 	FiscalDeliveryAttempts = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_fiscal_delivery_attempts_total",
+			Name: "namakdan_fiscal_delivery_attempts_total",
 			Help: "Fiscal delivery task attempts by channel",
 		},
 		[]string{"channel"},
 	)
 	FiscalDeliverySuccesses = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_fiscal_delivery_successes_total",
+			Name: "namakdan_fiscal_delivery_successes_total",
 			Help: "Fiscal delivery task successes by channel",
 		},
 		[]string{"channel"},
 	)
 	FiscalDeliveryDeadLetters = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_fiscal_delivery_dead_letters_total",
+			Name: "namakdan_fiscal_delivery_dead_letters_total",
 			Help: "Fiscal delivery tasks dead-lettered by channel",
 		},
 		[]string{"channel"},
 	)
 	FiscalDeliveryDuration = prometheus.NewHistogramVec(
 		prometheus.HistogramOpts{
-			Name:    "payverge_fiscal_delivery_duration_seconds",
+			Name:    "namakdan_fiscal_delivery_duration_seconds",
 			Help:    "Fiscal delivery task execution duration by channel",
 			Buckets: prometheus.DefBuckets,
 		},
@@ -465,7 +465,7 @@ var (
 	// cardinality stays bounded.
 	PaymentWebhookProcessingFailures = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_payment_webhook_processing_failures_total",
+			Name: "namakdan_payment_webhook_processing_failures_total",
 			Help: "Total payment webhook processing failures by plugin and reason.",
 		},
 		[]string{"plugin", "reason"},
@@ -492,43 +492,43 @@ var (
 	// Wave 4 browser print agent metrics.
 	PrintBrowserClaims = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Name: "payverge_print_browser_claims_total",
+			Name: "namakdan_print_browser_claims_total",
 			Help: "Total browser print jobs claimed by an operator tab agent.",
 		},
 	)
 	PrintBrowserExpiredLeases = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Name: "payverge_print_browser_expired_leases_total",
+			Name: "namakdan_print_browser_expired_leases_total",
 			Help: "Total browser print leases reclaimed after expiry (crashed tab recovery).",
 		},
 	)
 	PrintBrowserPresented = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Name: "payverge_print_browser_presented_total",
+			Name: "namakdan_print_browser_presented_total",
 			Help: "Total times a browser print dialog was presented (window.print).",
 		},
 	)
 	PrintBrowserConfirmed = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Name: "payverge_print_browser_confirmed_total",
+			Name: "namakdan_print_browser_confirmed_total",
 			Help: "Total browser print jobs explicitly confirmed printed by an operator.",
 		},
 	)
 	PrintBrowserRetry = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Name: "payverge_print_browser_retry_total",
+			Name: "namakdan_print_browser_retry_total",
 			Help: "Total browser print jobs returned to the queue for retry by an operator.",
 		},
 	)
 	PrintBrowserAbandoned = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Name: "payverge_print_browser_abandoned_total",
+			Name: "namakdan_print_browser_abandoned_total",
 			Help: "Total browser print jobs failed after waiting past the abandon SLA with no station claim.",
 		},
 	)
 	PrintBrowserActiveClients = prometheus.NewGaugeFunc(
 		prometheus.GaugeOpts{
-			Name: "payverge_print_browser_active_clients",
+			Name: "namakdan_print_browser_active_clients",
 			Help: "Businesses with a browser print agent that claimed a job within the activity window.",
 		},
 		func() float64 { return float64(activePrintBrowserClients()) },
@@ -536,7 +536,7 @@ var (
 
 	EmailSendAttempts = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_email_send_attempts_total",
+			Name: "namakdan_email_send_attempts_total",
 			Help: "Email provider send attempts by bounded outcome and failure reason.",
 		},
 		[]string{"provider", "message_type", "outcome", "reason"},
@@ -544,7 +544,7 @@ var (
 
 	EmailSendDuration = prometheus.NewHistogramVec(
 		prometheus.HistogramOpts{
-			Name:    "payverge_email_send_duration_seconds",
+			Name:    "namakdan_email_send_duration_seconds",
 			Help:    "Email provider send latency by provider and outcome.",
 			Buckets: prometheus.ExponentialBuckets(0.05, 2, 10),
 		},
@@ -553,7 +553,7 @@ var (
 
 	EmailSendExhausted = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_email_send_exhausted_total",
+			Name: "namakdan_email_send_exhausted_total",
 			Help: "Transactional email sends that exhausted retries without delivery.",
 		},
 		[]string{"provider", "reason"},
@@ -563,14 +563,14 @@ var (
 	// cardinality. The Sentry message carries the identity.
 	AIImageMonthlyAlerts = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Name: "payverge_ai_image_monthly_alerts_total",
+			Name: "namakdan_ai_image_monthly_alerts_total",
 			Help: "Businesses crossing the monthly AI image usage alert threshold.",
 		},
 	)
 
 	EmailDeliveryEvents = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_email_delivery_events_total",
+			Name: "namakdan_email_delivery_events_total",
 			Help: "Authenticated provider delivery events by bounded event type.",
 		},
 		[]string{"event"},
@@ -581,7 +581,7 @@ var (
 	// are queueing without an origin.
 	EmailDeliveryAttributed = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_email_delivery_attributed_total",
+			Name: "namakdan_email_delivery_attributed_total",
 			Help: "Provider delivery events attributed to an originating entity, by event type and entity kind.",
 		},
 		[]string{"event", "entity"},
@@ -591,7 +591,7 @@ var (
 	// outbox metrics so both outbound channels alert the same way.
 	EmailOutboxEnqueued = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_email_outbox_enqueued_total",
+			Name: "namakdan_email_outbox_enqueued_total",
 			Help: "Transactional emails enqueued on the durable outbox by template.",
 		},
 		[]string{"template"},
@@ -599,7 +599,7 @@ var (
 
 	EmailOutboxDelivered = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_email_outbox_delivered_total",
+			Name: "namakdan_email_outbox_delivered_total",
 			Help: "Outbox emails accepted by the provider, by provider and template.",
 		},
 		[]string{"provider", "template"},
@@ -607,7 +607,7 @@ var (
 
 	EmailOutboxRetried = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_email_outbox_retried_total",
+			Name: "namakdan_email_outbox_retried_total",
 			Help: "Outbox emails rescheduled after a retryable failure, by template and reason.",
 		},
 		[]string{"template", "reason"},
@@ -615,7 +615,7 @@ var (
 
 	EmailOutboxFailed = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_email_outbox_failed_total",
+			Name: "namakdan_email_outbox_failed_total",
 			Help: "Outbox emails that reached the terminal failed (dead-letter) state, by template and reason.",
 		},
 		[]string{"template", "reason"},
@@ -623,7 +623,7 @@ var (
 
 	EmailOutboxDropped = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "payverge_email_outbox_dropped_total",
+			Name: "namakdan_email_outbox_dropped_total",
 			Help: "Outbox emails dropped without delivery (suppressed recipient, TTL expiry), by template and reason.",
 		},
 		[]string{"template", "reason"},
@@ -631,14 +631,14 @@ var (
 
 	EmailOutboxQueueDepth = prometheus.NewGauge(
 		prometheus.GaugeOpts{
-			Name: "payverge_email_outbox_queue_depth",
+			Name: "namakdan_email_outbox_queue_depth",
 			Help: "Transactional emails currently due for delivery on the outbox.",
 		},
 	)
 
 	EmailOutboxDeliveryLatency = prometheus.NewHistogramVec(
 		prometheus.HistogramOpts{
-			Name:    "payverge_email_outbox_delivery_latency_seconds",
+			Name:    "namakdan_email_outbox_delivery_latency_seconds",
 			Help:    "Latency from outbox enqueue to provider acceptance.",
 			Buckets: prometheus.ExponentialBuckets(1, 2, 16),
 		},
@@ -647,7 +647,7 @@ var (
 )
 
 // printBrowserActiveWindow is how long a business stays in
-// payverge_print_browser_active_clients after its last browser claim.
+// namakdan_print_browser_active_clients after its last browser claim.
 const printBrowserActiveWindow = 2 * time.Minute
 
 // printBrowserNow is the clock for the browser-agent activity window.

@@ -1,5 +1,5 @@
 /**
- * Production-faithful prompt builders for the Payverge model benchmark.
+ * Production-faithful prompt builders for the Namakdan model benchmark.
  *
  * WHY THIS EXISTS
  * ---------------

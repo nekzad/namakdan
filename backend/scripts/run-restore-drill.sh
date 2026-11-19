@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Automated off-host backup restore drill for Payverge.
+# Automated off-host backup restore drill for Namakdan.
 #
 # Downloads the newest object under s3://${S3_BACKUP_BUCKET}/${S3_BACKUP_PREFIX}/,
 # restores it into a throwaway Postgres container bound to 127.0.0.1 on a random
@@ -45,9 +45,9 @@ BACKEND_WAIT_SECONDS="${BACKEND_WAIT_SECONDS:-120}"
 EVIDENCE_DIR_SET="${EVIDENCE_DIR+x}"
 EVIDENCE_DIR="${EVIDENCE_DIR:-}"
 
-PG_USER="payverge"
+PG_USER="namakdan"
 PG_PASSWORD="drill_password"
-PG_DB="payverge"
+PG_DB="namakdan"
 PG_HOST="127.0.0.1"
 
 SCRATCH_DIR="${SCRATCH_DIR:-}"
@@ -566,7 +566,7 @@ fi
 
 build_aws_base
 
-echo "=== Payverge backup restore drill ==="
+echo "=== Namakdan backup restore drill ==="
 echo "Bucket:   s3://${S3_BACKUP_BUCKET}/${S3_BACKUP_PREFIX}/"
 echo "PG image: ${PG_IMAGE}"
 echo "Evidence: ${EVIDENCE_DIR}"

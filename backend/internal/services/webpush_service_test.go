@@ -15,7 +15,7 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func setupWebPushTestDB(t *testing.T) *gorm.DB {
@@ -66,7 +66,7 @@ func TestDeliverToSubscriptions_PrunesGoneEndpointsAndKeepsTransient(t *testing.
 
 	vapidPriv, vapidPub, err := webpush.GenerateVAPIDKeys()
 	require.NoError(t, err)
-	svc := NewWebPushService(g, vapidPub, vapidPriv, "mailto:test@payverge.io")
+	svc := NewWebPushService(g, vapidPub, vapidPriv, "mailto:test@example.test")
 	// httptest serves plain http on 127.0.0.1, which the production allowlist
 	// rejects; this test is about status handling, not endpoint policy.
 	svc.validateEndpoint = func(string) error { return nil }

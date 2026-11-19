@@ -43,7 +43,7 @@ func TestSetSessionCookie_HostOnlyWhenCookieDomainEmpty(t *testing.T) {
 
 func TestSetSessionCookie_UsesConcreteAPIHostDomain(t *testing.T) {
 	gin.SetMode(gin.TestMode)
-	t.Setenv("COOKIE_DOMAIN", "api.payverge.io")
+	t.Setenv("COOKIE_DOMAIN", "api.example.test")
 	w := httptest.NewRecorder()
 	c, _ := gin.CreateTestContext(w)
 	c.Request = httptest.NewRequest("GET", "/", nil)
@@ -56,17 +56,17 @@ func TestSetSessionCookie_UsesConcreteAPIHostDomain(t *testing.T) {
 			live = header
 		}
 	}
-	if !strings.Contains(live, "Domain=api.payverge.io") {
-		t.Fatalf("expected live Domain=api.payverge.io, got %v", headers)
+	if !strings.Contains(live, "Domain=api.example.test") {
+		t.Fatalf("expected live Domain=api.example.test, got %v", headers)
 	}
 }
 
 func TestSetSessionCookie_EvictsParentDomainAliases(t *testing.T) {
 	gin.SetMode(gin.TestMode)
-	t.Setenv("COOKIE_DOMAIN", "api.payverge.io")
+	t.Setenv("COOKIE_DOMAIN", "api.example.test")
 	w := httptest.NewRecorder()
 	c, _ := gin.CreateTestContext(w)
-	c.Request = httptest.NewRequest("GET", "https://api.payverge.io/", nil)
+	c.Request = httptest.NewRequest("GET", "https://api.example.test/", nil)
 
 	SetSessionCookie(c, "session_token", "v", 900)
 	headers := w.Header().Values("Set-Cookie")
@@ -76,7 +76,7 @@ func TestSetSessionCookie_EvictsParentDomainAliases(t *testing.T) {
 	for _, header := range headers {
 		if strings.Contains(header, "session_token=v") {
 			liveCount++
-			if strings.Contains(header, "Domain=.payverge.io") || strings.Contains(header, "Domain=payverge.io;") {
+			if strings.Contains(header, "Domain=.example.test") || strings.Contains(header, "Domain=example.test;") {
 				t.Fatalf("must not issue a live parent-domain cookie: %s", header)
 			}
 			continue
@@ -85,14 +85,14 @@ func TestSetSessionCookie_EvictsParentDomainAliases(t *testing.T) {
 			continue
 		}
 		switch {
-		case strings.Contains(header, "Domain=.payverge.io"):
+		case strings.Contains(header, "Domain=.example.test"):
 			clearedDotParent = true
-		case strings.Contains(header, "Domain=payverge.io"):
+		case strings.Contains(header, "Domain=example.test"):
 			clearedParent = true
 		case !strings.Contains(strings.ToLower(header), "domain="):
 			clearedHostOnly = true
 		}
-		if strings.Contains(header, "SameSite=Strict") && strings.Contains(header, "Domain=api.payverge.io") {
+		if strings.Contains(header, "SameSite=Strict") && strings.Contains(header, "Domain=api.example.test") {
 			clearedStrictTwin = true
 		}
 	}
@@ -103,7 +103,7 @@ func TestSetSessionCookie_EvictsParentDomainAliases(t *testing.T) {
 		t.Fatalf("expected parent/host-only evictions, got %v", headers)
 	}
 	if !clearedStrictTwin {
-		t.Fatalf("expected SameSite=Strict twin eviction on api.payverge.io, got %v", headers)
+		t.Fatalf("expected SameSite=Strict twin eviction on api.example.test, got %v", headers)
 	}
 }
 
@@ -123,8 +123,8 @@ func TestSetSessionCookie_IPHostHasNoParentDomainEvictions(t *testing.T) {
 	if got := parentRegistrableDomain("10.0.0.5"); got != "" {
 		t.Fatalf("parentRegistrableDomain(10.0.0.5) = %q, want empty", got)
 	}
-	if got := parentRegistrableDomain("api.payverge.io"); got != "payverge.io" {
-		t.Fatalf("parentRegistrableDomain(api.payverge.io) = %q", got)
+	if got := parentRegistrableDomain("api.example.test"); got != "example.test" {
+		t.Fatalf("parentRegistrableDomain(api.example.test) = %q", got)
 	}
 }
 
@@ -200,13 +200,13 @@ func TestLoginCookieHeaderBudget(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	SetProductionOverride(true)
 	t.Cleanup(func() { SetProductionOverride(false) })
-	t.Setenv("COOKIE_DOMAIN", "api.payverge.io")
+	t.Setenv("COOKIE_DOMAIN", "api.example.test")
 	t.Setenv("ENV", "production")
 
 	w := httptest.NewRecorder()
 	c, _ := gin.CreateTestContext(w)
-	c.Request = httptest.NewRequest("POST", "https://api.payverge.io/api/v1/auth/login", nil)
-	c.Request.Host = "api.payverge.io"
+	c.Request = httptest.NewRequest("POST", "https://api.example.test/api/v1/auth/login", nil)
+	c.Request.Host = "api.example.test"
 
 	ClearAllAuthCookies(c)
 	SetSessionCookie(c, "session_token", "access-token", 900)
@@ -223,7 +223,7 @@ func TestLoginCookieHeaderBudget(t *testing.T) {
 		for _, header := range headers {
 			if strings.Contains(header, name+"="+value) {
 				count++
-				if strings.Contains(header, "Domain=.payverge.io") || strings.Contains(header, "Domain=payverge.io;") {
+				if strings.Contains(header, "Domain=.example.test") || strings.Contains(header, "Domain=example.test;") {
 					t.Fatalf("must not issue a live parent-domain cookie: %s", header)
 				}
 			}
@@ -252,8 +252,8 @@ func TestLoginCookieHeaderBudget(t *testing.T) {
 	}
 
 	for _, name := range []string{"session_token", "refresh_token", "staff_token", "customer_token", "customer_refresh_token"} {
-		requireClearedAlias(name, "Domain=.payverge.io", false)
-		requireClearedAlias(name, "Domain=payverge.io", false)
+		requireClearedAlias(name, "Domain=.example.test", false)
+		requireClearedAlias(name, "Domain=example.test", false)
 		requireClearedAlias(name, "host-only", true)
 	}
 }

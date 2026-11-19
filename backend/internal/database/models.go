@@ -5,7 +5,7 @@ import (
 	"math"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 )
 
 // User represents the users table
@@ -128,7 +128,7 @@ type BusinessRevenueAggregate struct {
 	Business Business `gorm:"foreignKey:BusinessID" json:"business,omitempty"`
 }
 
-// Payverge-specific models
+// Namakdan-specific models
 
 // Business represents a restaurant/venue in the system
 type Business struct {
@@ -1531,7 +1531,7 @@ type Order struct {
 	CancelledAt   *time.Time     `json:"cancelled_at"`
 	// KitchenAckedAt records the first time the Kitchen view rendered the
 	// ticket for this order (IMP-04). Powers the
-	// `payverge_order_to_kitchen_seconds` Prometheus metric and the
+	// `namakdan_order_to_kitchen_seconds` Prometheus metric and the
 	// self-healing sweep that re-enqueues orphan orders.
 	KitchenAckedAt *time.Time `gorm:"index" json:"kitchen_acked_at,omitempty"`
 

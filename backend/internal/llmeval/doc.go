@@ -1,4 +1,4 @@
-// Package llmeval is a hermetic, dependency-light eval harness for Payverge's
+// Package llmeval is a hermetic, dependency-light eval harness for Namakdan's
 // LLM features. Cases live as YAML/JSON files (see Case); a Runner executes
 // them against any llm.Provider; a Grader evaluates deterministic assertions
 // (regex, JSON schema/field, language-id, contains) plus an optional

@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import http from "node:http";
 import test from "node:test";
 
-import { PayvergeAdminClient, PayvergeAdminClientError } from "../src/backendClient.mjs";
+import { NamakdanAdminClient, NamakdanAdminClientError } from "../src/backendClient.mjs";
 
 async function withServer(handler, fn) {
   const server = http.createServer(handler);
@@ -22,12 +22,12 @@ test("GET requests use the configured API base URL, bearer token, and query para
     assert.equal(req.method, "GET");
     assert.equal(req.url, "/api/v1/admin/errors?limit=5&component=checkout");
     assert.equal(req.headers.authorization, "Bearer admin-token");
-    assert.match(req.headers["user-agent"], /payverge-admin-mcp/);
+    assert.match(req.headers["user-agent"], /namakdan-admin-mcp/);
 
     res.setHeader("content-type", "application/json");
     res.end(JSON.stringify({ errors: [{ id: 1, component: "checkout" }], total: 1 }));
   }, async (baseUrl) => {
-    const client = new PayvergeAdminClient({ baseUrl, token: "admin-token" });
+    const client = new NamakdanAdminClient({ baseUrl, token: "admin-token" });
     const body = await client.get("/admin/errors", {
       limit: 5,
       component: "checkout",
@@ -52,14 +52,14 @@ test("POST requests serialize JSON bodies and surface sanitized backend errors",
     res.setHeader("content-type", "application/json");
     res.end(JSON.stringify({ error: "job cannot be requeued in its current state" }));
   }, async (baseUrl) => {
-    const client = new PayvergeAdminClient({ baseUrl, token: "sensitive-token" });
+    const client = new NamakdanAdminClient({ baseUrl, token: "sensitive-token" });
 
     await assert.rejects(
       () => client.post("/admin/fiscal/jobs/9/requeue", { reason: "ops retry" }),
       (err) => {
-        assert.ok(err instanceof PayvergeAdminClientError);
+        assert.ok(err instanceof NamakdanAdminClientError);
         assert.equal(err.status, 409);
-        assert.equal(err.message, "Payverge admin API POST /admin/fiscal/jobs/9/requeue failed with 409");
+        assert.equal(err.message, "Namakdan admin API POST /admin/fiscal/jobs/9/requeue failed with 409");
         assert.deepEqual(err.body, { error: "job cannot be requeued in its current state" });
         assert.equal(JSON.stringify(err).includes("sensitive-token"), false);
         return true;

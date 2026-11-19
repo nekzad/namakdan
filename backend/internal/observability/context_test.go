@@ -13,7 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/middleware"
+	"github.com/nekzad/namakdan/backend/internal/middleware"
 )
 
 func TestBuildRequestContext_ExtractsSafeGinFields(t *testing.T) {
@@ -141,7 +141,7 @@ func TestBuildRequestContext_TreatsBusinessIDRouteParamAsBusinessID(t *testing.T
 	require.Equal(t, "42", got.Context["business_id"])
 }
 
-func TestApplyRequestContext_SetsTagsUserAndPayvergeContext(t *testing.T) {
+func TestApplyRequestContext_SetsTagsUserAndNamakdanContext(t *testing.T) {
 	scope := sentry.NewScope()
 	requestContext := RequestContext{
 		Tags: map[string]string{
@@ -165,10 +165,10 @@ func TestApplyRequestContext_SetsTagsUserAndPayvergeContext(t *testing.T) {
 	require.Equal(t, "req-apply", event.Tags["request_id"])
 	require.Equal(t, "42", event.Tags["business_id"])
 	require.Equal(t, "staff:7", event.User.ID)
-	require.Equal(t, "backend", event.Contexts["payverge"]["service"])
-	require.Equal(t, http.MethodGet, event.Contexts["payverge"]["method"])
-	require.Equal(t, "req-apply", event.Contexts["payverge"]["request_id"])
-	require.Equal(t, http.StatusAccepted, event.Contexts["payverge"]["status"])
+	require.Equal(t, "backend", event.Contexts["namakdan"]["service"])
+	require.Equal(t, http.MethodGet, event.Contexts["namakdan"]["method"])
+	require.Equal(t, "req-apply", event.Contexts["namakdan"]["request_id"])
+	require.Equal(t, http.StatusAccepted, event.Contexts["namakdan"]["status"])
 }
 
 func TestGinContextMiddleware_AppliesSentryGinHubAfterNext(t *testing.T) {
@@ -206,14 +206,14 @@ func TestGinContextMiddleware_AppliesSentryGinHubAfterNext(t *testing.T) {
 	require.Equal(t, http.StatusCreated, w.Code)
 
 	// The context is applied only in the deferred call after c.Next(), so during
-	// handler execution the payverge scope is not yet populated. This avoids the
+	// handler execution the namakdan scope is not yet populated. This avoids the
 	// wasted pre-Next apply() that ran against an empty auth/status context.
 	require.NotNil(t, duringHandler)
-	require.Nil(t, duringHandler.Contexts["payverge"])
+	require.Nil(t, duringHandler.Contexts["namakdan"])
 	require.Empty(t, duringHandler.User.ID)
 
 	require.NotNil(t, afterNext)
-	afterContext := afterNext.Contexts["payverge"]
+	afterContext := afterNext.Contexts["namakdan"]
 	require.Equal(t, "req-after", afterNext.Tags["request_id"])
 	require.Equal(t, "staff", afterNext.Tags["auth_source"])
 	require.Equal(t, "42", afterNext.Tags["business_id"])

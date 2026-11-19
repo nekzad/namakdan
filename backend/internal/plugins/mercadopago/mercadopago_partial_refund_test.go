@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
 )
 
 // TestMercadoPagoRefundedCents locks F-MPREFUND: the refunded amount is read

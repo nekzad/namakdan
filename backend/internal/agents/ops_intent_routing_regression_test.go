@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/agents/ops_guides"
+	"github.com/nekzad/namakdan/backend/internal/agents/ops_guides"
 )
 
 // #874: the takeover alias and the new ES inventory phrases were too greedy and

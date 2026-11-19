@@ -7,11 +7,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	"github.com/stdevmac/payverge/backend/internal/plugins/telegram"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/plugins/telegram"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // TelegramPluginHandlers handles Telegram plugin-specific HTTP requests

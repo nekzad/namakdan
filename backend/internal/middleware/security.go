@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
 
 	"github.com/gin-gonic/gin"
 )

@@ -16,11 +16,11 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/session"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 )
 
 func requireCustomerRefreshOutcomeDelta(t *testing.T, expected metrics.RefreshOutcome, invoke func()) {
@@ -382,7 +382,7 @@ func TestCustomerRefreshRevokeFailureReturns500WithoutClaimingRevoked(t *testing
 			"rotated_at": time.Now().Add(-session.RefreshReuseGracePeriod - time.Second),
 			"expires_at": time.Now().Add(time.Hour),
 		}).Error)
-	callbackName := "payverge:test:customer-revoke-failure"
+	callbackName := "namakdan:test:customer-revoke-failure"
 	require.NoError(t, db.Callback().Update().Before("gorm:update").Register(callbackName, func(tx *gorm.DB) {
 		if tx.Statement != nil && tx.Statement.Schema != nil && tx.Statement.Schema.Table == "user_sessions" {
 			_ = tx.AddError(fmt.Errorf("transient customer revocation write failure"))
@@ -429,7 +429,7 @@ func TestCustomerRefreshSessionStoreOperationalErrorsReturn500WithoutRevocation(
 					Update("refresh_token", session.HashToken("different-customer-token")).Error)
 			}
 
-			callbackName := "payverge:test:crm-session-store:" + t.Name()
+			callbackName := "namakdan:test:crm-session-store:" + t.Name()
 			queryCount := 0
 			require.NoError(t, db.Callback().Query().Before("gorm:query").Register(callbackName, func(tx *gorm.DB) {
 				if tx.Statement != nil && tx.Statement.Schema != nil &&
@@ -534,7 +534,7 @@ func TestCustomerRefreshTransientLookupDoesNotRevoke(t *testing.T) {
 	require.NoError(t, err)
 	require.NoError(t, session.GlobalStore.RotateRefreshToken(sess.ID, session.HashToken(refreshRaw), time.Now().Add(7*24*time.Hour)))
 
-	callbackName := "payverge:test:transient_customer_lookup"
+	callbackName := "namakdan:test:transient_customer_lookup"
 	require.NoError(t, db.Callback().Query().Before("gorm:query").Register(callbackName, func(tx *gorm.DB) {
 		if tx.Statement != nil && tx.Statement.Schema != nil && tx.Statement.Schema.Table == "customers" {
 			_ = tx.AddError(fmt.Errorf("transient customer lookup failure"))

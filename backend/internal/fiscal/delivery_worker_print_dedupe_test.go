@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // printOnlyDispatcher counts EnqueueReceiptPrint calls; other channels are

@@ -3,7 +3,7 @@ package services
 import (
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // TestCategoryOffer_MatchesByIdAndLegacyName is the §3.7 fix-6 backend BE-first

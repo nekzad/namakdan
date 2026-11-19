@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Licence gate for what Payverge ships:
+# Licence gate for what Namakdan ships:
 #   1. Go: go-licenses check --disallowed_types=forbidden,restricted,unknown
 #      over the three binaries in the backend image (default build, no
 #      whatsapp tag). Modules in go-overrides.tsv are ignored there and

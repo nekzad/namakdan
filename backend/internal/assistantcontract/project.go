@@ -168,7 +168,7 @@ func actionFromLegacy(index int, legacy LegacyAction) (Action, error) {
 func v2ActionKind(kind string) (actionType, targetKind string, err error) {
 	switch kind {
 	case "navigate":
-		return "navigate", "payverge_page", nil
+		return "navigate", "namakdan_page", nil
 	case "external":
 		return "external_link", "external_url", nil
 	case "handoff":

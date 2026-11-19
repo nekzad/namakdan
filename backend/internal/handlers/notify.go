@@ -1,9 +1,9 @@
 package handlers
 
 import (
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // notifyStaff is the HTTP-handler entry to the staff-awareness chokepoint. It

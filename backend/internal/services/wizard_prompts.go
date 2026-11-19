@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/locales"
+	"github.com/nekzad/namakdan/backend/internal/locales"
 )
 
 //go:embed prompts/menu_wizard/*.md
@@ -19,7 +19,7 @@ func GetWizardPrompt(language string) string {
 	if err != nil {
 		defaultContent, defaultErr := wizardPromptFS.ReadFile("prompts/menu_wizard/en.md")
 		if defaultErr != nil {
-			return "You are a Payverge AI menu wizard. Respond with valid JSON."
+			return "You are a Namakdan AI menu wizard. Respond with valid JSON."
 		}
 		content = defaultContent
 		contentLocale = locales.Default()

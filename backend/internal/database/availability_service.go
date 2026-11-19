@@ -7,7 +7,7 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/logger"
 )
 
 // StaffAvailability is a single weekly availability window a staff member sets

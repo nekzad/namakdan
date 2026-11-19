@@ -10,7 +10,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	dto "github.com/prometheus/client_model/go"
 
-	"github.com/stdevmac/payverge/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
 )
 
 func TestFlowMetricsMiddlewareRecordsLabeledDuration(t *testing.T) {

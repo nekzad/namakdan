@@ -23,7 +23,7 @@ func TestCheckPostgresMajor(t *testing.T) {
 
 	newer := checkPostgresMajor(190002, 18)
 	require.ErrorContains(t, newer, "postgres major version 19 does not match the genesis baseline's 18")
-	require.ErrorContains(t, newer, "older Payverge", "a newer server means the binary is behind the database")
+	require.ErrorContains(t, newer, "older Namakdan", "a newer server means the binary is behind the database")
 	require.ErrorContains(t, newer, "restore the backup")
 	require.NotContains(t, newer.Error(), "deploy/upgrade-postgres.sh", "upgrading Postgres again cannot fix a binary that is too old")
 	require.ErrorContains(t, checkPostgresMajor(150008, 0), "postgres_major is required")

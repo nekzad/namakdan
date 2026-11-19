@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"github.com/stretchr/testify/require"
 	"gorm.io/driver/sqlite"
@@ -395,7 +395,7 @@ func TestListDriverPerformance_LoadsDeliveriesInBatch(t *testing.T) {
 	}
 
 	queryCount := 0
-	callbackName := "payverge:test_delivery_performance_query_counter"
+	callbackName := "namakdan:test_delivery_performance_query_counter"
 	if err := db.Callback().Query().Before("gorm:query").Register(callbackName, func(tx *gorm.DB) {
 		queryCount++
 	}); err != nil {

@@ -454,7 +454,7 @@ func TestCustomerMarshalJSON_PartialProjectionIsSlim(t *testing.T) {
 		ID:    19,
 		Name:  "Demo Guest 04",
 		Phone: "+12125551003",
-		Email: "demo+admin8-business50-customer3@payverge.local",
+		Email: "demo+admin8-business50-customer3@example.test",
 	})
 	require.NoError(t, err)
 	var m map[string]any
@@ -462,7 +462,7 @@ func TestCustomerMarshalJSON_PartialProjectionIsSlim(t *testing.T) {
 	require.Equal(t, float64(19), m["id"])
 	require.Equal(t, "Demo Guest 04", m["name"])
 	require.Equal(t, "+12125551003", m["phone"])
-	require.Equal(t, "demo+admin8-business50-customer3@payverge.local", m["email"])
+	require.Equal(t, "demo+admin8-business50-customer3@example.test", m["email"])
 	for _, banned := range []string{
 		"wallet_address", "birthday", "profile_image_url", "is_active",
 		"email_verified", "last_login_at", "created_at", "updated_at",

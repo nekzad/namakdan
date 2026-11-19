@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func TestBusinessPrintLanguage_ResolvesAndNormalizes(t *testing.T) {

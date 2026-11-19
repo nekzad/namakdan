@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func postRequestLoginCode(t *testing.T, email string) *httptest.ResponseRecorder {
@@ -38,7 +38,7 @@ func TestRequestLoginCode_ReservedLocalDomainIs400(t *testing.T) {
 		return nil
 	}
 
-	w := postRequestLoginCode(t, "camila@payverge.local")
+	w := postRequestLoginCode(t, "camila@example.test")
 	assert.Equal(t, http.StatusBadRequest, w.Code, w.Body.String())
 	assert.False(t, sent)
 
@@ -84,10 +84,10 @@ func TestRequestLoginCode_ReservedLocalDoesNotRevealRegisteredStaff(t *testing.T
 	setupStaffHandlerTestDB(t)
 
 	business := createOwnedBusiness(t, "0xOwnerLocalStaff", "Local Biz")
-	_ = createStaffMember(t, business.ID, "camila@payverge.local", "Camila")
+	_ = createStaffMember(t, business.ID, "camila@example.test", "Camila")
 
 	unknown := postRequestLoginCode(t, "ghost@internal.local")
-	registered := postRequestLoginCode(t, "camila@payverge.local")
+	registered := postRequestLoginCode(t, "camila@example.test")
 
 	assert.Equal(t, http.StatusBadRequest, unknown.Code)
 	assert.Equal(t, http.StatusBadRequest, registered.Code)

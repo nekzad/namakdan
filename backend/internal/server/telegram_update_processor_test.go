@@ -13,8 +13,8 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 type recordingTelegramReplySender struct {
@@ -98,7 +98,7 @@ func TestTelegramUpdateProcessor_BindsValidStartToken(t *testing.T) {
 
 	require.NoError(t, err)
 	require.Len(t, replies.messages, 1)
-	assert.Contains(t, replies.messages[0], "Connected to Payverge")
+	assert.Contains(t, replies.messages[0], "Connected to Namakdan")
 
 	config, err := database.GetBusinessPluginConfig(business.ID, "telegram")
 	require.NoError(t, err)
@@ -242,7 +242,7 @@ func TestTelegramUpdateProcessor_IgnoresNonStartMessage(t *testing.T) {
 
 	require.NoError(t, err)
 	require.Len(t, replies.messages, 1)
-	assert.Contains(t, replies.messages[0], "no Payverge connection command")
+	assert.Contains(t, replies.messages[0], "no Namakdan connection command")
 }
 
 func TestTelegramUpdateProcessor_DoesNotLogRawToken(t *testing.T) {

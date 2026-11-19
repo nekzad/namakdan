@@ -173,14 +173,14 @@ PERF_HOST ?=
 perf-staging-up: ## Bring up staging-perf stack on $(PERF_HOST)
 	@test -n "$(PERF_HOST)" || (echo "PERF_HOST not set — export PERF_HOST=user@host"; exit 1)
 	@test -f perf/staging/.env || (echo "perf/staging/.env missing — copy from .env.example and fill in secrets"; exit 1)
-	ssh $(PERF_HOST) "mkdir -p ~/payverge-perf"
-	scp perf/staging/docker-compose.staging-perf.yml $(PERF_HOST):~/payverge-perf/docker-compose.yml
-	scp perf/staging/.env                            $(PERF_HOST):~/payverge-perf/.env
-	ssh $(PERF_HOST) "cd ~/payverge-perf && docker compose --env-file .env pull && docker compose --env-file .env up -d"
+	ssh $(PERF_HOST) "mkdir -p ~/namakdan-perf"
+	scp perf/staging/docker-compose.staging-perf.yml $(PERF_HOST):~/namakdan-perf/docker-compose.yml
+	scp perf/staging/.env                            $(PERF_HOST):~/namakdan-perf/.env
+	ssh $(PERF_HOST) "cd ~/namakdan-perf && docker compose --env-file .env pull && docker compose --env-file .env up -d"
 
 perf-staging-down: ## Tear down staging-perf stack (preserves volumes; add -v manually to wipe)
 	@test -n "$(PERF_HOST)" || (echo "PERF_HOST not set"; exit 1)
-	ssh $(PERF_HOST) "cd ~/payverge-perf && docker compose down"
+	ssh $(PERF_HOST) "cd ~/namakdan-perf && docker compose down"
 
 perf-staging-seed: ## Seed perf fixtures (requires DATABASE_URL pointed at staging-perf)
 	@test -n "$(DATABASE_URL)" || (echo "DATABASE_URL required — point at staging-perf Postgres (likely via ssh -L tunnel)"; exit 1)
@@ -189,4 +189,4 @@ perf-staging-seed: ## Seed perf fixtures (requires DATABASE_URL pointed at stagi
 
 perf-staging-logs: ## Tail staging-perf logs
 	@test -n "$(PERF_HOST)" || (echo "PERF_HOST not set"; exit 1)
-	ssh $(PERF_HOST) "cd ~/payverge-perf && docker compose logs -f"
+	ssh $(PERF_HOST) "cd ~/namakdan-perf && docker compose logs -f"

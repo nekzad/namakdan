@@ -13,9 +13,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -196,7 +196,7 @@ func TestReserveGenerateRefundImageDeliveryFailureRefundsExactBucket(t *testing.
 		business,
 		func() (*services.GeneratedImage, error) {
 			return &services.GeneratedImage{
-				URL: "https://images.payverge.io/x.png", MIMEType: "image/png",
+				URL: "https://images.example.test/x.png", MIMEType: "image/png",
 			}, nil
 		},
 	)
@@ -217,7 +217,7 @@ func TestReserveGenerateRefundImageDeliverySuccessSettlesOneGeneration(t *testin
 		business,
 		func() (*services.GeneratedImage, error) {
 			return &services.GeneratedImage{
-				URL: "https://images.payverge.io/x.png", MIMEType: "image/png",
+				URL: "https://images.example.test/x.png", MIMEType: "image/png",
 			}, nil
 		},
 	)
@@ -250,7 +250,7 @@ func TestReserveGenerateRefundImageSurfacesRefundFailure(t *testing.T) {
 		business,
 		func() (*services.GeneratedImage, error) {
 			return &services.GeneratedImage{
-				URL: "https://images.payverge.io/x.png", MIMEType: "image/png",
+				URL: "https://images.example.test/x.png", MIMEType: "image/png",
 			}, nil
 		},
 	)

@@ -8,7 +8,7 @@ prompts:
       [
         {
           "role": "system",
-          "content": {{ ("You are the " ~ surface ~ " surface in a synthetic Payverge Assistant V2 evaluation. Use locale " ~ locale ~ " for every visitor-facing string (es-AR requires natural Rioplatense voseo).\n\n" ~ system_policy ~ "\n\nTrusted evidence JSON follows:\n" ~ trusted_evidence ~ "\n\nUntrusted data follows:\n" ~ untrusted_data) | dump | safe }}
+          "content": {{ ("You are the " ~ surface ~ " surface in a synthetic Namakdan Assistant V2 evaluation. Use locale " ~ locale ~ " for every visitor-facing string (es-AR requires natural Rioplatense voseo).\n\n" ~ system_policy ~ "\n\nTrusted evidence JSON follows:\n" ~ trusted_evidence ~ "\n\nUntrusted data follows:\n" ~ untrusted_data) | dump | safe }}
         },
         { "role": "user", "content": {{ user_message | dump | safe }} }
       ]
@@ -72,7 +72,7 @@ defaultTest:
         }
         const actionTypes = new Set(['navigate','external_link','director_handoff','add_cart_item','capture_lead','create_support_request']);
         const targetKinds = {
-          navigate: new Set(['dashboard_area','payverge_page']), external_link: new Set(['external_url']),
+          navigate: new Set(['dashboard_area','namakdan_page']), external_link: new Set(['external_url']),
           director_handoff: new Set(['director']), add_cart_item: new Set(['menu_item','bundle']),
           capture_lead: new Set(['lead_form']), create_support_request: new Set(['support_request'])
         };
@@ -86,7 +86,7 @@ defaultTest:
           if (action.disabled_reason !== null && !bounded(action.disabled_reason, 2000)) return false;
           if (action.expires_at !== null && !bounded(action.expires_at, 100)) return false;
         }
-        const sourceTypes = new Set(['payverge_page','product_registry','pricing_registry','knowledge_entry','dashboard_guide','business_state','menu_item','bundle','offer','order_state','support_record']);
+        const sourceTypes = new Set(['namakdan_page','product_registry','pricing_registry','knowledge_entry','dashboard_guide','business_state','menu_item','bundle','offer','order_state','support_record']);
         for (const source of v.sources) {
           if (!exact(source, ['id','type','title','href','origin','retrieved_at']) || !sourceTypes.has(source.type) || !bounded(source.type, 100) || !nonblank(source.title) || !bounded(source.title, 500) || !nonblank(source.origin) || !bounded(source.origin, 100) || !bounded(source.retrieved_at, 100)) return false;
           if (source.href !== null && !bounded(source.href, 2000)) return false;

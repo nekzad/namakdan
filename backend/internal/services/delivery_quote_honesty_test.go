@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // TestQuote_IneligibleCarriesNoFabricatedNumbers ensures that ineligible

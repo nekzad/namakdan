@@ -2,7 +2,7 @@ import { chooseTargetTab } from "../targetTab.js";
 
 const dash = (over = {}) => ({
   id: 1,
-  url: "https://payverge.io/business/9/dashboard?tab=overview",
+  url: "https://example.test/business/9/dashboard?tab=overview",
   active: false,
   ...over,
 });
@@ -35,7 +35,7 @@ test("picks the most recently accessed dashboard tab when several exist", () => 
 test("returns null when no business-dashboard tab exists", () => {
   const tabs = [
     { id: 1, url: "https://example.com/", active: true },
-    { id: 2, url: "https://payverge.io/", active: false },
+    { id: 2, url: "https://example.test/", active: false },
   ];
   expect(chooseTargetTab(tabs)).toBeNull();
 });

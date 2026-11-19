@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 
 	"github.com/gin-gonic/gin"
 )
@@ -268,7 +268,7 @@ var StaffRoleHierarchy = map[database.StaffRole]int{
 // OwnerOnlyPermissions lists permissions that are NON-DELEGABLE to staff — never
 // effective even when explicitly granted. It is intentionally EMPTY today.
 //
-// Payverge's sensitive money permissions (bills:refund, payroll:write,
+// Namakdan's sensitive money permissions (bills:refund, payroll:write,
 // fiscal:credit, fiscal:credentials, director:*) are "owner-only BY DEFAULT":
 // absent from every staff role, so a plain staff member never holds them. But
 // they remain DELEGABLE — an owner may grant one to a specific trusted manager

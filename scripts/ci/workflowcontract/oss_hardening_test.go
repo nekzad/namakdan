@@ -13,7 +13,7 @@ import (
 
 const (
 	postgresImage = "postgres:18.6-alpine@sha256:77f585114c32fbca283dc835b0596f4e52b51b4c6662d7810b2f4084f60a1873"
-	releaseSigner = "https://github.com/stdevMac/payverge/.github/workflows/release.yml@refs/heads/main"
+	releaseSigner = "https://github.com/nekzad/namakdan/.github/workflows/release.yml@refs/heads/main"
 	githubIssuer  = "https://token.actions.githubusercontent.com"
 )
 
@@ -73,7 +73,7 @@ func TestReleaseSignsChecksumsAndInstallerVerifies(t *testing.T) {
 	install := readRepoFile(t, "deploy", "install.sh")
 	requireContainsAll(t, "deploy/install.sh", install,
 		"cosign verify-blob", "SHA256SUMS.sigstore.json", releaseSigner, githubIssuer,
-		"--require-signature", "PAYVERGE_REQUIRE_SIGNATURE")
+		"--require-signature", "NAMAKDAN_REQUIRE_SIGNATURE")
 	harness := readRepoFile(t, "scripts", "ci", "deploy-install_test.sh")
 	requireContainsAll(t, "scripts/ci/deploy-install_test.sh", harness,
 		"signature bad: nothing started", "require-signature, no cosign: no download")
@@ -99,7 +99,7 @@ func TestDeployPostgresAppRoleIsNotSuperuser(t *testing.T) {
 	compose := readRepoFile(t, "deploy", "docker-compose.yml")
 	requireContainsAll(t, "deploy/docker-compose.yml", compose,
 		"POSTGRES_USER: postgres",
-		"PAYVERGE_DB_USER: ${DB_USER:-payverge}",
+		"NAMAKDAN_DB_USER: ${DB_USER:-namakdan}",
 		"./postgres/init-app-role.sql:/docker-entrypoint-initdb.d/10-app-role.sql:ro")
 	initSQL := readRepoFile(t, "deploy", "postgres", "init-app-role.sql")
 	requireContainsAll(t, "deploy/postgres/init-app-role.sql", initSQL,
@@ -180,9 +180,9 @@ func TestHostedAdminEnvIsNotShipped(t *testing.T) {
 func TestDeployAlertRulesReadExportedMetrics(t *testing.T) {
 	rules := readRepoFile(t, "deploy", "monitoring", "alerts.yml")
 	exported := readRepoFile(t, "backend", "internal", "metrics", "metrics.go")
-	used := regexp.MustCompile(`\bpayverge_[a-z0-9_]+`).FindAllString(rules, -1)
+	used := regexp.MustCompile(`\bnamakdan_[a-z0-9_]+`).FindAllString(rules, -1)
 	if len(used) == 0 {
-		t.Fatal("deploy/monitoring/alerts.yml reads no payverge_ metric")
+		t.Fatal("deploy/monitoring/alerts.yml reads no namakdan_ metric")
 	}
 	for _, metric := range used {
 		if !strings.Contains(exported, `"`+metric+`"`) {

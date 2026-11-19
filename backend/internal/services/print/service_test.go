@@ -9,7 +9,7 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // mustCreateBill inserts a minimal valid Bill row and returns it.

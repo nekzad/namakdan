@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/auth"
-	"github.com/stdevmac/payverge/backend/internal/auththrottle"
-	"github.com/stdevmac/payverge/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/auth"
+	"github.com/nekzad/namakdan/backend/internal/auththrottle"
+	"github.com/nekzad/namakdan/backend/internal/session"
 )
 
 // passwordLoginThrottleKind matches the kind AuthHandler.Login records, so a

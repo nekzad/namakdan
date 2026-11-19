@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/sirupsen/logrus"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
 )
 
 type ObservedProvider struct {

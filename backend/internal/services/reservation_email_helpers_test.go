@@ -63,20 +63,20 @@ func TestNormalizeGuestLang(t *testing.T) {
 }
 
 func TestWithLangParamAndBuildURLs(t *testing.T) {
-	if got := WithLangParam("https://payverge.io/reservations/ABC", "es"); got != "https://payverge.io/reservations/ABC?lang=es" {
+	if got := WithLangParam("https://example.test/reservations/ABC", "es"); got != "https://example.test/reservations/ABC?lang=es" {
 		t.Fatalf("WithLangParam = %q", got)
 	}
-	if got := WithLangParam("https://payverge.io/x?foo=1", "ja"); got != "https://payverge.io/x?foo=1&lang=ja" {
+	if got := WithLangParam("https://example.test/x?foo=1", "ja"); got != "https://example.test/x?foo=1&lang=ja" {
 		t.Fatalf("WithLangParam existing query = %q", got)
 	}
-	if got := BuildReservationDetailsURL("https://payverge.io", "ABC123", "fr"); got != "https://payverge.io/reservations/ABC123?lang=fr" {
+	if got := BuildReservationDetailsURL("https://example.test", "ABC123", "fr"); got != "https://example.test/reservations/ABC123?lang=fr" {
 		t.Fatalf("details URL = %q", got)
 	}
-	if got := BuildReservationCancellationURL("https://payverge.io", "ABC123", "es-AR"); got != "https://payverge.io/reservations/ABC123/cancel?lang=es-AR" {
+	if got := BuildReservationCancellationURL("https://example.test", "ABC123", "es-AR"); got != "https://example.test/reservations/ABC123/cancel?lang=es-AR" {
 		t.Fatalf("cancel URL = %q", got)
 	}
 	// Back-compat: no language arg leaves URL bare.
-	if got := BuildReservationDetailsURL("https://payverge.io", "ABC123"); got != "https://payverge.io/reservations/ABC123" {
+	if got := BuildReservationDetailsURL("https://example.test", "ABC123"); got != "https://example.test/reservations/ABC123" {
 		t.Fatalf("details without lang = %q", got)
 	}
 }

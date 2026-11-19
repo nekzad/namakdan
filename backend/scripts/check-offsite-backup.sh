@@ -37,15 +37,15 @@ write_outputs() {
   local result="$1" reason="$2" fresh="$3"
   local metrics_tmp="${METRICS_FILE}.tmp.$$"
   cat >"${metrics_tmp}" <<EOF
-# HELP payverge_offsite_backup_fresh Whether the newest off-site backup exists, is readable, and is within the freshness threshold.
-# TYPE payverge_offsite_backup_fresh gauge
-payverge_offsite_backup_fresh ${fresh}
-# HELP payverge_offsite_backup_age_seconds Age of the newest off-site backup in seconds, or -1 when unavailable.
-# TYPE payverge_offsite_backup_age_seconds gauge
-payverge_offsite_backup_age_seconds ${OBJECT_AGE_SECONDS:--1}
-# HELP payverge_offsite_backup_check_timestamp Unix timestamp of this external check.
-# TYPE payverge_offsite_backup_check_timestamp gauge
-payverge_offsite_backup_check_timestamp ${NOW_EPOCH}
+# HELP namakdan_offsite_backup_fresh Whether the newest off-site backup exists, is readable, and is within the freshness threshold.
+# TYPE namakdan_offsite_backup_fresh gauge
+namakdan_offsite_backup_fresh ${fresh}
+# HELP namakdan_offsite_backup_age_seconds Age of the newest off-site backup in seconds, or -1 when unavailable.
+# TYPE namakdan_offsite_backup_age_seconds gauge
+namakdan_offsite_backup_age_seconds ${OBJECT_AGE_SECONDS:--1}
+# HELP namakdan_offsite_backup_check_timestamp Unix timestamp of this external check.
+# TYPE namakdan_offsite_backup_check_timestamp gauge
+namakdan_offsite_backup_check_timestamp ${NOW_EPOCH}
 EOF
   mv "${metrics_tmp}" "${METRICS_FILE}"
 

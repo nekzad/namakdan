@@ -13,9 +13,9 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/session"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 )
 
 func setupSessionTestDB(t *testing.T) *gorm.DB {

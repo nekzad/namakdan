@@ -3,11 +3,11 @@ package server
 import (
 	"errors"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/demomode"
-	"github.com/stdevmac/payverge/backend/internal/session"
-	"github.com/stdevmac/payverge/backend/internal/verification"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/demomode"
+	"github.com/nekzad/namakdan/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/verification"
 )
 
 // verifyPersistedOperatorSession checks the live identity state behind an

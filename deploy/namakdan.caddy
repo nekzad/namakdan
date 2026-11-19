@@ -1,4 +1,4 @@
-# Payverge site definition, shared by deploy/Caddyfile (EDGE=none) and
+# Namakdan site definition, shared by deploy/Caddyfile (EDGE=none) and
 # deploy/Caddyfile.cloudflare (EDGE=cloudflare). Both files import it after
 # their own global options block, so the routing below exists exactly once.
 #
@@ -39,7 +39,7 @@
 # subdomain of DOMAIN serves HTTPS. The default covers DOMAIN alone; set
 # HSTS_POLICY in .env (CADDY_HSTS here) to add includeSubDomains or preload,
 # or to max-age=0 to withdraw it.
-(payverge_security_headers) {
+(namakdan_security_headers) {
 	header ?X-Frame-Options "DENY"
 	header ?X-Content-Type-Options "nosniff"
 	header ?X-XSS-Protection "1; mode=block"
@@ -55,7 +55,7 @@
 # Request headers for both upstreams: one verified client address, nothing a
 # client could choose, and the public scheme (always https; see TLS above).
 # Imported inside each reverse_proxy block.
-(payverge_client_ip) {
+(namakdan_client_ip) {
 	header_up X-Forwarded-For {client_ip}
 	header_up X-Forwarded-Proto https
 	header_up -X-Real-IP
@@ -67,7 +67,7 @@
 
 # Compress text responses, but never text/event-stream: the realtime
 # dashboards, the AI waiter and the director console are SSE streams.
-(payverge_compress) {
+(namakdan_compress) {
 	encode zstd gzip {
 		match {
 			header Content-Type text/html*
@@ -91,9 +91,9 @@
 # read/write to the backend. SSE handlers send a heartbeat every 5-15 s, so a
 # 60 s per-read bound never cuts a healthy stream; flush_interval -1 sends
 # every event immediately.
-(payverge_backend) {
+(namakdan_backend) {
 	reverse_proxy backend:8080 {
-		import payverge_client_ip
+		import namakdan_client_ip
 		flush_interval -1
 		transport http {
 			dial_timeout 5s
@@ -104,9 +104,9 @@
 	}
 }
 
-(payverge_site) {
-	import payverge_compress
-	import payverge_security_headers
+(namakdan_site) {
+	import namakdan_compress
+	import namakdan_security_headers
 
 	# Uploads are capped at 15 MB end to end (the frontend proxy uses the
 	# same limit).
@@ -120,27 +120,27 @@
 
 	# AI routes (menu wizard, menu extraction, director, ops assistant, AI
 	# waiter) can take minutes on a slow or self-hosted model.
-	@payverge_ai path_regexp ^/api/v1/(?:.*/)?(?:ai|ai-waiter|assistant)(?:/|$)
-	handle @payverge_ai {
-		import payverge_backend 300s
+	@namakdan_ai path_regexp ^/api/v1/(?:.*/)?(?:ai|ai-waiter|assistant)(?:/|$)
+	handle @namakdan_ai {
+		import namakdan_backend 300s
 	}
 
 	handle /api/v1/* {
-		import payverge_backend 60s
+		import namakdan_backend 60s
 	}
 
 	handle /media/* {
-		import payverge_backend 60s
+		import namakdan_backend 60s
 	}
 
 	handle {
 		reverse_proxy frontend:3000 {
-			import payverge_client_ip
+			import namakdan_client_ip
 			flush_interval -1
 		}
 	}
 }
 
 {$CADDY_SITE_SCHEME}{$DOMAIN} {
-	import payverge_site
+	import namakdan_site
 }

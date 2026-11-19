@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strings"
 
-	requestmiddleware "github.com/stdevmac/payverge/backend/internal/middleware"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	requestmiddleware "github.com/nekzad/namakdan/backend/internal/middleware"
+	"github.com/nekzad/namakdan/backend/internal/services"
 
 	"github.com/gin-gonic/gin"
 )

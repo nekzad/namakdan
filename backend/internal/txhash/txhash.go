@@ -2,7 +2,7 @@
 //
 // go-ethereum's common.HexToHash is deliberately lenient: it accepts upper or
 // lower case, a missing 0x, left zero-padding and even trailing non-hex
-// garbage, and resolves all of them to the same 32-byte hash. Payverge uses the
+// garbage, and resolves all of them to the same 32-byte hash. Namakdan uses the
 // submitted hash string as the payment's dedupe key (payments.tx_hash UNIQUE),
 // so any lenient spelling that reaches the chain lookup becomes a fresh ledger
 // key for an already-claimed transfer. Every money path must therefore reduce a

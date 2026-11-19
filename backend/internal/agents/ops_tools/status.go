@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/agents"
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/agents"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 // PluginStatusTool exposes only coarse connection health for plugins owned by

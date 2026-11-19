@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/config"
 	"golang.org/x/time/rate"
 )
 

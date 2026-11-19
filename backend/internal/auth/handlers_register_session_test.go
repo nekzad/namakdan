@@ -8,9 +8,9 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/emails"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"

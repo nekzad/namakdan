@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/schema/genesis"
+	"github.com/nekzad/namakdan/backend/schema/genesis"
 )
 
 func TestSchemaContract_OfferScheduleAndGuestRequestIdentity(t *testing.T) {

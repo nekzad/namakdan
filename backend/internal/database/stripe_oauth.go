@@ -81,7 +81,7 @@ func FindBusinessIDsByStripeUserID(acctID string) ([]uint, error) {
 
 // FindBusinessIDsByStripeUserIDExcluding is FindBusinessIDsByStripeUserID minus
 // one business. The OAuth callback uses it to reject connecting a Stripe
-// account that another Payverge business already owns: two businesses sharing
+// account that another Namakdan business already owns: two businesses sharing
 // one acct_… makes Connect webhook routing ambiguous for every event that does
 // not carry our own checkout metadata.
 func FindBusinessIDsByStripeUserIDExcluding(acctID string, excludeBusinessID uint) ([]uint, error) {

@@ -14,7 +14,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func setupLoyaltyHandlerDB(t *testing.T) (*gorm.DB, *Handler) {
@@ -234,7 +234,7 @@ func TestPutLoyaltyHandlerLocksProgramAndCustomerBusinessesDuringRecalculation(t
 
 	var programLocked, customerLocked atomic.Bool
 	var lockOrder []string
-	callbackName := fmt.Sprintf("payverge:test:capture_loyalty_save_locks:%s", t.Name())
+	callbackName := fmt.Sprintf("namakdan:test:capture_loyalty_save_locks:%s", t.Name())
 	require.NoError(t, db.Callback().Query().Before("gorm:query").Register(callbackName, func(tx *gorm.DB) {
 		if tx.Statement == nil || tx.Statement.Schema == nil {
 			return

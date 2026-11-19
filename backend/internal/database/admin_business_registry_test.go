@@ -29,14 +29,14 @@ func setupAdminBusinessRegistryDB(t testing.TB) *gorm.DB {
 
 // TestListBusinessesForAdmin_KindRealExcludesFixtures guards SEAM 4 / Task 12:
 // filtering kind=real must exclude demo-seeded rows and CI fixture owners
-// (@payverge.test / @payverge.local), and must be the single registry entry point.
+// (@example.test / @example.test), and must be the single registry entry point.
 func TestListBusinessesForAdmin_KindRealExcludesFixtures(t *testing.T) {
 	db := setupAdminBusinessRegistryDB(t)
 	now := time.Now().UTC()
 
 	realOwner := User{Email: "owner@restaurant.com", Name: "Real Owner", Role: "user"}
-	testOwner := User{Email: "ci@payverge.test", Name: "CI Fixture", Role: "user"}
-	localOwner := User{Email: "qa@payverge.local", Name: "Local Fixture", Role: "user"}
+	testOwner := User{Email: "ci@example.test", Name: "CI Fixture", Role: "user"}
+	localOwner := User{Email: "qa@example.test", Name: "Local Fixture", Role: "user"}
 	require.NoError(t, db.Create(&realOwner).Error)
 	require.NoError(t, db.Create(&testOwner).Error)
 	require.NoError(t, db.Create(&localOwner).Error)
@@ -97,7 +97,7 @@ func TestAdminBusinessRegistrySurfacesShareOneCount(t *testing.T) {
 	now := time.Now().UTC()
 
 	owner := User{Email: "shared@real.com", Name: "Shared", Role: "user"}
-	fixture := User{Email: "bot@payverge.test", Name: "Bot", Role: "user"}
+	fixture := User{Email: "bot@example.test", Name: "Bot", Role: "user"}
 	require.NoError(t, db.Create(&owner).Error)
 	require.NoError(t, db.Create(&fixture).Error)
 

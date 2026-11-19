@@ -1,5 +1,5 @@
 #!/bin/bash
-# Payverge model benchmark — production-faithful.
+# Namakdan model benchmark — production-faithful.
 #
 # Each surface loads the REAL backend prompt assets through
 # lib/prod_prompts.js (system prompt + a genuine user turn) and runs the two
@@ -47,7 +47,7 @@ case "${1:-run}" in
     node "$ROOT/evals/promptfoo/lib/scoreboard.cjs"
     ;;
   run)
-    echo "=== Payverge Model Benchmark (gemini vs gpt-4o-mini) ==="
+    echo "=== Namakdan Model Benchmark (gemini vs gpt-4o-mini) ==="
     for s in "${SURFACES[@]}"; do run_one "$s"; done
     node "$ROOT/evals/promptfoo/lib/scoreboard.cjs"
     echo "Run './evals/promptfoo/runner.sh view' for the per-test dashboard."

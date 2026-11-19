@@ -10,7 +10,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 	"github.com/stretchr/testify/require"
 )
 
@@ -34,7 +34,7 @@ func (f *fakeRehoster) Rehost(_ context.Context, sourceURL string) (string, erro
 	if f.fail {
 		return "", errors.New("rehost unavailable")
 	}
-	hosted := "https://images.payverge.test/demo-arg/assets/" + fmt.Sprint(len(f.hosted)) + ".jpg"
+	hosted := "https://images.example.test/demo-arg/assets/" + fmt.Sprint(len(f.hosted)) + ".jpg"
 	f.hosted[sourceURL] = hosted
 	return hosted, nil
 }
@@ -147,7 +147,7 @@ func TestS3AssetRehosterFetchesOnceAndUploadsUnderADeterministicKey(t *testing.T
 		keys = append(keys, folder+"/"+name)
 		require.Equal(t, "image/jpeg", contentType)
 		require.NotEmpty(t, data)
-		return "https://images.payverge.test/" + folder + "/" + name, nil
+		return "https://images.example.test/" + folder + "/" + name, nil
 	})
 
 	first, err := rehoster.Rehost(context.Background(), source.URL+"/photo.jpg")

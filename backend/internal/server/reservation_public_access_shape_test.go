@@ -14,8 +14,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // TestPublicReservationGETPathsDoNotWrite is the #558 write-on-read gate:
@@ -132,8 +132,8 @@ func trackReservationAccessShapeWrites(t *testing.T, gormDB *gorm.DB) *reservati
 
 	log := &reservationAccessShapeWriteLog{}
 	label := fmt.Sprintf("%d", time.Now().UnixNano())
-	createName := "payverge:test_public_resv_fail_create_" + label
-	updateName := "payverge:test_public_resv_fail_update_" + label
+	createName := "namakdan:test_public_resv_fail_create_" + label
+	updateName := "namakdan:test_public_resv_fail_update_" + label
 
 	require.NoError(t, gormDB.Callback().Create().Before("gorm:create").Register(createName, func(tx *gorm.DB) {
 		table := ""

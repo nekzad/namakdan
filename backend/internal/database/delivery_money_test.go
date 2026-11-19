@@ -115,14 +115,14 @@ func TestDeliveryDriver_MarshalJSON_PartialProjectionIsSlim(t *testing.T) {
 	// Mirrors preloadDeliveryDispatchDriverSummary.
 	raw, err := json.Marshal(DeliveryDriver{
 		ID: 9, BusinessID: 50, Name: "Demo Driver 1", Phone: "+12125550300",
-		Email: "demo@payverge.local",
+		Email: "demo@example.test",
 	})
 	assert.NoError(t, err)
 	var m map[string]interface{}
 	assert.NoError(t, json.Unmarshal(raw, &m))
 	assert.Equal(t, "Demo Driver 1", m["name"])
 	assert.Equal(t, "+12125550300", m["phone"])
-	assert.Equal(t, "demo@payverge.local", m["email"])
+	assert.Equal(t, "demo@example.test", m["email"])
 	for _, banned := range []string{
 		"is_active", "total_deliveries", "total_earnings", "license_number",
 		"vehicle_plate", "status", "is_available", "created_at", "updated_at",

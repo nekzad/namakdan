@@ -1,7 +1,7 @@
 package services
 
 import (
-	"github.com/stdevmac/payverge/backend/internal/money"
+	"github.com/nekzad/namakdan/backend/internal/money"
 )
 
 // QuoteLine is a single authoritative, minor-unit priced line.

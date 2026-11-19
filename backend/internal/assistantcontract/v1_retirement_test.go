@@ -30,12 +30,12 @@ func v1RetirementResponses() []v1RetirementFixture {
 	concierge.Actions = []Action{
 		{
 			ID: "navigate:pricing", Type: "navigate", Label: "View pricing",
-			Target: ActionTarget{Kind: "payverge_page", ID: "pricing", Href: "/pricing"},
+			Target: ActionTarget{Kind: "namakdan_page", ID: "pricing", Href: "/pricing"},
 			State:  "ready", Confirmation: "none",
 		},
 		{
 			ID: "navigate:demo", Type: "navigate", Label: "Book a demo",
-			Target: ActionTarget{Kind: "payverge_page", ID: "demo", Href: "/book-demo"},
+			Target: ActionTarget{Kind: "namakdan_page", ID: "demo", Href: "/book-demo"},
 			State:  "ready", Confirmation: "none",
 		},
 	}

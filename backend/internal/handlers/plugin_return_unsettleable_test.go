@@ -11,8 +11,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
 )
 
 type returnFixture struct {
@@ -83,7 +83,7 @@ func setupReturnFixture(t *testing.T, provider string, billStatus database.BillS
 			BillID:    bill.ID,
 			Amount:    2500,
 			Currency:  currency,
-			Metadata:  map[string]interface{}{"payverge_tracker_id": trackerAddr},
+			Metadata:  map[string]interface{}{"namakdan_tracker_id": trackerAddr},
 		},
 	}
 	original, hadOriginal := plugins.GlobalRegistry.GetPlugin(provider)

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/events"
+	"github.com/nekzad/namakdan/backend/internal/events"
 )
 
 // BenchmarkSSEBroadcast measures the cost of a single events.Hub.Publish

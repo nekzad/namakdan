@@ -12,10 +12,10 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/stdevmac/payverge/backend/internal/logic"
-	"github.com/stdevmac/payverge/backend/internal/middleware"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/logic"
+	"github.com/nekzad/namakdan/backend/internal/middleware"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
@@ -35,7 +35,7 @@ func (suite *IntegrationTestSuite) SetupSuite() {
 	// Create router with middleware
 	suite.router = gin.New()
 	suite.router.Use(gin.Recovery())
-	suite.router.Use(middleware.CORS([]string{"http://localhost:3000", "http://localhost:3001", "https://payverge.io", "https://www.payverge.io", "https://api.payverge.io"}))
+	suite.router.Use(middleware.CORS([]string{"http://localhost:3000", "http://localhost:3001", "https://example.test", "https://www.example.test", "https://api.example.test"}))
 	suite.router.Use(middleware.SecurityHeaders())
 	suite.router.Use(middleware.InputValidation())
 

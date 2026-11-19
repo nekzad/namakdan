@@ -23,7 +23,7 @@ func TestGoogleCallback_RoutesStaffStateToStaffHandler(t *testing.T) {
 
 	h := &AuthHandler{
 		staffStateStore: map[string]StaffOAuthState{
-			"staff-state": {ExpiresAt: time.Now().Add(time.Hour), Redirect: "https://payverge.io/staff/login"},
+			"staff-state": {ExpiresAt: time.Now().Add(time.Hour), Redirect: "https://example.test/staff/login"},
 		},
 		// Google is nil, so the staff handler fails at the *token exchange* step —
 		// which only happens if we successfully routed past the user-state check.

@@ -59,12 +59,12 @@ func TestListPublishedStorefrontSlugsExcludesDemo(t *testing.T) {
 		Kind: BusinessKindReal, IsDemo: true,
 	})
 	db.Create(&Business{
-		BusinessId: "biz-kind-demo", Name: "Kind Demo", CustomURL: "payverge-core-demo-kitchen",
+		BusinessId: "biz-kind-demo", Name: "Kind Demo", CustomURL: "namakdan-core-demo-kitchen",
 		BusinessPageEnabled: true, IsActive: true,
 		Kind: BusinessKindDemo, IsDemo: false,
 	})
 	db.Create(&Business{
-		BusinessId: "biz-both", Name: "Both Flags", CustomURL: "payverge-ai-pro-demo-lounge",
+		BusinessId: "biz-both", Name: "Both Flags", CustomURL: "namakdan-ai-pro-demo-lounge",
 		BusinessPageEnabled: true, IsActive: true,
 		Kind: BusinessKindDemo, IsDemo: true,
 	})
@@ -85,7 +85,7 @@ func TestListPublishedStorefrontSlugsExcludesDemo(t *testing.T) {
 	if _, ok := urls["real-bistro"]; !ok {
 		t.Fatalf("missing real-bistro, got %+v", got)
 	}
-	if _, ok := urls["payverge-ai-pro-demo-lounge"]; !ok {
+	if _, ok := urls["namakdan-ai-pro-demo-lounge"]; !ok {
 		t.Fatalf("missing published demo lounge, got %+v", got)
 	}
 	if _, ok := urls["ci-test-kitchen"]; ok {

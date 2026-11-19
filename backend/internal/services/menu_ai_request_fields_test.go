@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

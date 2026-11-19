@@ -17,7 +17,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/auth"
+	"github.com/nekzad/namakdan/backend/internal/auth"
 )
 
 func main() {

@@ -5,7 +5,7 @@ import (
 	"crypto/x509"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/fiscal/certutil"
+	"github.com/nekzad/namakdan/backend/internal/fiscal/certutil"
 )
 
 // CertificateBundle holds a parsed X.509 certificate and its matching RSA private key,

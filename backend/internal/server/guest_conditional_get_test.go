@@ -11,8 +11,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm/logger"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // Guest menu/table polls revalidate with If-None-Match. A matching validator

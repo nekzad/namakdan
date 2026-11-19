@@ -5,7 +5,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"gorm.io/gorm"
 )

@@ -75,7 +75,7 @@ for tool in initdb pg_ctl pg_dump pg_restore psql createdb; do
 done
 export PATH="$PG_BIN:$PATH"
 
-WORK=$(mktemp -d "${TMPDIR:-/tmp}/payverge-backup-test.XXXXXX")
+WORK=$(mktemp -d "${TMPDIR:-/tmp}/namakdan-backup-test.XXXXXX")
 PGDATA_DIR=$WORK/pgdata
 cleanup() {
 	pg_ctl -D "$PGDATA_DIR" -m immediate stop >/dev/null 2>&1 || true
@@ -117,13 +117,13 @@ done
 	echo "deploy-backup: could not start PostgreSQL" >&2
 	exit 1
 }
-export PGHOST=127.0.0.1 PGPORT=$PORT PGUSER=payverge PGDATABASE=payverge
+export PGHOST=127.0.0.1 PGPORT=$PORT PGUSER=namakdan PGDATABASE=namakdan
 unset PGPASSWORD PGSERVICE PGSSLMODE
 # The role deploy/postgres/init-app-role.sql gives the stack: backup.sh and
 # restore.sh log in as an owner that is not a superuser, so the test does too.
 psql -X -q -U postgres -d postgres -v ON_ERROR_STOP=1 \
-	-c "CREATE ROLE payverge LOGIN NOSUPERUSER NOCREATEROLE CREATEDB NOREPLICATION NOBYPASSRLS"
-createdb payverge
+	-c "CREATE ROLE namakdan LOGIN NOSUPERUSER NOCREATEROLE CREATEDB NOREPLICATION NOBYPASSRLS"
+createdb namakdan
 sql() { psql -X -q -At -v ON_ERROR_STOP=1 -c "$1"; }
 [[ $(sql "SELECT rolsuper FROM pg_roles WHERE rolname = current_user") == f ]] ||
 	{
@@ -145,11 +145,11 @@ DB_ORIGINAL=$(db_state)
 
 STORAGE=$WORK/vol/storage
 MINIO=$WORK/vol/minio
-mkdir -p "$STORAGE/receipts" "$MINIO/payverge-public/logo.png" "$MINIO/.minio.sys/config" \
+mkdir -p "$STORAGE/receipts" "$MINIO/namakdan-public/logo.png" "$MINIO/.minio.sys/config" \
 	"$MINIO/.minio.sys/tmp/abc" "$MINIO/.minio.sys/multipart/def"
 printf 'receipt 1\n' >"$STORAGE/receipts/r1.pdf"
 printf 'logo bytes\n' >"$STORAGE/logo.png"
-printf 'xl meta\n' >"$MINIO/payverge-public/logo.png/xl.meta"
+printf 'xl meta\n' >"$MINIO/namakdan-public/logo.png/xl.meta"
 printf '{"version":"1"}\n' >"$MINIO/.minio.sys/config/config.json"
 printf 'half an upload\n' >"$MINIO/.minio.sys/tmp/abc/part"
 printf 'a multipart part\n' >"$MINIO/.minio.sys/multipart/def/part.1"
@@ -196,7 +196,7 @@ run_backup() {
 	: >"$CHOWN_LOG"
 	rm -f "$TAR_FAIL_COUNT"
 	env PATH="$STUBS:$PATH" BACKUP_ROOT="$root" STORAGE_SRC="$STORAGE" MINIO_SRC="$MINIO" \
-		PAYVERGE_VERSION=1.2.3 "$@" sh "$BACKUP_SH" once >"$WORK/out" 2>&1 || status=$?
+		NAMAKDAN_VERSION=1.2.3 "$@" sh "$BACKUP_SH" once >"$WORK/out" 2>&1 || status=$?
 	return "$status"
 }
 
@@ -226,14 +226,14 @@ SET1=$(only_set "$ROOT1")
 for f in db.dump storage.tar.gz minio.tar.gz MANIFEST SHA256SUMS; do
 	check "complete: has $f" test -s "$SET1/$f"
 done
-check "complete: MANIFEST names the version" contains "$SET1/MANIFEST" "payverge_version=1.2.3"
+check "complete: MANIFEST names the version" contains "$SET1/MANIFEST" "namakdan_version=1.2.3"
 check "complete: MANIFEST has the schema version" contains "$SET1/MANIFEST" "schema_version=221"
 check "complete: MANIFEST lists no failed archive" bash -c "! grep -q archives_failed '$SET1/MANIFEST'"
 check "complete: checksums verify" bash -c "cd '$SET1' && shasum -a 256 -c -s SHA256SUMS"
 check "complete: checksums cover all three payloads" bash -c \
 	"grep -q ' db.dump\$' '$SET1/SHA256SUMS' && grep -q ' storage.tar.gz\$' '$SET1/SHA256SUMS' && grep -q ' minio.tar.gz\$' '$SET1/SHA256SUMS'"
 "$REAL_TAR" -tzf "$SET1/minio.tar.gz" >"$WORK/minio.list"
-check "complete: MinIO objects archived" contains "$WORK/minio.list" "payverge-public/logo.png/xl.meta"
+check "complete: MinIO objects archived" contains "$WORK/minio.list" "namakdan-public/logo.png/xl.meta"
 check "complete: MinIO config archived" contains "$WORK/minio.list" ".minio.sys/config/config.json"
 check "complete: MinIO tmp/ and multipart/ left out" bash -c "! grep -qE 'minio.sys/(tmp|multipart)' '$WORK/minio.list'"
 check "complete: promoted to weekly" test -n "$(ls "$ROOT1/weekly")"
@@ -247,7 +247,7 @@ check "complete: sets handed to BACKUP_UID:BACKUP_GID" \
 sql "UPDATE bills SET cents = 0 WHERE id = 1; DELETE FROM bills WHERE id = 2; INSERT INTO bills (note, cents) VALUES ('after', 1);"
 rm "$STORAGE/logo.png"
 printf 'written after the backup\n' >"$STORAGE/new.txt"
-printf 'changed\n' >"$MINIO/payverge-public/logo.png/xl.meta"
+printf 'changed\n' >"$MINIO/namakdan-public/logo.png/xl.meta"
 if run_restore "$ROOT1" latest --yes; then
 	pass "restore: exit 0"
 else
@@ -257,15 +257,15 @@ fi
 check "restore: database is back" test "$(db_state)" = "$DB_ORIGINAL"
 check "restore: pg_trgm restored without a superuser" test "$(sql "SELECT count(*) FROM pg_extension WHERE extname = 'pg_trgm'")" = 1
 check "restore: the restored database belongs to the app role" \
-	test "$(sql "SELECT pg_get_userbyid(datdba) FROM pg_database WHERE datname = current_database()")" = payverge
+	test "$(sql "SELECT pg_get_userbyid(datdba) FROM pg_database WHERE datname = current_database()")" = namakdan
 check "restore: uploads are back" diff -r "$WORK/storage.orig" "$STORAGE"
-check "restore: MinIO objects are back" diff -r "$WORK/minio.orig/payverge-public" "$MINIO/payverge-public"
+check "restore: MinIO objects are back" diff -r "$WORK/minio.orig/namakdan-public" "$MINIO/namakdan-public"
 check "restore: MinIO config is back" diff -r "$WORK/minio.orig/.minio.sys/config" "$MINIO/.minio.sys/config"
 check "restore: files given to the backend user" contains "$CHOWN_LOG" "-R 65532:65532 $STORAGE"
 check "restore: MinIO files given to the backend user" contains "$CHOWN_LOG" "-R 65532:65532 $MINIO"
 no_leftovers() {
-	[[ $(sql "SELECT count(*) FROM pg_database WHERE datname IN ('payverge_restore', 'payverge_pre_restore')") == 0 ]] &&
-		[[ ! -e $STORAGE/.payverge-restore-staging && ! -e $MINIO/.payverge-restore-staging ]]
+	[[ $(sql "SELECT count(*) FROM pg_database WHERE datname IN ('namakdan_restore', 'namakdan_pre_restore')") == 0 ]] &&
+		[[ ! -e $STORAGE/.namakdan-restore-staging && ! -e $MINIO/.namakdan-restore-staging ]]
 }
 check "restore: no temporary database or staging directory left" no_leftovers
 
@@ -274,17 +274,17 @@ check "restore: no temporary database or staging directory left" no_leftovers
 psql -X -q -c "SELECT pg_sleep(60)" >/dev/null 2>&1 &
 holder=$!
 for _ in $(seq 1 50); do
-	[[ $(sql "SELECT count(*) FROM pg_stat_activity WHERE datname = 'payverge' AND query LIKE '%pg_sleep%' AND pid <> pg_backend_pid()") -ge 1 ]] && break
+	[[ $(sql "SELECT count(*) FROM pg_stat_activity WHERE datname = 'namakdan' AND query LIKE '%pg_sleep%' AND pid <> pg_backend_pid()") -ge 1 ]] && break
 	/bin/sleep 0.2
 done
 sql "UPDATE bills SET note = 'kept' WHERE id = 3"
 if run_restore "$ROOT1" latest --yes; then
 	fail "connected: refused"
 else
-	check "connected: refused with the reason" contains "$WORK/out" "other connection(s) to 'payverge'"
+	check "connected: refused with the reason" contains "$WORK/out" "other connection(s) to 'namakdan'"
 fi
 check "connected: database untouched" test "$(sql "SELECT note FROM bills WHERE id = 3")" = "kept"
-psql -X -q -At -d postgres -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'payverge'" >/dev/null
+psql -X -q -At -d postgres -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'namakdan'" >/dev/null
 wait "$holder" 2>/dev/null || true
 
 cp -R "$SET1" "$ROOT1/daily/corrupt"
@@ -363,7 +363,7 @@ check "failing: not promoted to monthly" test -z "$(ls "$ROOT3/monthly")"
 check "failing: no partial set left" test -z "$(find "$ROOT3" -maxdepth 1 -name '.partial-*')"
 check "failing: sets still handed over" contains "$CHOWN_LOG" "-R $(id -u):$(id -g) $ROOT3/daily"
 
-printf 'changed after the set\n' >"$MINIO/payverge-public/logo.png/xl.meta"
+printf 'changed after the set\n' >"$MINIO/namakdan-public/logo.png/xl.meta"
 sql "UPDATE bills SET note = 'later' WHERE id = 3"
 if run_restore "$ROOT3" latest --yes; then
 	pass "failing restore: exit 0"
@@ -373,7 +373,7 @@ else
 fi
 check "failing restore: warns about the missing volume" contains "$WORK/out" "this set was taken without: minio"
 check "failing restore: database restored" test "$(sql "SELECT note FROM bills WHERE id = 3")" = "kept"
-check "failing restore: MinIO left as it was" contains "$MINIO/payverge-public/logo.png/xl.meta" "changed after the set"
+check "failing restore: MinIO left as it was" contains "$MINIO/namakdan-public/logo.png/xl.meta" "changed after the set"
 check "failing restore: uploads restored" diff -r "$WORK/storage.orig" "$STORAGE"
 
 # --- 6. a database with no schema yet is not promoted ------------------------------------
@@ -381,9 +381,9 @@ check "failing restore: uploads restored" diff -r "$WORK/storage.orig" "$STORAGE
 # A fresh install: the backup container takes its first set while the backend
 # is still creating the schema. That set stays daily only, or it would occupy
 # the weekly and monthly slots (first set of the period wins) for months.
-createdb payverge_fresh
+createdb namakdan_fresh
 ROOT5=$WORK/backups5
-if run_backup "$ROOT5" PGDATABASE=payverge_fresh; then
+if run_backup "$ROOT5" PGDATABASE=namakdan_fresh; then
 	pass "no schema: exit 0"
 else
 	fail "no schema: exit 0"
@@ -401,12 +401,12 @@ check "no schema: says why" contains "$WORK/out" "the database has no schema yet
 # The genesis baseline is migration version 0: it creates schema_migrations but
 # adds no row until migration 000001 ships. That is a complete schema, so the
 # set is kept as the weekly and monthly copy and the MANIFEST says version 0.
-createdb payverge_genesis
-psql -X -q -At -v ON_ERROR_STOP=1 -d payverge_genesis -c \
+createdb namakdan_genesis
+psql -X -q -At -v ON_ERROR_STOP=1 -d namakdan_genesis -c \
 	"CREATE TABLE schema_migrations (version bigint NOT NULL, dirty boolean NOT NULL);
 	 CREATE TABLE businesses (id serial PRIMARY KEY, name text NOT NULL);"
 ROOT6=$WORK/backups6
-if run_backup "$ROOT6" PGDATABASE=payverge_genesis; then
+if run_backup "$ROOT6" PGDATABASE=namakdan_genesis; then
 	pass "genesis: exit 0"
 else
 	fail "genesis: exit 0"
@@ -427,10 +427,10 @@ fi
 # --- 7. settings are validated -----------------------------------------------------------------
 
 ROOT4=$WORK/backups4
-if run_backup "$ROOT4" BACKUP_UID=payverge; then
-	fail "validate: BACKUP_UID=payverge refused"
+if run_backup "$ROOT4" BACKUP_UID=namakdan; then
+	fail "validate: BACKUP_UID=namakdan refused"
 else
-	check "validate: BACKUP_UID=payverge refused" contains "$WORK/out" "BACKUP_UID must be a numeric user id"
+	check "validate: BACKUP_UID=namakdan refused" contains "$WORK/out" "BACKUP_UID must be a numeric user id"
 fi
 if run_backup "$ROOT4" BACKUP_ARCHIVE_ATTEMPTS=0; then
 	fail "validate: BACKUP_ARCHIVE_ATTEMPTS=0 refused"

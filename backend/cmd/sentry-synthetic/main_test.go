@@ -54,7 +54,7 @@ func TestSendSentrySynthetic(t *testing.T) {
 		if event.Environment != "production" || event.Tags["synthetic"] != "true" {
 			t.Errorf("unexpected event metadata: %#v", event)
 		}
-		if event.Message != "Payverge production synthetic event" {
+		if event.Message != "Namakdan production synthetic event" {
 			t.Errorf("message = %q", event.Message)
 		}
 

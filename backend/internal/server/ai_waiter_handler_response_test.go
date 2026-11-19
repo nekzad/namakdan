@@ -10,11 +10,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/aiwaiterevents"
-	"github.com/stdevmac/payverge/backend/internal/assistantcontract"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/aiwaiterevents"
+	"github.com/nekzad/namakdan/backend/internal/assistantcontract"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -241,7 +241,7 @@ func TestApplyAIWaiterResponseTelemetryVerifiesValidatedRetainedObjects(t *testi
 	response := assistantcontract.NewResponse("waiter-decision-provenance", "Here is an option.")
 	response.Actions = []assistantcontract.Action{{
 		ID: "open-menu", Type: "navigate", Label: "Open menu",
-		Target: assistantcontract.ActionTarget{Kind: "payverge_page", ID: "menu", Href: "/menu"},
+		Target: assistantcontract.ActionTarget{Kind: "namakdan_page", ID: "menu", Href: "/menu"},
 		State:  "ready", Confirmation: "none",
 	}}
 	response.Sources = []assistantcontract.Source{{

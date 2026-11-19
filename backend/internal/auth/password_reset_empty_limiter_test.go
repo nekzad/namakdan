@@ -10,8 +10,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/middleware"
-	"github.com/stdevmac/payverge/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/middleware"
+	"github.com/nekzad/namakdan/backend/internal/server"
 )
 
 func TestRequestPasswordReset_EmptyBodyIs400WithoutConsumingLimiter(t *testing.T) {

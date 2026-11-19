@@ -4,8 +4,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // DeliveryPaymentExpiry cancels prepay delivery orders whose 15-minute

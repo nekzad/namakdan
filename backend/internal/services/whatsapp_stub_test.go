@@ -6,7 +6,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // The default-build stub must keep every caller compiling while never

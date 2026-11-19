@@ -3,7 +3,7 @@ package fiscal
 import (
 	"context"
 
-	"github.com/stdevmac/payverge/backend/internal/runtimecontrol"
+	"github.com/nekzad/namakdan/backend/internal/runtimecontrol"
 
 	"gorm.io/gorm"
 )

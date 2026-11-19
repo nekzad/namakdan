@@ -13,8 +13,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
 )
 
 // D3 (2026-10-07): refund, dispute and reversal webhooks that arrive before
@@ -242,7 +242,7 @@ func TestPluginWebhook_EarlyReversalStaleEventAckedWithAlert(t *testing.T) {
 
 // MercadoPago's x-signature does not cover the body, so an old body
 // date_created must not shorten the bound: the event keeps retrying until
-// Payverge's own first-seen created_at is past it.
+// Namakdan's own first-seen created_at is past it.
 func TestPluginWebhook_MercadoPagoUnsignedDateCreatedDoesNotExpireEvent(t *testing.T) {
 	fx := setupCapturePendingFixture(t, "mercadopago")
 	eventID := "evt_mp_unsigned_date"
@@ -262,7 +262,7 @@ func TestPluginWebhook_MercadoPagoUnsignedDateCreatedDoesNotExpireEvent(t *testi
 	require.EqualValues(t, 1, countRefundReviewAlerts(t, fx.businessID))
 }
 
-// Without a provider timestamp, the bound falls back to when Payverge first
+// Without a provider timestamp, the bound falls back to when Namakdan first
 // stored the event (created_at survives retry claims).
 func TestPluginWebhook_EarlyReversalBoundUsesFirstSeenWhenUndated(t *testing.T) {
 	fx := setupCapturePendingFixture(t, "stripe")
@@ -279,7 +279,7 @@ func TestPluginWebhook_EarlyReversalBoundUsesFirstSeenWhenUndated(t *testing.T) 
 	require.EqualValues(t, 1, countRefundReviewAlerts(t, fx.businessID))
 }
 
-// A capture Payverge refunded itself (unsettleable) never reaches the ledger;
+// A capture Namakdan refunded itself (unsettleable) never reaches the ledger;
 // the provider's follow-up refund webhook is a no-op ack, not three days of
 // retries.
 func TestPluginWebhook_RefundOfAutoRefundedCaptureIsAcked(t *testing.T) {

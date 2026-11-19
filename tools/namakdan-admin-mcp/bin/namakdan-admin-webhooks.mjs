@@ -20,7 +20,7 @@ function rethrowWithHttpStatus(err) {
 try {
   const runtime = createRuntime(loadConfig());
   if (!runtime.client) {
-    throw new Error("the webhook diagnoser reads /api/v1/admin/* and needs PAYVERGE_ADMIN_MCP_TOKEN");
+    throw new Error("the webhook diagnoser reads /api/v1/admin/* and needs NAMAKDAN_ADMIN_MCP_TOKEN");
   }
   const server = await startWebhookServer({
     host: runtime.config.webhookHost,
@@ -35,8 +35,8 @@ try {
     },
   });
 
-  process.stderr.write(`payverge-admin-webhooks listening on ${server.url}\n`);
+  process.stderr.write(`namakdan-admin-webhooks listening on ${server.url}\n`);
 } catch (err) {
-  process.stderr.write(`payverge-admin-webhooks failed to start: ${err?.message ?? err}\n`);
+  process.stderr.write(`namakdan-admin-webhooks failed to start: ${err?.message ?? err}\n`);
   process.exitCode = 1;
 }

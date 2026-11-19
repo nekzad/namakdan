@@ -5,7 +5,7 @@ import (
 	"math"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // currencySymbol maps an ISO 4217 code to a display glyph, falling back to the

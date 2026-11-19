@@ -2,7 +2,7 @@
 // Release-notes truth contract.
 //
 // docs/CHANGELOG.md and the community files under .github/ are what a
-// self-hoster reads before deciding to run Payverge, so they must not promise
+// self-hoster reads before deciding to run Namakdan, so they must not promise
 // more than the code on the same commit does. Each claim below pairs a phrase
 // with the code fact that makes it true. The phrase may appear only while the
 // fact holds. Text inside HTML comments is ignored, so draft wording for a

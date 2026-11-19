@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/stdevmac/payverge/backend/internal/spaces"
-	"github.com/stdevmac/payverge/backend/internal/spaces/geometry"
+	"github.com/nekzad/namakdan/backend/internal/spaces"
+	"github.com/nekzad/namakdan/backend/internal/spaces/geometry"
 )
 
 // ProcessInput is the shared input for all scan processors.

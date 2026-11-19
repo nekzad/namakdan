@@ -18,7 +18,7 @@ import (
 	"gorm.io/gorm"
 	gormlogger "gorm.io/gorm/logger"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func TestSeedAllIsIdempotent(t *testing.T) {
@@ -49,7 +49,7 @@ func TestSeedAllIsIdempotent(t *testing.T) {
 		&database.Order{},
 		&database.StaffLoginCode{},
 	); err != nil {
-		t.Skipf("sqlite cannot AutoMigrate the payverge schema (postgres-specific types): %v", err)
+		t.Skipf("sqlite cannot AutoMigrate the namakdan schema (postgres-specific types): %v", err)
 	}
 
 	ctx := context.Background()

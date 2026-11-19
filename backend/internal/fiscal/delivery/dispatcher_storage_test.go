@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/s3"
+	"github.com/nekzad/namakdan/backend/internal/s3"
 )
 
 // The production dispatcher stores fiscal artifacts in the protected store; on

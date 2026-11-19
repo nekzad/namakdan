@@ -14,12 +14,12 @@ func TestAdminResetPasswordEmailUsesInstanceIdentity(t *testing.T) {
 	link := "https://pos.example.com/reset-password?token=abc%2B1"
 
 	htmlBody, textBody := adminResetPasswordEmailBodies(link)
-	require.Contains(t, htmlBody, "A Payverge administrator")
+	require.Contains(t, htmlBody, "A Namakdan administrator")
 	require.Contains(t, htmlBody, "please contact your administrator.")
 	require.Contains(t, textBody, link)
 	require.Contains(t, textBody, "please contact your administrator.")
 	for _, body := range []string{htmlBody, textBody} {
-		require.NotContains(t, body, "payverge.io")
+		require.NotContains(t, body, "example.test")
 	}
 
 	t.Setenv("PRODUCT_NAME", "Tavola <Pro>")

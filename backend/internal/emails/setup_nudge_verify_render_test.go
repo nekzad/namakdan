@@ -27,7 +27,7 @@ func TestSetupNudgeVerifyReminderRendersPerFamily(t *testing.T) {
 			base := map[string]interface{}{
 				"owner_name":    "Alex",
 				"missing_step":  "menu",
-				"dashboard_url": "https://payverge.io/business/1/dashboard",
+				"dashboard_url": "https://example.test/business/1/dashboard",
 			}
 
 			base["verify_email"] = true

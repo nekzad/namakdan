@@ -22,18 +22,18 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/locales"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	"github.com/stdevmac/payverge/backend/internal/money"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	mercadopago "github.com/stdevmac/payverge/backend/internal/plugins/mercadopago"
-	"github.com/stdevmac/payverge/backend/internal/security"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/services"
-	"github.com/stdevmac/payverge/backend/internal/services/paidreceipt"
-	"github.com/stdevmac/payverge/backend/internal/utils"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/locales"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/money"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	mercadopago "github.com/nekzad/namakdan/backend/internal/plugins/mercadopago"
+	"github.com/nekzad/namakdan/backend/internal/security"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/services/paidreceipt"
+	"github.com/nekzad/namakdan/backend/internal/utils"
 )
 
 // PluginHandlers handles plugin-related HTTP requests
@@ -2406,7 +2406,7 @@ func hasPendingPayPalTracker(billID uint, orderID string) bool {
 }
 
 func pluginTrackerIDFromWebhookMetadata(metadata map[string]interface{}) string {
-	for _, key := range []string{"payverge_tracker_id", "provider_tracker_id", "preference_id"} {
+	for _, key := range []string{"namakdan_tracker_id", "provider_tracker_id", "preference_id"} {
 		if value, ok := metadata[key]; ok {
 			trackerID := strings.TrimSpace(fmt.Sprint(value))
 			if trackerID != "" && trackerID != "<nil>" {

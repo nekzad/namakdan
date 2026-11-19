@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/config"
 )
 
 func TestEncryptDecryptSecretRoundTrip(t *testing.T) {

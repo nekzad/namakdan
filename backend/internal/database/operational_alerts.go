@@ -20,7 +20,7 @@ const (
 	// the PSP dashboard) that we deliberately do NOT auto-reverse, because a full
 	// reversal over-reverses the books and a partial mutation here would desync
 	// the Payment row vs accounting. The operator reconciles it manually (manual
-	// ledger entry / PSP dashboard) — Payverge's in-app refund tooling does full
+	// ledger entry / PSP dashboard) — Namakdan's in-app refund tooling does full
 	// refunds only.
 	OperationalAlertTypePaymentRefundReview OperationalAlertType = "payment_refund_review"
 	// OperationalAlertTypeServiceCall is a guest at a table asking for a human

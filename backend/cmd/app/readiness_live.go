@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/health"
+	"github.com/nekzad/namakdan/backend/internal/health"
 )
 
 // outboxBacklogCounter is the slice of the email outbox store the readiness

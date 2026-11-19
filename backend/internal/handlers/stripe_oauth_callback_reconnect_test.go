@@ -13,9 +13,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/plugins/stripe"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/plugins/stripe"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // stripeOAuthCallbackFixture wires a callback handler against a fake Stripe
@@ -48,7 +48,7 @@ func stripeOAuthCallbackFixture(t *testing.T, account string, liveMode bool) (*S
 		BaseTokenURL: tokenServer.URL, HTTPClient: tokenServer.Client(),
 	}
 	h := NewStripeOAuthHandlers(services.NewPluginService(database.GetDBWrapper()), client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 	return h, plugin
 }
 

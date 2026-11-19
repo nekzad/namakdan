@@ -9,11 +9,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/aiwaiterevents"
-	"github.com/stdevmac/payverge/backend/internal/assistantcontract"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/aiwaiterevents"
+	"github.com/nekzad/namakdan/backend/internal/assistantcontract"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"

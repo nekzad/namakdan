@@ -38,10 +38,10 @@ const fixtureFingerprints = new Set(
 export function scanText(source, file, options = {}) {
   const findings = [];
   if (options.includeTestCanary) {
-    const canary = /PAYVERGE_FAKE_SECRET_CANARY_DO_NOT_USE=\S+/g;
+    const canary = /NAMAKDAN_FAKE_SECRET_CANARY_DO_NOT_USE=\S+/g;
     for (const match of source.matchAll(canary)) {
       findings.push({
-        rule: "payverge-test-canary",
+        rule: "namakdan-test-canary",
         file,
         line: lineNumber(source, match.index),
         fingerprint: fingerprint(match[0]),

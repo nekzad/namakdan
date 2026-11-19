@@ -9,8 +9,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/agents"
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/agents"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/require"

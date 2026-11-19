@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"unicode"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // ComputeContentEdit deep-copies categories, applies description and/or dietary

@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // publicGuestOffer is the unauthenticated menu projection of database.Offer.

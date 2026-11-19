@@ -187,10 +187,10 @@ func TestActionTargetCartMetadataJSONRoundTrip(t *testing.T) {
 }
 
 func TestActionTargetNonCartJSONShapeIsUnchanged(t *testing.T) {
-	target := ActionTarget{Kind: "payverge_page", ID: "pricing", Href: "/pricing"}
+	target := ActionTarget{Kind: "namakdan_page", ID: "pricing", Href: "/pricing"}
 	payload, err := json.Marshal(target)
 	require.NoError(t, err)
-	require.JSONEq(t, `{"kind":"payverge_page","id":"pricing","href":"/pricing"}`, string(payload))
+	require.JSONEq(t, `{"kind":"namakdan_page","id":"pricing","href":"/pricing"}`, string(payload))
 }
 
 func TestActionTargetJSONRejectsNonIntegerQuantityShapes(t *testing.T) {
@@ -221,7 +221,7 @@ func TestFromLegacyProjectsAllFieldsAndValidates(t *testing.T) {
 		Steps:  []string{"Review pricing", "Ask the director"},
 		Actions: []LegacyAction{
 			{Label: "Pricing", Href: "/pricing", Kind: "navigate"},
-			{Label: "Docs", Href: "https://docs.payverge.io/start", Kind: "external"},
+			{Label: "Docs", Href: "https://docs.example.test/start", Kind: "external"},
 			{Label: "Director", Kind: "handoff", Disabled: true, DisabledReason: "Owner access required"},
 		},
 		FollowUps: []string{"Which plan fits me?", "What can the director do?"},
@@ -237,12 +237,12 @@ func TestFromLegacyProjectsAllFieldsAndValidates(t *testing.T) {
 	require.Equal(t, []Action{
 		{
 			ID: "action-1", Type: "navigate", Label: "Pricing",
-			Target: ActionTarget{Kind: "payverge_page", ID: "legacy-target-1", Href: "/pricing"},
+			Target: ActionTarget{Kind: "namakdan_page", ID: "legacy-target-1", Href: "/pricing"},
 			State:  "ready", Confirmation: "none",
 		},
 		{
 			ID: "action-2", Type: "external_link", Label: "Docs",
-			Target: ActionTarget{Kind: "external_url", ID: "legacy-target-2", Href: "https://docs.payverge.io/start"},
+			Target: ActionTarget{Kind: "external_url", ID: "legacy-target-2", Href: "https://docs.example.test/start"},
 			State:  "ready", Confirmation: "none",
 		},
 		{
@@ -337,12 +337,12 @@ func TestToLegacyProjectsRepresentableFields(t *testing.T) {
 	r.Actions = []Action{
 		{
 			ID: "action-1", Type: "navigate", Label: "Pricing",
-			Target: ActionTarget{Kind: "payverge_page", ID: "pricing", Href: "/pricing"},
+			Target: ActionTarget{Kind: "namakdan_page", ID: "pricing", Href: "/pricing"},
 			State:  "ready", Confirmation: "none",
 		},
 		{
 			ID: "action-2", Type: "external_link", Label: "Docs",
-			Target: ActionTarget{Kind: "external_url", ID: "docs", Href: "https://docs.payverge.io/start"},
+			Target: ActionTarget{Kind: "external_url", ID: "docs", Href: "https://docs.example.test/start"},
 			State:  "ready", Confirmation: "none",
 		},
 		{
@@ -364,7 +364,7 @@ func TestToLegacyProjectsRepresentableFields(t *testing.T) {
 		Steps:  []string{"Review pricing", "Ask the director"},
 		Actions: []LegacyAction{
 			{Label: "Pricing", Href: "/pricing", Kind: "navigate"},
-			{Label: "Docs", Href: "https://docs.payverge.io/start", Kind: "external"},
+			{Label: "Docs", Href: "https://docs.example.test/start", Kind: "external"},
 			{Label: "Director", Kind: "handoff", Disabled: true, DisabledReason: "Owner access required"},
 		},
 		FollowUps: []string{"Which plan fits me?", "What can the director do?"},
@@ -426,7 +426,7 @@ func TestToLegacyFailsClosedForUnavailableActionStates(t *testing.T) {
 			r := NewResponse("resp_state", "Open pricing")
 			r.Actions = []Action{{
 				ID: "action-1", Type: "navigate", Label: "Pricing",
-				Target: ActionTarget{Kind: "payverge_page", ID: "pricing", Href: "/pricing"},
+				Target: ActionTarget{Kind: "namakdan_page", ID: "pricing", Href: "/pricing"},
 				State:  tt.state, Confirmation: "none", DisabledReason: tt.reason,
 			}}
 
@@ -459,7 +459,7 @@ func TestToLegacyDisablesConfirmationAndExpiryCapabilities(t *testing.T) {
 			r := NewResponse("resp_capability", "Open pricing")
 			r.Actions = []Action{{
 				ID: "action-1", Type: "navigate", Label: "Pricing",
-				Target: ActionTarget{Kind: "payverge_page", ID: "pricing", Href: "/pricing"},
+				Target: ActionTarget{Kind: "namakdan_page", ID: "pricing", Href: "/pricing"},
 				State:  "ready", Confirmation: tt.confirmation, ExpiresAt: tt.expiresAt,
 			}}
 
@@ -482,7 +482,7 @@ func TestToLegacyOmitsV2OnlyActions(t *testing.T) {
 		},
 		{
 			ID: "action-menu", Type: "navigate", Label: "View menu",
-			Target: ActionTarget{Kind: "payverge_page", ID: "menu", Href: "/menu"},
+			Target: ActionTarget{Kind: "namakdan_page", ID: "menu", Href: "/menu"},
 			State:  "ready", Confirmation: "none",
 		},
 	}

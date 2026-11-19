@@ -7,14 +7,14 @@ describe("deriveApiBase", () => {
   });
 
   test("prefixes the production apex domain with api.", () => {
-    expect(deriveApiBase("https://payverge.io")).toBe("https://api.payverge.io");
+    expect(deriveApiBase("https://example.test")).toBe("https://api.example.test");
   });
 
   test("strips a leading www. before prefixing api.", () => {
-    expect(deriveApiBase("https://www.payverge.io")).toBe("https://api.payverge.io");
+    expect(deriveApiBase("https://www.example.test")).toBe("https://api.example.test");
   });
 
   test("leaves an already-api origin untouched", () => {
-    expect(deriveApiBase("https://api.payverge.io")).toBe("https://api.payverge.io");
+    expect(deriveApiBase("https://api.example.test")).toBe("https://api.example.test");
   });
 });

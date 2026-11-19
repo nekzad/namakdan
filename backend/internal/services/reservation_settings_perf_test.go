@@ -11,7 +11,7 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func setupReservationSettingsPerfDB(t testing.TB) *gorm.DB {
@@ -121,7 +121,7 @@ func TestReservationServicePublicSettingsReusesAvailabilityContext(t *testing.T)
 	business := createReservationSettingsPerfBusiness(t, gormDB, "settings-query-shape")
 
 	queryCount := 0
-	callbackName := "payverge:test_reservation_settings_query_counter"
+	callbackName := "namakdan:test_reservation_settings_query_counter"
 	require.NoError(t, gormDB.Callback().Query().Before("gorm:query").Register(callbackName, func(tx *gorm.DB) {
 		queryCount++
 	}))

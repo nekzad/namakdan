@@ -14,9 +14,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 func buildMPOfficialSignature(t *testing.T, secret string, timestampMillis int64, dataID, requestID string) string {
@@ -377,7 +377,7 @@ func TestMPHandleOrderUpdated_FetchesOrderDetails(t *testing.T) {
 	if response.Currency != "ARS" {
 		t.Fatalf("expected currency ARS, got %q", response.Currency)
 	}
-	if response.Metadata["payverge_tracker_id"] != "ORD123" {
+	if response.Metadata["namakdan_tracker_id"] != "ORD123" {
 		t.Fatalf("expected tracker metadata ORD123, got %#v", response.Metadata)
 	}
 }

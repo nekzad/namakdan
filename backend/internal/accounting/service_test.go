@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -227,7 +227,7 @@ func TestServiceGetSummary_SharesOneRateResolverAcrossSources(t *testing.T) {
 	seedMultiCurrencyPAndL(t, business.ID, staff.ID, start)
 
 	var rateQueryCount atomic.Int64
-	const cbName = "payverge:test:accounting_rate_query_count"
+	const cbName = "namakdan:test:accounting_rate_query_count"
 	require.NoError(t, gormDB.Callback().Query().Before("gorm:query").Register(cbName, func(tx *gorm.DB) {
 		if tx.Statement != nil && tx.Statement.Schema != nil && tx.Statement.Schema.Table == "exchange_rates" {
 			rateQueryCount.Add(1)
@@ -273,7 +273,7 @@ func TestServiceGetSummary_SingleCurrencyIssuesNoRateQuery(t *testing.T) {
 	}).Error)
 
 	var rateQueryCount atomic.Int64
-	const cbName = "payverge:test:accounting_rate_query_count_usd"
+	const cbName = "namakdan:test:accounting_rate_query_count_usd"
 	require.NoError(t, gormDB.Callback().Query().Before("gorm:query").Register(cbName, func(tx *gorm.DB) {
 		if tx.Statement != nil && tx.Statement.Schema != nil && tx.Statement.Schema.Table == "exchange_rates" {
 			rateQueryCount.Add(1)
@@ -1472,8 +1472,8 @@ func TestServiceListPayrollRunsPage_PayeeCountQueryShape(t *testing.T) {
 			sawGroupBy.Store(true)
 		}
 	}
-	const cbQuery = "payverge:test:payroll_line_items_query_count"
-	const cbRow = "payverge:test:payroll_line_items_row_count"
+	const cbQuery = "namakdan:test:payroll_line_items_query_count"
+	const cbRow = "namakdan:test:payroll_line_items_row_count"
 	require.NoError(t, gormDB.Callback().Query().After("gorm:query").Register(cbQuery, captureLineItemSQL))
 	require.NoError(t, gormDB.Callback().Row().After("gorm:row").Register(cbRow, captureLineItemSQL))
 	t.Cleanup(func() {
@@ -1700,7 +1700,7 @@ func TestCreatePayrollRun_StaffValidationIssuesOneQuery(t *testing.T) {
 
 	// Count SELECT queries that touch the staffs table.
 	var staffQueryCount atomic.Int64
-	const cbName = "payverge:test:payroll_staff_query_count"
+	const cbName = "namakdan:test:payroll_staff_query_count"
 	require.NoError(t, gormDB.Callback().Query().Before("gorm:query").Register(cbName, func(tx *gorm.DB) {
 		if tx.Statement != nil && tx.Statement.Schema != nil && tx.Statement.Schema.Table == "staff" {
 			staffQueryCount.Add(1)

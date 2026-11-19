@@ -14,13 +14,13 @@ import (
 	"strings"
 	"time"
 
-	appconfig "github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	"github.com/stdevmac/payverge/backend/internal/money"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	"github.com/stdevmac/payverge/backend/internal/plugins/webhookhmac"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	appconfig "github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/money"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/plugins/webhookhmac"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 const stripePluginWebhookClockSkewLimit = 5 * time.Minute
@@ -162,7 +162,7 @@ var stripeGrantOwnedKeys = []string{
 // A dashboard save carries whatever the operator's browser sent. Accepting
 // connection_mode/stripe_user_id/oauth_status from it would let anyone with
 // plugin-write permission declare "oauth, acct_SOMEONE_ELSE, connected":
-// Payverge would then charge through the platform key with a Stripe-Account
+// Namakdan would then charge through the platform key with a Stripe-Account
 // header for an account the business does not own, and — because Connect
 // webhooks route on stripe_user_id — that account's events would be delivered
 // to this business. ValidateConfig cannot catch it; an acct_-prefixed string is

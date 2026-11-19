@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // waiterBillMoney is the server-owned numeric shape of the table's open bill.

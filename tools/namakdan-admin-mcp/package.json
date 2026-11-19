@@ -1,0 +1,19 @@
+{
+  "name": "@namakdan/admin-mcp",
+  "version": "1.0.2",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "bin": {
+    "namakdan-admin-mcp": "./bin/namakdan-admin-mcp.mjs",
+    "namakdan-admin-webhooks": "./bin/namakdan-admin-webhooks.mjs"
+  },
+  "scripts": {
+    "test": "node --test \"test/*.test.mjs\"",
+    "check": "node --check ./bin/namakdan-admin-mcp.mjs && node --check ./bin/namakdan-admin-webhooks.mjs && node --check ./src/backendClient.mjs && node --check ./src/config.mjs && node --check ./src/configTools.mjs && node --check ./src/mcpProtocol.mjs && node --check ./src/ownerSession.mjs && node --check ./src/stdioServer.mjs && node --check ./src/tools.mjs && node --check ./src/webhookServer.mjs && node --check ./scripts/smoke.mjs",
+    "smoke": "node ./scripts/smoke.mjs"
+  },
+  "engines": {
+    "node": ">=20.18.0"
+  }
+}

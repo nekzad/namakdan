@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-// Payverge stores every monetary amount as an int64 in "cents" — major units
+// Namakdan stores every monetary amount as an int64 in "cents" — major units
 // multiplied by 100 — regardless of currency. Payment providers, however,
 // expect amounts in the currency's *actual* minor unit, which is not always
 // 1/100 of the major unit: zero-decimal currencies (JPY, KRW, …) have no minor

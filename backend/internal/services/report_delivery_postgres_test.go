@@ -8,8 +8,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/testperf/genesisdb"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/testperf/genesisdb"
 )
 
 func TestReportDeliveryTwoWorkersSendOneWindow_Postgres(t *testing.T) {

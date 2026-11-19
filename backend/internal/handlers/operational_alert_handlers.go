@@ -10,9 +10,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	alerts "github.com/stdevmac/payverge/backend/internal/services/operational_alerts"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	alerts "github.com/nekzad/namakdan/backend/internal/services/operational_alerts"
 )
 
 type OperationalAlertHandlers struct {

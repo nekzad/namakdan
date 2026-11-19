@@ -8,8 +8,8 @@ import (
 	"sync"
 	"unicode"
 
-	"github.com/stdevmac/payverge/backend/internal/llmeval/langid"
-	"github.com/stdevmac/payverge/backend/internal/locales"
+	"github.com/nekzad/namakdan/backend/internal/llmeval/langid"
+	"github.com/nekzad/namakdan/backend/internal/locales"
 )
 
 // AITelemetryEvent is the privacy-safe AI event schema (Wave 6).

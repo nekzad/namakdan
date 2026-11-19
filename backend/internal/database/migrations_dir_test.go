@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/testperf"
+	"github.com/nekzad/namakdan/backend/internal/testperf"
 )
 
 // migrationsDir returns the absolute path to backend/migrations, resolved from

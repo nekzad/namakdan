@@ -11,7 +11,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 // newTestProvider points the provider at an httptest server and captures the
@@ -20,7 +20,7 @@ func newTestProvider(t *testing.T, handler http.HandlerFunc) (*Provider, *httpte
 	t.Helper()
 	srv := httptest.NewServer(handler)
 	t.Cleanup(srv.Close)
-	p, err := New(Config{APIKey: "test-key", BaseURL: srv.URL, Referer: "https://payverge.io", Title: "Payverge"})
+	p, err := New(Config{APIKey: "test-key", BaseURL: srv.URL, Referer: "https://example.test", Title: "Namakdan"})
 	if err != nil {
 		t.Fatalf("New: %v", err)
 	}
@@ -71,7 +71,7 @@ func TestGenerateTextAndHeaders(t *testing.T) {
 	if resp.Model != "google/gemini-2.0-flash-001" || resp.Usage.TotalTokens != 5 {
 		t.Fatalf("model/usage = %q/%d", resp.Model, resp.Usage.TotalTokens)
 	}
-	if gotAuth != "Bearer test-key" || gotReferer != "https://payverge.io" || gotTitle != "Payverge" {
+	if gotAuth != "Bearer test-key" || gotReferer != "https://example.test" || gotTitle != "Namakdan" {
 		t.Fatalf("headers: auth=%q referer=%q title=%q", gotAuth, gotReferer, gotTitle)
 	}
 	msgs := gotBody["messages"].([]any)

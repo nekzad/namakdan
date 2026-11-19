@@ -18,8 +18,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 const testQRPayload = "00020101021243650016com.mercadolibre0201305015204TESTQR"
@@ -115,7 +115,7 @@ func TestChargeMercadoPagoQR_ProvisionsCreatesOrderAndTracker(t *testing.T) {
 	assert.Equal(t, "1500.00", payments[0].(map[string]interface{})["amount"])
 	cfgBody := createBody["config"].(map[string]interface{})
 	qrCfg := cfgBody["qr"].(map[string]interface{})
-	assert.Equal(t, fmt.Sprintf("PAYVERGEPOS%d", business.ID), qrCfg["external_pos_id"])
+	assert.Equal(t, fmt.Sprintf("NAMAKDANPOS%d", business.ID), qrCfg["external_pos_id"])
 	assert.Equal(t, "dynamic", qrCfg["mode"])
 
 	// Pending tracker with ParticipantAddr = order id
@@ -159,7 +159,7 @@ func TestChargeMercadoPagoQR_EncodeFailureCancelsOrderAndTracker(t *testing.T) {
 	mergeMercadoPagoConfigFields(t, business.ID,
 		database.MergeBusinessPluginConfigField{Key: "mp_user_id", Value: "123"},
 		database.MergeBusinessPluginConfigField{Key: "mp_store_id", Value: "store-1"},
-		database.MergeBusinessPluginConfigField{Key: "mp_external_pos_id", Value: "payverge-pos-1"},
+		database.MergeBusinessPluginConfigField{Key: "mp_external_pos_id", Value: "namakdan-pos-1"},
 	)
 
 	prev := mpQRCodeEncode
@@ -207,7 +207,7 @@ func TestChargeMercadoPagoQR_UsesExistingPOSWithoutProvisioning(t *testing.T) {
 	mergeMercadoPagoConfigFields(t, business.ID,
 		database.MergeBusinessPluginConfigField{Key: "mp_user_id", Value: "123"},
 		database.MergeBusinessPluginConfigField{Key: "mp_store_id", Value: "store-1"},
-		database.MergeBusinessPluginConfigField{Key: "mp_external_pos_id", Value: "payverge-pos-cached"},
+		database.MergeBusinessPluginConfigField{Key: "mp_external_pos_id", Value: "namakdan-pos-cached"},
 	)
 
 	bill := createPointTestBill(t, business.ID, 1000, 0)

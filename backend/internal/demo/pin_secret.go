@@ -12,12 +12,12 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/stdevmac/payverge/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/logger"
 )
 
 // demoPINKeyLabel domain-separates the demo staff PIN key from every other
 // use of PLUGIN_SECRET_KEY. Bump the version to rotate every demo PIN.
-const demoPINKeyLabel = "payverge-demo-staff-pin-v6"
+const demoPINKeyLabel = "namakdan-demo-staff-pin-v6"
 
 var (
 	demoPINKeyOnce sync.Once

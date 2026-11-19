@@ -9,7 +9,7 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/txhash"
+	"github.com/nekzad/namakdan/backend/internal/txhash"
 )
 
 // Guest crypto payer binding.

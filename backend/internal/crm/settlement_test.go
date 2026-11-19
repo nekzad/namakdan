@@ -12,7 +12,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func setupCRMSettlementTestDB(t *testing.T) *gorm.DB {
@@ -191,7 +191,7 @@ func TestRecordBillSettlementVisitLocksCustomerBusinessBeforeTierAssignment(t *t
 	bill := createCRMSettlementBill(t, db, business.ID, &customer.ID, database.BillStatusPaid, 10000, "")
 
 	var observed, locked atomic.Bool
-	callbackName := fmt.Sprintf("payverge:test:capture_customer_business_lock:%s", t.Name())
+	callbackName := fmt.Sprintf("namakdan:test:capture_customer_business_lock:%s", t.Name())
 	require.NoError(t, db.Callback().Query().Before("gorm:query").Register(callbackName, func(tx *gorm.DB) {
 		if observed.Load() || tx.Statement == nil || tx.Statement.Schema == nil ||
 			tx.Statement.Schema.Table != "customer_businesses" {
@@ -227,7 +227,7 @@ func TestRecordBillSettlementVisitRollsBackDuplicateRepairFailure(t *testing.T) 
 	connection := createCRMSettlementConnection(t, db, customer.ID, business.ID, true)
 	bill := createCRMSettlementBill(t, db, business.ID, &customer.ID, database.BillStatusPaid, 4567, "")
 
-	callbackName := fmt.Sprintf("payverge:test:fail_loyalty_tier_delete:%s", t.Name())
+	callbackName := fmt.Sprintf("namakdan:test:fail_loyalty_tier_delete:%s", t.Name())
 	require.NoError(t, db.Callback().Delete().Before("gorm:delete").Register(callbackName, func(tx *gorm.DB) {
 		if tx.Statement != nil && tx.Statement.Schema != nil && tx.Statement.Schema.Table == "loyalty_tiers" {
 			tx.AddError(fmt.Errorf("forced loyalty repair delete failure"))

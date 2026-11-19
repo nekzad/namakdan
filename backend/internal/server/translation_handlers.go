@@ -5,11 +5,11 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/locales"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/services"
-	"github.com/stdevmac/payverge/backend/internal/utils"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/locales"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/utils"
 
 	"github.com/gin-gonic/gin"
 )

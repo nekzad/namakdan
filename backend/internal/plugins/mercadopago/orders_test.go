@@ -10,8 +10,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 func TestMercadoPagoDecimalAmount(t *testing.T) {
@@ -82,7 +82,7 @@ func TestCreateOrderPointBodyHeadersAndAmount(t *testing.T) {
 		Type:              "point",
 		ExternalReference: "bill_99_business_42",
 		ExpirationTime:    "PT30M",
-		Description:       "Payverge bill #99",
+		Description:       "Namakdan bill #99",
 		Transactions: mpOrderTransactions{
 			Payments: []mpOrderPayment{{Amount: amount}},
 		},
@@ -103,7 +103,7 @@ func TestCreateOrderPointBodyHeadersAndAmount(t *testing.T) {
 	require.Equal(t, "point", gotBody["type"])
 	require.Equal(t, "bill_99_business_42", gotBody["external_reference"])
 	require.Equal(t, "PT30M", gotBody["expiration_time"])
-	require.Equal(t, "Payverge bill #99", gotBody["description"])
+	require.Equal(t, "Namakdan bill #99", gotBody["description"])
 
 	tx, ok := gotBody["transactions"].(map[string]interface{})
 	require.True(t, ok)

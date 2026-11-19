@@ -18,11 +18,11 @@ make_repo() {
   mkdir -p "$repo/deploy" "$repo/scripts/licenses" "$repo/docs/licensing"
   printf '#!/bin/sh\necho install\n' >"$repo/deploy/install.sh"
   printf 'services: {}\n' >"$repo/deploy/docker-compose.yml"
-  printf 'import payverge.caddy\n' >"$repo/deploy/Caddyfile"
-  printf ':80 {}\n' >"$repo/deploy/payverge.caddy"
+  printf 'import namakdan.caddy\n' >"$repo/deploy/Caddyfile"
+  printf ':80 {}\n' >"$repo/deploy/namakdan.caddy"
   printf 'DOMAIN=localhost\n' >"$repo/deploy/.env.example"
   printf 'Apache License\n' >"$repo/LICENSE"
-  printf 'Payverge NOTICE\n' >"$repo/NOTICE"
+  printf 'Namakdan NOTICE\n' >"$repo/NOTICE"
   cat >"$repo/scripts/licenses/generate-third-party.sh" <<'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
@@ -59,7 +59,7 @@ fi
 out="$tmp/out"
 run "$repo" 1.2.3-rc.1 "$out" >/dev/null
 for f in install.sh docker-compose.yml Caddyfile env.example THIRD_PARTY_LICENSES.md \
-  payverge-deploy-1.2.3-rc.1.tar.gz SHA256SUMS; do
+  namakdan-deploy-1.2.3-rc.1.tar.gz SHA256SUMS; do
   [[ -s "$out/$f" ]] || fail "missing or empty asset $f"
 done
 [[ ! -e "$out/.env.example" ]] || fail "dot-file asset name must be dropped"
@@ -68,11 +68,11 @@ grep -q 'DOMAIN=localhost' "$out/env.example" || fail "env.example content diffe
 
 # The tarball holds every tracked deploy/ file, plus LICENSE and NOTICE,
 # under one prefix.
-listing="$(tar -tzf "$out/payverge-deploy-1.2.3-rc.1.tar.gz" | LC_ALL=C sort)"
-for entry in .env.example Caddyfile LICENSE NOTICE docker-compose.yml install.sh payverge.caddy; do
-  grep -qx "payverge-deploy-1.2.3-rc.1/$entry" <<<"$listing" || fail "tarball is missing $entry"
+listing="$(tar -tzf "$out/namakdan-deploy-1.2.3-rc.1.tar.gz" | LC_ALL=C sort)"
+for entry in .env.example Caddyfile LICENSE NOTICE docker-compose.yml install.sh namakdan.caddy; do
+  grep -qx "namakdan-deploy-1.2.3-rc.1/$entry" <<<"$listing" || fail "tarball is missing $entry"
 done
-[[ "$(tar -xzOf "$out/payverge-deploy-1.2.3-rc.1.tar.gz" payverge-deploy-1.2.3-rc.1/NOTICE)" == "Payverge NOTICE" ]] ||
+[[ "$(tar -xzOf "$out/namakdan-deploy-1.2.3-rc.1.tar.gz" namakdan-deploy-1.2.3-rc.1/NOTICE)" == "Namakdan NOTICE" ]] ||
   fail "tarball NOTICE differs from the repository's NOTICE"
 
 # SHA256SUMS covers every other asset and verifies.
@@ -90,7 +90,7 @@ run "$repo" 1.2.3 "$tmp/out-head" >/dev/null
 if grep -q TAMPERED "$tmp/out-head/env.example"; then
   fail "a working-tree edit leaked into the release assets"
 fi
-if tar -xzOf "$tmp/out-head/payverge-deploy-1.2.3.tar.gz" payverge-deploy-1.2.3/LICENSE | grep -q TAMPERED; then
+if tar -xzOf "$tmp/out-head/namakdan-deploy-1.2.3.tar.gz" namakdan-deploy-1.2.3/LICENSE | grep -q TAMPERED; then
   fail "a working-tree edit of LICENSE leaked into the deploy tarball"
 fi
 git -C "$repo" checkout -q -- deploy/.env.example LICENSE

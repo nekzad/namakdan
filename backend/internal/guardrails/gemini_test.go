@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 // fakeProvider is a programmable llm.Provider for guardrail tests. It records

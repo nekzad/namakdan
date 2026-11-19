@@ -5,10 +5,10 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/agents/ops_guides"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/pii"
+	"github.com/nekzad/namakdan/backend/internal/agents/ops_guides"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/pii"
 	"github.com/stretchr/testify/require"
 
 	"gorm.io/driver/sqlite"

@@ -3,7 +3,7 @@ package assistantcontract
 import (
 	"sort"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 func Schema() *llm.JSONSchema {

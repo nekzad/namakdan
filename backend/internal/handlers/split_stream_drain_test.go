@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/events"
+	"github.com/nekzad/namakdan/backend/internal/events"
 )
 
 // On a dropped-frame signal the split stream drains every queued snapshot

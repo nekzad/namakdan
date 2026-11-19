@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/s3"
+	"github.com/nekzad/namakdan/backend/internal/s3"
 )
 
 const MaxExternalPartnerLinks = 5

@@ -13,7 +13,7 @@ import (
 // actor identifiers.
 var TenantAuthorizationMismatches = prometheus.NewCounterVec(
 	prometheus.CounterOpts{
-		Name: "payverge_tenant_authorization_mismatches_total",
+		Name: "namakdan_tenant_authorization_mismatches_total",
 		Help: "Canonical tenant authorization mismatches by bounded enforcement boundary.",
 	},
 	[]string{"boundary"},
@@ -24,7 +24,7 @@ var TenantAuthorizationMismatches = prometheus.NewCounterVec(
 // reconciliation.
 var OwnerlessBusinesses = prometheus.NewGauge(
 	prometheus.GaugeOpts{
-		Name: "payverge_ownerless_businesses",
+		Name: "namakdan_ownerless_businesses",
 		Help: "Current businesses with neither a non-whitespace wallet owner nor a user owner.",
 	},
 )
@@ -34,14 +34,14 @@ var OwnerlessBusinesses = prometheus.NewGauge(
 // safely releases them.
 var PendingEmailRegistrations = prometheus.NewGauge(
 	prometheus.GaugeOpts{
-		Name: "payverge_pending_email_registrations",
+		Name: "namakdan_pending_email_registrations",
 		Help: "Current unverified email registrations awaiting verification or expiry cleanup.",
 	},
 )
 
 var EmailVerificationLatency = prometheus.NewHistogram(
 	prometheus.HistogramOpts{
-		Name: "payverge_email_verification_latency_seconds",
+		Name: "namakdan_email_verification_latency_seconds",
 		Help: "Elapsed seconds from email registration record creation to successful verification.",
 		Buckets: []float64{
 			60, 5 * 60, 15 * 60, 30 * 60, 60 * 60,

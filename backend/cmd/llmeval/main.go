@@ -16,9 +16,9 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/llm/openrouter"
-	"github.com/stdevmac/payverge/backend/internal/llmeval"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/llm/openrouter"
+	"github.com/nekzad/namakdan/backend/internal/llmeval"
 )
 
 // suiteFile is the on-disk suite definition (a name + default model + cases).

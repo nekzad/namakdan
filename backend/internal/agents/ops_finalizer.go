@@ -7,8 +7,8 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/stdevmac/payverge/backend/internal/agents/ops_guides"
-	"github.com/stdevmac/payverge/backend/internal/assistantcontract"
+	"github.com/nekzad/namakdan/backend/internal/agents/ops_guides"
+	"github.com/nekzad/namakdan/backend/internal/assistantcontract"
 )
 
 const (

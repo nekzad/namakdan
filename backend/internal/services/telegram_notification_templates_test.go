@@ -97,7 +97,7 @@ func TestRenderTelegramNotification_ReservationIncludesDashboardLink(t *testing.
 		"party_size":       2,
 		"reservation_time": time.Date(2026, 5, 11, 19, 30, 0, 0, time.UTC).Format(time.RFC3339),
 		"status":           "pending",
-		"dashboard_url":    "https://payverge.io/business/7/dashboard?tab=reservations",
+		"dashboard_url":    "https://example.test/business/7/dashboard?tab=reservations",
 	}
 
 	created, err := RenderTelegramNotification(PluginNotificationEvent{
@@ -105,14 +105,14 @@ func TestRenderTelegramNotification_ReservationIncludesDashboardLink(t *testing.
 		Payload:   payload,
 	}, "UTC", "USD", "en")
 	require.NoError(t, err)
-	assert.Contains(t, created, "Manage: https://payverge.io/business/7/dashboard?tab=reservations")
+	assert.Contains(t, created, "Manage: https://example.test/business/7/dashboard?tab=reservations")
 
 	changed, err := RenderTelegramNotification(PluginNotificationEvent{
 		EventType: PluginEventReservationStatusChanged,
 		Payload:   payload,
 	}, "UTC", "USD", "en")
 	require.NoError(t, err)
-	assert.Contains(t, changed, "Manage: https://payverge.io/business/7/dashboard?tab=reservations")
+	assert.Contains(t, changed, "Manage: https://example.test/business/7/dashboard?tab=reservations")
 }
 
 func TestRenderTelegramNotification_ReservationOmitsLinkWithoutDashboardURL(t *testing.T) {
@@ -395,7 +395,7 @@ func TestTelegramTemplatesAreComplete(t *testing.T) {
 }
 
 func TestRenderTelegramNotification_LocalizesManageLink(t *testing.T) {
-	url := "https://payverge.io/business/7/dashboard?tab=reservations"
+	url := "https://example.test/business/7/dashboard?tab=reservations"
 	payload := map[string]interface{}{
 		"customer_name":    "Ada",
 		"party_size":       2,

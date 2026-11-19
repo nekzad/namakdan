@@ -8,7 +8,7 @@ compose_file="${COMPOSE_FILE:-${perf_root}/staging/docker-compose.staging-perf.y
 compose_env_file="${COMPOSE_ENV_FILE:-${perf_root}/staging/.env}"
 sample_seconds="${SAMPLE_SECONDS:-5}"
 duration_seconds="${DURATION_SECONDS:-60}"
-output_dir="${OUTPUT_DIR:-${TMPDIR:-/tmp}/payverge-perf-observe-$$}"
+output_dir="${OUTPUT_DIR:-${TMPDIR:-/tmp}/namakdan-perf-observe-$$}"
 output_file="${output_dir}/capacity-observations.csv"
 base_url="${BASE_URL:-http://127.0.0.1:8080}"
 
@@ -49,7 +49,7 @@ while (( SECONDS < deadline )); do
   disk_percent="$(awk -v app="${backend_disk_percent}" -v db="${postgres_disk_percent}" 'BEGIN { print (app > db ? app : db) }')"
 
   read -r postgres_open_connections postgres_waiting_locks postgres_lock_wait_ms < <(
-    docker compose "${compose_args[@]}" exec -T postgres psql -U "${DB_USER:-payverge}" -d "${DB_NAME:-payverge}" -At -F' ' -c "
+    docker compose "${compose_args[@]}" exec -T postgres psql -U "${DB_USER:-namakdan}" -d "${DB_NAME:-namakdan}" -At -F' ' -c "
       SELECT
         (SELECT count(*) FROM pg_stat_activity WHERE datname = current_database()),
         (SELECT count(*) FROM pg_stat_activity WHERE datname = current_database() AND wait_event_type = 'Lock'),
@@ -59,13 +59,13 @@ while (( SECONDS < deadline )); do
   )
 
   go_goroutines="$(metric_sum go_goroutines "${metrics_body}")"
-  background_job_lag_seconds="$(awk -v a="$(metric_sum payverge_fiscal_delivery_oldest_age_seconds "${metrics_body}")" -v b="$(metric_sum payverge_payment_reconciliation_oldest_pending_seconds "${metrics_body}")" 'BEGIN { print (a > b ? a : b) }')"
+  background_job_lag_seconds="$(awk -v a="$(metric_sum namakdan_fiscal_delivery_oldest_age_seconds "${metrics_body}")" -v b="$(metric_sum namakdan_payment_reconciliation_oldest_pending_seconds "${metrics_body}")" 'BEGIN { print (a > b ? a : b) }')"
   queue_depth=$((
-    $(metric_sum payverge_plugin_notification_queue_depth "${metrics_body}") +
-    $(metric_sum payverge_fiscal_jobs_queue_depth "${metrics_body}") +
-    $(metric_sum payverge_fiscal_delivery_pending "${metrics_body}")
+    $(metric_sum namakdan_plugin_notification_queue_depth "${metrics_body}") +
+    $(metric_sum namakdan_fiscal_jobs_queue_depth "${metrics_body}") +
+    $(metric_sum namakdan_fiscal_delivery_pending "${metrics_body}")
   ))
-  sse_dropped="$(metric_sum payverge_sse_dropped_events_total "${metrics_body}")"
+  sse_dropped="$(metric_sum namakdan_sse_dropped_events_total "${metrics_body}")"
 
   printf '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n' \
     "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "${cpu_percent}" "${memory_bytes}" "${disk_percent}" \

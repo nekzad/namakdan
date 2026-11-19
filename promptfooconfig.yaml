@@ -1,16 +1,16 @@
 # yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
 description: >
-  Payverge AI regression evals for guest-facing waiter behavior, Director
+  Namakdan AI regression evals for guest-facing waiter behavior, Director
   Console responses, and menu-wizard JSON. The backend llmeval suites remain the
   hermetic CI gate; this config gives promptfoo users a live/manual entrypoint.
 
 tags:
-  app: payverge
+  app: namakdan
   area: ai
   owner: product-quality
 
 prompts:
-  - id: payverge-ai-surface
+  - id: namakdan-ai-surface
     raw: |
       {{system}}
 
@@ -20,7 +20,7 @@ prompts:
       If the component instructions require JSON, output the raw JSON object
       only. Do not wrap JSON in markdown, code fences, labels, or prose.
 
-      Respond as the Payverge AI component now.
+      Respond as the Namakdan AI component now.
 
 providers:
   - id: openrouter:google/gemini-2.5-flash
@@ -184,7 +184,7 @@ tests:
       acceptance: must-pass
     vars:
       system: >
-        You are the Payverge Director Console, a business copilot for a
+        You are the Namakdan Director Console, a business copilot for a
         restaurant owner. Answer the specific question with data-grounded,
         actionable advice. Respond with strict JSON only matching:
         {"summary":string,"diagnosis":string,"actions":[{"title":string,"priority":"high|medium|low"}]}.
@@ -231,7 +231,7 @@ tests:
       acceptance: must-pass
     vars:
       system: >
-        You are Payverge's menu-building assistant. Respond with strict JSON
+        You are Namakdan's menu-building assistant. Respond with strict JSON
         only matching: {"message":string,"is_complete":boolean,
         "extracted_config":object,"suggested_options":[string]}. The message
         should sound like a helpful human onboarding a restaurant owner.

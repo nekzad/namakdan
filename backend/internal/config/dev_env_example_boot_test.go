@@ -58,7 +58,7 @@ func TestRootEnvExampleBootsDevCompose(t *testing.T) {
 		t.Setenv(k, "development")
 	}
 	t.Setenv("JWT_SECRET_KEY", resolved)
-	for _, e := range ValidateConfig("db", "payverge", "dev-db-password", "payverge", false) {
+	for _, e := range ValidateConfig("db", "namakdan", "dev-db-password", "namakdan", false) {
 		if e.Field == "JWT_SECRET_KEY" {
 			t.Fatalf("copied .env.example resolves JWT_SECRET_KEY to %q, which fails ValidateConfig: %s", resolved, e.Message)
 		}

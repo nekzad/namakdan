@@ -13,10 +13,10 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	"github.com/stdevmac/payverge/backend/internal/session"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 )
 
 func requireRefreshOutcomeDelta(t *testing.T, realm metrics.RefreshRealm, expected metrics.RefreshOutcome, invoke func()) {
@@ -44,7 +44,7 @@ func requireRefreshOutcomeDelta(t *testing.T, realm metrics.RefreshRealm, expect
 
 func injectTransientQueryError(t *testing.T, db *gorm.DB, table string) {
 	t.Helper()
-	callbackName := "payverge:test:transient_lookup:" + t.Name()
+	callbackName := "namakdan:test:transient_lookup:" + t.Name()
 	require.NoError(t, db.Callback().Query().Before("gorm:query").Register(callbackName, func(tx *gorm.DB) {
 		if tx.Statement != nil && tx.Statement.Schema != nil && tx.Statement.Schema.Table == table {
 			_ = tx.AddError(errors.New("transient identity lookup failure"))
@@ -355,7 +355,7 @@ func TestRefreshToken_RevokeFailureReturns500WithoutClaimingRevoked(t *testing.T
 			"rotated_at": time.Now().Add(-session.RefreshReuseGracePeriod - time.Second),
 			"expires_at": time.Now().Add(time.Hour),
 		}).Error)
-	callbackName := "payverge:test:refresh-revoke-failure"
+	callbackName := "namakdan:test:refresh-revoke-failure"
 	require.NoError(t, db.Callback().Update().Before("gorm:update").Register(callbackName, func(tx *gorm.DB) {
 		if tx.Statement != nil && tx.Statement.Schema != nil && tx.Statement.Schema.Table == "user_sessions" {
 			_ = tx.AddError(errors.New("transient revocation write failure"))
@@ -386,7 +386,7 @@ func TestRefreshToken_SessionStoreOperationalErrorsReturn500WithoutRevocation(t 
 					Update("refresh_token", session.HashToken("different-live-token")).Error)
 			}
 
-			callbackName := "payverge:test:session-store:" + t.Name()
+			callbackName := "namakdan:test:session-store:" + t.Name()
 			queryCount := 0
 			require.NoError(t, db.Callback().Query().Before("gorm:query").Register(callbackName, func(tx *gorm.DB) {
 				if tx.Statement != nil && tx.Statement.Schema != nil &&

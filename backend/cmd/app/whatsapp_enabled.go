@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // logWhatsAppDisabled records why the WhatsApp manager did not start. The

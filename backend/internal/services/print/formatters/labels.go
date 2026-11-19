@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/locales"
+	"github.com/nekzad/namakdan/backend/internal/locales"
 )
 
 // printLang is the small set of locales we ship printed-ticket label copy for.

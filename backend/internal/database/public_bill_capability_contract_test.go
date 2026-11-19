@@ -79,7 +79,7 @@ func backendRoot(t *testing.T) string {
 }
 
 func repoRelative(backendRoot, abs string) string {
-	rel, err := filepath.Rel(filepath.Dir(backendRoot), abs) // payverge-relative
+	rel, err := filepath.Rel(filepath.Dir(backendRoot), abs) // namakdan-relative
 	if err != nil {
 		return abs
 	}

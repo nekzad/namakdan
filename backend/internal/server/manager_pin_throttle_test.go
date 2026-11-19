@@ -12,8 +12,8 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/auththrottle"
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/auththrottle"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // setupPinThrottleTestDB returns an in-memory SQLite DB migrated with the

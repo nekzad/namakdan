@@ -3,7 +3,7 @@ package structs
 import (
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/utils"
+	"github.com/nekzad/namakdan/backend/internal/utils"
 )
 
 type Notification struct {

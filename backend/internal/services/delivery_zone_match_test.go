@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func zone(id uint, name string, feeDollars float64, minDollars float64, eta int, boundaries string) DeliveryZoneDTO {

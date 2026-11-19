@@ -15,11 +15,11 @@ import (
 	"github.com/prometheus/client_golang/prometheus/testutil"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	"github.com/stdevmac/payverge/backend/internal/plugins/stripe"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/plugins/stripe"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // Review follow-ups to D3 (2026-10-07): the bound must be reachable when the
@@ -234,7 +234,7 @@ func TestStripeConnectDispute_StaleBillLessDisputeRaisesBusinessAlert(t *testing
 	requireBillPaid(t, fx.bill.ID, 0)
 }
 
-// A bill-less refund is a charge Payverge did not create (Payverge charges
+// A bill-less refund is a charge Namakdan did not create (Namakdan charges
 // carry bill_id in their metadata): still acknowledged, never parked.
 func TestStripeConnectRefund_ForeignChargeStillAcked(t *testing.T) {
 	fx := setupStripeConnectDisputeFixture(t)

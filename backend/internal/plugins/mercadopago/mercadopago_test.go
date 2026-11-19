@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	appconfig "github.com/stdevmac/payverge/backend/internal/config"
+	appconfig "github.com/nekzad/namakdan/backend/internal/config"
 )
 
 func TestMercadoPagoPlugin_GetName(t *testing.T) {
@@ -298,7 +298,7 @@ func TestMercadoPagoWebhookURLPrefersRuntimeOrigin(t *testing.T) {
 	t.Cleanup(func() { callbackBaseURL = prev })
 
 	callbackBaseURL = func() string { return "https://api.staging.example" }
-	got, err := mercadoPagoWebhookURL(&MercadoPagoConfig{BaseURL: "https://api.payverge.io"}, 42)
+	got, err := mercadoPagoWebhookURL(&MercadoPagoConfig{BaseURL: "https://api.example.test"}, 42)
 	if err != nil {
 		t.Fatalf("expected webhook URL, got %v", err)
 	}
@@ -357,7 +357,7 @@ func TestValidateConfigAcceptsTestPrefixedToken(t *testing.T) {
 		"access_token":   "TEST-1234567890123456789012345",
 		"public_key":     "TEST-pk-1234567890123456789012",
 		"webhook_secret": "whsec",
-		"base_url":       "https://api.payverge.io",
+		"base_url":       "https://api.example.test",
 	})
 	require.NoError(t, err)
 }
@@ -373,7 +373,7 @@ func TestValidateConfig_RejectsTestTokenInProduction(t *testing.T) {
 		"access_token":   "TEST-1234567890123456789012345",
 		"public_key":     "APP_USR-pk-1234567890123456789012",
 		"webhook_secret": "whsec",
-		"base_url":       "https://api.payverge.io",
+		"base_url":       "https://api.example.test",
 	})
 	require.Error(t, err)
 	require.Contains(t, err.Error(), "TEST-")
@@ -389,7 +389,7 @@ func TestValidateConfig_RejectsTestPublicKeyInProduction(t *testing.T) {
 		"access_token":   "APP_USR-1234567890123456789012345",
 		"public_key":     "TEST-pk-1234567890123456789012",
 		"webhook_secret": "whsec",
-		"base_url":       "https://api.payverge.io",
+		"base_url":       "https://api.example.test",
 	})
 	require.Error(t, err)
 	require.Contains(t, err.Error(), "TEST-")
@@ -405,7 +405,7 @@ func TestValidateConfig_RejectsSandboxEnvironmentInProduction(t *testing.T) {
 		"access_token":   "TEST-1234567890123456789012345",
 		"public_key":     "TEST-pk-1234567890123456789012",
 		"webhook_secret": "whsec",
-		"base_url":       "https://api.payverge.io",
+		"base_url":       "https://api.example.test",
 		"environment":    "sandbox",
 	})
 	require.Error(t, err)
@@ -416,7 +416,7 @@ func TestValidateConfig_RejectsSandboxEnvironmentInProduction(t *testing.T) {
 		"access_token":   "APP_USR-1234567890123456789012345",
 		"public_key":     "APP_USR-pk-1234567890123456789012",
 		"webhook_secret": "whsec",
-		"base_url":       "https://api.payverge.io",
+		"base_url":       "https://api.example.test",
 		"environment":    "sandbox",
 	}))
 }

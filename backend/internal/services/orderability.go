@@ -3,7 +3,7 @@ package services
 import (
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 type OrderabilityState string

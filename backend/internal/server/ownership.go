@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
 )
 
 func extractContextUint(value any) (uint, bool) {

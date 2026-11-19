@@ -17,6 +17,6 @@ describe("sanitizeName", () => {
 describe("buildFilename", () => {
   test("nests a sanitized name under a dated folder", () => {
     expect(buildFilename("Analytics Tab", "2026-07-03"))
-      .toBe("payverge-shots/2026-07-03/analytics-tab.png");
+      .toBe("namakdan-shots/2026-07-03/analytics-tab.png");
   });
 });

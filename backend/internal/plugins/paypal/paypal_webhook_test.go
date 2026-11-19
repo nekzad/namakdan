@@ -11,7 +11,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
 )
 
 func TestPayPalVerifyWebhookSignature_RejectsEmptySignature(t *testing.T) {
@@ -370,7 +370,7 @@ func TestPayPalCallbackBaseURL_PrefersRuntimeOrigin(t *testing.T) {
 
 	// Runtime origin wins even when the per-business base_url points at prod.
 	callbackBaseURL = func() string { return "https://api.staging.example" }
-	got := paypalCallbackBaseURL(&PayPalConfig{BaseURL: "https://api.payverge.io"})
+	got := paypalCallbackBaseURL(&PayPalConfig{BaseURL: "https://api.example.test"})
 	require.Equal(t, "https://api.staging.example", got)
 
 	// The per-business base_url is never used, even with no runtime origin:

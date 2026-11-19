@@ -15,7 +15,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/middleware"
+	"github.com/nekzad/namakdan/backend/internal/middleware"
 )
 
 // newGuestLimiterMirrorRouter mirrors the production wiring in main.go for the

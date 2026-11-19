@@ -11,5 +11,5 @@ export function sanitizeName(name) {
 // chrome.downloads.download filename: dated subfolder + slug + .png.
 // dateStr is passed in (not computed here) so this stays pure and testable.
 export function buildFilename(name, dateStr) {
-  return `payverge-shots/${dateStr}/${sanitizeName(name)}.png`;
+  return `namakdan-shots/${dateStr}/${sanitizeName(name)}.png`;
 }

@@ -16,7 +16,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/s3"
+	"github.com/nekzad/namakdan/backend/internal/s3"
 )
 
 // useLocalStorage points the s3 package wrappers at temp-dir LocalStores (the

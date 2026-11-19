@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/stdevmac/payverge/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
 )
 
 // FlowMetrics records FlowRequestDuration for handlers that tag themselves

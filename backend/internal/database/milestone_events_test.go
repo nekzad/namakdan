@@ -148,7 +148,7 @@ func TestRecordPaymentMilestonesLocksBusinessBeforeAggregating(t *testing.T) {
 
 	var businessQueryObserved atomic.Bool
 	var businessQueryLocked atomic.Bool
-	const cbName = "payverge:test:capture_milestone_business_lock"
+	const cbName = "namakdan:test:capture_milestone_business_lock"
 	require.NoError(t, db.GetGorm().Callback().Query().Before("gorm:query").Register(cbName, func(tx *gorm.DB) {
 		if businessQueryObserved.Load() {
 			return

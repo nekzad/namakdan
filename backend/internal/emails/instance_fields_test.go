@@ -19,7 +19,7 @@ func clearEmailInstanceEnv(t *testing.T) {
 func TestEmailLogoURL(t *testing.T) {
 	clearEmailInstanceEnv(t)
 	t.Setenv("PUBLIC_URL", "https://eat.example.com")
-	if got := emailLogoURL(); got != "https://eat.example.com/images/PayvergeLogo.png" {
+	if got := emailLogoURL(); got != "https://eat.example.com/images/namakdan-icon-512.png" {
 		t.Fatalf("default logo = %q", got)
 	}
 	t.Setenv("LOGO_URL", "/media/brand/logo.png")
@@ -100,7 +100,7 @@ func TestRenderedEmailsCarryInstanceIdentity(t *testing.T) {
 		out := renderWithInstance(t, lang, "getting_started", "operator", nil)
 		for _, want := range []string{
 			"Tavola",
-			`src="https://eat.example.com/images/PayvergeLogo.png"`,
+			`src="https://eat.example.com/images/namakdan-icon-512.png"`,
 			`href="https://eat.example.com"`,
 			">eat.example.com</a>",
 		} {
@@ -108,7 +108,7 @@ func TestRenderedEmailsCarryInstanceIdentity(t *testing.T) {
 				t.Errorf("%s getting_started missing %q", lang, want)
 			}
 		}
-		for _, banned := range []string{"payverge.io", "Marcos", "Payverge ·", "Tavola Co ·"} {
+		for _, banned := range []string{"example.test", "Marcos", "Namakdan ·", "Tavola Co ·"} {
 			if strings.Contains(out, banned) {
 				t.Errorf("%s getting_started contains %q", lang, banned)
 			}

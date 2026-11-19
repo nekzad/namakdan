@@ -3,7 +3,7 @@ package services
 import (
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/services/director_tools"
+	"github.com/nekzad/namakdan/backend/internal/services/director_tools"
 
 	"github.com/stretchr/testify/assert"
 )

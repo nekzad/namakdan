@@ -38,12 +38,12 @@ func TestDispatchRetriesRetryableFailureThenDelivers(t *testing.T) {
 		failTimes: 1,
 		failErr:   errors.New("429 too many requests"),
 	}
-	server, err := NewEmailServer(provider, "noreply@payverge.io", "updates@payverge.io", resolveTemplatesRoot(t))
+	server, err := NewEmailServer(provider, "noreply@example.test", "updates@example.test", resolveTemplatesRoot(t))
 	require.NoError(t, err)
 	server.SetOutboundStore(NewGormOutboundStore(db))
 	server.retryBackoff = 0
 
-	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://payverge.io/reset", "en"))
+	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://example.test/reset", "en"))
 	require.Equal(t, 2, provider.calls)
 	require.Len(t, provider.keys, 2)
 	require.NotEmpty(t, provider.keys[0])
@@ -58,14 +58,14 @@ func TestDispatchDoesNotRetryUnauthorizedSender(t *testing.T) {
 	db := suppressionTestDB(t)
 	provider := &retryProviderStub{
 		failTimes: 5,
-		failErr:   errors.New("not authorized to send emails from noreply@payverge.io"),
+		failErr:   errors.New("not authorized to send emails from noreply@example.test"),
 	}
-	server, err := NewEmailServer(provider, "noreply@payverge.io", "updates@payverge.io", resolveTemplatesRoot(t))
+	server, err := NewEmailServer(provider, "noreply@example.test", "updates@example.test", resolveTemplatesRoot(t))
 	require.NoError(t, err)
 	server.SetOutboundStore(NewGormOutboundStore(db))
 	server.retryBackoff = 0
 
-	err = server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://payverge.io/reset", "en")
+	err = server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://example.test/reset", "en")
 	require.Error(t, err)
 	require.Equal(t, 1, provider.calls)
 
@@ -81,12 +81,12 @@ func TestDispatchExhaustsRetryableFailures(t *testing.T) {
 		failTimes: 10,
 		failErr:   errors.New("resend 503 upstream"),
 	}
-	server, err := NewEmailServer(provider, "noreply@payverge.io", "updates@payverge.io", resolveTemplatesRoot(t))
+	server, err := NewEmailServer(provider, "noreply@example.test", "updates@example.test", resolveTemplatesRoot(t))
 	require.NoError(t, err)
 	server.SetOutboundStore(NewGormOutboundStore(db))
 	server.retryBackoff = 0
 
-	err = server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://payverge.io/reset", "en")
+	err = server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://example.test/reset", "en")
 	require.Error(t, err)
 	require.Equal(t, defaultEmailSendAttempts, provider.calls)
 	require.Len(t, provider.keys, defaultEmailSendAttempts)

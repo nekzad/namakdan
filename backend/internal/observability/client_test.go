@@ -204,8 +204,8 @@ func TestGinMiddlewares_EnabledReturnsSentryThenContextMiddleware(t *testing.T) 
 	require.Equal(t, http.StatusNoContent, w.Code)
 	require.NotNil(t, captured)
 	require.Equal(t, "backend", captured.Tags["service"])
-	require.Equal(t, "backend", captured.Contexts["payverge"]["service"])
-	require.Equal(t, http.MethodGet, captured.Contexts["payverge"]["method"])
+	require.Equal(t, "backend", captured.Contexts["namakdan"]["service"])
+	require.Equal(t, http.MethodGet, captured.Contexts["namakdan"]["method"])
 }
 
 func TestGinMiddlewares_EnabledRepanicsToGinRecovery(t *testing.T) {

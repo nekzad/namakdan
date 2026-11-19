@@ -12,7 +12,7 @@ package services
 import (
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // StampOnboardingCompletedIfReady stamps onboarding_completed_at when the

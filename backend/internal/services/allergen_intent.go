@@ -7,7 +7,7 @@ import (
 
 	"golang.org/x/text/unicode/norm"
 
-	"github.com/stdevmac/payverge/backend/internal/locales"
+	"github.com/nekzad/namakdan/backend/internal/locales"
 )
 
 var allergenKeywords = map[string][]string{

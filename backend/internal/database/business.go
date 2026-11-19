@@ -14,8 +14,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/money"
-	"github.com/stdevmac/payverge/backend/internal/txhash"
+	"github.com/nekzad/namakdan/backend/internal/money"
+	"github.com/nekzad/namakdan/backend/internal/txhash"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
@@ -5197,7 +5197,7 @@ func ListPublishedStorefrontSlugs(limit int) ([]StorefrontSlug, error) {
 // ==================== Operational state ====================
 
 // IsBusinessOperational reports whether a venue's product features stay
-// available. Payverge has no billing, so only an instance-admin enforcement
+// available. Namakdan has no billing, so only an instance-admin enforcement
 // action (close: closed_at set, or suspend: is_active=false) takes a venue
 // offline. Demo showrooms never lock.
 //

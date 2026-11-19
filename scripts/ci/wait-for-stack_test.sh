@@ -180,10 +180,10 @@ require_empty "TELEGRAM_TOKEN"
 # Reject real production endpoints / credentials. Only assignments are
 # checked: a comment that names the parent domain to explain why it fails
 # preflight configures nothing.
-if grep -Ev '^[[:space:]]*#' "$ENV_CI" | grep -Eiq 'payverge\.io|api\.payverge\.io|https://payverge'; then
-  fail "ci.env.fixture must not contain payverge.io / api.payverge.io / https://payverge endpoints"
+if grep -Ev '^[[:space:]]*#' "$ENV_CI" | grep -Eiq 'namakdan\.io|api\.namakdan\.io|https://namakdan'; then
+  fail "ci.env.fixture must not contain example.test / api.example.test / https://namakdan endpoints"
 else
-  pass "no payverge.io production endpoints in ci.env.fixture"
+  pass "no example.test production endpoints in ci.env.fixture"
 fi
 
 # All http(s) URLs and origins should be localhost / 127.0.0.1 / docker service names
@@ -203,8 +203,8 @@ done < <(grep -Eo 'https?://[^[:space:]#,;]+' "$ENV_CI" || true)
 # ALLOWED_ORIGINS must be localhost-only
 origins_line="$(grep -E '^ALLOWED_ORIGINS=' "$ENV_CI" | head -n1 || true)"
 origins_val="${origins_line#ALLOWED_ORIGINS=}"
-if [[ "$origins_val" == *payverge* ]]; then
-  fail "ALLOWED_ORIGINS must not include payverge domains"
+if [[ "$origins_val" == *namakdan* ]]; then
+  fail "ALLOWED_ORIGINS must not include namakdan domains"
 elif [[ "$origins_val" != *localhost* && "$origins_val" != *127.0.0.1* ]]; then
   fail "ALLOWED_ORIGINS must be localhost/127.0.0.1 only (got ${origins_val})"
 else

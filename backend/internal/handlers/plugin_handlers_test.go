@@ -15,11 +15,11 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/guestsession"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/guestsession"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 type testPaymentPlugin struct {
@@ -2304,7 +2304,7 @@ func TestCreatePluginPayment_RejectsInvalidRedirectURLsBeforeProviderCall(t *tes
 
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
-			t.Setenv("ALLOWED_REDIRECT_DOMAINS", "payverge.io,www.payverge.io")
+			t.Setenv("ALLOWED_REDIRECT_DOMAINS", "example.test,www.example.test")
 			setupHandlerTestDB(t)
 			require.NoError(t, database.GetDB().AutoMigrate(&database.Plugin{}, &database.BusinessPlugin{}, &database.AlternativePayment{}))
 
@@ -3535,7 +3535,7 @@ func TestHandleMercadoPagoWebhook_SettlesTrackedSplitShareAfterTrackerIDSwap(t *
 			Amount:    2500,
 			Currency:  "USD",
 			Metadata: map[string]interface{}{
-				"payverge_tracker_id": "mp_tracker_123",
+				"namakdan_tracker_id": "mp_tracker_123",
 			},
 		},
 	}
@@ -4972,7 +4972,7 @@ func TestHandleMercadoPagoWebhook_OrderTopicResolvesBusinessViaTracker(t *testin
 			Amount:    3350,
 			Currency:  "USD",
 			Metadata: map[string]interface{}{
-				"payverge_tracker_id": "ORD123",
+				"namakdan_tracker_id": "ORD123",
 			},
 		},
 	}

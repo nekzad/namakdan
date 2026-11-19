@@ -9,7 +9,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/testperf"
+	"github.com/nekzad/namakdan/backend/internal/testperf"
 )
 
 // setupOrdersListPostgres provisions a throwaway Postgres with one business and

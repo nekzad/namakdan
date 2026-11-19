@@ -7,7 +7,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // Marketing claim guard — deterministic, server-side defense-in-depth on

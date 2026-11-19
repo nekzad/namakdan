@@ -54,7 +54,7 @@ Add to your `main.go` or application startup:
 package main
 
 import (
-    "github.com/stdevmac/payverge/backend/internal/jobs"
+    "github.com/nekzad/namakdan/backend/internal/jobs"
     "log"
     "os"
     "os/signal"
@@ -158,8 +158,8 @@ Edit `internal/jobs/reservation_scheduler.go` to change the schedule:
 package server
 
 import (
-    "github.com/stdevmac/payverge/backend/internal/services"
-    "github.com/stdevmac/payverge/backend/internal/database"
+    "github.com/nekzad/namakdan/backend/internal/services"
+    "github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func CreateReservation(c *gin.Context) {

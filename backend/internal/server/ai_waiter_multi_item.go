@@ -3,8 +3,8 @@ package server
 import (
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/assistantcontract"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/assistantcontract"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // waiterMatchedNamePhrase returns the longest snapshot-owned name or alias of

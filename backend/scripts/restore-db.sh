@@ -10,7 +10,7 @@ DB_HOST="${DB_HOST:-localhost}"
 DB_PORT="${DB_PORT:-5432}"
 DB_USER="${DB_USER:-postgres}"
 DB_PASSWORD="${DB_PASSWORD:-}"
-DB_NAME="${DB_NAME:-payverge}"
+DB_NAME="${DB_NAME:-namakdan}"
 BACKUP_DIR="${BACKUP_DIR:-./backups}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 RESTORE_SCOPE="${RESTORE_SCOPE:-}"
@@ -27,7 +27,7 @@ This destructive helper is restricted to an isolated loopback target.
 Required environment:
   RESTORE_SCOPE=isolated
   DB_HOST=127.0.0.1|localhost|::1
-  DB_NAME=payverge_restore_<name>
+  DB_NAME=namakdan_restore_<name>
   RESTORE_CONFIRM="DROP <host>:<port>/<database>"
 
 The gzip stream is validated before any database command runs.
@@ -56,8 +56,8 @@ case "${DB_HOST}" in
   *) die "refusing restore: isolated targets must use a loopback DB_HOST" ;;
 esac
 [[ "${DB_PORT}" =~ ^[0-9]+$ ]] || die "refusing restore: DB_PORT must be numeric"
-[[ "${DB_NAME}" =~ ^payverge_restore_[A-Za-z0-9_]+$ ]] || \
-  die "refusing restore: DB_NAME must begin payverge_restore_ and contain only letters, digits, underscores"
+[[ "${DB_NAME}" =~ ^namakdan_restore_[A-Za-z0-9_]+$ ]] || \
+  die "refusing restore: DB_NAME must begin namakdan_restore_ and contain only letters, digits, underscores"
 
 EXPECTED_CONFIRM="DROP ${DB_HOST}:${DB_PORT}/${DB_NAME}"
 [ "${RESTORE_CONFIRM}" = "${EXPECTED_CONFIRM}" ] || \
@@ -67,7 +67,7 @@ if ! gzip -t "${BACKUP_FILE}"; then
   die "gzip integrity check failed (corrupt/truncated backup): ${BACKUP_FILE}"
 fi
 
-echo "=== Payverge Isolated Database Restore ==="
+echo "=== Namakdan Isolated Database Restore ==="
 echo "Target:       ${DB_HOST}:${DB_PORT}/${DB_NAME}"
 echo "Restore from: ${BACKUP_FILE}"
 

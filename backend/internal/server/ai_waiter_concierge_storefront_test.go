@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/assistantcontract"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/assistantcontract"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -21,7 +21,7 @@ import (
 func seedStorefrontConciergeVenue(t *testing.T, db *gorm.DB) *database.Business {
 	t.Helper()
 	business := createAIWaiterBusiness(t, "storefront-concierge", true)
-	business.Name = "Payverge AI Pro Demo Lounge"
+	business.Name = "Namakdan AI Pro Demo Lounge"
 	business.IsActive = true
 	business.Timezone = "UTC"
 	require.NoError(t, db.Save(business).Error)

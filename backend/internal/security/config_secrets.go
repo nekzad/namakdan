@@ -4,7 +4,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/config"
 )
 
 // IsSecretConfigKey reports whether a plugin-config key holds a credential that

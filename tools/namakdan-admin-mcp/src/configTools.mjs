@@ -1,4 +1,4 @@
-// Configuration tools: set up a restaurant through the Payverge HTTP API.
+// Configuration tools: set up a restaurant through the Namakdan HTTP API.
 //
 // Every tool here wraps an endpoint that already exists in the backend. Most
 // routes live under /api/v1/inside/businesses/:id and need an owner session
@@ -60,7 +60,7 @@ export class ToolError extends Error {
 const businessIdSchema = {
   type: "integer",
   minimum: 1,
-  description: "Numeric business id, from payverge_list_businesses.",
+  description: "Numeric business id, from namakdan_list_businesses.",
 };
 
 const dryRunProperties = {
@@ -144,7 +144,7 @@ const menuItemPatchSchema = {
 };
 
 const categoryRefProperties = {
-  category_id: { type: "string", minLength: 1, description: "Category id from payverge_get_menu." },
+  category_id: { type: "string", minLength: 1, description: "Category id from namakdan_get_menu." },
   category_name: { type: "string", minLength: 1, description: "Category name (case-insensitive), used when category_id is not given." },
 };
 
@@ -252,26 +252,26 @@ function writeAnnotations({ destructive = false, idempotent = false } = {}) {
 
 const TOOLS = [
   {
-    name: "payverge_instance_status",
+    name: "namakdan_instance_status",
     title: "Instance status",
     description:
-      "Check the Payverge server this MCP points at: public instance identity and feature flags (GET /api/v1/instance), liveness/readiness, and how this MCP server is authenticated. Start here; needs no credentials.",
+      "Check the Namakdan server this MCP points at: public instance identity and feature flags (GET /api/v1/instance), liveness/readiness, and how this MCP server is authenticated. Start here; needs no credentials.",
     inputSchema: objectSchema({}),
     annotations: readAnnotations,
     auth: "public",
     handler: instanceStatus,
   },
   {
-    name: "payverge_list_businesses",
+    name: "namakdan_list_businesses",
     title: "List businesses",
-    description: "List the businesses the owner account can manage (id, name, type, currency, timezone). Filtered by PAYVERGE_MCP_BUSINESS_IDS when set.",
+    description: "List the businesses the owner account can manage (id, name, type, currency, timezone). Filtered by NAMAKDAN_MCP_BUSINESS_IDS when set.",
     inputSchema: objectSchema({}),
     annotations: readAnnotations,
     auth: "owner",
     handler: listBusinesses,
   },
   {
-    name: "payverge_get_business_profile",
+    name: "namakdan_get_business_profile",
     title: "Get business profile",
     description: "Read a business profile and settings: address, currency, tax, timezone, public page, QR defaults, AI settings. Billing data and payout wallet addresses are left out.",
     inputSchema: objectSchema({ business_id: businessIdSchema }, ["business_id"]),
@@ -281,7 +281,7 @@ const TOOLS = [
     handler: getBusinessProfile,
   },
   {
-    name: "payverge_get_setup_status",
+    name: "namakdan_get_setup_status",
     title: "Get setup checklist",
     description: "Read the first-run setup checklist for a business (profile, tables, menu, staff, payments, layout) with what is done and what is missing.",
     inputSchema: objectSchema({ business_id: businessIdSchema }, ["business_id"]),
@@ -291,10 +291,10 @@ const TOOLS = [
     handler: getSetupStatus,
   },
   {
-    name: "payverge_create_business",
+    name: "namakdan_create_business",
     title: "Create business",
     description:
-      "Create a new business owned by the MCP owner account (POST /inside/businesses). Uses an Idempotency-Key so a retried call does not create a duplicate. Refused when PAYVERGE_MCP_BUSINESS_IDS is set. Defaults to dry_run=true.",
+      "Create a new business owned by the MCP owner account (POST /inside/businesses). Uses an Idempotency-Key so a retried call does not create a duplicate. Refused when NAMAKDAN_MCP_BUSINESS_IDS is set. Defaults to dry_run=true.",
     inputSchema: objectSchema(
       {
         name: { type: "string", minLength: 1, maxLength: 255 },
@@ -321,7 +321,7 @@ const TOOLS = [
     handler: createBusiness,
   },
   {
-    name: "payverge_update_business_profile",
+    name: "namakdan_update_business_profile",
     title: "Update business profile",
     description:
       "Change business profile and settings fields (PUT /inside/businesses/:id, partial). The preview shows a field-by-field diff. Payout wallets and email are not editable here; AI settings have their own tool. Defaults to dry_run=true.",
@@ -340,7 +340,7 @@ const TOOLS = [
     handler: updateBusinessProfile,
   },
   {
-    name: "payverge_get_ai_settings",
+    name: "namakdan_get_ai_settings",
     title: "Get AI settings",
     description: "Read a business's AI waiter settings and whether this server has an LLM provider configured.",
     inputSchema: objectSchema({ business_id: businessIdSchema }, ["business_id"]),
@@ -350,7 +350,7 @@ const TOOLS = [
     handler: getAiSettings,
   },
   {
-    name: "payverge_update_ai_settings",
+    name: "namakdan_update_ai_settings",
     title: "Update AI settings",
     description:
       "Turn the guest AI waiter on or off and set its name, priority and house instructions (PUT /inside/businesses/:id). Defaults to dry_run=true.",
@@ -374,7 +374,7 @@ const TOOLS = [
     handler: updateAiSettings,
   },
   {
-    name: "payverge_get_menu",
+    name: "namakdan_get_menu",
     title: "Get menu",
     description: "Read the menu in its source language: categories with ids, items with prices (major units), allergens, dietary tags, options and stored availability. Also returns the menu version used for safe writes.",
     inputSchema: objectSchema(
@@ -390,7 +390,7 @@ const TOOLS = [
     handler: getMenu,
   },
   {
-    name: "payverge_add_menu_category",
+    name: "namakdan_add_menu_category",
     title: "Add menu category",
     description: "Add a menu category, optionally with its items, in one versioned write. Creates the menu if the business has none. Defaults to dry_run=true.",
     inputSchema: objectSchema(
@@ -411,7 +411,7 @@ const TOOLS = [
     handler: addMenuCategory,
   },
   {
-    name: "payverge_update_menu_category",
+    name: "namakdan_update_menu_category",
     title: "Update menu category",
     description: "Rename a menu category or change its description. Its items are kept. Defaults to dry_run=true.",
     inputSchema: objectSchema(
@@ -431,7 +431,7 @@ const TOOLS = [
     handler: updateMenuCategory,
   },
   {
-    name: "payverge_add_menu_item",
+    name: "namakdan_add_menu_item",
     title: "Add menu item",
     description: "Add one item to an existing category (by id or name). Defaults to dry_run=true.",
     inputSchema: objectSchema(
@@ -451,14 +451,14 @@ const TOOLS = [
     handler: addMenuItem,
   },
   {
-    name: "payverge_update_menu_item",
+    name: "namakdan_update_menu_item",
     title: "Update menu item",
     description: "Change fields of one menu item (price, name, allergens, availability, ...). Fields you omit keep their value. Defaults to dry_run=true.",
     inputSchema: objectSchema(
       {
         business_id: businessIdSchema,
         ...categoryRefProperties,
-        item_id: { type: "string", minLength: 1, description: "Item id from payverge_get_menu." },
+        item_id: { type: "string", minLength: 1, description: "Item id from namakdan_get_menu." },
         item_name: { type: "string", minLength: 1, description: "Item name (case-insensitive), used when item_id is not given." },
         changes: menuItemPatchSchema,
         confirm_sanitization: confirmSanitizationSchema,
@@ -473,7 +473,7 @@ const TOOLS = [
     handler: updateMenuItem,
   },
   {
-    name: "payverge_import_menu",
+    name: "namakdan_import_menu",
     title: "Import menu from JSON",
     description:
       `Bulk-load a menu from a JSON document {categories:[{name, description?, items:[{name, price, description?, allergens?, dietary_tags?, options?}]}]}. mode=append (default) adds new categories and items and skips items whose name already exists in that category; mode=replace overwrites the whole menu and also needs confirm=true. At most ${MAX_IMPORT_ITEMS} items. Defaults to dry_run=true and returns the plan.`,
@@ -513,7 +513,7 @@ const TOOLS = [
     handler: importMenu,
   },
   {
-    name: "payverge_list_tables",
+    name: "namakdan_list_tables",
     title: "List tables and QR links",
     description: "List tables with capacity, table code, and the absolute guest link each QR code opens (PUBLIC_URL/t/<code>).",
     inputSchema: objectSchema({ business_id: businessIdSchema }, ["business_id"]),
@@ -523,7 +523,7 @@ const TOOLS = [
     handler: listTables,
   },
   {
-    name: "payverge_bulk_create_tables",
+    name: "namakdan_bulk_create_tables",
     title: "Create tables in bulk",
     description:
       `Create several tables at once, from explicit names or from prefix+start+count (e.g. "Table 1".."Table 12"). Names that already exist are skipped. At most ${MAX_BULK_TABLES} per call. Each table gets a QR code. Defaults to dry_run=true.`,
@@ -546,7 +546,7 @@ const TOOLS = [
     handler: bulkCreateTables,
   },
   {
-    name: "payverge_list_staff",
+    name: "namakdan_list_staff",
     title: "List staff and invitations",
     description: "List staff members (role, active, last login) and pending invitations for a business.",
     inputSchema: objectSchema({ business_id: businessIdSchema }, ["business_id"]),
@@ -556,7 +556,7 @@ const TOOLS = [
     handler: listStaff,
   },
   {
-    name: "payverge_invite_staff",
+    name: "namakdan_invite_staff",
     title: "Invite staff member",
     description:
       `Invite a person to a business with a role (${STAFF_ROLES.join(", ")}). The backend emails the invitation. The invitation link is a credential and is redacted unless reveal_invitation_url=true. Defaults to dry_run=true.`,
@@ -578,13 +578,13 @@ const TOOLS = [
     handler: inviteStaff,
   },
   {
-    name: "payverge_change_staff_role",
+    name: "namakdan_change_staff_role",
     title: "Change staff role",
     description: `Change a staff member's role (${STAFF_ROLES.join(", ")}). The preview shows the current role. Defaults to dry_run=true.`,
     inputSchema: objectSchema(
       {
         business_id: businessIdSchema,
-        staff_id: { type: "integer", minimum: 1, description: "Staff id from payverge_list_staff." },
+        staff_id: { type: "integer", minimum: 1, description: "Staff id from namakdan_list_staff." },
         new_role: { type: "string", enum: STAFF_ROLES },
         reason: { type: "string", maxLength: 500, description: "Recorded in the staff audit log." },
         ...dryRunProperties,
@@ -598,7 +598,7 @@ const TOOLS = [
     handler: changeStaffRole,
   },
   {
-    name: "payverge_payment_plugin_status",
+    name: "namakdan_payment_plugin_status",
     title: "Payment plugin status",
     description: "Show which payment and integration plugins are installed and enabled for a business, their last status and error, and whether payments are ready. Never returns plugin credentials.",
     inputSchema: objectSchema(
@@ -614,7 +614,7 @@ const TOOLS = [
     handler: paymentPluginStatus,
   },
   {
-    name: "payverge_get_reservation_settings",
+    name: "namakdan_get_reservation_settings",
     title: "Get reservation settings",
     description: "Read reservation settings: on/off, party sizes, slot length, approval mode, cancellation and reminder rules.",
     inputSchema: objectSchema({ business_id: businessIdSchema }, ["business_id"]),
@@ -624,7 +624,7 @@ const TOOLS = [
     handler: getReservationSettings,
   },
   {
-    name: "payverge_update_reservation_settings",
+    name: "namakdan_update_reservation_settings",
     title: "Update reservation settings",
     description: "Change reservation settings (partial). The preview shows a field-by-field diff. Defaults to dry_run=true.",
     inputSchema: objectSchema(
@@ -642,7 +642,7 @@ const TOOLS = [
     handler: updateReservationSettings,
   },
   {
-    name: "payverge_get_opening_hours",
+    name: "namakdan_get_opening_hours",
     title: "Get opening hours",
     description: "Read the weekly opening hours as a schedule keyed by weekday (monday..sunday), with up to two periods per day.",
     inputSchema: objectSchema({ business_id: businessIdSchema }, ["business_id"]),
@@ -652,7 +652,7 @@ const TOOLS = [
     handler: getOpeningHours,
   },
   {
-    name: "payverge_set_opening_hours",
+    name: "namakdan_set_opening_hours",
     title: "Set opening hours",
     description:
       "Set weekly opening hours. schedule maps weekday -> {closed:true} or {periods:[{open:'12:00', close:'15:30', kitchen_close?:'15:00'}, ...]} (max 2 periods). mode=merge (default) changes only the days you pass; mode=replace clears the days you omit and needs confirm=true. Defaults to dry_run=true.",
@@ -678,8 +678,8 @@ export const CONFIG_TOOL_NAMES = TOOLS.map((tool) => tool.name);
 
 /**
  * @param {object} deps
- * @param {import("./backendClient.mjs").PayvergeAdminClient} [deps.ownerClient]  owner-session client
- * @param {import("./backendClient.mjs").PayvergeAdminClient} [deps.publicClient] anonymous client
+ * @param {import("./backendClient.mjs").NamakdanAdminClient} [deps.ownerClient]  owner-session client
+ * @param {import("./backendClient.mjs").NamakdanAdminClient} [deps.publicClient] anonymous client
  * @param {object} [deps.options]
  *   readOnly, businessAllowList (number[]), publicUrl, apiBaseUrl,
  *   ownerSession ({describe()}), adminConfigured (boolean)
@@ -725,7 +725,7 @@ export function createConfigTools({ ownerClient, publicClient, options = {} } = 
         }
         if (tool.auth === "owner" && !ownerClient) {
           throw new ToolError("owner_auth_not_configured", "Owner credentials are not configured for this MCP server", {
-            hint: "Set PAYVERGE_OWNER_EMAIL and PAYVERGE_OWNER_PASSWORD (recommended) or PAYVERGE_OWNER_TOKEN in the MCP server env, then restart it. See tools/payverge-admin-mcp/README.md#authentication.",
+            hint: "Set NAMAKDAN_OWNER_EMAIL and NAMAKDAN_OWNER_PASSWORD (recommended) or NAMAKDAN_OWNER_TOKEN in the MCP server env, then restart it. See tools/namakdan-admin-mcp/README.md#authentication.",
           });
         }
         if (tool.auth === "public" && !publicClient) {
@@ -737,8 +737,8 @@ export function createConfigTools({ ownerClient, publicClient, options = {} } = 
         if (tool.mutating) {
           dryRun = resolveDryRun(args);
           if (!dryRun && ctxBase.options.readOnly) {
-            throw new ToolError("read_only_mode", "PAYVERGE_MCP_READ_ONLY is set, so changes are refused", {
-              hint: "Previews (dry_run=true) still work. Unset PAYVERGE_MCP_READ_ONLY and restart the MCP server to apply changes.",
+            throw new ToolError("read_only_mode", "NAMAKDAN_MCP_READ_ONLY is set, so changes are refused", {
+              hint: "Previews (dry_run=true) still work. Unset NAMAKDAN_MCP_READ_ONLY and restart the MCP server to apply changes.",
             });
           }
         }
@@ -771,7 +771,7 @@ async function instanceStatus(_args, ctx) {
   const owner = ctx.options.ownerSession?.describe?.() ?? { mode: "none" };
   const nextSteps = [];
   if (!live.ok) {
-    nextSteps.push("The backend did not answer /health/live. Check PAYVERGE_API_BASE_URL (it ends in /api/v1) and that the stack is running.");
+    nextSteps.push("The backend did not answer /health/live. Check NAMAKDAN_API_BASE_URL (it ends in /api/v1) and that the stack is running.");
   } else if (!ready.ok) {
     nextSteps.push("The backend is up but not ready (database or migrations). Check the backend logs.");
   }
@@ -782,12 +782,12 @@ async function instanceStatus(_args, ctx) {
     nextSteps.push("In-app AI is off: no LLM provider is configured. Set OPENROUTER_API_KEY, or LLM_BASE_URL (+ LLM_API_KEY) for a self-hosted model, and restart the backend.");
   }
   if (owner.mode === "none") {
-    nextSteps.push("Configuration tools need owner credentials: set PAYVERGE_OWNER_EMAIL and PAYVERGE_OWNER_PASSWORD in the MCP server env.");
+    nextSteps.push("Configuration tools need owner credentials: set NAMAKDAN_OWNER_EMAIL and NAMAKDAN_OWNER_PASSWORD in the MCP server env.");
   } else if (owner.blocked) {
     nextSteps.push(`Owner sign-in is blocked (${owner.blocked}); fix the credentials and restart the MCP server.`);
   }
   if (nextSteps.length === 0) {
-    nextSteps.push("Ready. Next: payverge_list_businesses, then payverge_get_setup_status for the business you are configuring.");
+    nextSteps.push("Ready. Next: namakdan_list_businesses, then namakdan_get_setup_status for the business you are configuring.");
   }
 
   return {
@@ -842,8 +842,8 @@ async function getSetupStatus(args, ctx) {
 
 async function createBusiness(args, ctx) {
   if (ctx.options.businessAllowList) {
-    throw new ToolError("business_not_allowed", "Creating businesses is disabled while PAYVERGE_MCP_BUSINESS_IDS is set", {
-      hint: "Unset PAYVERGE_MCP_BUSINESS_IDS (or create the business in the dashboard) and add its id to the list afterwards.",
+    throw new ToolError("business_not_allowed", "Creating businesses is disabled while NAMAKDAN_MCP_BUSINESS_IDS is set", {
+      hint: "Unset NAMAKDAN_MCP_BUSINESS_IDS (or create the business in the dashboard) and add its id to the list afterwards.",
     });
   }
   const { idempotency_key: explicitKey, dry_run: _d, dryRun: _a, ...fields } = args;
@@ -866,7 +866,7 @@ async function createBusiness(args, ctx) {
   return {
     dry_run: false,
     business: projectBusiness(created),
-    next: "Run payverge_get_setup_status with the new id to see what is left to configure.",
+    next: "Run namakdan_get_setup_status with the new id to see what is left to configure.",
   };
 }
 
@@ -1311,7 +1311,7 @@ async function listTables(args, ctx) {
     tables,
     note: ctx.options.publicUrl
       ? "guest_url is what each table's QR code opens. Print QR codes from the dashboard (Tables > QR)."
-      : "Set PAYVERGE_PUBLIC_URL to get absolute guest links.",
+      : "Set NAMAKDAN_PUBLIC_URL to get absolute guest links.",
   };
 }
 
@@ -1443,7 +1443,7 @@ async function changeStaffRole(args, ctx) {
     const member = asArray(current?.staff).find((row) => Number(row.id) === args.staff_id);
     if (!member) {
       throw new ToolError("not_found", `No staff member with id ${args.staff_id} in business ${args.business_id}`, {
-        hint: "List ids with payverge_list_staff.",
+        hint: "List ids with namakdan_list_staff.",
       });
     }
     return {
@@ -1721,7 +1721,7 @@ function resolveCategory(categories, args) {
   if (args.category_id) {
     const match = (categories ?? []).find((category) => category.id === args.category_id);
     if (!match) {
-      throw new ToolError("not_found", `No category with id ${args.category_id}`, { hint: "List categories with payverge_get_menu." });
+      throw new ToolError("not_found", `No category with id ${args.category_id}`, { hint: "List categories with namakdan_get_menu." });
     }
     return match;
   }
@@ -1732,7 +1732,7 @@ function resolveCategory(categories, args) {
   if (matches.length === 0) {
     throw new ToolError("not_found", `No category named "${args.category_name}"`, {
       details: { available: (categories ?? []).map((category) => category.name) },
-      hint: "Create it with payverge_add_menu_category, or check the spelling.",
+      hint: "Create it with namakdan_add_menu_category, or check the spelling.",
     });
   }
   if (matches.length > 1) {
@@ -1751,7 +1751,7 @@ function resolveItem(categories, args) {
       const item = (category.items ?? []).find((row) => row.id === args.item_id);
       if (item) return { category, item };
     }
-    throw new ToolError("not_found", `No menu item with id ${args.item_id}`, { hint: "List items with payverge_get_menu." });
+    throw new ToolError("not_found", `No menu item with id ${args.item_id}`, { hint: "List items with namakdan_get_menu." });
   }
   if (!args.item_name) throw new ToolError("invalid_arguments", "Pass item_id or item_name");
   const scope = args.category_id || args.category_name ? [resolveCategory(categories, args)] : categories ?? [];
@@ -1760,7 +1760,7 @@ function resolveItem(categories, args) {
     for (const item of findItemsByName(category.items, args.item_name)) matches.push({ category, item });
   }
   if (matches.length === 0) {
-    throw new ToolError("not_found", `No menu item named "${args.item_name}"`, { hint: "List items with payverge_get_menu." });
+    throw new ToolError("not_found", `No menu item named "${args.item_name}"`, { hint: "List items with namakdan_get_menu." });
   }
   if (matches.length > 1) {
     throw new ToolError("ambiguous_item", `Several items are named "${args.item_name}"`, {
@@ -1909,7 +1909,7 @@ export function explainError(err) {
   if (err?.name === "OwnerSessionError") {
     return stripUndefined({ code: err.code, message: err.message, status: err.status, hint: err.hint, request_id: err.requestId });
   }
-  if (err?.name === "PayvergeAdminClientError") {
+  if (err?.name === "NamakdanAdminClientError") {
     const body = err.body && typeof err.body === "object" ? err.body : {};
     const backendMessage = typeof body.error === "string" ? body.error : typeof body.message === "string" ? body.message : undefined;
     const backendCode = typeof body.code === "string" ? body.code : err.code;
@@ -1931,7 +1931,7 @@ function classifyHttpError(status, backendCode, backendMessage = "") {
   if (status === undefined) {
     return {
       code: "backend_unreachable",
-      hint: "Check PAYVERGE_API_BASE_URL (it ends in /api/v1) and that the backend answers GET /api/v1/health/live.",
+      hint: "Check NAMAKDAN_API_BASE_URL (it ends in /api/v1) and that the backend answers GET /api/v1/health/live.",
     };
   }
   if (status === 400) {
@@ -1967,15 +1967,15 @@ function classifyHttpError(status, backendCode, backendMessage = "") {
   if (status === 404) {
     return {
       code: "not_found",
-      hint: "Check business_id with payverge_list_businesses. If the route itself is missing, the backend is older than this MCP server.",
+      hint: "Check business_id with namakdan_list_businesses. If the route itself is missing, the backend is older than this MCP server.",
     };
   }
   if (status === 409) {
     if (backendCode === "MENU_VERSION_CONFLICT") {
-      return { code: "conflict", hint: "The menu changed twice while writing. Re-read it with payverge_get_menu and retry." };
+      return { code: "conflict", hint: "The menu changed twice while writing. Re-read it with namakdan_get_menu and retry." };
     }
     if (backendCode === "STAFF_EMAIL_EXISTS" || backendCode === "INVITE_ALREADY_PENDING") {
-      return { code: "conflict", hint: "That person is already on the staff list or has a pending invitation; see payverge_list_staff." };
+      return { code: "conflict", hint: "That person is already on the staff list or has a pending invitation; see namakdan_list_staff." };
     }
     return { code: "conflict", hint: "The resource changed or already exists; re-read it and retry." };
   }
@@ -2109,7 +2109,7 @@ function matchesType(type, value) {
 function assertBusinessAllowed(options, businessId) {
   const allow = options.businessAllowList;
   if (allow && !allow.includes(Number(businessId))) {
-    throw new ToolError("business_not_allowed", `Business ${businessId} is not in PAYVERGE_MCP_BUSINESS_IDS`, {
+    throw new ToolError("business_not_allowed", `Business ${businessId} is not in NAMAKDAN_MCP_BUSINESS_IDS`, {
       hint: `This MCP server is limited to businesses ${allow.join(", ")}.`,
     });
   }

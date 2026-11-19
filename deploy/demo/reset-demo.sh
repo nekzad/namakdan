@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Payverge public demo: nightly reset to a pristine snapshot.
+# Namakdan public demo: nightly reset to a pristine snapshot.
 #
 #   demo/reset-demo.sh                reset: database + uploads back to the snapshot
 #   demo/reset-demo.sh --maintenance  reset, but leave the edge (caddy) stopped so
@@ -57,7 +57,7 @@
 #   DEMO_SNAPSHOT_DIR    where the snapshot lives (default: demo/pristine)
 #   DEMO_HEALTH_TIMEOUT  seconds to wait for health (default 300)
 #   DEMO_HEALTH_URL      also GET this through the edge, e.g.
-#                        https://demo.payverge.io/api/v1/health/ready
+#                        https://demo.example.test/api/v1/health/ready
 #   DEMO_ALERT_URL       POST a one-line alert here on failure (Slack/ntfy/...)
 #   DEMO_RESET_LOG       also append the log to this file
 #   DEMO_RESET_MAX_AGE_HOURS  alert when the last good reset is older (default 26)
@@ -87,7 +87,7 @@ alert() {
 	log "ALERT: $*"
 	if [[ -n $alert_url ]]; then
 		curl -fsS -m 10 -X POST -H 'Content-Type: text/plain' \
-			--data-binary "Payverge demo reset: $*" "$alert_url" >/dev/null 2>&1 ||
+			--data-binary "Namakdan demo reset: $*" "$alert_url" >/dev/null 2>&1 ||
 			log "could not deliver the alert to DEMO_ALERT_URL"
 	fi
 }
@@ -257,7 +257,7 @@ dc up -d --wait postgres >/dev/null 2>&1 || die 1 "postgres did not become healt
 # shellcheck disable=SC2016 # expanded inside the container
 db_name=$(dc exec -T postgres sh -c 'printf %s "$POSTGRES_DB"')
 # shellcheck disable=SC2016
-db_user=$(dc exec -T postgres sh -c 'printf %s "$PAYVERGE_DB_USER"')
+db_user=$(dc exec -T postgres sh -c 'printf %s "$NAMAKDAN_DB_USER"')
 [[ $db_name =~ ^[a-z_][a-z0-9_]{0,40}$ ]] || die 78 "unexpected database name '$db_name'"
 [[ $db_user =~ ^[A-Za-z_][A-Za-z0-9_-]{0,62}$ ]] || die 78 "unexpected database user"
 db_new="${db_name}_reset_new"
@@ -405,7 +405,7 @@ verify_snapshot() {
 
 if [[ $mode == check ]]; then
 	if reason=$(stale_reset); then
-		die 1 "check: $reason; is the reset timer running? (journalctl -u payverge-demo-reset.service)"
+		die 1 "check: $reason; is the reset timer running? (journalctl -u namakdan-demo-reset.service)"
 	fi
 	log "check ok: demo project, snapshot verified, postgres healthy, last good reset or snapshot within ${max_age_hours}h"
 	exit 0

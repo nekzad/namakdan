@@ -8,7 +8,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 func TestValidateAcceptsNewResponse(t *testing.T) {
@@ -240,7 +240,7 @@ func TestValidateCartActionTargetMetadata(t *testing.T) {
 			r := NewResponse("resp_1", "Answer")
 			kind, href := "menu_item", ""
 			if tt.type_ == "navigate" {
-				kind, href = "payverge_page", "/menu"
+				kind, href = "namakdan_page", "/menu"
 			}
 			r.Actions = []Action{{
 				ID: "act_1", Type: tt.type_, Label: "Action",
@@ -357,7 +357,7 @@ func TestSchemaConstrainsVersionToV2(t *testing.T) {
 func TestSchemaConstrainsActionTargetKinds(t *testing.T) {
 	targetKind := Schema().Properties["actions"].Items.Properties["target"].Properties["kind"]
 	require.ElementsMatch(t, []string{
-		"dashboard_area", "payverge_page", "external_url", "director",
+		"dashboard_area", "namakdan_page", "external_url", "director",
 		"menu_item", "bundle", "lead_form", "support_request",
 	}, targetKind.Enum)
 }

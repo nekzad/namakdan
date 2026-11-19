@@ -3,7 +3,7 @@ package jobs
 import (
 	"log"
 
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/services"
 
 	"github.com/robfig/cron/v3"
 )

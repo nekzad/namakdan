@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"github.com/stretchr/testify/require"
 )
@@ -318,7 +318,7 @@ func TestDeliveryWorker_DemoProviderShortCircuits(t *testing.T) {
 	seedBillWithCustomer(t, db, 40, 40, 400, "guest@example.com", 9543)
 	settingsID := seedReadySettings(t, db, 40)
 	now := time.Now().UTC()
-	num, auth, qr := "DEMO-1", "AUTH-1", "https://payverge.local/fiscal/1"
+	num, auth, qr := "DEMO-1", "AUTH-1", "https://example.test/fiscal/1"
 	receipt := database.FiscalReceipt{
 		BusinessID: 40, SettingsID: settingsID, BillID: 40,
 		Country: "US", Provider: "demo", Action: "invoice",

@@ -12,8 +12,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/testperf"
-	"github.com/stdevmac/payverge/backend/schema/genesis"
+	"github.com/nekzad/namakdan/backend/internal/testperf"
+	"github.com/nekzad/namakdan/backend/schema/genesis"
 )
 
 func startEmptyPostgres(t *testing.T) *testperf.Pg {

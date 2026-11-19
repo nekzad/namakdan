@@ -13,8 +13,8 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/testperf"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/testperf"
 )
 
 // MigrationsDir is the absolute path of backend/migrations.

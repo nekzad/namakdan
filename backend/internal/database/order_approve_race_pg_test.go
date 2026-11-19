@@ -12,7 +12,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/testperf"
+	"github.com/nekzad/namakdan/backend/internal/testperf"
 )
 
 // setupOrderRacePostgres points the package-global db at a throwaway Postgres

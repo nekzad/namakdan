@@ -11,17 +11,17 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/agents"
-	"github.com/stdevmac/payverge/backend/internal/agents/ops_guides"
-	"github.com/stdevmac/payverge/backend/internal/agents/ops_tools"
-	"github.com/stdevmac/payverge/backend/internal/analytics"
-	"github.com/stdevmac/payverge/backend/internal/assistantcontract"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/guardrails"
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/services"
-	"github.com/stdevmac/payverge/backend/internal/services/director_tools"
+	"github.com/nekzad/namakdan/backend/internal/agents"
+	"github.com/nekzad/namakdan/backend/internal/agents/ops_guides"
+	"github.com/nekzad/namakdan/backend/internal/agents/ops_tools"
+	"github.com/nekzad/namakdan/backend/internal/analytics"
+	"github.com/nekzad/namakdan/backend/internal/assistantcontract"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/guardrails"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/services/director_tools"
 	"github.com/stretchr/testify/require"
 
 	"gopkg.in/yaml.v3"
@@ -517,7 +517,7 @@ func runWaiterV2MatrixScenario(scenario Scenario) (ScenarioRunResult, error) {
 		categories := waiterMatrixBaseCategories()
 		categories[0].Items[0].Image = maliciousImage
 		categories[0].Items[0].Images = []string{maliciousImage}
-		response, _, err := waiterMatrixFinalize(scenario, "contract_waiter_malicious_media", categories, nil, "images.payverge.io")
+		response, _, err := waiterMatrixFinalize(scenario, "contract_waiter_malicious_media", categories, nil, "images.example.test")
 		if err != nil {
 			return ScenarioRunResult{}, err
 		}

@@ -27,7 +27,7 @@ function assertNoValueLeak(result, value) {
 }
 
 function withGitRepository(run) {
-  const repo = mkdtempSync(path.join(os.tmpdir(), "payverge-secret-scan-"));
+  const repo = mkdtempSync(path.join(os.tmpdir(), "namakdan-secret-scan-"));
   try {
     execFileSync("git", ["init", "-q"], { cwd: repo });
     execFileSync("git", ["config", "user.email", "scanner@test.invalid"], { cwd: repo });
@@ -48,12 +48,12 @@ function runScanner(repo, ...args) {
 
 test("harmless fake-secret canary proves detection without a real credential", () => {
   const findings = scanText(
-    "PAYVERGE_FAKE_SECRET_CANARY_DO_NOT_USE=unit-only-canary-0123456789",
+    "NAMAKDAN_FAKE_SECRET_CANARY_DO_NOT_USE=unit-only-canary-0123456789",
     "scripts/fixtures/fake-secret-canary.txt",
     { includeTestCanary: true },
   );
   assert.equal(findings.length, 1);
-  assert.equal(findings[0].rule, "payverge-test-canary");
+  assert.equal(findings[0].rule, "namakdan-test-canary");
   assert.ok(!JSON.stringify(findings).includes("unit-only-canary-0123456789"));
 });
 

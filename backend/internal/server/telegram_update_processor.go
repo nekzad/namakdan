@@ -9,15 +9,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
 	"gorm.io/gorm"
 )
 
 const (
-	TelegramConnectionSuccessMessage   = "Connected to Payverge. Telegram notifications are now enabled for this business."
-	TelegramConnectionInvalidMessage   = "This Payverge connection link is invalid or expired. Generate a new link from your Payverge dashboard."
-	TelegramConnectionNoCommandMessage = "This Telegram update was received, but no Payverge connection command was found."
+	TelegramConnectionSuccessMessage   = "Connected to Namakdan. Telegram notifications are now enabled for this business."
+	TelegramConnectionInvalidMessage   = "This Namakdan connection link is invalid or expired. Generate a new link from your Namakdan dashboard."
+	TelegramConnectionNoCommandMessage = "This Telegram update was received, but no Namakdan connection command was found."
 	TelegramConnectionInvalidChatType  = "Telegram notifications can only be connected from a private chat or group, not a channel."
 )
 

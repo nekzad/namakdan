@@ -233,20 +233,20 @@ export function telemetry() {
   const body = String(res.body || '');
   goGoroutines.add(sampleMetric(body, 'go_goroutines'));
   queueDepth.add(
-    sampleMetric(body, 'payverge_plugin_notification_queue_depth') +
-    sampleMetric(body, 'payverge_fiscal_jobs_queue_depth') +
-    sampleMetric(body, 'payverge_fiscal_delivery_pending'),
+    sampleMetric(body, 'namakdan_plugin_notification_queue_depth') +
+    sampleMetric(body, 'namakdan_fiscal_jobs_queue_depth') +
+    sampleMetric(body, 'namakdan_fiscal_delivery_pending'),
   );
   backgroundJobLag.add(Math.max(
-    sampleMetric(body, 'payverge_fiscal_delivery_oldest_age_seconds'),
-    sampleMetric(body, 'payverge_payment_reconciliation_oldest_pending_seconds'),
+    sampleMetric(body, 'namakdan_fiscal_delivery_oldest_age_seconds'),
+    sampleMetric(body, 'namakdan_payment_reconciliation_oldest_pending_seconds'),
   ));
   sleep(Number(__ENV.TELEMETRY_INTERVAL_SECONDS) || 5);
 }
 
 export function handleSummary(data) {
-  const path = __ENV.SUMMARY_PATH || '/tmp/payverge-perf-results/capacity-summary.json';
-  data.payverge_evidence = {
+  const path = __ENV.SUMMARY_PATH || '/tmp/namakdan-perf-results/capacity-summary.json';
+  data.namakdan_evidence = {
     profile: __ENV.PROFILE_NAME || 'custom',
     candidate_sha: __ENV.CANDIDATE_SHA || '',
     base_url: baseURL,

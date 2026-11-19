@@ -48,7 +48,7 @@ func NewWithSecret(domain, prefix string, secret []byte) *Signer {
 }
 
 func deriveKey(domain string, secret []byte) []byte {
-	sum := sha256.Sum256(append([]byte("payverge-"+domain+"-v1|"), secret...))
+	sum := sha256.Sum256(append([]byte("namakdan-"+domain+"-v1|"), secret...))
 	return sum[:]
 }
 

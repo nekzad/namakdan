@@ -11,7 +11,7 @@ import (
 func NormalizeOpsResponse(resp StructuredResponse, businessID uint, userMessage string) StructuredResponse {
 	userMessage = strings.TrimSpace(userMessage)
 	if userMessage != "" && strings.EqualFold(strings.TrimSpace(resp.Answer), userMessage) {
-		resp.Answer = "I can help you find the right screen or steps in Payverge. What would you like to do?"
+		resp.Answer = "I can help you find the right screen or steps in Namakdan. What would you like to do?"
 		resp.Steps = []string{}
 	}
 

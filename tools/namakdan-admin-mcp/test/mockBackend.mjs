@@ -1,4 +1,4 @@
-// In-memory Payverge API for tests: a fetch implementation that routes
+// In-memory Namakdan API for tests: a fetch implementation that routes
 // "METHOD /path" (relative to /api/v1) to handlers and records every request.
 //
 //   const backend = mockBackend({
@@ -12,7 +12,7 @@
 // value, or a function/value of the form { status, body, headers }. Handlers
 // receive { method, path, query, headers, body } with body already parsed.
 
-export const API_BASE = "http://payverge.localhost/api/v1";
+export const API_BASE = "http://example.localhost/api/v1";
 
 export function mockBackend(routes = {}) {
   const table = { ...routes };

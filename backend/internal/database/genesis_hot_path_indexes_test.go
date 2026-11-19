@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/schema/genesis"
+	"github.com/nekzad/namakdan/backend/schema/genesis"
 )
 
 // Hot-path indexes for bill, payment, order, reservation, delivery, inventory

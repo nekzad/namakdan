@@ -13,15 +13,15 @@ import (
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 func failOperatorOrderInventoryRecipeQuery(t *testing.T) {
 	t.Helper()
 	db := database.GetDB()
-	callbackName := "payverge:test:operator_order_inventory_projection_failure"
+	callbackName := "namakdan:test:operator_order_inventory_projection_failure"
 	require.NoError(t, db.Callback().Query().Before("gorm:query").Register(callbackName, func(tx *gorm.DB) {
 		if tx.Statement != nil && tx.Statement.Schema != nil && tx.Statement.Schema.Table == "inventory_recipes" {
 			_ = tx.AddError(errors.New("injected inventory projection failure"))

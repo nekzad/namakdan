@@ -7,13 +7,13 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
 )
 
 // recordKitchenAck stamps orders.kitchen_acked_at the FIRST time a kitchen or
 // bar ticket for the order prints successfully (X-4) and observes the
-// payverge_order_to_kitchen_seconds histogram. First print wins — the
+// namakdan_order_to_kitchen_seconds histogram. First print wins — the
 // conditional UPDATE makes reprints and duplicate jobs no-ops, which also
 // keeps the idx_orders_kitchen_unacked partial-index predicate meaningful.
 // Best-effort: failures log and never affect the print transition.

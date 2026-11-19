@@ -11,8 +11,8 @@ const ADMIN_WRITE = { readOnlyHint: false, destructiveHint: true, idempotentHint
 
 const toolDefinitions = [
   {
-    name: "payverge_health_snapshot",
-    description: "Fetch the Payverge admin operational health snapshot, with optional recent issue queues.",
+    name: "namakdan_health_snapshot",
+    description: "Fetch the Namakdan admin operational health snapshot, with optional recent issue queues.",
     inputSchema: {
       type: "object",
       properties: {
@@ -23,8 +23,8 @@ const toolDefinitions = [
     },
   },
   {
-    name: "payverge_list_error_logs",
-    description: "List Payverge admin error logs with optional source/component filters.",
+    name: "namakdan_list_error_logs",
+    description: "List Namakdan admin error logs with optional source/component filters.",
     inputSchema: {
       type: "object",
       properties: {
@@ -36,7 +36,7 @@ const toolDefinitions = [
     },
   },
   {
-    name: "payverge_list_failed_webhooks",
+    name: "namakdan_list_failed_webhooks",
     description: "List failed payment webhook events known to the backend.",
     inputSchema: {
       type: "object",
@@ -46,7 +46,7 @@ const toolDefinitions = [
     },
   },
   {
-    name: "payverge_ack_failed_webhook",
+    name: "namakdan_ack_failed_webhook",
     description: "Acknowledge a failed payment webhook after admin review. Platform admin token only. Defaults to dry_run=true. Applying requires confirm=true and a non-empty reason.",
     inputSchema: {
       type: "object",
@@ -60,12 +60,12 @@ const toolDefinitions = [
     },
   },
   {
-    name: "payverge_fiscal_summary",
+    name: "namakdan_fiscal_summary",
     description: "Fetch platform-wide fiscal compliance summary metrics.",
     inputSchema: { type: "object", properties: {} },
   },
   {
-    name: "payverge_list_fiscal_jobs",
+    name: "namakdan_list_fiscal_jobs",
     description: "List fiscal compliance jobs with optional status filtering.",
     inputSchema: {
       type: "object",
@@ -77,7 +77,7 @@ const toolDefinitions = [
     },
   },
   {
-    name: "payverge_requeue_fiscal_job",
+    name: "namakdan_requeue_fiscal_job",
     description: "Requeue a fiscal compliance job. failed_permanent jobs need allow_permanent=true. Platform admin token only. Defaults to dry_run=true. Applying requires confirm=true.",
     inputSchema: {
       type: "object",
@@ -91,8 +91,8 @@ const toolDefinitions = [
     },
   },
   {
-    name: "payverge_inspect_business",
-    description: "Fetch admin detail for a business by numeric id or business id string. When PAYVERGE_MCP_BUSINESS_IDS is set, only a listed numeric id is accepted.",
+    name: "namakdan_inspect_business",
+    description: "Fetch admin detail for a business by numeric id or business id string. When NAMAKDAN_MCP_BUSINESS_IDS is set, only a listed numeric id is accepted.",
     inputSchema: {
       type: "object",
       required: ["id"],
@@ -102,8 +102,8 @@ const toolDefinitions = [
     },
   },
   {
-    name: "payverge_diagnose_issue",
-    description: "Gather health, recent errors, failed webhooks, fiscal jobs, and optional business context into one diagnosis. Health, errors, webhooks and fiscal jobs are instance-wide; when PAYVERGE_MCP_BUSINESS_IDS is set, businessId must be a listed numeric id.",
+    name: "namakdan_diagnose_issue",
+    description: "Gather health, recent errors, failed webhooks, fiscal jobs, and optional business context into one diagnosis. Health, errors, webhooks and fiscal jobs are instance-wide; when NAMAKDAN_MCP_BUSINESS_IDS is set, businessId must be a listed numeric id.",
     inputSchema: {
       type: "object",
       properties: {
@@ -116,18 +116,18 @@ const toolDefinitions = [
 ];
 
 const ADMIN_MUTATING = new Set([
-  "payverge_ack_failed_webhook",
-  "payverge_requeue_fiscal_job",
+  "namakdan_ack_failed_webhook",
+  "namakdan_requeue_fiscal_job",
 ]);
 
-// Admin tools that read one business. PAYVERGE_MCP_BUSINESS_IDS is applied to
+// Admin tools that read one business. NAMAKDAN_MCP_BUSINESS_IDS is applied to
 // them too, as defence in depth. It does NOT make the admin token tenant-scoped:
 // health, error logs, failed webhooks and fiscal jobs are instance-wide.
-const BUSINESS_SCOPED_ADMIN_TOOLS = new Set(["payverge_inspect_business", "payverge_diagnose_issue"]);
+const BUSINESS_SCOPED_ADMIN_TOOLS = new Set(["namakdan_inspect_business", "namakdan_diagnose_issue"]);
 
 // Pick the business a business-scoped admin tool reads, once, so the
 // allow-list check and the backend request always use the same value.
-// payverge_inspect_business names it `id` and payverge_diagnose_issue names it
+// namakdan_inspect_business names it `id` and namakdan_diagnose_issue names it
 // `businessId`; each tool also accepts the other spelling, so two different
 // values, or a blank one, are refused instead of letting one slip past the guard.
 function resolveAdminBusinessRef(args) {
@@ -136,7 +136,7 @@ function resolveAdminBusinessRef(args) {
   const hasBusinessId = present(args.businessId);
   if (hasId && hasBusinessId && String(args.id).trim() !== String(args.businessId).trim()) {
     throw new ToolError("invalid_arguments", "id and businessId name different businesses", {
-      hint: "Name the business once: id for payverge_inspect_business, businessId for payverge_diagnose_issue.",
+      hint: "Name the business once: id for namakdan_inspect_business, businessId for namakdan_diagnose_issue.",
     });
   }
   const ref = hasId ? args.id : hasBusinessId ? args.businessId : undefined;
@@ -155,12 +155,12 @@ function assertAdminBusinessAllowed(allowList, value) {
   const text = String(value).trim();
   const numeric = /^\d+$/.test(text) ? Number(text) : NaN;
   if (!Number.isInteger(numeric)) {
-    throw new ToolError("business_not_allowed", `Business "${text}" cannot be checked against PAYVERGE_MCP_BUSINESS_IDS`, {
+    throw new ToolError("business_not_allowed", `Business "${text}" cannot be checked against NAMAKDAN_MCP_BUSINESS_IDS`, {
       hint: `Pass the numeric business id. This MCP server is limited to businesses ${allowList.join(", ")}.`,
     });
   }
   if (!allowList.includes(numeric)) {
-    throw new ToolError("business_not_allowed", `Business ${numeric} is not in PAYVERGE_MCP_BUSINESS_IDS`, {
+    throw new ToolError("business_not_allowed", `Business ${numeric} is not in NAMAKDAN_MCP_BUSINESS_IDS`, {
       hint: `This MCP server is limited to businesses ${allowList.join(", ")}.`,
     });
   }
@@ -187,7 +187,7 @@ const adminDefinitions = toolDefinitions.map((tool) => ({
  * @param {object} [deps.publicClient] anonymous client for public routes, optional
  * @param {object} [deps.options]      readOnly, businessAllowList, publicUrl, apiBaseUrl, ownerSession
  */
-export function createPayvergeTools({ client, ownerClient, publicClient, options = {} } = {}) {
+export function createNamakdanTools({ client, ownerClient, publicClient, options = {} } = {}) {
   if (!client && !ownerClient && !publicClient) throw new Error("client is required");
 
   const config = createConfigTools({
@@ -218,13 +218,13 @@ export function createPayvergeTools({ client, ownerClient, publicClient, options
 
   async function callAdminTool(name, args) {
     if (!client) {
-      throw new ToolError("admin_auth_not_configured", `${name} is a platform-admin tool and needs PAYVERGE_ADMIN_MCP_TOKEN`, {
-        hint: "Set PAYVERGE_ADMIN_MCP_TOKEN in the MCP server env (and the matching PAYVERGE_ADMIN_MCP_TOKEN_SHA256 on the backend). See tools/payverge-admin-mcp/README.md#platform-admin-token.",
+      throw new ToolError("admin_auth_not_configured", `${name} is a platform-admin tool and needs NAMAKDAN_ADMIN_MCP_TOKEN`, {
+        hint: "Set NAMAKDAN_ADMIN_MCP_TOKEN in the MCP server env (and the matching NAMAKDAN_ADMIN_MCP_TOKEN_SHA256 on the backend). See tools/namakdan-admin-mcp/README.md#platform-admin-token.",
       });
     }
     if (readOnly && ADMIN_MUTATING.has(name) && !resolveDryRun(args)) {
-      throw new ToolError("read_only_mode", "PAYVERGE_MCP_READ_ONLY is set, so changes are refused", {
-        hint: "Previews (dry_run=true) still work. Unset PAYVERGE_MCP_READ_ONLY and restart the MCP server to apply changes.",
+      throw new ToolError("read_only_mode", "NAMAKDAN_MCP_READ_ONLY is set, so changes are refused", {
+        hint: "Previews (dry_run=true) still work. Unset NAMAKDAN_MCP_READ_ONLY and restart the MCP server to apply changes.",
       });
     }
     if (BUSINESS_SCOPED_ADMIN_TOOLS.has(name)) {
@@ -232,23 +232,23 @@ export function createPayvergeTools({ client, ownerClient, publicClient, options
       args = { ...args, id: undefined, businessId: business };
     }
     switch (name) {
-      case "payverge_health_snapshot":
+      case "namakdan_health_snapshot":
         return toolResult(await healthSnapshot(client, args));
-      case "payverge_list_error_logs":
+      case "namakdan_list_error_logs":
         return toolResult(await listErrorLogs(client, args));
-      case "payverge_list_failed_webhooks":
+      case "namakdan_list_failed_webhooks":
         return toolResult(await listFailedWebhooks(client, args));
-      case "payverge_ack_failed_webhook":
+      case "namakdan_ack_failed_webhook":
         return toolResult(await ackFailedWebhook(client, args));
-      case "payverge_fiscal_summary":
+      case "namakdan_fiscal_summary":
         return toolResult(await client.get("/admin/fiscal/summary"));
-      case "payverge_list_fiscal_jobs":
+      case "namakdan_list_fiscal_jobs":
         return toolResult(await listFiscalJobs(client, args));
-      case "payverge_requeue_fiscal_job":
+      case "namakdan_requeue_fiscal_job":
         return toolResult(await requeueFiscalJob(client, args));
-      case "payverge_inspect_business":
+      case "namakdan_inspect_business":
         return toolResult(await inspectBusiness(client, args));
-      case "payverge_diagnose_issue":
+      case "namakdan_diagnose_issue":
         return toolResult(await diagnoseIssue(client, args));
       default:
         throw new Error(`Unknown tool: ${name}`);
@@ -262,10 +262,10 @@ function adminErrorResult(err) {
   // authenticate with the platform token instead.
   if (error.status === 401) {
     error.code = "admin_unauthorized";
-    error.hint = "The backend rejected PAYVERGE_ADMIN_MCP_TOKEN. Check that the backend has the same token, or its SHA-256 in PAYVERGE_ADMIN_MCP_TOKEN_SHA256, and restart both.";
+    error.hint = "The backend rejected NAMAKDAN_ADMIN_MCP_TOKEN. Check that the backend has the same token, or its SHA-256 in NAMAKDAN_ADMIN_MCP_TOKEN_SHA256, and restart both.";
   } else if (error.status === 403) {
     error.code = "admin_forbidden";
-    error.hint = "The backend refused the admin token from this address. Add the IP the backend sees to PAYVERGE_ADMIN_MCP_ALLOWED_IPS (default: loopback only).";
+    error.hint = "The backend refused the admin token from this address. Add the IP the backend sees to NAMAKDAN_ADMIN_MCP_ALLOWED_IPS (default: loopback only).";
   }
   const structuredContent = { error };
   return {
@@ -276,7 +276,7 @@ function adminErrorResult(err) {
 }
 
 // Webhook payloads carry an attacker-influenced businessId. Resolve it the
-// same way the MCP dispatcher does, so PAYVERGE_MCP_BUSINESS_IDS applies
+// same way the MCP dispatcher does, so NAMAKDAN_MCP_BUSINESS_IDS applies
 // before any /admin/businesses/:id/detail request.
 export async function diagnoseIssueWithinAllowList(client, args = {}, businessAllowList) {
   const allowList = normalizeAllowList(businessAllowList);
@@ -488,13 +488,13 @@ function buildRecommendations(signals) {
   const recommendations = [];
 
   if (names.has("failed_webhooks")) {
-    recommendations.push("Inspect failed payment webhook rows with payverge_list_failed_webhooks. Acknowledge reviewed stale/no-op rows with payverge_ack_failed_webhook using dry_run=false and confirm=true, with a reason.");
+    recommendations.push("Inspect failed payment webhook rows with namakdan_list_failed_webhooks. Acknowledge reviewed stale/no-op rows with namakdan_ack_failed_webhook using dry_run=false and confirm=true, with a reason.");
   }
   if (names.has("failed_fiscal_jobs") || names.has("fiscal_failed_jobs")) {
-    recommendations.push("Inspect retryable fiscal jobs with payverge_list_fiscal_jobs status=failed_retryable, then requeue a safe job with payverge_requeue_fiscal_job using dry_run=false and confirm=true. failed_permanent jobs also need allow_permanent=true.");
+    recommendations.push("Inspect retryable fiscal jobs with namakdan_list_fiscal_jobs status=failed_retryable, then requeue a safe job with namakdan_requeue_fiscal_job using dry_run=false and confirm=true. failed_permanent jobs also need allow_permanent=true.");
   }
   if (names.has("errors_1h") || names.has("recent_errors")) {
-    recommendations.push("Group recent errors by component with payverge_list_error_logs and correlate request_id values with backend logs.");
+    recommendations.push("Group recent errors by component with namakdan_list_error_logs and correlate request_id values with backend logs.");
   }
   if (recommendations.length === 0) {
     recommendations.push("No obvious remediation queue is non-empty. Check recent deploys, external provider status, and targeted business context.");

@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/prometheus/client_golang/prometheus/testutil"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -19,7 +19,7 @@ func (s observedProviderStub) Send(context.Context, EmailMessage) error { return
 
 func TestClassifyEmailFailure(t *testing.T) {
 	cases := map[string]string{
-		"This API key is not authorized to send emails from payverge.io": "unauthorized_sender",
+		"This API key is not authorized to send emails from example.test": "unauthorized_sender",
 		"invalid api key":           "authentication",
 		"429 too many requests":     "rate_limited",
 		"context deadline exceeded": "timeout",
@@ -54,12 +54,12 @@ func TestClassifySMTPFailure(t *testing.T) {
 }
 
 func TestObservedProviderRecordsFailureWithoutChangingError(t *testing.T) {
-	wantErr := errors.New("not authorized to send emails from payverge.io")
+	wantErr := errors.New("not authorized to send emails from example.test")
 	labels := []string{"resend", "transactional", "failed", "unauthorized_sender"}
 	before := testutil.ToFloat64(metrics.EmailSendAttempts.WithLabelValues(labels...))
 	provider := NewObservedProvider("resend", observedProviderStub{err: wantErr})
 	err := provider.Send(context.Background(), EmailMessage{
-		From:        "noreply@payverge.io",
+		From:        "noreply@example.test",
 		To:          []string{"private@example.com"},
 		MessageType: MessageTypeTransactional,
 	})

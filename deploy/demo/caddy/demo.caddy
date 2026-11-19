@@ -1,8 +1,8 @@
-# Public demo additions, imported inside the Payverge site block by
-# payverge.caddy (`import /etc/caddy/site.d/*.caddy`). Mounted only by
+# Public demo additions, imported inside the Namakdan site block by
+# namakdan.caddy (`import /etc/caddy/site.d/*.caddy`). Mounted only by
 # demo/docker-compose.demo.yml; a normal install has no site.d.
 #
-# The site already carries payverge_security_headers (HSTS, nosniff,
+# The site already carries namakdan_security_headers (HSTS, nosniff,
 # frame-deny, referrer and permissions policy). The demo adds:
 
 # Never index the demo: its content is whatever visitors typed today.

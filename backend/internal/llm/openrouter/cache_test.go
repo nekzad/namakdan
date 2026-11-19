@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 func TestCacheControlBreakpointOnSystemMessage(t *testing.T) {

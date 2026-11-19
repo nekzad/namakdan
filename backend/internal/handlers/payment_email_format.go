@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/money"
+	"github.com/nekzad/namakdan/backend/internal/money"
 )
 
 // i18n Batch C (C2-lite): formatting helpers for the guest payment-receipt /

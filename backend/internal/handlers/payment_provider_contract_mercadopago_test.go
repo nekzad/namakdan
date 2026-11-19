@@ -13,11 +13,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/paymentcontract"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	"github.com/stdevmac/payverge/backend/internal/plugins/mercadopago"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/paymentcontract"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/plugins/mercadopago"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 func mercadoPagoContractAdapter() paymentcontract.Adapter {
@@ -73,7 +73,7 @@ func newMercadoPagoContractWebhookDriver(t *testing.T) providerContractWebhookDr
 		"access_token":   "APP_USR-contract-access-token-1234567890",
 		"public_key":     "APP_USR-contract-public-key-1234567890",
 		"webhook_secret": "mp_contract_behavior", "environment": "sandbox",
-		"base_url": "https://api.payverge.test", "api_base_url": api.URL,
+		"base_url": "https://api.example.test", "api_base_url": api.URL,
 	})
 	plugins.GlobalRegistry.RegisterPlugin(mercadopago.NewMercadoPagoPlugin(services.NewPluginService(database.GetDBWrapper())))
 	t.Cleanup(func() { plugins.GlobalRegistry.UnregisterPlugin("mercadopago") })

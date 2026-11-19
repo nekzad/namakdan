@@ -2,16 +2,16 @@ package server
 
 import (
 	"errors"
-	"github.com/stdevmac/payverge/backend/internal/middleware"
+	"github.com/nekzad/namakdan/backend/internal/middleware"
 	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/session"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 )
 
 // RevokeSessionsAfterRoleChange revokes every live operator-class session of

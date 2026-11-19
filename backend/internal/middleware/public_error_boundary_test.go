@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/logger"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
@@ -79,10 +79,10 @@ func TestPublicErrorBoundarySanitizesInternalFailureClasses(t *testing.T) {
 		{
 			name:       "filesystem",
 			status:     http.StatusInternalServerError,
-			privateErr: "open /srv/payverge/private/config.json: permission denied",
+			privateErr: "open /srv/namakdan/private/config.json: permission denied",
 			wantCode:   "INTERNAL",
 			wantError:  "Internal server error",
-			forbidden:  []string{"/srv/payverge", "config.json", "permission denied"},
+			forbidden:  []string{"/srv/namakdan", "config.json", "permission denied"},
 		},
 		{
 			name:       "stack and internal identifier",

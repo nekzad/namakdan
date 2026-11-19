@@ -7,10 +7,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/assistantcontract"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/assistantcontract"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/services"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -117,7 +117,7 @@ func TestAssistantTelemetryVerifiesOnlyValidatedRetainedObjects(t *testing.T) {
 	response := assistantcontract.NewResponse("retained-telemetry", "Here is the grounded option.")
 	response.Actions = []assistantcontract.Action{{
 		ID: "open-menu", Type: "navigate", Label: "Open menu",
-		Target: assistantcontract.ActionTarget{Kind: "payverge_page", ID: "menu", Href: "/menu"},
+		Target: assistantcontract.ActionTarget{Kind: "namakdan_page", ID: "menu", Href: "/menu"},
 		State:  "ready", Confirmation: "none",
 	}}
 	response.Sources = []assistantcontract.Source{{
@@ -141,7 +141,7 @@ func TestAssistantTelemetryUsesTrustedFinalizerDropProvenance(t *testing.T) {
 	response := assistantcontract.NewResponse("dropped-provenance", "Here is the verified guide for the requested dashboard task.")
 	response.Actions = []assistantcontract.Action{{
 		ID: "open-menu", Type: "navigate", Label: "Open menu",
-		Target: assistantcontract.ActionTarget{Kind: "payverge_page", ID: "menu", Href: "/menu"},
+		Target: assistantcontract.ActionTarget{Kind: "namakdan_page", ID: "menu", Href: "/menu"},
 		State:  "ready", Confirmation: "none",
 	}}
 	response.Sources = []assistantcontract.Source{{
@@ -486,7 +486,7 @@ func TestOpsHistoryRestoresV2V1AndMalformedRowsSafely(t *testing.T) {
 	rawHref := "/business/7/admin"
 	rawSourceV2 := assistantcontract.NewResponse("ops-raw-source", "Untrusted source")
 	rawSourceV2.Sources = append(rawSourceV2.Sources, assistantcontract.Source{
-		ID: "model-source", Type: "payverge_page", Title: "Admin", Href: &rawHref,
+		ID: "model-source", Type: "namakdan_page", Title: "Admin", Href: &rawHref,
 		Origin: "model", RetrievedAt: time.Now().UTC().Format(time.RFC3339),
 	})
 	require.NoError(t, assistantcontract.Validate(rawSourceV2))

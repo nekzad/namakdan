@@ -12,11 +12,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/blockchain"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/services"
-	"github.com/stdevmac/payverge/backend/internal/services/operational_alerts"
+	"github.com/nekzad/namakdan/backend/internal/blockchain"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/services/operational_alerts"
 
 	"github.com/gin-gonic/gin"
 )
@@ -78,7 +78,7 @@ func guestCryptoQuoteClientKey(secret []byte, clientIP string) string {
 		return ""
 	}
 	mac := hmac.New(sha256.New, secret)
-	mac.Write([]byte("payverge-crypto-quote-client\x00"))
+	mac.Write([]byte("namakdan-crypto-quote-client\x00"))
 	mac.Write([]byte(clientIP))
 	return hex.EncodeToString(mac.Sum(nil)[:16])
 }

@@ -90,19 +90,19 @@ func telegramLifecycleCopyFor(language string) telegramLifecycleCopy {
 
 var telegramLifecycleCopyByLocale = map[telegramLocale]telegramLifecycleCopy{
 	telegramLocaleEN: {
-		welcome: "🎉 *Welcome to Payverge Notifications!*\n\n" +
+		welcome: "🎉 *Welcome to Namakdan Notifications!*\n\n" +
 			"Your business *%s* is now connected to receive real-time notifications.\n\n" +
 			"📱 *What you'll receive:*\n" +
 			"• Order notifications\n" +
 			"• Payment confirmations\n" +
 			"• Daily business summaries\n" +
 			"• Important alerts\n\n" +
-			"⚙️ You can customize your notification preferences in the Payverge dashboard.\n\n" +
+			"⚙️ You can customize your notification preferences in the Namakdan dashboard.\n\n" +
 			"_Ready to stay connected with your business!_",
 		disconnect: "👋 *Telegram Disconnected*\n\n" +
 			"Your business *%s* has been disconnected from Telegram notifications.\n\n" +
-			"You can reconnect anytime through the Payverge dashboard.\n\n" +
-			"Thank you for using Payverge!",
+			"You can reconnect anytime through the Namakdan dashboard.\n\n" +
+			"Thank you for using Namakdan!",
 		testTitle:       "Notification",
 		testSentAtLabel: "Sent at",
 		businessName:    "Your Business",
@@ -123,19 +123,19 @@ func spanishTelegramLifecycleCopy(rioplatense bool) telegramLifecycleCopy {
 		canReconnect = "Podés volver a conectarlo"
 	}
 	return telegramLifecycleCopy{
-		welcome: "🎉 *¡Bienvenido a las notificaciones de Payverge!*\n\n" +
+		welcome: "🎉 *¡Bienvenido a las notificaciones de Namakdan!*\n\n" +
 			"Tu negocio *%s* ya está conectado para recibir notificaciones en tiempo real.\n\n" +
 			"📱 *Qué recibirás:*\n" +
 			"• Notificaciones de pedidos\n" +
 			"• Confirmaciones de pago\n" +
 			"• Resúmenes diarios del negocio\n" +
 			"• Alertas importantes\n\n" +
-			"⚙️ " + canCustomize + " tus preferencias de notificación en el panel de Payverge.\n\n" +
+			"⚙️ " + canCustomize + " tus preferencias de notificación en el panel de Namakdan.\n\n" +
 			"_¡Listo para mantenerte conectado con tu negocio!_",
 		disconnect: "👋 *Telegram desconectado*\n\n" +
 			"Tu negocio *%s* se ha desconectado de las notificaciones de Telegram.\n\n" +
-			canReconnect + " en cualquier momento desde el panel de Payverge.\n\n" +
-			"¡Gracias por usar Payverge!",
+			canReconnect + " en cualquier momento desde el panel de Namakdan.\n\n" +
+			"¡Gracias por usar Namakdan!",
 		testTitle:       "Notificación",
 		testSentAtLabel: "Enviado a las",
 		businessName:    "Tu negocio",

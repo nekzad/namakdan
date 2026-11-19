@@ -8,7 +8,7 @@ import (
 )
 
 func TestValidateRedirectURL_AllowsRelativePath(t *testing.T) {
-	t.Setenv("ALLOWED_REDIRECT_DOMAINS", "payverge.io,www.payverge.io")
+	t.Setenv("ALLOWED_REDIRECT_DOMAINS", "example.test,www.example.test")
 
 	got, err := ValidateRedirectURL("/business/register/success", false)
 
@@ -31,17 +31,17 @@ func TestValidateRedirectURL_RejectsRelativePathsWithBackslashes(t *testing.T) {
 	}
 }
 
-func TestValidateRedirectURL_AllowsPayvergeHTTPS(t *testing.T) {
-	t.Setenv("ALLOWED_REDIRECT_DOMAINS", "payverge.io,www.payverge.io")
+func TestValidateRedirectURL_AllowsNamakdanHTTPS(t *testing.T) {
+	t.Setenv("ALLOWED_REDIRECT_DOMAINS", "example.test,www.example.test")
 
-	got, err := ValidateRedirectURL("https://payverge.io/payment/success", true)
+	got, err := ValidateRedirectURL("https://example.test/payment/success", true)
 
 	require.NoError(t, err)
-	assert.Equal(t, "https://payverge.io/payment/success", got)
+	assert.Equal(t, "https://example.test/payment/success", got)
 }
 
 func TestValidateRedirectURL_RejectsExternalHTTPS(t *testing.T) {
-	t.Setenv("ALLOWED_REDIRECT_DOMAINS", "payverge.io")
+	t.Setenv("ALLOWED_REDIRECT_DOMAINS", "example.test")
 
 	_, err := ValidateRedirectURL("https://evil.example/payment/success", true)
 
@@ -111,29 +111,29 @@ func TestValidateRedirectURL_RejectsLocalhostWhenProductionOverrideSet(t *testin
 
 func TestValidateRedirectURL_AppendsAppDomainDefault(t *testing.T) {
 	t.Setenv("ALLOWED_REDIRECT_DOMAINS", "")
-	t.Setenv("APP_DOMAIN", "app.payverge.io")
+	t.Setenv("APP_DOMAIN", "app.example.test")
 
-	got, err := ValidateRedirectURL("https://app.payverge.io/payment/success", true)
+	got, err := ValidateRedirectURL("https://app.example.test/payment/success", true)
 
 	require.NoError(t, err)
-	assert.Equal(t, "https://app.payverge.io/payment/success", got)
+	assert.Equal(t, "https://app.example.test/payment/success", got)
 }
 
 func TestValidateRedirectURL_NormalizesAllowedRedirectDomains(t *testing.T) {
-	for _, allowed := range []string{"https://payverge.io", "payverge.io:443"} {
+	for _, allowed := range []string{"https://example.test", "example.test:443"} {
 		t.Run(allowed, func(t *testing.T) {
 			t.Setenv("ALLOWED_REDIRECT_DOMAINS", allowed)
 
-			got, err := ValidateRedirectURL("https://payverge.io/payment/success", true)
+			got, err := ValidateRedirectURL("https://example.test/payment/success", true)
 
 			require.NoError(t, err)
-			assert.Equal(t, "https://payverge.io/payment/success", got)
+			assert.Equal(t, "https://example.test/payment/success", got)
 		})
 	}
 }
 
 func TestValidateRedirectURL_RejectsMalformedAndMissingHost(t *testing.T) {
-	for _, raw := range []string{"", "   ", "https://", "payment/success", "mailto:ops@payverge.io"} {
+	for _, raw := range []string{"", "   ", "https://", "payment/success", "mailto:ops@example.test"} {
 		t.Run(raw, func(t *testing.T) {
 			_, err := ValidateRedirectURL(raw, false)
 			assert.Error(t, err)
@@ -149,21 +149,21 @@ func TestValidateRedirectURL_AllowsRelativePathWithQuery(t *testing.T) {
 }
 
 func TestFrontendURLBuildsAbsoluteURL(t *testing.T) {
-	t.Setenv("PUBLIC_URL", "https://payverge.io/")
+	t.Setenv("PUBLIC_URL", "https://example.test/")
 
 	got := FrontendURL("/payment/success?bill=B1")
 
-	assert.Equal(t, "https://payverge.io/payment/success?bill=B1", got)
+	assert.Equal(t, "https://example.test/payment/success?bill=B1", got)
 }
 
 func TestAbsoluteRedirectURL_ConvertsRelativePathToFrontendURL(t *testing.T) {
-	t.Setenv("PUBLIC_URL", "https://payverge.io/")
-	t.Setenv("ALLOWED_REDIRECT_DOMAINS", "payverge.io")
+	t.Setenv("PUBLIC_URL", "https://example.test/")
+	t.Setenv("ALLOWED_REDIRECT_DOMAINS", "example.test")
 
 	got, err := AbsoluteRedirectURL("/payment/success?bill=B1", true)
 
 	require.NoError(t, err)
-	assert.Equal(t, "https://payverge.io/payment/success?bill=B1", got)
+	assert.Equal(t, "https://example.test/payment/success?bill=B1", got)
 }
 
 func TestAbsoluteRedirectURL_RejectsLocalhostFrontendURLInProduction(t *testing.T) {

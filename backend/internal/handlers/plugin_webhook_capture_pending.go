@@ -15,12 +15,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/services/operational_alerts"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/services/operational_alerts"
 )
 
 // Refund, dispute and reversal webhooks that arrive BEFORE their capture is in
@@ -103,8 +103,8 @@ func pluginWebhookStatusNeedsRecordedCapture(status string) bool {
 // dispute object does not carry the merchant's bill reference (a Stripe
 // Dispute's metadata is its own, not the charge's), so these are deferred for
 // a verified tenant even when the event names no bill. Refunds are not: a
-// Payverge charge always carries its bill id, so a bill-less refund belongs to
-// a charge Payverge did not create and is acknowledged as before.
+// Namakdan charge always carries its bill id, so a bill-less refund belongs to
+// a charge Namakdan did not create and is acknowledged as before.
 func pluginWebhookStatusIsDispute(status string) bool {
 	switch status {
 	case "reversed", "dispute_reinstated", "disputed":
@@ -154,13 +154,13 @@ func parsePluginWebhookTimestamp(raw string) (time.Time, bool) {
 }
 
 // pluginCaptureAutoRefundMarkerProvider namespaces the webhook_events marker
-// row written when Payverge itself refunds a capture it could not settle.
+// row written when Namakdan itself refunds a capture it could not settle.
 func pluginCaptureAutoRefundMarkerProvider(pluginName string) string {
 	return "plugin_" + pluginName + ":capture_auto_refunded"
 }
 
 // recordPluginCaptureAutoRefunded leaves a durable marker that this capture
-// was refunded by Payverge without ever reaching the ledger. The provider's
+// was refunded by Namakdan without ever reaching the ledger. The provider's
 // follow-up refund webhook for it must then be acknowledged as a no-op, not
 // retried for three days as an early refund. Best effort: a missing marker
 // only costs bounded retries and an operator alert.
@@ -192,7 +192,7 @@ func pluginCaptureWasAutoRefunded(pluginName, paymentID string) (bool, error) {
 }
 
 // pluginWebhookOldestKnownAt is the earliest time this event is known to have
-// existed: the provider's own creation time, or the first time Payverge stored
+// existed: the provider's own creation time, or the first time Namakdan stored
 // it (webhook_events.created_at survives retry claims, received_at does not).
 func pluginWebhookOldestKnownAt(pluginName string, payload map[string]interface{}, providerKey, webhookID string, now time.Time) time.Time {
 	oldest := now
@@ -220,8 +220,8 @@ func pluginWebhookOldestKnownAt(pluginName string, payload map[string]interface{
 // It returns true when it wrote the response (retry or stale ack) and the
 // caller must stop. It returns false to let the normal path continue: the
 // capture is recorded, the lookup failed (the reversal path fails closed on
-// its own), the capture was auto-refunded by Payverge, or the event is a
-// bill-less refund (a charge Payverge did not create, acknowledged as before).
+// its own), the capture was auto-refunded by Namakdan, or the event is a
+// bill-less refund (a charge Namakdan did not create, acknowledged as before).
 func (ph *PluginHandlers) deferPluginWebhookUntilCaptureRecorded(
 	c *gin.Context,
 	pluginName string,
@@ -255,7 +255,7 @@ func (ph *PluginHandlers) deferPluginWebhookUntilCaptureRecorded(
 		return true
 	}
 	if autoRefunded {
-		log.Printf("%s %s for payment %s matches a capture Payverge auto-refunded; nothing to reverse", pluginName, response.Status, paymentID)
+		log.Printf("%s %s for payment %s matches a capture Namakdan auto-refunded; nothing to reverse", pluginName, response.Status, paymentID)
 		return false
 	}
 

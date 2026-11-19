@@ -40,12 +40,12 @@ func TestResendProviderSendSuccess(t *testing.T) {
 	pointResendAt(t, p, srv.URL)
 
 	result, err := p.SendWithReceipt(context.Background(), EmailMessage{
-		From:        "noreply@payverge.io",
+		From:        "noreply@example.test",
 		To:          []string{"guest@example.com"},
 		Subject:     "Order confirmed",
 		HTMLBody:    "<p>Thanks</p>",
 		TextBody:    "Thanks",
-		ReplyTo:     "support@payverge.io",
+		ReplyTo:     "support@example.test",
 		Tag:         "order_confirmation",
 		MessageType: MessageTypeTransactional,
 	})
@@ -59,8 +59,8 @@ func TestResendProviderSendSuccess(t *testing.T) {
 	if gotAuth != "Bearer re_test_key" {
 		t.Errorf("Authorization header = %q, want Bearer re_test_key", gotAuth)
 	}
-	if gotBody["from"] != "noreply@payverge.io" {
-		t.Errorf("from = %v, want noreply@payverge.io", gotBody["from"])
+	if gotBody["from"] != "noreply@example.test" {
+		t.Errorf("from = %v, want noreply@example.test", gotBody["from"])
 	}
 	if gotBody["subject"] != "Order confirmed" {
 		t.Errorf("subject = %v, want Order confirmed", gotBody["subject"])
@@ -68,7 +68,7 @@ func TestResendProviderSendSuccess(t *testing.T) {
 	if gotBody["html"] != "<p>Thanks</p>" {
 		t.Errorf("html = %v", gotBody["html"])
 	}
-	if gotBody["reply_to"] != "support@payverge.io" {
+	if gotBody["reply_to"] != "support@example.test" {
 		t.Errorf("reply_to = %v", gotBody["reply_to"])
 	}
 	// "to" is serialized as a JSON array.

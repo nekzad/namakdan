@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 // OrderFunnelTool aggregates order counts by status across a day/week/month

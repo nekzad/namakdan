@@ -100,7 +100,7 @@ func (p *PostmarkProvider) SendWithReceipt(_ context.Context, msg EmailMessage) 
 	// reports use Resend's native Idempotency-Key enforcement.
 	if strings.TrimSpace(msg.IdempotencyKey) != "" {
 		pmEmail.Headers = append(pmEmail.Headers, postmark.EmailHeader{
-			Name:  "X-Payverge-Idempotency-Key",
+			Name:  "x-namakdan-Idempotency-Key",
 			Value: msg.IdempotencyKey,
 		})
 	}

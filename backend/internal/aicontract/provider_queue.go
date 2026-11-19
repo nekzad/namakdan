@@ -6,7 +6,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 // ScriptedProvider is a strict ordered fake llm.Provider for hermetic scenarios.

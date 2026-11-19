@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/fiscal"
+	"github.com/nekzad/namakdan/backend/internal/fiscal"
 )
 
 // stubAuthProvider returns fixed token/sign without any network call.

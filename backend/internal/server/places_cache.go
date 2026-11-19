@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/boundedcache"
+	"github.com/nekzad/namakdan/backend/internal/boundedcache"
 
 	"golang.org/x/sync/singleflight"
 )

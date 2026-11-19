@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/runtimecontrol"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/runtimecontrol"
 
 	"github.com/stretchr/testify/require"
 	"gorm.io/driver/sqlite"
@@ -820,7 +820,7 @@ func TestListReceiptsDeliveryIsSingleQuery(t *testing.T) {
 	_, _ = seedListReceiptsPageFixture(t, db)
 
 	var deliveryQueryCount int64
-	const cbName = "payverge:test:fiscal_delivery_tasks_query_count"
+	const cbName = "namakdan:test:fiscal_delivery_tasks_query_count"
 	require.NoError(t, db.Callback().Query().After("gorm:query").Register(cbName, func(tx *gorm.DB) {
 		if tx.Statement == nil {
 			return

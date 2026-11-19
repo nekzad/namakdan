@@ -17,20 +17,20 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/blockchain"
-	appconfig "github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/crm"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/emails"
-	"github.com/stdevmac/payverge/backend/internal/events"
-	"github.com/stdevmac/payverge/backend/internal/fiscal"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/services"
-	"github.com/stdevmac/payverge/backend/internal/services/cashregister"
-	operational_alerts "github.com/stdevmac/payverge/backend/internal/services/operational_alerts"
-	"github.com/stdevmac/payverge/backend/internal/txhash"
+	"github.com/nekzad/namakdan/backend/internal/blockchain"
+	appconfig "github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/crm"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/events"
+	"github.com/nekzad/namakdan/backend/internal/fiscal"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/services/cashregister"
+	operational_alerts "github.com/nekzad/namakdan/backend/internal/services/operational_alerts"
+	"github.com/nekzad/namakdan/backend/internal/txhash"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/gin-gonic/gin"
@@ -314,9 +314,9 @@ func resolveQuoteSecret() []byte {
 		return []byte(s)
 	}
 	if s := strings.TrimSpace(os.Getenv("JWT_SECRET_KEY")); s != "" {
-		return []byte("payverge-crypto-quote:" + s)
+		return []byte("namakdan-crypto-quote:" + s)
 	}
-	return []byte("payverge-dev-crypto-quote-secret")
+	return []byte("namakdan-dev-crypto-quote-secret")
 }
 
 // defaultMaxPaymentAmountCents is the global sanity ceiling on a single payment:

@@ -13,9 +13,9 @@ import (
 	"github.com/google/uuid"
 	qrcode "github.com/skip2/go-qrcode"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/plugins/mercadopago"
-	"github.com/stdevmac/payverge/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/plugins/mercadopago"
+	"github.com/nekzad/namakdan/backend/internal/server"
 )
 
 const (

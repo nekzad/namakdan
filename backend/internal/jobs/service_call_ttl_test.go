@@ -9,8 +9,8 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	operational_alerts "github.com/stdevmac/payverge/backend/internal/services/operational_alerts"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	operational_alerts "github.com/nekzad/namakdan/backend/internal/services/operational_alerts"
 )
 
 func TestServiceCallTTLJanitorExpiresStaleCalls(t *testing.T) {

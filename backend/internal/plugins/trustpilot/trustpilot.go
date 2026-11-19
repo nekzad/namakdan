@@ -7,8 +7,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // TrustpilotPlugin implements the MarketingPlugin interface

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/fiscal"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/fiscal"
 )
 
 // CachingFactory memoizes the underlying ProviderFactory.Build result per

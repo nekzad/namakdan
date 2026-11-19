@@ -13,15 +13,15 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/demomode"
-	"github.com/stdevmac/payverge/backend/internal/events"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	serverhelpers "github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/services"
-	operational_alerts "github.com/stdevmac/payverge/backend/internal/services/operational_alerts"
-	"github.com/stdevmac/payverge/backend/internal/utils"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/demomode"
+	"github.com/nekzad/namakdan/backend/internal/events"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	serverhelpers "github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/services"
+	operational_alerts "github.com/nekzad/namakdan/backend/internal/services/operational_alerts"
+	"github.com/nekzad/namakdan/backend/internal/utils"
 )
 
 // driverPhoneAllowed matches operator phone shapes: optional +, digits, and

@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Deletion-protected Payverge off-site database backup storage and least-privilege roles",
+  "Description": "Deletion-protected Namakdan off-site database backup storage and least-privilege roles",
   "Parameters": {
     "BackupBucketName": {
       "Type": "String",

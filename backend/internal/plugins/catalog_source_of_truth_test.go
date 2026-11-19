@@ -8,17 +8,17 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/services"
 
 	// Blank-import every code-backed plugin so their init() registers with the
 	// GlobalRegistry. This is exactly the set main.go blank-imports.
-	_ "github.com/stdevmac/payverge/backend/internal/plugins/mercadopago"
-	_ "github.com/stdevmac/payverge/backend/internal/plugins/paypal"
-	_ "github.com/stdevmac/payverge/backend/internal/plugins/stripe"
-	_ "github.com/stdevmac/payverge/backend/internal/plugins/telegram"
-	_ "github.com/stdevmac/payverge/backend/internal/plugins/trustpilot"
+	_ "github.com/nekzad/namakdan/backend/internal/plugins/mercadopago"
+	_ "github.com/nekzad/namakdan/backend/internal/plugins/paypal"
+	_ "github.com/nekzad/namakdan/backend/internal/plugins/stripe"
+	_ "github.com/nekzad/namakdan/backend/internal/plugins/telegram"
+	_ "github.com/nekzad/namakdan/backend/internal/plugins/trustpilot"
 )
 
 // TestSeedAndRegistryPluginNamesDisjoint enforces the single-source-of-truth

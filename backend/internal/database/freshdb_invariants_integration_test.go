@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/testperf"
+	"github.com/nekzad/namakdan/backend/internal/testperf"
 )
 
 // TestFreshDB_HasMoneyInvariants boots a real empty Postgres through the

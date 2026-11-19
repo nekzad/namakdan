@@ -1,8 +1,8 @@
 package print
 
 import (
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/events"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/events"
 )
 
 func printWakeEventType(kind database.PrintJobKind) string {

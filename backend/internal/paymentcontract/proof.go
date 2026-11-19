@@ -70,7 +70,7 @@ func BuildHermeticProof(input io.Reader, sourceSHA string, generatedAt time.Time
 		if !strings.HasPrefix(event.Test, prefix) || event.Action == "run" || event.Action == "output" {
 			continue
 		}
-		if event.Package != "github.com/stdevmac/payverge/backend/internal/handlers" {
+		if event.Package != "github.com/nekzad/namakdan/backend/internal/handlers" {
 			return nil, fmt.Errorf("contract event %s came from unexpected package %s", event.Test, event.Package)
 		}
 		parts := strings.Split(strings.TrimPrefix(event.Test, prefix), "/")

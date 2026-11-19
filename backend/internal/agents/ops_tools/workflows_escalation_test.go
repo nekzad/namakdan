@@ -6,10 +6,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/agents"
-	"github.com/stdevmac/payverge/backend/internal/agents/ops_tools"
-	"github.com/stdevmac/payverge/backend/internal/emails"
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/agents"
+	"github.com/nekzad/namakdan/backend/internal/agents/ops_tools"
+	"github.com/nekzad/namakdan/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 // failingProvider always errors so email delivery fails deterministically.
@@ -36,7 +36,7 @@ func withAdminInbox(t *testing.T, inbox ...string) {
 func passingEmailServer(t *testing.T) *emails.EmailServer {
 	t.Helper()
 	withAdminInbox(t, "ops@example.org")
-	srv, err := emails.NewEmailServer(passingProvider{}, "noreply@test.payverge.io", "updates@test.payverge.io", "../../../email/templates")
+	srv, err := emails.NewEmailServer(passingProvider{}, "noreply@test.example.test", "updates@test.example.test", "../../../email/templates")
 	if err != nil {
 		t.Fatalf("build email server: %v", err)
 	}
@@ -46,7 +46,7 @@ func passingEmailServer(t *testing.T) *emails.EmailServer {
 func failingEmailServer(t *testing.T) *emails.EmailServer {
 	t.Helper()
 	withAdminInbox(t, "ops@example.org")
-	srv, err := emails.NewEmailServer(failingProvider{}, "noreply@test.payverge.io", "updates@test.payverge.io", "../../../email/templates")
+	srv, err := emails.NewEmailServer(failingProvider{}, "noreply@test.example.test", "updates@test.example.test", "../../../email/templates")
 	if err != nil {
 		t.Fatalf("build email server: %v", err)
 	}

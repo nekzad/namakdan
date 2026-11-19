@@ -11,7 +11,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/fiscal"
+	"github.com/nekzad/namakdan/backend/internal/fiscal"
 )
 
 func qrFecha(t *testing.T, qr string) string {

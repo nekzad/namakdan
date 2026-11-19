@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/guardrails"
+	"github.com/nekzad/namakdan/backend/internal/guardrails"
 )
 
 type denyWhatsAppClassifier struct{ category string }

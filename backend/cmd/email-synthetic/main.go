@@ -35,8 +35,8 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/emails"
 )
 
 func main() {
@@ -128,14 +128,14 @@ func run(dryRun bool) error {
 	if err != nil {
 		return err
 	}
-	msg.Subject = fmt.Sprintf("[Payverge synthetic] %s", tag)
+	msg.Subject = fmt.Sprintf("[Namakdan synthetic] %s", tag)
 	msg.TextBody = fmt.Sprintf(
-		"Payverge email synthetic probe.\n\nTag: %s\nTimestamp (UTC): %s\n",
+		"Namakdan email synthetic probe.\n\nTag: %s\nTimestamp (UTC): %s\n",
 		tag,
 		time.Now().UTC().Format(time.RFC3339),
 	)
 	msg.HTMLBody = fmt.Sprintf(
-		"<p>Payverge email synthetic probe.</p><p>Tag: <code>%s</code></p><p>Timestamp (UTC): %s</p>",
+		"<p>Namakdan email synthetic probe.</p><p>Tag: <code>%s</code></p><p>Timestamp (UTC): %s</p>",
 		tag,
 		time.Now().UTC().Format(time.RFC3339),
 	)

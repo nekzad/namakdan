@@ -3,7 +3,7 @@ package main
 import (
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/auth"
+	"github.com/nekzad/namakdan/backend/internal/auth"
 
 	"golang.org/x/crypto/bcrypt"
 )

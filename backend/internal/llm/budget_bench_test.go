@@ -8,7 +8,7 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/testperf/genesisdb"
+	"github.com/nekzad/namakdan/backend/internal/testperf/genesisdb"
 )
 
 // openBudgetBenchDB is the testing.B twin of requireBudgetPostgres: an

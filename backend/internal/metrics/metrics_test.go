@@ -59,13 +59,13 @@ func TestAuthorizationAndVerificationMetricsAreBoundedAndCollectable(t *testing.
 	EmailVerificationLatency.Observe((23 * time.Minute).Seconds())
 
 	mismatch := collect(t, TenantAuthorizationMismatches)
-	require.Equal(t, "payverge_tenant_authorization_mismatches_total", mismatch.GetName())
+	require.Equal(t, "namakdan_tenant_authorization_mismatches_total", mismatch.GetName())
 	require.Len(t, mismatch.Metric, 1)
 	require.Len(t, mismatch.Metric[0].Label, 1)
 	require.Equal(t, "boundary", mismatch.Metric[0].Label[0].GetName())
 
 	latency := collect(t, EmailVerificationLatency)
-	require.Equal(t, "payverge_email_verification_latency_seconds", latency.GetName())
+	require.Equal(t, "namakdan_email_verification_latency_seconds", latency.GetName())
 	require.Len(t, latency.Metric, 1)
 }
 
@@ -77,7 +77,7 @@ func TestAlternativePaymentRequestMetricsUseClosedOutcomes(t *testing.T) {
 	}
 
 	mf := collect(t, alternativePaymentRequestOutcomes)
-	require.Equal(t, "payverge_alternative_payment_request_outcomes_total", mf.GetName())
+	require.Equal(t, "namakdan_alternative_payment_request_outcomes_total", mf.GetName())
 	require.Len(t, mf.Metric, len(AlternativePaymentRequestOutcomeValues()))
 
 	require.Panics(t, func() {
@@ -152,7 +152,7 @@ func TestRefreshOutcomeCounterUsesClosedLabels(t *testing.T) {
 	}
 	var mf *dto.MetricFamily
 	for _, candidate := range mfs {
-		if candidate.GetName() == "payverge_auth_refresh_outcomes_total" {
+		if candidate.GetName() == "namakdan_auth_refresh_outcomes_total" {
 			mf = candidate
 			break
 		}
@@ -202,7 +202,7 @@ func TestRefreshOutcomeCounterRegisteredByInit(t *testing.T) {
 	Init()
 	RecordRefreshOutcome(RefreshRealmOperator, RefreshOutcomeSuccess)
 
-	count, err := testutil.GatherAndCount(prometheus.DefaultGatherer, "payverge_auth_refresh_outcomes_total")
+	count, err := testutil.GatherAndCount(prometheus.DefaultGatherer, "namakdan_auth_refresh_outcomes_total")
 	if err != nil {
 		t.Fatalf("gather registered refresh metric: %v", err)
 	}
@@ -239,8 +239,8 @@ func TestFiscalOrphanedCAETotalRegistered(t *testing.T) {
 	}
 	FiscalOrphanedCAETotal.Inc()
 	mf := collect(t, FiscalOrphanedCAETotal)
-	if mf.GetName() != "payverge_fiscal_orphaned_cae_total" {
-		t.Fatalf("want metric name payverge_fiscal_orphaned_cae_total, got %s", mf.GetName())
+	if mf.GetName() != "namakdan_fiscal_orphaned_cae_total" {
+		t.Fatalf("want metric name namakdan_fiscal_orphaned_cae_total, got %s", mf.GetName())
 	}
 	if got := len(mf.Metric); got != 1 {
 		t.Fatalf("want 1 metric sample, got %d", got)
@@ -254,10 +254,10 @@ func TestEmailMetricsRegisteredByInit(t *testing.T) {
 	EmailSendExhausted.WithLabelValues("resend", "timeout").Add(0)
 	EmailDeliveryEvents.WithLabelValues("email.delivered").Add(0)
 	for _, name := range []string{
-		"payverge_email_send_attempts_total",
-		"payverge_email_send_duration_seconds",
-		"payverge_email_send_exhausted_total",
-		"payverge_email_delivery_events_total",
+		"namakdan_email_send_attempts_total",
+		"namakdan_email_send_duration_seconds",
+		"namakdan_email_send_exhausted_total",
+		"namakdan_email_delivery_events_total",
 	} {
 		count, err := testutil.GatherAndCount(prometheus.DefaultGatherer, name)
 		if err != nil {
@@ -278,7 +278,7 @@ func TestAIImageMonthlyAlertsRegisteredByInit(t *testing.T) {
 	Init()
 	AIImageMonthlyAlerts.Add(0)
 
-	const name = "payverge_ai_image_monthly_alerts_total"
+	const name = "namakdan_ai_image_monthly_alerts_total"
 	count, err := testutil.GatherAndCount(prometheus.DefaultGatherer, name)
 	if err != nil {
 		t.Fatalf("gather %s: %v", name, err)
@@ -314,8 +314,8 @@ func TestNoDeadCarFleetMetricsRegistered(t *testing.T) {
 		}
 		have[mf.GetName()] = true
 	}
-	if !have["payverge_payment_webhook_processing_failures_total"] {
-		t.Error("missing real signal: payverge_payment_webhook_processing_failures_total")
+	if !have["namakdan_payment_webhook_processing_failures_total"] {
+		t.Error("missing real signal: namakdan_payment_webhook_processing_failures_total")
 	}
 }
 
@@ -324,8 +324,8 @@ func TestPaymentReconciliationMetricsRegistered(t *testing.T) {
 	PaymentReconciliationOutcomes.WithLabelValues("_test", "pending").Add(0)
 	PaymentReconciliationOldestPendingSeconds.WithLabelValues("_test").Set(0)
 	for _, name := range []string{
-		"payverge_payment_reconciliation_outcomes_total",
-		"payverge_payment_reconciliation_oldest_pending_seconds",
+		"namakdan_payment_reconciliation_outcomes_total",
+		"namakdan_payment_reconciliation_oldest_pending_seconds",
 	} {
 		count, err := testutil.GatherAndCount(prometheus.DefaultGatherer, name)
 		if err != nil {

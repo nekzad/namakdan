@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/middleware"
-	"github.com/stdevmac/payverge/backend/internal/s3"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/middleware"
+	"github.com/nekzad/namakdan/backend/internal/s3"
 
 	"github.com/gin-gonic/gin"
 )

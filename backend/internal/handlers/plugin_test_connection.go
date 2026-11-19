@@ -8,11 +8,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/plugins/mercadopago"
-	"github.com/stdevmac/payverge/backend/internal/plugins/paypal"
-	"github.com/stdevmac/payverge/backend/internal/plugins/stripe"
-	"github.com/stdevmac/payverge/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/plugins/mercadopago"
+	"github.com/nekzad/namakdan/backend/internal/plugins/paypal"
+	"github.com/nekzad/namakdan/backend/internal/plugins/stripe"
+	"github.com/nekzad/namakdan/backend/internal/server"
 
 	"github.com/gin-gonic/gin"
 )

@@ -36,8 +36,8 @@ func TestBusinessOnboardingEmailNamesNoPlan(t *testing.T) {
 				t.Fatalf("ai=%v %s: send: %v", ai, lang, err)
 			}
 			msg := provider.sent[0]
-			if lang == "eng" && msg.Subject != "Welcome to Payverge" {
-				t.Errorf("ai=%v: subject %q, want %q", ai, msg.Subject, "Welcome to Payverge")
+			if lang == "eng" && msg.Subject != "Welcome to Namakdan" {
+				t.Errorf("ai=%v: subject %q, want %q", ai, msg.Subject, "Welcome to Namakdan")
 			}
 			for _, bad := range []string{"Core", "AI Pro"} {
 				if strings.Contains(msg.Subject, bad) || strings.Contains(msg.HTMLBody, bad) {

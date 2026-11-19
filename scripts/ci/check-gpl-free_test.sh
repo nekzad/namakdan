@@ -46,8 +46,8 @@ EOF
   echo "$dir/go"
 }
 
-CLEAN_DEPS=$'fmt\ngithub.com/stdevmac/payverge/backend/internal/services\ngithub.com/ethereum/go-ethereum/common\ngithub.com/golang/freetype/truetype'
-TAGGED_DEPS=$'fmt\ngithub.com/stdevmac/payverge/backend/internal/services\ngo.mau.fi/whatsmeow\ngo.mau.fi/libsignal/ecc'
+CLEAN_DEPS=$'fmt\ngithub.com/nekzad/namakdan/backend/internal/services\ngithub.com/ethereum/go-ethereum/common\ngithub.com/golang/freetype/truetype'
+TAGGED_DEPS=$'fmt\ngithub.com/nekzad/namakdan/backend/internal/services\ngo.mau.fi/whatsmeow\ngo.mau.fi/libsignal/ecc'
 
 # --- unit: denylist matching ---
 # shellcheck source=/dev/null
@@ -77,13 +77,13 @@ fi
 
 # --- e2e: GPL in the default graph fails and names the importer ---
 fake="$(make_fake_go leak "$TAGGED_DEPS" "$TAGGED_DEPS" \
-  $'github.com/stdevmac/payverge/backend/internal/services fmt go.mau.fi/whatsmeow\ngo.mau.fi/whatsmeow go.mau.fi/libsignal/ecc' 0)"
+  $'github.com/nekzad/namakdan/backend/internal/services fmt go.mau.fi/whatsmeow\ngo.mau.fi/whatsmeow go.mau.fi/libsignal/ecc' 0)"
 if out="$(GO="$fake" bash "$GATE" 2>&1)"; then
   fail "GPL package in the default graph should fail"
-elif [[ "$out" == *"github.com/stdevmac/payverge/backend/internal/services -> go.mau.fi/whatsmeow"* && "$out" != *"go.mau.fi/whatsmeow -> go.mau.fi/libsignal"* ]]; then
+elif [[ "$out" == *"github.com/nekzad/namakdan/backend/internal/services -> go.mau.fi/whatsmeow"* && "$out" != *"go.mau.fi/whatsmeow -> go.mau.fi/libsignal"* ]]; then
   pass "GPL leak fails and names only the non-GPL entry point"
 else
-  fail "GPL leak output should name github.com/stdevmac/payverge/backend/internal/services -> go.mau.fi/whatsmeow; got:"$'\n'"$out"
+  fail "GPL leak output should name github.com/nekzad/namakdan/backend/internal/services -> go.mau.fi/whatsmeow; got:"$'\n'"$out"
 fi
 
 # --- e2e: tag that no longer wires whatsmeow fails (gate is not vacuous) ---

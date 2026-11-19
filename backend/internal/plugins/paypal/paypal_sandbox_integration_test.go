@@ -22,7 +22,7 @@ func TestPayPalSandboxIntegration_CreateOrderAndValidateWebhookConfig(t *testing
 		"purchase_units": []map[string]interface{}{
 			{
 				"reference_id": "bill_1",
-				"description":  "Payverge sandbox bill payment readiness check",
+				"description":  "Namakdan sandbox bill payment readiness check",
 				"amount": map[string]interface{}{
 					"currency_code": "USD",
 					"value":         "1.00",
@@ -33,7 +33,7 @@ func TestPayPalSandboxIntegration_CreateOrderAndValidateWebhookConfig(t *testing
 		"application_context": map[string]interface{}{
 			"return_url":  "http://localhost:3000/payment/sandbox/success",
 			"cancel_url":  "http://localhost:3000/payment/sandbox/cancel",
-			"brand_name":  "Payverge Sandbox",
+			"brand_name":  "Namakdan Sandbox",
 			"user_action": "PAY_NOW",
 		},
 	}, config)

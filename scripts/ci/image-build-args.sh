@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Print the Docker build arguments for a Payverge image, one KEY=VALUE per line.
+# Print the Docker build arguments for a Namakdan image, one KEY=VALUE per line.
 #
 #   scripts/ci/image-build-args.sh <backend|frontend> <version>
 #

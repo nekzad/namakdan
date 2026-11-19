@@ -46,7 +46,7 @@ func TestPostmarkRecipients(t *testing.T) {
 func TestPostmarkSendWithReceiptRejectsCommaListWithoutNetwork(t *testing.T) {
 	p := NewPostmarkProvider("tok")
 	_, err := p.SendWithReceipt(context.Background(), EmailMessage{
-		From:    "noreply@payverge.io",
+		From:    "noreply@example.test",
 		To:      []string{"a@x.com, b@y.com"},
 		Subject: "hi",
 	})

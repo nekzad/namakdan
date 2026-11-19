@@ -14,7 +14,7 @@ import (
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/testperf/genesisdb"
+	"github.com/nekzad/namakdan/backend/internal/testperf/genesisdb"
 )
 
 // requireBudgetPostgres opens an isolated Postgres database at the production

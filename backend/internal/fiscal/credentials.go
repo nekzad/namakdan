@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/fiscal/certutil"
-	"github.com/stdevmac/payverge/backend/internal/security"
+	"github.com/nekzad/namakdan/backend/internal/fiscal/certutil"
+	"github.com/nekzad/namakdan/backend/internal/security"
 )
 
 // parsedCertBundle is the result of validateAndParseCertBundle.

@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -30,12 +30,12 @@ func setupBroadcastRecipientsDB(t *testing.T) *gorm.DB {
 func TestIsDeliverableEmail_ExcludesReservedDomains(t *testing.T) {
 	cases := map[string]bool{
 		"owner@restaurant.com":     true,
-		"ops@payverge.io":          true,
+		"ops@example.test":          true,
 		"  Owner@Restaurant.COM  ": true,
 		// example.com is a real public zone; the reserved TLD is bare ".example".
 		"user@example.com":       true,
-		"ci@payverge.test":       false,
-		"qa@payverge.local":      false,
+		"ci@example.test":       false,
+		"qa@example.test":      false,
 		"nobody@example.invalid": false,
 		"user@sub.example":       false,
 		"demo@foo.local":         false,
@@ -75,9 +75,9 @@ func TestResolveBroadcastRecipients_ExcludesFixturesAndNonDeliverable(t *testing
 	seed("bc-real-1", "Real Bistro", "owner@real-bistro.com", database.BusinessKindReal)
 	seed("bc-real-2", "Real Cafe", "hello@real-cafe.io", database.BusinessKindReal)
 	// kind=real but reserved domain — must still be excluded by the domain guard.
-	seed("bc-real-local", "Misclassified Local", "ops@payverge.local", database.BusinessKindReal)
-	seed("bc-demo", "Demo Cafe", "demo@payverge.local", database.BusinessKindDemo)
-	seed("bc-test", "CI Fixture", "ci@payverge.test", database.BusinessKindTest)
+	seed("bc-real-local", "Misclassified Local", "ops@example.test", database.BusinessKindReal)
+	seed("bc-demo", "Demo Cafe", "demo@example.test", database.BusinessKindDemo)
+	seed("bc-test", "CI Fixture", "ci@example.test", database.BusinessKindTest)
 	// Blank email must not appear.
 	seed("bc-real-blank", "No Email Biz", "", database.BusinessKindReal)
 
@@ -87,9 +87,9 @@ func TestResolveBroadcastRecipients_ExcludesFixturesAndNonDeliverable(t *testing
 	assert.Len(t, got, 2, "only deliverable kind=real addresses")
 	assert.Contains(t, got, "owner@real-bistro.com")
 	assert.Contains(t, got, "hello@real-cafe.io")
-	assert.NotContains(t, got, "ops@payverge.local")
-	assert.NotContains(t, got, "demo@payverge.local")
-	assert.NotContains(t, got, "ci@payverge.test")
+	assert.NotContains(t, got, "ops@example.test")
+	assert.NotContains(t, got, "demo@example.test")
+	assert.NotContains(t, got, "ci@example.test")
 }
 
 // Literal recipient addresses inherit the same domain guard — an admin cannot
@@ -99,8 +99,8 @@ func TestResolveBroadcastRecipients_LiteralAddressDomainGuard(t *testing.T) {
 
 	got, err := ResolveBroadcastRecipients([]string{
 		"safe@restaurant.com",
-		"bounce@payverge.local",
-		"ci@payverge.test",
+		"bounce@example.test",
+		"ci@example.test",
 	})
 	require.NoError(t, err)
 	assert.Len(t, got, 1)
@@ -124,7 +124,7 @@ func TestListBroadcastableBusinessEmails_CountAndSample(t *testing.T) {
 		CreatedAt: now.Add(time.Second), UpdatedAt: now,
 	}).Error)
 	require.NoError(t, db.Create(&database.Business{
-		BusinessId: "bc-s3", Name: "Fixture", OwnerName: "F", Email: "f@payverge.local",
+		BusinessId: "bc-s3", Name: "Fixture", OwnerName: "F", Email: "f@example.test",
 		Kind:      database.BusinessKindTest,
 		CreatedAt: now, UpdatedAt: now,
 	}).Error)

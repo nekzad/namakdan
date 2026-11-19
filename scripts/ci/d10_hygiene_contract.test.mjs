@@ -26,7 +26,7 @@ test("self-host edge runs the stock Caddy image with the checked-in deploy files
   // The official image (no custom build), pinned to a 2.x tag and its digest.
   assert.match(compose, /^\s+image: caddy:2\.\d+\.\d+(-alpine)?@sha256:[0-9a-f]{64}\s*$/m);
   assert.doesNotMatch(compose, /caddy\/Dockerfile/);
-  for (const file of ["Caddyfile", "Caddyfile.cloudflare", "payverge.caddy", "cloudflare-cidrs.caddy"]) {
+  for (const file of ["Caddyfile", "Caddyfile.cloudflare", "namakdan.caddy", "cloudflare-cidrs.caddy"]) {
     assert.ok(compose.includes(`./${file}:/etc/caddy/${file}:ro`), `compose mounts ${file}`);
     assert.ok(read("deploy", file).length > 0, `deploy/${file} exists`);
   }
@@ -132,7 +132,7 @@ test("active entry-point documentation names current providers", () => {
   assert.match(readme, /EMAIL_PROVIDER/);
   assert.match(readme, /EMAIL_API_KEY/);
   assert.match(readme, /RESEND_WEBHOOK_SECRET/);
-  assert.doesNotMatch(readme, /production\.yml.*PAYVERGE_IMAGE_TAG.*latest/);
+  assert.doesNotMatch(readme, /production\.yml.*NAMAKDAN_IMAGE_TAG.*latest/);
 
   const dependencies = read("docs", "CODEMAPS", "dependencies.md");
   assert.match(dependencies, /OpenRouter \(Gemini models\)/);
@@ -220,7 +220,7 @@ test("required runbooks and CI hygiene hooks cannot disappear", () => {
 test("credential exposure response requires rotation before history remediation", () => {
   const runbook = read("docs", "runbooks", "credential-exposure-response.md");
   assert.match(runbook, /REGISTRATION_MODE=closed/);
-  assert.doesNotMatch(runbook, /payverge_backup_|Current known finding/);
+  assert.doesNotMatch(runbook, /namakdan_backup_|Current known finding/);
   assert.match(runbook, /rotate[^\n]+before[^\n]+history rewrite/i);
   assert.match(runbook, /superseded credential[^\n]+fails/i);
   assert.match(runbook, /git filter-repo/);
@@ -280,12 +280,12 @@ test("public tree tracks no private, production-only or agent-tooling paths", ()
     ".grok/",
     ".agents/",
     ".design-sync/",
-    "stdevMac/",
+    "nekzad/",
     "docs/audit/",
     "docs/audits/",
     "docs/launch-evidence/",
     "docs/legal/",
-    "docs/payverge-audit/",
+    "docs/namakdan-audit/",
     "docs/pitch/",
     "docs/qa/",
     "docs/sales/",
@@ -360,7 +360,7 @@ const EXPORT_DENIED = [
   /^docs\/improvements\//,
   /^docs\/product\/improvement-paths-and-killer-features\.md$/,
   /^docs\/design\/sidebar-gap-list\.md$/,
-  /^docs\/fiscal\/payverge-fiscal-snapshot\.md$/,
+  /^docs\/fiscal\/namakdan-fiscal-snapshot\.md$/,
 ];
 const exportView = (files, dropText) => {
   if (dropText === undefined) return files;
@@ -380,7 +380,7 @@ test("the export guard flags private planning trees", () => {
     "docs/improvements/README.md",
     "docs/product/improvement-paths-and-killer-features.md",
     "docs/design/sidebar-gap-list.md",
-    "docs/fiscal/payverge-fiscal-snapshot.md",
+    "docs/fiscal/namakdan-fiscal-snapshot.md",
   ]) {
     assert.deepEqual(exportLeaks([file, "docs/ONBOARDING.md"], undefined), [file], file);
   }
@@ -479,7 +479,7 @@ test("secrets, keys and backup output stay ignored; templates stay trackable", (
     "tls/server.pem",
     "tls/server.key",
     "certs/keystore.p12",
-    "backups/payverge_20260101.sql",
+    "backups/namakdan_20260101.sql",
     "deploy/backups/latest.dump",
     "var/backup/.last-success",
     "var/backup/.last-upload-success",
@@ -641,8 +641,8 @@ test("container images ship the root LICENSE and NOTICE with OCI labels (D-8)", 
       assert.equal(read(image, "LICENSES", file), read("LICENSES", file), `${image}/LICENSES/${file} must be a byte-identical copy`);
     }
     const dockerfile = read(image, "Dockerfile");
-    assert.match(dockerfile, /^COPY (--chown=\S+ )?LICENSE NOTICE \/usr\/share\/doc\/payverge\/$/m, `${image}/Dockerfile must copy LICENSE and NOTICE`);
+    assert.match(dockerfile, /^COPY (--chown=\S+ )?LICENSE NOTICE \/usr\/share\/doc\/namakdan\/$/m, `${image}/Dockerfile must copy LICENSE and NOTICE`);
     assert.match(dockerfile, /org\.opencontainers\.image\.licenses="Apache-2\.0 AND LGPL-3\.0-or-later"/, `${image}/Dockerfile licenses label`);
-    assert.match(dockerfile, /org\.opencontainers\.image\.source="https:\/\/github\.com\/stdevMac\/payverge"/, `${image}/Dockerfile source label`);
+    assert.match(dockerfile, /org\.opencontainers\.image\.source="https:\/\/github\.com\/nekzad\/namakdan"/, `${image}/Dockerfile source label`);
   }
 });

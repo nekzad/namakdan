@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/logic"
-	"github.com/stdevmac/payverge/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/logic"
+	"github.com/nekzad/namakdan/backend/internal/server"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -35,7 +35,7 @@ func TestLinkWallet_ValidatesSIWEDomainAndConsumesNonceOnce(t *testing.T) {
 		return challenge.Value
 	}
 	build := func(domain, nonce string) (string, string) {
-		message := fmt.Sprintf("%s wants you to sign in with your Ethereum account:\n%s\n\nLink this wallet to your Payverge account.\n\nURI: https://%s\nVersion: 1\nChain ID: #1\nNonce: %s\nIssued At: %s",
+		message := fmt.Sprintf("%s wants you to sign in with your Ethereum account:\n%s\n\nLink this wallet to your Namakdan account.\n\nURI: https://%s\nVersion: 1\nChain ID: #1\nNonce: %s\nIssued At: %s",
 			domain, address, domain, nonce, time.Now().UTC().Format(time.RFC3339))
 		prefixed := fmt.Sprintf("\x19Ethereum Signed Message:\n%d%s", len(message), message)
 		sig, err := crypto.Sign(crypto.Keccak256([]byte(prefixed)), key)

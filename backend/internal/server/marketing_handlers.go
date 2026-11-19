@@ -17,11 +17,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"golang.org/x/text/unicode/norm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/locales"
-	"github.com/stdevmac/payverge/backend/internal/s3"
-	"github.com/stdevmac/payverge/backend/internal/services"
-	"github.com/stdevmac/payverge/backend/internal/services/marketing"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/locales"
+	"github.com/nekzad/namakdan/backend/internal/s3"
+	"github.com/nekzad/namakdan/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/services/marketing"
 )
 
 type marketingImageRequest struct {
@@ -761,7 +761,7 @@ func marketingCaptionSubjectOnMenu(business *database.Business, subject string) 
 			return true
 		}
 	}
-	// No carta in Payverge yet (menu not imported). There is nothing to
+	// No carta in Namakdan yet (menu not imported). There is nothing to
 	// contradict the subject with, so stay out of the operator's way — the
 	// point of this guard is a venue whose real menu says otherwise.
 	return named == 0

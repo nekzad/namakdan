@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/guestsession"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/guestsession"
 
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"

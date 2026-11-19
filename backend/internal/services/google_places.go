@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/httpclientx"
+	"github.com/nekzad/namakdan/backend/internal/httpclientx"
 )
 
 // placesHTTPClient bounds Google Places API calls so a hung endpoint cannot

@@ -133,7 +133,7 @@ func TestDeployCaddyShipsCloudflareCIDRs(t *testing.T) {
 	for _, mount := range []string{
 		"./Caddyfile:/etc/caddy/Caddyfile:ro",
 		"./Caddyfile.cloudflare:/etc/caddy/Caddyfile.cloudflare:ro",
-		"./payverge.caddy:/etc/caddy/payverge.caddy:ro",
+		"./namakdan.caddy:/etc/caddy/namakdan.caddy:ro",
 		"./cloudflare-cidrs.caddy:/etc/caddy/cloudflare-cidrs.caddy:ro",
 	} {
 		if !strings.Contains(compose, mount) {
@@ -151,25 +151,25 @@ func TestCaddyTrustAndClientIPContract(t *testing.T) {
 		t.Fatal("Caddy must prefer Cloudflare's authenticated client IP header")
 	}
 
-	site := readRepoFile(t, "deploy", "payverge.caddy")
-	clientIP := caddySnippet(t, site, "payverge_client_ip")
+	site := readRepoFile(t, "deploy", "namakdan.caddy")
+	clientIP := caddySnippet(t, site, "namakdan_client_ip")
 	if !strings.Contains(clientIP, "header_up X-Forwarded-For {client_ip}") {
-		t.Fatal("the payverge_client_ip snippet must replace X-Forwarded-For with the verified {client_ip}")
+		t.Fatal("the namakdan_client_ip snippet must replace X-Forwarded-For with the verified {client_ip}")
 	}
 	// Every other client-identity header is removed, so neither app can read
 	// a client-chosen address (Gin also reads X-Real-IP).
 	for _, header := range []string{"X-Real-IP", "CF-Connecting-IP", "True-Client-IP", "X-Client-IP", "Forwarded"} {
 		if !strings.Contains(clientIP, "header_up -"+header+"\n") {
-			t.Errorf("payverge_client_ip must remove the client-supplied %s header before proxying", header)
+			t.Errorf("namakdan_client_ip must remove the client-supplied %s header before proxying", header)
 		}
 	}
 	proxies := regexp.MustCompile(`(?m)^\s*reverse_proxy \S+ \{$`).FindAllStringIndex(site, -1)
-	if got := strings.Count(site, "import payverge_client_ip"); got < 2 || got != len(proxies) {
-		t.Fatalf("every reverse_proxy (backend and frontend) must import payverge_client_ip; %d imports for %d proxies", got, len(proxies))
+	if got := strings.Count(site, "import namakdan_client_ip"); got < 2 || got != len(proxies) {
+		t.Fatalf("every reverse_proxy (backend and frontend) must import namakdan_client_ip; %d imports for %d proxies", got, len(proxies))
 	}
 	for _, spoofable := range []string{"{http.request.header.CF-Connecting-IP}", "{http.request.header.X-Forwarded-For}", "{header.X-Forwarded-For}"} {
 		if strings.Contains(site, spoofable) {
-			t.Fatalf("payverge.caddy must never key on the spoofable request header %s", spoofable)
+			t.Fatalf("namakdan.caddy must never key on the spoofable request header %s", spoofable)
 		}
 	}
 }
@@ -214,9 +214,9 @@ func TestDeployCaddyTrustedProxiesAreStrict(t *testing.T) {
 // The edge owns Strict-Transport-Security: it replaces the apps' value and
 // never forces includeSubDomains on a domain whose other hosts it cannot see.
 func TestDeployCaddyHSTSIsOperatorControlled(t *testing.T) {
-	headers := caddySnippet(t, readRepoFile(t, "deploy", "payverge.caddy"), "payverge_security_headers")
+	headers := caddySnippet(t, readRepoFile(t, "deploy", "namakdan.caddy"), "namakdan_security_headers")
 	if !strings.Contains(headers, "\tStrict-Transport-Security \"{$CADDY_HSTS:max-age=31536000}\"\n") {
-		t.Fatal("payverge.caddy must SET (not ?default) Strict-Transport-Security from CADDY_HSTS, default max-age=31536000")
+		t.Fatal("namakdan.caddy must SET (not ?default) Strict-Transport-Security from CADDY_HSTS, default max-age=31536000")
 	}
 	if strings.Contains(headers, "includeSubDomains") {
 		t.Fatal("the edge must not force includeSubDomains; operators opt in with HSTS_POLICY")
@@ -239,8 +239,8 @@ func TestDeployCaddyEdgeHarnessCoversAntiSpoofing(t *testing.T) {
 }
 
 // Third-party images in the self-host stack are pinned to a digest, so an
-// install cannot silently pick up a re-pushed tag. Payverge's own images follow
-// PAYVERGE_VERSION. MINIO_IMAGE stays an operator choice, but its default must
+// install cannot silently pick up a re-pushed tag. Namakdan's own images follow
+// NAMAKDAN_VERSION. MINIO_IMAGE stays an operator choice, but its default must
 // be pinned too (Chainguard's free MinIO image is published as :latest only,
 // so the default is latest@sha256:<digest>).
 func TestDeployThirdPartyImagesArePinnedByDigest(t *testing.T) {
@@ -254,7 +254,7 @@ func TestDeployThirdPartyImagesArePinnedByDigest(t *testing.T) {
 	for _, match := range images {
 		image := match[1]
 		switch {
-		case strings.Contains(image, "${PAYVERGE_VERSION"):
+		case strings.Contains(image, "${NAMAKDAN_VERSION"):
 			continue
 		case strings.HasPrefix(image, "${MINIO_IMAGE"):
 			def := strings.TrimSuffix(strings.TrimPrefix(image, "${MINIO_IMAGE:-"), "}")
@@ -320,7 +320,7 @@ func TestDeployReadmeSelfHostingLinksResolve(t *testing.T) {
 		t.Skip("docs/self-hosting is not in this tree yet; the guides land with their own branches")
 	}
 	readme := readRepoFile(t, "deploy", "README.md")
-	links := regexp.MustCompile(`https://github\.com/stdevMac/payverge/blob/main/docs/self-hosting/([A-Za-z0-9._-]+\.md)`).FindAllStringSubmatch(readme, -1)
+	links := regexp.MustCompile(`https://github\.com/nekzad/namakdan/blob/main/docs/self-hosting/([A-Za-z0-9._-]+\.md)`).FindAllStringSubmatch(readme, -1)
 	if len(links) == 0 {
 		t.Fatal("deploy/README.md links no self-hosting guide")
 	}

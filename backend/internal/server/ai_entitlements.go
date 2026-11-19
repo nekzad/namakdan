@@ -3,8 +3,8 @@ package server
 import (
 	"net/http"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/middleware"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/middleware"
 
 	"github.com/gin-gonic/gin"
 )

@@ -11,8 +11,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/logic"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/logic"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -30,7 +30,7 @@ type siweFixture struct {
 }
 
 func buildSIWE(address string, f siweFixture) string {
-	msg := fmt.Sprintf("%s wants you to sign in with your Ethereum account:\n%s\n\nSign in to Payverge.\n\nURI: %s\nVersion: 1\nChain ID: #1\nNonce: %s\nIssued At: %s",
+	msg := fmt.Sprintf("%s wants you to sign in with your Ethereum account:\n%s\n\nSign in to Namakdan.\n\nURI: %s\nVersion: 1\nChain ID: #1\nNonce: %s\nIssued At: %s",
 		f.domain, address, f.uri, f.nonce, f.issuedAt)
 	return msg + f.extraTail
 }

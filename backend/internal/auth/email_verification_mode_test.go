@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/verification"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/verification"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

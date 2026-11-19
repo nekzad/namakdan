@@ -3,7 +3,7 @@ package demo
 import (
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // demoLocale is a coarse language family for seeded demo copy. Demos enable

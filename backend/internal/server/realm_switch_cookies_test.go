@@ -10,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/logic"
-	"github.com/stdevmac/payverge/backend/internal/session"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/logic"
+	"github.com/nekzad/namakdan/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -196,7 +196,7 @@ func signedSIWEChallenge(t *testing.T) (address, message, signature string) {
 	message = fmt.Sprintf(`example.com wants you to sign in with your Ethereum account:
 %s
 
-Sign in to Payverge
+Sign in to Namakdan
 
 URI: https://example.com/login
 Version: 1

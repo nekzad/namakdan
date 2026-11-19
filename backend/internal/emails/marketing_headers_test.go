@@ -26,7 +26,7 @@ func newHeaderCaptureServer(t *testing.T) (*EmailServer, *headerCaptureProvider)
 	orig := EmailServerInstance
 	t.Cleanup(func() { EmailServerInstance = orig })
 	provider := &headerCaptureProvider{}
-	server, err := NewEmailServer(provider, "test@payverge.io", "updates@payverge.io", resolveTemplatesRoot(t))
+	server, err := NewEmailServer(provider, "test@example.test", "updates@example.test", resolveTemplatesRoot(t))
 	require.NoError(t, err)
 	return server, provider
 }
@@ -35,18 +35,18 @@ func newHeaderCaptureServer(t *testing.T) (*EmailServer, *headerCaptureProvider)
 // footer link (no login required).
 func TestMarketingSend_CarriesListUnsubscribeHeadersAndFooterLink(t *testing.T) {
 	t.Setenv("UNSUBSCRIBE_TOKEN_SECRET", "header-test-secret")
-	t.Setenv("PUBLIC_URL", "https://payverge.io")
-	t.Setenv("APP_BASE_URL", "https://api.payverge.io")
+	t.Setenv("PUBLIC_URL", "https://example.test")
+	t.Setenv("APP_BASE_URL", "https://api.example.test")
 
 	server, provider := newHeaderCaptureServer(t)
-	require.NoError(t, server.SendMilestoneFirstOrderEmail([]string{"owner@example.com"}, "Owner", "https://payverge.io/business/1/dashboard", "en"))
+	require.NoError(t, server.SendMilestoneFirstOrderEmail([]string{"owner@example.com"}, "Owner", "https://example.test/business/1/dashboard", "en"))
 
 	require.Len(t, provider.sent, 1)
 	msg := provider.sent[0]
 	lu := msg.Headers["List-Unsubscribe"]
-	require.Contains(t, lu, "https://api.payverge.io/api/v1/email/unsubscribe?token=", "one-click target is the API endpoint")
+	require.Contains(t, lu, "https://api.example.test/api/v1/email/unsubscribe?token=", "one-click target is the API endpoint")
 	require.Equal(t, "List-Unsubscribe=One-Click", msg.Headers["List-Unsubscribe-Post"], "RFC 8058 one-click marker required")
-	require.Contains(t, msg.HTMLBody, "https://payverge.io/unsubscribe?token=", "footer links the no-auth unsubscribe page")
+	require.Contains(t, msg.HTMLBody, "https://example.test/unsubscribe?token=", "footer links the no-auth unsubscribe page")
 	require.Contains(t, msg.HTMLBody, "lang=eng", "footer link carries the email's language")
 }
 
@@ -56,7 +56,7 @@ func TestTransactionalSend_CarriesNoListUnsubscribeHeaders(t *testing.T) {
 	t.Setenv("UNSUBSCRIBE_TOKEN_SECRET", "header-test-secret")
 
 	server, provider := newHeaderCaptureServer(t)
-	require.NoError(t, server.SendGettingStartedEmail([]string{"owner@example.com"}, "Owner", "https://payverge.io/business/1/dashboard", "en"))
+	require.NoError(t, server.SendGettingStartedEmail([]string{"owner@example.com"}, "Owner", "https://example.test/business/1/dashboard", "en"))
 
 	require.Len(t, provider.sent, 1)
 	msg := provider.sent[0]
@@ -71,7 +71,7 @@ func TestMarketingSend_NoSecretFallsBackToAccountLinkOnly(t *testing.T) {
 	t.Setenv("JWT_SECRET_KEY", "")
 
 	server, provider := newHeaderCaptureServer(t)
-	require.NoError(t, server.SendMilestoneFirstOrderEmail([]string{"owner@example.com"}, "Owner", "https://payverge.io/business/1/dashboard", "en"))
+	require.NoError(t, server.SendMilestoneFirstOrderEmail([]string{"owner@example.com"}, "Owner", "https://example.test/business/1/dashboard", "en"))
 
 	require.Len(t, provider.sent, 1)
 	require.Empty(t, provider.sent[0].Headers["List-Unsubscribe"])

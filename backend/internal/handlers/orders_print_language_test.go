@@ -6,8 +6,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	print "github.com/stdevmac/payverge/backend/internal/services/print"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	print "github.com/nekzad/namakdan/backend/internal/services/print"
 )
 
 func TestEnqueueKitchenTicket_UsesBusinessDefaultLanguage(t *testing.T) {

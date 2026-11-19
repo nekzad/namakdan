@@ -12,12 +12,12 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/events"
-	"github.com/stdevmac/payverge/backend/internal/guestsession"
-	"github.com/stdevmac/payverge/backend/internal/middleware"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/splitting"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/events"
+	"github.com/nekzad/namakdan/backend/internal/guestsession"
+	"github.com/nekzad/namakdan/backend/internal/middleware"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/splitting"
 	"gorm.io/gorm"
 )
 

@@ -369,7 +369,7 @@ func probeProtectedExposure(ctx context.Context, protected *S3Store, extraBases 
 		return res
 	}
 	key := "storage-probe/" + hex.EncodeToString(nonce[:]) + ".txt"
-	if err := protected.Put(ctx, key, strings.NewReader("payverge protected-storage probe"), PutOptions{ContentType: "text/plain"}); err != nil {
+	if err := protected.Put(ctx, key, strings.NewReader("namakdan protected-storage probe"), PutOptions{ContentType: "text/plain"}); err != nil {
 		res.Inconclusive = append(res.Inconclusive, "probe upload failed: "+err.Error())
 		return res
 	}

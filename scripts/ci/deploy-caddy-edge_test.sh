@@ -24,7 +24,7 @@
 #
 # Needs docker, curl and awk. Binds 127.0.0.1 only.
 #   CADDY_IMAGE           image to test (default: the one deploy/docker-compose.yml pins)
-#   EDGE_TEST_PREFIX      container/network name prefix (default payverge-edge-test)
+#   EDGE_TEST_PREFIX      container/network name prefix (default namakdan-edge-test)
 #   EDGE_TEST_PORT_BASE   first of eight host ports (default 28440)
 set -euo pipefail
 
@@ -32,7 +32,7 @@ ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 DEPLOY="$ROOT/deploy"
 PINNED_IMAGE="$(sed -n 's/^[[:space:]]*image:[[:space:]]*\(caddy:[^[:space:]]*\).*/\1/p' "$DEPLOY/docker-compose.yml" | head -n 1)"
 IMAGE="${CADDY_IMAGE:-${PINNED_IMAGE:-caddy:2}}"
-PREFIX="${EDGE_TEST_PREFIX:-payverge-edge-test}-$$"
+PREFIX="${EDGE_TEST_PREFIX:-namakdan-edge-test}-$$"
 BASE="${EDGE_TEST_PORT_BASE:-28440}"
 NET="$PREFIX-net"
 STUB="$PREFIX-stub"
@@ -61,7 +61,7 @@ pass() { echo "deploy-caddy-edge: ok: $*"; }
 caddy_files=(
 	-v "$DEPLOY/Caddyfile:/etc/caddy/Caddyfile:ro"
 	-v "$DEPLOY/Caddyfile.cloudflare:/etc/caddy/Caddyfile.cloudflare:ro"
-	-v "$DEPLOY/payverge.caddy:/etc/caddy/payverge.caddy:ro"
+	-v "$DEPLOY/namakdan.caddy:/etc/caddy/namakdan.caddy:ro"
 	-v "$DEPLOY/cloudflare-cidrs.caddy:/etc/caddy/cloudflare-cidrs.caddy:ro"
 )
 

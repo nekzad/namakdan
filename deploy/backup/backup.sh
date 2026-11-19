@@ -1,5 +1,5 @@
 #!/bin/sh
-# Payverge backup job. Runs inside the postgres:18-alpine image as the
+# Namakdan backup job. Runs inside the postgres:18-alpine image as the
 # `backup` service of deploy/docker-compose.yml (profile: backup).
 #
 #   backup.sh daemon   take a set now if none exists, then one every day at
@@ -148,7 +148,7 @@ archive() {
 }
 
 # hand_over: give every set to BACKUP_UID:BACKUP_GID, so the host user who
-# installed Payverge can list and copy them. Modes stay 0700/0600.
+# installed Namakdan can list and copy them. Modes stay 0700/0600.
 hand_over() {
 	[ -n "$BACKUP_UID" ] || return 0
 	chown -R "$BACKUP_UID:$BACKUP_GID" "$BACKUP_ROOT/daily" "$BACKUP_ROOT/weekly" "$BACKUP_ROOT/monthly" ||
@@ -189,12 +189,12 @@ take_backup() {
 	schema_version=$(read_schema_version)
 	server_version=$(psql -X -At -c 'SHOW server_version' "$PGDATABASE" 2>/dev/null || true)
 	{
-		echo "format=payverge-backup/1"
+		echo "format=namakdan-backup/1"
 		echo "created=$stamp"
 		echo "database=$PGDATABASE"
 		echo "schema_version=${schema_version:-unknown}"
 		echo "postgres_version=${server_version:-unknown}"
-		echo "payverge_version=${PAYVERGE_VERSION:-unknown}"
+		echo "namakdan_version=${NAMAKDAN_VERSION:-unknown}"
 		[ -z "$failed" ] || echo "archives_failed=$failed"
 	} >"$work/MANIFEST"
 	(

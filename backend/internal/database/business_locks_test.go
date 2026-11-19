@@ -36,7 +36,7 @@ func TestAdjustBillItem_UsesForUpdateLock(t *testing.T) {
 
 	var firstBillQueryLocked atomic.Bool
 	var firstBillQueryObserved atomic.Bool
-	const cbName = "payverge:test:capture_bill_lock"
+	const cbName = "namakdan:test:capture_bill_lock"
 	require.NoError(t, db.Callback().Query().Before("gorm:query").Register(cbName, func(tx *gorm.DB) {
 		if firstBillQueryObserved.Load() {
 			return

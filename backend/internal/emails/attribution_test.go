@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // attributionTestDB adds the CRM tables the attribution projection writes to.
@@ -101,7 +101,7 @@ func TestOutboxCapturesOriginAtEnqueueTime(t *testing.T) {
 	require.NoError(t, server.ForReservation(7, 4211).SendReservationCancelledEmail(
 		[]string{"guest@example.test"}, "Guest", "Test Bistro", "Friday", "20:00", "+5411", "en"))
 	// The shared singleton must not be mutated by a scoped copy.
-	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://payverge.io/reset", "en"))
+	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://example.test/reset", "en"))
 
 	var rows []EmailOutbox
 	require.NoError(t, db.Order("id ASC").Find(&rows).Error)

@@ -41,7 +41,7 @@ test("webhook receiver runs diagnosis for authorized backend flag payloads", asy
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "x-payverge-mcp-secret": "hook-secret",
+        "x-namakdan-mcp-secret": "hook-secret",
       },
       body: JSON.stringify({
         type: "backend.flagged",
@@ -95,7 +95,7 @@ test("webhook receiver uses statusCode from a refused diagnosis", async () => {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "x-payverge-mcp-secret": "hook-secret",
+        "x-namakdan-mcp-secret": "hook-secret",
       },
       body: JSON.stringify({ type: "backend.flagged", businessId: 13 }),
     });
@@ -127,7 +127,7 @@ test("webhook secret comparison is exact and accepts the bearer form", async () 
       });
     assert.equal((await post({ authorization: "Bearer hook-secret" })).status, 200);
     assert.equal((await post({ authorization: "Bearer hook-secre" })).status, 401);
-    assert.equal((await post({ "x-payverge-mcp-secret": "hook-secret-x" })).status, 401);
+    assert.equal((await post({ "x-namakdan-mcp-secret": "hook-secret-x" })).status, 401);
   } finally {
     await server.close();
   }

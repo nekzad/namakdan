@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/config"
 
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"

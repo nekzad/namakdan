@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func newTestBusinessForProjection() *database.Business {
@@ -152,7 +152,7 @@ func TestPublicBusinessProjectionEmitsTimezone(t *testing.T) {
 
 func TestPublicBusinessProjectionEmitsDemoFlags(t *testing.T) {
 	biz := &database.Business{
-		ID: 1, Name: "Demo Lounge", CustomURL: "payverge-ai-pro-demo-lounge",
+		ID: 1, Name: "Demo Lounge", CustomURL: "namakdan-ai-pro-demo-lounge",
 		DefaultCurrency: "USD", IsDemo: true, Kind: database.BusinessKindDemo,
 	}
 	proj := publicBusinessProjection(biz)

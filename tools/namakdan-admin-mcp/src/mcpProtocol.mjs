@@ -15,7 +15,7 @@ export async function handleJsonRpcMessage(message, { tools }) {
           protocolVersion: MCP_PROTOCOL_VERSION,
           capabilities: { tools: {} },
           serverInfo: {
-            name: "payverge-admin-mcp",
+            name: "namakdan-admin-mcp",
             version: MCP_SERVER_VERSION,
           },
         });

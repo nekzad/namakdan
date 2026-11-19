@@ -2,9 +2,9 @@ package auth
 
 // Re-export session utilities so callers within auth don't need to import
 // the session package directly. The actual implementation lives in
-// github.com/stdevmac/payverge/backend/internal/session to avoid import cycles between auth and server.
+// github.com/nekzad/namakdan/backend/internal/session to avoid import cycles between auth and server.
 
-import "github.com/stdevmac/payverge/backend/internal/session"
+import "github.com/nekzad/namakdan/backend/internal/session"
 
 // HashToken delegates to session.HashToken.
 func HashToken(token string) string {

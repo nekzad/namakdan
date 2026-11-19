@@ -46,6 +46,7 @@ var knownPublicSecretDigests = map[string]string{
 
 	// scripts/verify-backend.sh hermetic test PLUGIN_SECRET_KEY (valid 32-byte raw key).
 	"adb4d2f0c72c1f71458bad67b5b1b6b8a664737e3647545ef83d5369cfe5bd39": "hermetic test PLUGIN_SECRET_KEY",
+	"fd21a76c13b758c8a4f391ea184e61a9a618d39a0e1c1728082632db34ea6c5a": "Namakdan hermetic test PLUGIN_SECRET_KEY",
 
 	// scripts/validate-production-config.test.mjs release fixture.
 	"128edc14c328adb8904f8d4aa111bd6a05200e400b44024f101515f73a8dece2": "release-config test DB_PASSWORD",
@@ -82,14 +83,18 @@ var knownPublicSecretDigests = map[string]string{
 	"a720375ea53d8d5f89093e3cbadba5c714ed8aa03a4789e7cbd662e71444faf0": "legacy plugin key (raw)",
 	"cb0d8c607d7fbfbe53ffbf9d746091e95f3183b0879dae088180c79343e1ce7a": "legacy plugin key (base64)",
 	"68142f87127e2dbabc2e5ab967518b2058c9cae821c713ec9f1ef6e606ffad2c": "legacy plugin key (base64, unpadded)",
+	"a5f3cc3a761a36155f81fc5afcbfe1210efa88f4c70d5614442a51eafa8bb321": "Namakdan legacy plugin key seed",
+	"d73956f17ce1f9a44a7cc6d81fd80b3790e8211686ad346126f5e5114e735354": "Namakdan legacy plugin key (raw)",
+	"2038c55b7684d65051716ab3eecaba9fd6715c0bb49a05ef7c211444aa1c876f": "Namakdan legacy plugin key (base64)",
+	"9022954a71c7faf138b943e24befe93c2addc3d996172519bfe6c6bd591b98e3": "Namakdan legacy plugin key (base64, unpadded)",
 }
 
 // knownPublicSecretPrefixes covers whole families of committed dev defaults
-// (e.g. payverge_local_dev_jwt_secret_2026 and its _min32 variant) so a
+// (e.g. namakdan_local_dev_jwt_secret_2026 and its _min32 variant) so a
 // suffix tweak does not slip past the digest list.
 var knownPublicSecretPrefixes = []string{
-	"payverge_local_dev_",
-	"payverge_ci_",
+	"namakdan_local_dev_",
+	"namakdan_ci_",
 	"ci_minio_",
 	"ci_metrics_token_",
 	"ci-stub-",
@@ -99,12 +104,13 @@ var knownPublicSecretPrefixes = []string{
 var trivialSecrets = map[string]struct{}{
 	"admin":             {},
 	"password":          {},
-	"payverge":          {},
-	"payverge_password": {},
+	"namakdan":          {},
+	"namakdan_password": {},
 	"postgres":          {},
 	"pw":                {},
 	"root":              {},
 	"secret":            {},
+	"namakdan-app":      {},
 	"test":              {},
 }
 

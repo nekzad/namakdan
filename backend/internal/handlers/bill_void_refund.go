@@ -23,10 +23,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/fiscal"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	"github.com/stdevmac/payverge/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/fiscal"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/server"
 )
 
 // VoidBillRequest is the body of POST /inside/bills/:bill_id/void. The reason
@@ -127,7 +127,7 @@ func (h *PaymentHandler) VoidBill(c *gin.Context) {
 //
 // Plugin-backed payments call the provider refund hook before the local ledger
 // is reversed. Providers without a live refund implementation return a
-// conflict/bad-gateway response and leave the payment confirmed, so Payverge
+// conflict/bad-gateway response and leave the payment confirmed, so Namakdan
 // never creates a false local-only card refund. Cashier/alternative payments
 // remain operator-attested local reversals.
 func (h *PaymentHandler) RefundBillPayment(c *gin.Context) {

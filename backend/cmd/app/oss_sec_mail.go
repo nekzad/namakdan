@@ -6,8 +6,8 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/emails"
-	"github.com/stdevmac/payverge/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/logger"
 )
 
 // tenantMailBudgetPurgeInterval is how often expired tenant-mail ledger rows

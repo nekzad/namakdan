@@ -11,8 +11,8 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	operational_alerts "github.com/stdevmac/payverge/backend/internal/services/operational_alerts"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	operational_alerts "github.com/nekzad/namakdan/backend/internal/services/operational_alerts"
 )
 
 // HandleDeliveryBillPaid advances a prepay delivery when its bill is paid:

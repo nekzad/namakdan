@@ -1,6 +1,6 @@
 package ops_tools
 
-import "github.com/stdevmac/payverge/backend/internal/agents"
+import "github.com/nekzad/namakdan/backend/internal/agents"
 
 // NewRegistry registers all Ops Assistant tools.
 func NewRegistry() *agents.Registry {

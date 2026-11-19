@@ -1,4 +1,4 @@
-# Payverge edge, EDGE=none (default): Caddy is the internet-facing server.
+# Namakdan edge, EDGE=none (default): Caddy is the internet-facing server.
 #
 # Certificates are automatic:
 #   - a public domain gets a Let's Encrypt (or ZeroSSL) certificate over ACME;
@@ -11,7 +11,7 @@
 # setting EDGE=cloudflare in .env.
 #
 # Client IP: by default {client_ip} is the TCP peer and any X-Forwarded-For a
-# client sends is replaced (payverge.caddy). Only when another proxy or load
+# client sends is replaced (namakdan.caddy). Only when another proxy or load
 # balancer sits in front of this Caddy, list its addresses in
 # TRUSTED_PROXY_CIDRS (.env) so Caddy reads the client IP it forwards. Such a
 # proxy usually APPENDS the address it saw to the X-Forwarded-For the client
@@ -27,10 +27,10 @@
 #   CADDY_TRUSTED_PROXIES_STRICT_OPTION  "trusted_proxies_strict" whenever
 #                                        TRUSTED_PROXY_CIDRS is set, else empty
 #   CADDY_HSTS                           the Strict-Transport-Security value
-#                                        (HSTS_POLICY; payverge.caddy)
+#                                        (HSTS_POLICY; namakdan.caddy)
 #   CADDY_SITE_SCHEME                    "http://" with TLS_TERMINATION=proxy
 #                                        (another server terminates TLS), else
-#                                        unset (payverge.caddy)
+#                                        unset (namakdan.caddy)
 {
 	{$CADDY_ACME_EMAIL_OPTION}
 
@@ -44,4 +44,4 @@
 	}
 }
 
-import payverge.caddy
+import namakdan.caddy

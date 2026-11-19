@@ -7,7 +7,7 @@ import (
 	"path"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/s3"
+	"github.com/nekzad/namakdan/backend/internal/s3"
 )
 
 // seedAssets embeds the demo food/venue photography that the seeded menus and

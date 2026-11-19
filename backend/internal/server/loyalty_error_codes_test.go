@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/loyalty"
+	"github.com/nekzad/namakdan/backend/internal/loyalty"
 
 	"github.com/stretchr/testify/assert"
 	"gorm.io/gorm"

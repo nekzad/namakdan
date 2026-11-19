@@ -13,10 +13,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/fiscal"
-	"github.com/stdevmac/payverge/backend/internal/fiscal/providers"
-	"github.com/stdevmac/payverge/backend/internal/security"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/fiscal"
+	"github.com/nekzad/namakdan/backend/internal/fiscal/providers"
+	"github.com/nekzad/namakdan/backend/internal/security"
 
 	"github.com/stretchr/testify/require"
 )

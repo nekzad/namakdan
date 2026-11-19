@@ -1,9 +1,9 @@
 {
-  "name": "payverge-screenshot-extension",
+  "name": "namakdan-screenshot-extension",
   "version": "0.1.0",
   "private": true,
   "license": "Apache-2.0",
-  "description": "Chrome extension that captures curated marketing screenshots of Payverge.",
+  "description": "Chrome extension that captures curated marketing screenshots of Namakdan.",
   "scripts": {
     "test": "jest"
   },

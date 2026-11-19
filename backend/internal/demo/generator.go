@@ -15,8 +15,8 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // predictableDemoTableCode matches legacy enumerable demo codes that must not
@@ -2283,7 +2283,7 @@ func (s *Service) ensureFiscalPrinterAIAndAlerts(ctx context.Context, tx *gorm.D
 	}
 	if len(staff) > 0 {
 		var notif database.StaffNotification
-		if err := tx.WithContext(ctx).Where("business_id = ? AND staff_id = ? AND kind = ?", businessID, staff[0].ID, "demo").Attrs(database.StaffNotification{BusinessID: businessID, StaffID: staff[0].ID, Kind: "demo", Title: "Demo lista", Body: "Tu demo aislada de Payverge está lista.", URL: fmt.Sprintf("/business/%d/dashboard", businessID), CreatedAt: s.now().UTC()}).FirstOrCreate(&notif).Error; err != nil {
+		if err := tx.WithContext(ctx).Where("business_id = ? AND staff_id = ? AND kind = ?", businessID, staff[0].ID, "demo").Attrs(database.StaffNotification{BusinessID: businessID, StaffID: staff[0].ID, Kind: "demo", Title: "Demo lista", Body: "Tu demo aislada de Namakdan está lista.", URL: fmt.Sprintf("/business/%d/dashboard", businessID), CreatedAt: s.now().UTC()}).FirstOrCreate(&notif).Error; err != nil {
 			return err
 		}
 	}

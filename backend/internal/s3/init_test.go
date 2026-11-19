@@ -133,7 +133,7 @@ func TestInitLocalKeepsTrustingLegacyCDNHostAndWarnsAboutBucket(t *testing.T) {
 	rep, err := Init(context.Background(), Config{
 		Driver: DriverLocal,
 		Dir:    t.TempDir(),
-		S3:     S3Settings{Bucket: "payverge-prod", PublicBaseURL: "https://images.example.test"},
+		S3:     S3Settings{Bucket: "namakdan-prod", PublicBaseURL: "https://images.example.test"},
 	})
 	require.NoError(t, err)
 	require.Equal(t, "images.example.test", PublicHost(), "old rows on the CDN stay fetchable")

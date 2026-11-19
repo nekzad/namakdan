@@ -5,14 +5,14 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func TestIsReservedPublicSlug(t *testing.T) {
 	for _, s := range []string{"admin", "api", "demo", "b", "internal", "demo-lounge", "admin-1", "b-x", "API", "Demo"} {
 		require.True(t, database.IsReservedPublicSlug(s), s)
 	}
-	for _, s := range []string{"payverge-core-demo-kitchen", "my-restaurant", "aurora", "demoed", "cab", ""} {
+	for _, s := range []string{"namakdan-core-demo-kitchen", "my-restaurant", "aurora", "demoed", "cab", ""} {
 		require.False(t, database.IsReservedPublicSlug(s), s)
 	}
 }

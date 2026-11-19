@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/schema/genesis"
+	"github.com/nekzad/namakdan/backend/schema/genesis"
 )
 
 // TestAuthSchemaIsOwnedByGenesisBaseline prevents auth startup from quietly

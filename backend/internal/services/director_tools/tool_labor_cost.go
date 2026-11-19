@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/services/foodcost"
-	"github.com/stdevmac/payverge/backend/internal/services/labor"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/services/foodcost"
+	"github.com/nekzad/namakdan/backend/internal/services/labor"
 )
 
 // LaborCostTool reports labor cost as a % of sales and composes prime cost

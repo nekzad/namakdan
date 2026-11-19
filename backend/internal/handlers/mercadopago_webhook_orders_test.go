@@ -11,11 +11,11 @@ import (
 	dto "github.com/prometheus/client_model/go"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	"github.com/stdevmac/payverge/backend/internal/plugins/mercadopago"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/plugins/mercadopago"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // counterValueForLabels returns the current counter value for a metric family
@@ -132,7 +132,7 @@ func TestHandleMercadoPagoWebhook_UntrackedOrderProcessedReturns500(t *testing.T
 		}
 	})
 
-	before := counterValueForLabels(t, "payverge_payment_webhook_unsupported_actions_total",
+	before := counterValueForLabels(t, "namakdan_payment_webhook_unsupported_actions_total",
 		map[string]string{"plugin": "mercadopago", "action": "order.untracked_settle_retry"})
 
 	payload := []byte(`{"action":"order.processed","data":{"id":"ORD01UNTRACKEDSETTLE"},"type":"order"}`)
@@ -144,7 +144,7 @@ func TestHandleMercadoPagoWebhook_UntrackedOrderProcessedReturns500(t *testing.T
 	NewPluginHandlers(nil, nil).handlePaymentWebhook(c, "mercadopago")
 	require.Equal(t, http.StatusInternalServerError, w.Code, "settle-class untracked must 500; body=%s", w.Body.String())
 
-	after := counterValueForLabels(t, "payverge_payment_webhook_unsupported_actions_total",
+	after := counterValueForLabels(t, "namakdan_payment_webhook_unsupported_actions_total",
 		map[string]string{"plugin": "mercadopago", "action": "order.untracked_settle_retry"})
 	require.GreaterOrEqual(t, after, before+1,
 		"settle-class untracked must increment order.untracked_settle_retry (not generic error-rate)")

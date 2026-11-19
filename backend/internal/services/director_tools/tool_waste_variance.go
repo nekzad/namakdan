@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/services/foodcost"
-	"github.com/stdevmac/payverge/backend/internal/services/wastevariance"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/services/foodcost"
+	"github.com/nekzad/namakdan/backend/internal/services/wastevariance"
 )
 
 // WasteVarianceTool reports inventory waste and theoretical-vs-actual usage

@@ -27,7 +27,7 @@ func TestDirectorDigestRendersInsightsSummaryRaw(t *testing.T) {
 				"owner_name":           "Test Owner",
 				"business_name":        "Test Bistro",
 				"digest_date":          "May 31, 2026",
-				"director_console_url": "https://app.payverge.io/business/test/dashboard",
+				"director_console_url": "https://app.example.test/business/test/dashboard",
 				"insights_summary":     safeMarkup,
 			}
 

@@ -10,25 +10,25 @@ import (
 func TestResolveAllowedOrigins_IncludesLocalhostOutsideProduction(t *testing.T) {
 	// Default test environment has no ENV var set, so this exercises the
 	// dev-defaults branch in resolveAllowedOrigins.
-	origins := resolveAllowedOrigins("https://payverge.io,https://www.payverge.io")
+	origins := resolveAllowedOrigins("https://example.test,https://www.example.test")
 	assert.Contains(t, origins, "http://localhost:3000")
 	assert.Contains(t, origins, "http://localhost:3001")
-	assert.Contains(t, origins, "https://payverge.io")
-	assert.Contains(t, origins, "https://www.payverge.io")
+	assert.Contains(t, origins, "https://example.test")
+	assert.Contains(t, origins, "https://www.example.test")
 }
 
 func TestResolveAllowedOrigins_ExcludesLocalhostInProduction(t *testing.T) {
 	// CORS allows credentials, so an attacker-controlled localhost page must
 	// not be a trusted origin in prod. See the security review round-3 finding.
 	t.Setenv("ENV", "production")
-	origins := resolveAllowedOrigins("https://payverge.io")
+	origins := resolveAllowedOrigins("https://example.test")
 	assert.NotContains(t, origins, "http://localhost:3000")
 	assert.NotContains(t, origins, "http://localhost:3001")
-	assert.Contains(t, origins, "https://payverge.io")
+	assert.Contains(t, origins, "https://example.test")
 }
 
 func TestResolveAllowedOrigins_DedupesDefaults(t *testing.T) {
-	origins := resolveAllowedOrigins("http://localhost:3000,https://payverge.io")
+	origins := resolveAllowedOrigins("http://localhost:3000,https://example.test")
 	count := 0
 	for _, o := range origins {
 		if o == "http://localhost:3000" {
@@ -47,11 +47,11 @@ func clearCORSPublicURLEnv(t *testing.T) {
 
 func TestResolveAllowedOrigins_EmptyEnvYieldsOnlyDefaults(t *testing.T) {
 	clearCORSPublicURLEnv(t)
-	t.Setenv("PUBLIC_URL", "https://payverge.io")
+	t.Setenv("PUBLIC_URL", "https://example.test")
 	origins := resolveAllowedOrigins("")
 	assert.Contains(t, origins, "http://localhost:3000")
-	assert.Contains(t, origins, "https://payverge.io")
-	assert.NotContains(t, origins, "https://www.payverge.io", "no implicit www twin")
+	assert.Contains(t, origins, "https://example.test")
+	assert.NotContains(t, origins, "https://www.example.test", "no implicit www twin")
 	// Outside production: exactly the PUBLIC_URL origin + 2 localhost defaults.
 	assert.Len(t, origins, 3, "empty env outside production should yield 3 defaults")
 }
@@ -67,7 +67,7 @@ func TestResolveAllowedOrigins_DefaultsFollowPublicURL(t *testing.T) {
 	// over DNS) must never become a trusted credentialed origin.
 	assert.Equal(t, []string{"https://eat.example.com"}, origins)
 	for _, o := range origins {
-		assert.NotContains(t, o, "payverge.io")
+		assert.NotContains(t, o, "example.test")
 	}
 }
 
@@ -100,23 +100,23 @@ func TestResolveAllowedOrigins_NoPublicURLHasNoUpstreamDefault(t *testing.T) {
 }
 
 func TestResolveAllowedOrigins_AddsCustomOrigin(t *testing.T) {
-	origins := resolveAllowedOrigins("https://staging.payverge.io")
-	assert.Contains(t, origins, "https://staging.payverge.io")
+	origins := resolveAllowedOrigins("https://staging.example.test")
+	assert.Contains(t, origins, "https://staging.example.test")
 	assert.Contains(t, origins, "http://localhost:3000")
 }
 
 func TestResolveAllowedOrigins_TrimsWhitespace(t *testing.T) {
-	origins := resolveAllowedOrigins("  https://staging.payverge.io  ,  https://preview.payverge.io  ")
-	assert.Contains(t, origins, "https://staging.payverge.io")
-	assert.Contains(t, origins, "https://preview.payverge.io")
+	origins := resolveAllowedOrigins("  https://staging.example.test  ,  https://preview.example.test  ")
+	assert.Contains(t, origins, "https://staging.example.test")
+	assert.Contains(t, origins, "https://preview.example.test")
 }
 
 func TestResolveAllowedOrigins_SkipsEmptyEntries(t *testing.T) {
-	origins := resolveAllowedOrigins(",,https://staging.payverge.io,,")
+	origins := resolveAllowedOrigins(",,https://staging.example.test,,")
 	for _, o := range origins {
 		assert.NotEmpty(t, o, "no entry should be empty")
 	}
-	assert.Contains(t, origins, "https://staging.payverge.io")
+	assert.Contains(t, origins, "https://staging.example.test")
 }
 
 // Regression: a dev pointing APP_BASE_URL at a staging/preview HTTPS URL
@@ -125,7 +125,7 @@ func TestResolveAllowedOrigins_SkipsEmptyEntries(t *testing.T) {
 // localhost from the CORS allowlist and broke local frontend dev (notably
 // /api/v1/auth/session-info). Production is now explicit via ENV only.
 func TestResolveAllowedOrigins_HttpsAppBaseUrlDoesNotDemoteToProd(t *testing.T) {
-	t.Setenv("APP_BASE_URL", "https://api-staging.payverge.io")
+	t.Setenv("APP_BASE_URL", "https://api-staging.example.test")
 	t.Setenv("ENV", "")
 	origins := resolveAllowedOrigins("")
 	assert.Contains(t, origins, "http://localhost:3000",

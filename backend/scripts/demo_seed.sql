@@ -1,4 +1,4 @@
--- Payverge full demo seed.
+-- Namakdan full demo seed.
 --
 -- Usage:
 --   psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f backend/scripts/demo_seed.sql
@@ -55,7 +55,7 @@ DECLARE
     v_delivery_statuses text[] := ARRAY['pending','confirmed','preparing','ready','assigned','picked_up','in_transit','nearby','delivered','cancelled'];
     v_reservation_statuses text[] := ARRAY['confirmed','pending','pending','completed','cancelled','no_show','seated'];
 BEGIN
-    RAISE NOTICE 'Starting Payverge demo seed';
+    RAISE NOTICE 'Starting Namakdan demo seed';
 
     CREATE TABLE IF NOT EXISTS bill_items (
         id uuid PRIMARY KEY DEFAULT (md5(random()::text || clock_timestamp()::text))::uuid,
@@ -88,10 +88,10 @@ BEGIN
     SELECT ARRAY(
         SELECT id
         FROM customers
-        WHERE email LIKE '%@core-demo.payverge.example'
-           OR email LIKE '%@ai-demo.payverge.example'
-           OR email LIKE '%@core-demo.payverge.test'
-           OR email LIKE '%@ai-demo.payverge.test'
+        WHERE email LIKE '%@core-demo.example.com'
+           OR email LIKE '%@ai-demo.example.com'
+           OR email LIKE '%@core-demo.example.test'
+           OR email LIKE '%@ai-demo.example.test'
     ) INTO v_demo_customer_ids;
 
     IF cardinality(v_demo_business_ids) > 0 THEN
@@ -209,7 +209,7 @@ BEGIN
     DELETE FROM session_summaries WHERE session_id LIKE 'pvseed-demo-%';
     DELETE FROM error_logs WHERE request_id LIKE 'pvseed-demo-%';
     DELETE FROM webhook_events WHERE webhook_id LIKE 'demo_seed_%';
-    DELETE FROM admin_actions WHERE details::text LIKE '%payverge-demo-seed-fixture%';
+    DELETE FROM admin_actions WHERE details::text LIKE '%namakdan-demo-seed-fixture%';
 
     IF to_regclass('public.user_sessions') IS NOT NULL THEN
         DELETE FROM user_sessions WHERE session_token LIKE 'pvseed-demo-revoked-%';
@@ -249,7 +249,7 @@ BEGIN
             created_at, updated_at
         )
         VALUES (
-            v_owner_email, v_wallet, 'Demo Owner', 'demo-owner-payverge',
+            v_owner_email, v_wallet, 'Demo Owner', 'demo-owner-namakdan',
             'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=256&h=256&fit=crop',
             'user', 'google', true, 'en',
             true, true, true, true, true, true, true,
@@ -362,7 +362,7 @@ BEGIN
         '214 West 14th Street', 'New York', 'NY', '10011', 'United States',
         v_wallet, v_wallet, 8.875, 4.0, false, false, true,
         'A fast-casual neighborhood kitchen in Manhattan serving global bowls, all-day brunch, and weekend pastries.',
-        'demo-core-kitchen', '+1 212 555 0144', 'hello@core-kitchen.example.com', 'https://demo.payverge.example/demo-core-kitchen',
+        'demo-core-kitchen', '+1 212 555 0144', 'hello@core-kitchen.example.com', 'https://demo.example.com/demo-core-kitchen',
         '{"instagram":"https://instagram.com/democorekitchen","tiktok":"https://tiktok.com/@democorekitchen","facebook":"https://facebook.com/democorekitchen","google_maps":"https://maps.google.com/?q=Demo+Core+Kitchen"}',
         '["https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1600&h=900&fit=crop","https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1600&h=900&fit=crop"]',
         true, true, true,
@@ -419,7 +419,7 @@ BEGIN
         'Gate Village 7, DIFC', 'Dubai', 'Dubai', '00000', 'United Arab Emirates',
         v_wallet, v_wallet, 5.0, 7.5, false, false, true,
         'A modern DIFC lounge where seasonal tasting menus, signature mocktails, and a multilingual AI concierge make every visit feel effortless.',
-        'demo-ai-lounge', '+1 212 555 0199', 'concierge@ai-lounge.example.com', 'https://demo.payverge.example/demo-ai-lounge',
+        'demo-ai-lounge', '+1 212 555 0199', 'concierge@ai-lounge.example.com', 'https://demo.example.com/demo-ai-lounge',
         '{"instagram":"https://instagram.com/demoailounge","tiktok":"https://tiktok.com/@demoailounge","facebook":"https://facebook.com/demoailounge","google_maps":"https://maps.google.com/?q=Demo+AI+Lounge"}',
         '["https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&h=900&fit=crop","https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&h=900&fit=crop"]',
         true, true, true,
@@ -830,10 +830,10 @@ BEGIN
         VALUES (
             v_core_id,
             -- High-entropy codes only (#293). Avoid CORE-T0N / demo-{biz}-* patterns.
-            upper(substr(md5('payverge-fixture-core-table-' || v_i::text), 1, 10)),
+            upper(substr(md5('namakdan-fixture-core-table-' || v_i::text), 1, 10)),
             CASE WHEN v_i <= 4 THEN 'Indoor ' || v_i WHEN v_i <= 7 THEN 'Patio ' || (v_i - 4) WHEN v_i <= 9 THEN 'Bar ' || (v_i - 7) ELSE 'Window 1' END,
             CASE WHEN v_i IN (1,2) THEN 2 WHEN v_i IN (3,4,5,6) THEN 4 WHEN v_i IN (7,8,9) THEN 6 ELSE 8 END,
-            'https://demo.payverge.example/t/' || upper(substr(md5('payverge-fixture-core-table-' || v_i::text), 1, 10)),
+            'https://demo.example.com/t/' || upper(substr(md5('namakdan-fixture-core-table-' || v_i::text), 1, 10)),
             true,
             CASE WHEN v_i <= 4 THEN 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=128&q=75' ELSE '' END,
             CASE WHEN v_i % 2 = 0 THEN '#0f766e' ELSE '#111827' END,
@@ -852,10 +852,10 @@ BEGIN
         VALUES (
             v_ai_id,
             -- High-entropy codes only (#293). Stable fixture salt is not biz-id-derived.
-            upper(substr(md5('payverge-fixture-ai-pro-table-' || v_i::text), 1, 10)),
+            upper(substr(md5('namakdan-fixture-ai-pro-table-' || v_i::text), 1, 10)),
             CASE WHEN v_i <= 5 THEN 'Main Room ' || v_i WHEN v_i <= 9 THEN 'Terrace ' || (v_i - 5) WHEN v_i <= 12 THEN 'Bar ' || (v_i - 9) ELSE 'VIP Room ' || (v_i - 12) END,
             CASE WHEN v_i <= 4 THEN 2 WHEN v_i <= 9 THEN 4 WHEN v_i <= 13 THEN 6 WHEN v_i <= 15 THEN 8 ELSE 12 END,
-            'https://demo.payverge.example/t/' || upper(substr(md5('payverge-fixture-ai-pro-table-' || v_i::text), 1, 10)),
+            'https://demo.example.com/t/' || upper(substr(md5('namakdan-fixture-ai-pro-table-' || v_i::text), 1, 10)),
             true,
             'https://images.unsplash.com/photo-1546069901-d5bfd2cbfb1f?w=128&q=75',
             CASE WHEN v_i % 2 = 0 THEN '#064e3b' ELSE '#f59e0b' END,
@@ -911,7 +911,7 @@ BEGIN
                     CASE WHEN v_i % 7 = 3 THEN NULL ELSE v_table_id END,
                     'Core Guest ' || v_i,
                     '+1 555 201 ' || lpad(v_i::text, 4, '0'),
-                    'reservation' || lpad(v_i::text, 2, '0') || '@core-demo.payverge.example',
+                    'reservation' || lpad(v_i::text, 2, '0') || '@core-demo.example.com',
                     1 + (v_i % 12),
                     CASE WHEN v_i <= 9 THEN now() + (v_i || ' days')::interval ELSE now() - ((v_i - 8) || ' days')::interval END,
                     90,
@@ -948,7 +948,7 @@ BEGIN
                     CASE WHEN v_i % 7 = 3 THEN NULL ELSE v_table_id END,
                     'AI Lounge Guest ' || v_i,
                     '+1 555 402 ' || lpad(v_i::text, 4, '0'),
-                    'reservation' || lpad(v_i::text, 2, '0') || '@ai-demo.payverge.example',
+                    'reservation' || lpad(v_i::text, 2, '0') || '@ai-demo.example.com',
                     2 + (v_i % 16),
                     CASE WHEN v_i <= 14 THEN now() + (v_i || ' days')::interval ELSE now() - ((v_i - 13) || ' days')::interval END,
                     120,
@@ -988,39 +988,39 @@ BEGIN
     END LOOP;
 
     INSERT INTO staff (business_id, email, name, role, is_active, last_login_at, invited_by, custom_permissions, role_level, permissions_updated_at, permissions_updated_by, created_at, updated_at) VALUES
-        (v_core_id, 'manager@core-demo.payverge.example', 'Nina Park', 'manager', true, now() - interval '2 days', v_wallet, '["reports:export","financial:read"]', 80, now() - interval '20 days', v_wallet, now() - interval '80 days', now()),
-        (v_core_id, 'server1@core-demo.payverge.example', 'Luis Moreno', 'server', true, now() - interval '5 hours', v_wallet, '[]', 40, now() - interval '30 days', v_wallet, now() - interval '70 days', now()),
-        (v_core_id, 'server2@core-demo.payverge.example', 'Ava Stone', 'server', true, now() - interval '1 day', v_wallet, '[]', 40, now() - interval '30 days', v_wallet, now() - interval '65 days', now()),
-        (v_core_id, 'host@core-demo.payverge.example', 'Sam Patel', 'host', true, now() - interval '8 hours', v_wallet, '["reservations:write"]', 30, now() - interval '25 days', v_wallet, now() - interval '60 days', now()),
-        (v_core_id, 'kitchen@core-demo.payverge.example', 'Marco Silva', 'kitchen', true, now() - interval '3 hours', v_wallet, '[]', 20, now() - interval '25 days', v_wallet, now() - interval '55 days', now()),
-        (v_core_id, 'former@core-demo.payverge.example', 'Former Server', 'server', false, now() - interval '50 days', v_wallet, '[]', 40, now() - interval '45 days', v_wallet, now() - interval '90 days', now()),
-        (v_ai_id, 'gm@ai-demo.payverge.example', 'Layla Hassan', 'manager', true, now() - interval '2 hours', v_wallet, '["financial:read","reports:export","director:read"]', 90, now() - interval '15 days', v_wallet, now() - interval '100 days', now()),
-        (v_ai_id, 'floor@ai-demo.payverge.example', 'Omar Faris', 'manager', true, now() - interval '4 hours', v_wallet, '["reservations:write","delivery:dispatch:write"]', 80, now() - interval '14 days', v_wallet, now() - interval '95 days', now()),
-        (v_ai_id, 'server1@ai-demo.payverge.example', 'Maya Chen', 'server', true, now() - interval '5 hours', v_wallet, '[]', 40, now() - interval '30 days', v_wallet, now() - interval '80 days', now()),
-        (v_ai_id, 'server2@ai-demo.payverge.example', 'Rafael Cruz', 'server', true, now() - interval '1 day', v_wallet, '[]', 40, now() - interval '30 days', v_wallet, now() - interval '75 days', now()),
-        (v_ai_id, 'server3@ai-demo.payverge.example', 'Amira Khan', 'server', true, now() - interval '7 hours', v_wallet, '[]', 40, now() - interval '30 days', v_wallet, now() - interval '70 days', now()),
-        (v_ai_id, 'kitchen1@ai-demo.payverge.example', 'Chef Bruno', 'kitchen', true, now() - interval '2 hours', v_wallet, '["orders:status"]', 20, now() - interval '25 days', v_wallet, now() - interval '82 days', now()),
-        (v_ai_id, 'kitchen2@ai-demo.payverge.example', 'Chef Noor', 'kitchen', true, now() - interval '6 hours', v_wallet, '["orders:status"]', 20, now() - interval '25 days', v_wallet, now() - interval '82 days', now()),
-        (v_ai_id, 'host@ai-demo.payverge.example', 'Zara Ali', 'host', true, now() - interval '3 hours', v_wallet, '["reservations:create","reservations:write"]', 30, now() - interval '22 days', v_wallet, now() - interval '72 days', now()),
-        (v_ai_id, 'delivery@ai-demo.payverge.example', 'Imran Malik', 'server', true, now() - interval '9 hours', v_wallet, '["delivery:settings:read","delivery:dispatch:read","delivery:dispatch:write"]', 45, now() - interval '18 days', v_wallet, now() - interval '68 days', now()),
-        (v_ai_id, 'analyst@ai-demo.payverge.example', 'Dana Weiss', 'manager', true, now() - interval '2 days', v_wallet, '["analytics:sales","analytics:items","reports:export"]', 75, now() - interval '12 days', v_wallet, now() - interval '64 days', now()),
-        (v_ai_id, 'former@ai-demo.payverge.example', 'Former Concierge', 'host', false, now() - interval '44 days', v_wallet, '[]', 30, now() - interval '44 days', v_wallet, now() - interval '100 days', now());
+        (v_core_id, 'manager@core-demo.example.com', 'Nina Park', 'manager', true, now() - interval '2 days', v_wallet, '["reports:export","financial:read"]', 80, now() - interval '20 days', v_wallet, now() - interval '80 days', now()),
+        (v_core_id, 'server1@core-demo.example.com', 'Luis Moreno', 'server', true, now() - interval '5 hours', v_wallet, '[]', 40, now() - interval '30 days', v_wallet, now() - interval '70 days', now()),
+        (v_core_id, 'server2@core-demo.example.com', 'Ava Stone', 'server', true, now() - interval '1 day', v_wallet, '[]', 40, now() - interval '30 days', v_wallet, now() - interval '65 days', now()),
+        (v_core_id, 'host@core-demo.example.com', 'Sam Patel', 'host', true, now() - interval '8 hours', v_wallet, '["reservations:write"]', 30, now() - interval '25 days', v_wallet, now() - interval '60 days', now()),
+        (v_core_id, 'kitchen@core-demo.example.com', 'Marco Silva', 'kitchen', true, now() - interval '3 hours', v_wallet, '[]', 20, now() - interval '25 days', v_wallet, now() - interval '55 days', now()),
+        (v_core_id, 'former@core-demo.example.com', 'Former Server', 'server', false, now() - interval '50 days', v_wallet, '[]', 40, now() - interval '45 days', v_wallet, now() - interval '90 days', now()),
+        (v_ai_id, 'gm@ai-demo.example.com', 'Layla Hassan', 'manager', true, now() - interval '2 hours', v_wallet, '["financial:read","reports:export","director:read"]', 90, now() - interval '15 days', v_wallet, now() - interval '100 days', now()),
+        (v_ai_id, 'floor@ai-demo.example.com', 'Omar Faris', 'manager', true, now() - interval '4 hours', v_wallet, '["reservations:write","delivery:dispatch:write"]', 80, now() - interval '14 days', v_wallet, now() - interval '95 days', now()),
+        (v_ai_id, 'server1@ai-demo.example.com', 'Maya Chen', 'server', true, now() - interval '5 hours', v_wallet, '[]', 40, now() - interval '30 days', v_wallet, now() - interval '80 days', now()),
+        (v_ai_id, 'server2@ai-demo.example.com', 'Rafael Cruz', 'server', true, now() - interval '1 day', v_wallet, '[]', 40, now() - interval '30 days', v_wallet, now() - interval '75 days', now()),
+        (v_ai_id, 'server3@ai-demo.example.com', 'Amira Khan', 'server', true, now() - interval '7 hours', v_wallet, '[]', 40, now() - interval '30 days', v_wallet, now() - interval '70 days', now()),
+        (v_ai_id, 'kitchen1@ai-demo.example.com', 'Chef Bruno', 'kitchen', true, now() - interval '2 hours', v_wallet, '["orders:status"]', 20, now() - interval '25 days', v_wallet, now() - interval '82 days', now()),
+        (v_ai_id, 'kitchen2@ai-demo.example.com', 'Chef Noor', 'kitchen', true, now() - interval '6 hours', v_wallet, '["orders:status"]', 20, now() - interval '25 days', v_wallet, now() - interval '82 days', now()),
+        (v_ai_id, 'host@ai-demo.example.com', 'Zara Ali', 'host', true, now() - interval '3 hours', v_wallet, '["reservations:create","reservations:write"]', 30, now() - interval '22 days', v_wallet, now() - interval '72 days', now()),
+        (v_ai_id, 'delivery@ai-demo.example.com', 'Imran Malik', 'server', true, now() - interval '9 hours', v_wallet, '["delivery:settings:read","delivery:dispatch:read","delivery:dispatch:write"]', 45, now() - interval '18 days', v_wallet, now() - interval '68 days', now()),
+        (v_ai_id, 'analyst@ai-demo.example.com', 'Dana Weiss', 'manager', true, now() - interval '2 days', v_wallet, '["analytics:sales","analytics:items","reports:export"]', 75, now() - interval '12 days', v_wallet, now() - interval '64 days', now()),
+        (v_ai_id, 'former@ai-demo.example.com', 'Former Concierge', 'host', false, now() - interval '44 days', v_wallet, '[]', 30, now() - interval '44 days', v_wallet, now() - interval '100 days', now());
 
     INSERT INTO staff_invitations (business_id, email, name, role, token, status, invited_by, expires_at, created_at, updated_at) VALUES
-        (v_core_id, 'pending.manager@core-demo.payverge.example', 'Pending Manager', 'manager', 'core-demo-invite-pending-manager', 'pending', v_wallet, now() + interval '7 days', now() - interval '1 day', now()),
-        (v_core_id, 'expired.server@core-demo.payverge.example', 'Expired Server', 'server', 'core-demo-invite-expired-server', 'expired', v_wallet, now() - interval '2 days', now() - interval '12 days', now()),
-        (v_core_id, 'revoked.kitchen@core-demo.payverge.example', 'Revoked Kitchen', 'kitchen', 'core-demo-invite-revoked-kitchen', 'revoked', v_wallet, now() + interval '3 days', now() - interval '4 days', now()),
-        (v_ai_id, 'pending.viphost@ai-demo.payverge.example', 'Pending VIP Host', 'host', 'ai-demo-invite-pending-viphost', 'pending', v_wallet, now() + interval '7 days', now() - interval '1 day', now()),
-        (v_ai_id, 'expired.server@ai-demo.payverge.example', 'Expired AI Server', 'server', 'ai-demo-invite-expired-server', 'expired', v_wallet, now() - interval '3 days', now() - interval '14 days', now()),
-        (v_ai_id, 'revoked.analyst@ai-demo.payverge.example', 'Revoked Analyst', 'manager', 'ai-demo-invite-revoked-analyst', 'revoked', v_wallet, now() + interval '2 days', now() - interval '5 days', now());
+        (v_core_id, 'pending.manager@core-demo.example.com', 'Pending Manager', 'manager', 'core-demo-invite-pending-manager', 'pending', v_wallet, now() + interval '7 days', now() - interval '1 day', now()),
+        (v_core_id, 'expired.server@core-demo.example.com', 'Expired Server', 'server', 'core-demo-invite-expired-server', 'expired', v_wallet, now() - interval '2 days', now() - interval '12 days', now()),
+        (v_core_id, 'revoked.kitchen@core-demo.example.com', 'Revoked Kitchen', 'kitchen', 'core-demo-invite-revoked-kitchen', 'revoked', v_wallet, now() + interval '3 days', now() - interval '4 days', now()),
+        (v_ai_id, 'pending.viphost@ai-demo.example.com', 'Pending VIP Host', 'host', 'ai-demo-invite-pending-viphost', 'pending', v_wallet, now() + interval '7 days', now() - interval '1 day', now()),
+        (v_ai_id, 'expired.server@ai-demo.example.com', 'Expired AI Server', 'server', 'ai-demo-invite-expired-server', 'expired', v_wallet, now() - interval '3 days', now() - interval '14 days', now()),
+        (v_ai_id, 'revoked.analyst@ai-demo.example.com', 'Revoked Analyst', 'manager', 'ai-demo-invite-revoked-analyst', 'revoked', v_wallet, now() + interval '2 days', now() - interval '5 days', now());
 
     FOR v_staff_id IN SELECT id FROM staff WHERE business_id IN (v_core_id, v_ai_id) ORDER BY id LOOP
         INSERT INTO rbac_audit_logs (staff_id, business_id, action, old_role, new_role, old_permissions, new_permissions, changed_by, reason, ip_address, user_agent, created_at)
-        SELECT v_staff_id, business_id, 'staff_created', '', role, '[]', custom_permissions, v_wallet, 'Demo staff fixture', '127.0.0.1', 'Payverge demo seed', created_at
+        SELECT v_staff_id, business_id, 'staff_created', '', role, '[]', custom_permissions, v_wallet, 'Demo staff fixture', '127.0.0.1', 'Namakdan demo seed', created_at
         FROM staff WHERE id = v_staff_id;
     END LOOP;
 
-    FOR v_staff_id IN SELECT id FROM staff WHERE email IN ('manager@core-demo.payverge.example','gm@ai-demo.payverge.example') LOOP
+    FOR v_staff_id IN SELECT id FROM staff WHERE email IN ('manager@core-demo.example.com','gm@ai-demo.example.com') LOOP
         INSERT INTO staff_login_codes (staff_id, code, expires_at, used, created_at) VALUES
             (v_staff_id, '100' || (v_staff_id % 1000)::text, now() - interval '1 day', false, now() - interval '2 days'),
             (v_staff_id, '200' || (v_staff_id % 1000)::text, now() + interval '1 day', true, now() - interval '1 hour');
@@ -1034,8 +1034,8 @@ BEGIN
             )
             VALUES (
                 CASE WHEN v_business_key = 'core'
-                    THEN 'customer' || lpad(v_i::text, 2, '0') || '@core-demo.payverge.example'
-                    ELSE 'customer' || lpad(v_i::text, 2, '0') || '@ai-demo.payverge.example'
+                    THEN 'customer' || lpad(v_i::text, 2, '0') || '@core-demo.example.com'
+                    ELSE 'customer' || lpad(v_i::text, 2, '0') || '@ai-demo.example.com'
                 END,
                 '',
                 CASE WHEN v_business_key = 'core' THEN 'Core Customer ' || v_i ELSE 'AI Guest ' || v_i END,
@@ -1249,7 +1249,7 @@ BEGIN
                     CASE WHEN v_business_key = 'core' THEN 'CORE-ORD-' ELSE 'AI-ORD-' END || lpad(v_i::text, 3, '0'),
                     v_status,
                     CASE WHEN v_i % 4 = 0 THEN 'staff' WHEN v_business_key = 'ai' AND v_i % 5 = 0 THEN 'ai_waiter' ELSE 'guest' END,
-                    CASE WHEN v_status IN ('approved','in_kitchen','ready','delivered') THEN 'manager@' || CASE WHEN v_business_key = 'core' THEN 'core-demo.payverge.example' ELSE 'ai-demo.payverge.example' END ELSE '' END,
+                    CASE WHEN v_status IN ('approved','in_kitchen','ready','delivered') THEN 'manager@' || CASE WHEN v_business_key = 'core' THEN 'core-demo.example.com' ELSE 'ai-demo.example.com' END ELSE '' END,
                     CASE WHEN v_status = 'cancelled' THEN 'manager@demo' ELSE '' END,
                     CASE WHEN v_i % 5 = 0 THEN 'No nuts, sauce on side.' ELSE 'Seeded order.' END,
                     (SELECT jsonb_agg(jsonb_build_object('id', item_id, 'item_type', 'menu_item', 'menu_item_id', item_id, 'menu_item_name', item_name, 'quantity', 1, 'price', price, 'options', options, 'special_requests', '', 'subtotal', price))::text
@@ -1595,13 +1595,13 @@ BEGIN
          399, 5500, 1500, 6.5, 15, 5, false, '10:30', '22:00',
          'Core delivery uses in-house first, partner fallback second.',
          '[{"name":"Near Core","fee":399},{"name":"Midtown","fee":599},{"name":"Out of zone","fee":1299}]'::jsonb,
-         '[{"name":"Uber Eats","url":"https://www.ubereats.com/store/demo-core-business","provider_key":"ubereats"},{"name":"DoorDash","url":"https://www.doordash.com/store/demo-core-business","provider_key":"doordash"},{"name":"Deliveroo","url":"https://deliveroo.com/demo-core-business","provider_key":"deliveroo"},{"name":"Talabat","url":"https://www.talabat.com/store/payverge-demo","provider_key":"talabat"},{"name":"Careem","url":"https://www.careem.com/demo-core-business","provider_key":"careem"},{"name":"Zomato","url":"https://www.zomato.com/demo-core-business","provider_key":"zomato"}]'::jsonb,
+         '[{"name":"Uber Eats","url":"https://www.ubereats.com/store/demo-core-business","provider_key":"ubereats"},{"name":"DoorDash","url":"https://www.doordash.com/store/demo-core-business","provider_key":"doordash"},{"name":"Deliveroo","url":"https://deliveroo.com/demo-core-business","provider_key":"deliveroo"},{"name":"Talabat","url":"https://www.talabat.com/store/namakdan-demo","provider_key":"talabat"},{"name":"Careem","url":"https://www.careem.com/demo-core-business","provider_key":"careem"},{"name":"Zomato","url":"https://www.zomato.com/demo-core-business","provider_key":"zomato"}]'::jsonb,
          true, now(), now()),
         (v_ai_id, true, true, true, true, true, false, 'demo_ubereats_key_ai', 'demo_doordash_key_ai', '',
          1800, 35000, 9000, 15.0, 35, 8, false, '11:30', '01:30',
          'AI Pro delivery includes hotel concierge and premium packaging instructions.',
          '[{"name":"Hotel District","fee":2200},{"name":"Business District","fee":1800},{"name":"Premium Far Zone","fee":4500}]'::jsonb,
-         '[{"name":"Careem","url":"https://www.careem.com/demo-ai-business","provider_key":"careem"},{"name":"Deliveroo","url":"https://deliveroo.com/demo-ai-business","provider_key":"deliveroo"},{"name":"DoorDash","url":"https://www.doordash.com/store/demo-ai-business","provider_key":"doordash"},{"name":"Uber Eats","url":"https://www.ubereats.com/store/demo-ai-business","provider_key":"ubereats"},{"name":"Talabat","url":"https://www.talabat.com/store/payverge-ai-demo","provider_key":"talabat"},{"name":"Zomato","url":"https://www.zomato.com/demo-ai-business","provider_key":"zomato"}]'::jsonb,
+         '[{"name":"Careem","url":"https://www.careem.com/demo-ai-business","provider_key":"careem"},{"name":"Deliveroo","url":"https://deliveroo.com/demo-ai-business","provider_key":"deliveroo"},{"name":"DoorDash","url":"https://www.doordash.com/store/demo-ai-business","provider_key":"doordash"},{"name":"Uber Eats","url":"https://www.ubereats.com/store/demo-ai-business","provider_key":"ubereats"},{"name":"Talabat","url":"https://www.talabat.com/store/namakdan-ai-demo","provider_key":"talabat"},{"name":"Zomato","url":"https://www.zomato.com/demo-ai-business","provider_key":"zomato"}]'::jsonb,
          true, now(), now())
     ON CONFLICT (business_id) DO UPDATE SET
         delivery_enabled = EXCLUDED.delivery_enabled,
@@ -1670,7 +1670,7 @@ BEGIN
                 CASE WHEN v_business_key = 'core' THEN v_core_id ELSE v_ai_id END,
                 CASE WHEN v_business_key = 'core' THEN 'Core Driver ' || v_i ELSE 'AI Driver ' || v_i END,
                 CASE WHEN v_business_key = 'core' THEN '+1 555 401 ' || lpad(v_i::text,4,'0') ELSE '+1 555 602 ' || lpad(v_i::text,4,'0') END,
-                'driver' || lpad(v_i::text,2,'0') || '@' || CASE WHEN v_business_key = 'core' THEN 'core-demo.payverge.example' ELSE 'ai-demo.payverge.example' END,
+                'driver' || lpad(v_i::text,2,'0') || '@' || CASE WHEN v_business_key = 'core' THEN 'core-demo.example.com' ELSE 'ai-demo.example.com' END,
                 upper(v_business_key) || '-LIC-' || lpad(v_i::text,3,'0'),
                 CASE WHEN v_i % 5 = 0 THEN 'van' WHEN v_i % 4 = 0 THEN 'car' WHEN v_i % 3 = 0 THEN 'motorcycle' ELSE 'scooter' END,
                 upper(v_business_key) || '-' || (100 + v_i),
@@ -1704,7 +1704,7 @@ BEGIN
             WHERE business_id = CASE WHEN v_business_key = 'core' THEN v_core_id ELSE v_ai_id END
             ORDER BY id OFFSET ((v_i - 1) % 3) LIMIT 1;
             SELECT id INTO v_customer_id FROM customers
-            WHERE email LIKE CASE WHEN v_business_key = 'core' THEN '%@core-demo.payverge.example' ELSE '%@ai-demo.payverge.example' END
+            WHERE email LIKE CASE WHEN v_business_key = 'core' THEN '%@core-demo.example.com' ELSE '%@ai-demo.example.com' END
             ORDER BY id OFFSET ((v_i - 1) % (CASE WHEN v_business_key = 'core' THEN 14 ELSE 24 END)) LIMIT 1;
 
             INSERT INTO delivery_orders (
@@ -1731,7 +1731,7 @@ BEGIN
                 CASE WHEN v_status IN ('assigned','picked_up','in_transit','nearby','delivered') THEN now() - interval '45 minutes' ELSE NULL END,
                 CASE WHEN v_business_key = 'core' THEN 'Core Delivery Guest ' || v_i ELSE 'AI Delivery Guest ' || v_i END,
                 CASE WHEN v_business_key = 'core' THEN '+1 555 501 ' || lpad(v_i::text,4,'0') ELSE '+1 555 702 ' || lpad(v_i::text,4,'0') END,
-                'delivery' || lpad(v_i::text,2,'0') || '@' || CASE WHEN v_business_key = 'core' THEN 'core-demo.payverge.example' ELSE 'ai-demo.payverge.example' END,
+                'delivery' || lpad(v_i::text,2,'0') || '@' || CASE WHEN v_business_key = 'core' THEN 'core-demo.example.com' ELSE 'ai-demo.example.com' END,
                 CASE WHEN v_business_key = 'core' THEN (200 + v_i)::text || ' Delivery Lane' ELSE 'Hotel Demo ' || v_i END,
                 CASE WHEN v_i % 2 = 0 THEN 'Suite ' || v_i ELSE '' END,
                 CASE WHEN v_business_key = 'core' THEN 'New York' ELSE 'Dubai' END,
@@ -1765,7 +1765,7 @@ BEGIN
                 jsonb_build_object('source','demo_seed','provider_key', CASE WHEN v_i % 4 = 0 THEN 'doordash' ELSE 'in_house' END),
                 now() + interval '15 minutes',
                 CASE WHEN v_i % 4 = 0 THEN 'ext-' || v_business_key || '-' || v_i ELSE '' END,
-                CASE WHEN v_i % 4 = 0 THEN 'https://tracking.demo.payverge.example/' || v_business_key || '/' || v_i ELSE '' END,
+                CASE WHEN v_i % 4 = 0 THEN 'https://tracking.demo.example.com/' || v_business_key || '/' || v_i ELSE '' END,
                 CASE WHEN v_status = 'cancelled' THEN now() - interval '20 minutes' ELSE NULL END,
                 CASE WHEN v_status = 'cancelled' THEN 'staff' ELSE '' END,
                 CASE WHEN v_status = 'cancelled' THEN 'Customer requested cancellation.' ELSE '' END,
@@ -1836,8 +1836,8 @@ BEGIN
         VALUES (
             'pvseed-demo-session-' || lpad(v_i::text, 3, '0'),
             (ARRAY['/','/es','/b/demo-core-kitchen','/b/demo-ai-lounge','/b/demo-core-kitchen?lang=es','/dashboard','/business/register'])[((v_i - 1) % 7) + 1],
-            CASE WHEN v_i % 4 = 0 THEN 'https://google.com' ELSE 'https://demo.payverge.example' END,
-            'Mozilla/5.0 PayvergeDemo',
+            CASE WHEN v_i % 4 = 0 THEN 'https://google.com' ELSE 'https://demo.example.com' END,
+            'Mozilla/5.0 NamakdanDemo',
             '203.0.113.' || (v_i % 250),
             CASE WHEN v_i % 3 = 0 THEN 'United Arab Emirates' WHEN v_i % 2 = 0 THEN 'United States' ELSE 'Argentina' END,
             CASE WHEN v_i % 3 = 0 THEN 'Dubai' WHEN v_i % 2 = 0 THEN 'New York' ELSE 'Buenos Aires' END,
@@ -1858,7 +1858,7 @@ BEGIN
             CASE WHEN v_i % 5 = 0 THEN 'form_submit' WHEN v_i % 3 = 0 THEN 'qr_scan' ELSE 'click' END,
             CASE WHEN v_i % 5 = 0 THEN 'reservation' WHEN v_i % 3 = 0 THEN 'table' ELSE 'cta' END,
             CASE WHEN v_i % 2 = 0 THEN 'core-demo-action' ELSE 'ai-demo-action' END,
-            jsonb_build_object('seed','payverge-demo-seed-fixture','index',v_i)::text,
+            jsonb_build_object('seed','namakdan-demo-seed-fixture','index',v_i)::text,
             120 + v_i, 240 + v_i, now() - ((v_i % 20) || ' days')::interval
         );
 
@@ -1868,7 +1868,7 @@ BEGIN
                 'pvseed-demo-session-' || lpad(v_i::text, 3, '0'),
                 CASE WHEN v_i % 8 = 0 THEN 'payment' WHEN v_i % 12 = 0 THEN 'reservation' ELSE 'registration' END,
                 CASE WHEN v_i % 8 = 0 THEN 49.00 ELSE 0 END,
-                jsonb_build_object('seed','payverge-demo-seed-fixture','business', CASE WHEN v_i % 2 = 0 THEN 'core' ELSE 'ai' END)::text,
+                jsonb_build_object('seed','namakdan-demo-seed-fixture','business', CASE WHEN v_i % 2 = 0 THEN 'core' ELSE 'ai' END)::text,
                 now() - ((v_i % 20) || ' days')::interval
             );
         END IF;
@@ -1902,8 +1902,8 @@ BEGIN
             CASE WHEN v_i <= 3 THEN 'whatsapp:demo:+155501010' || v_i ELSE 'ai-demo-session-' || lpad(v_i::text,3,'0') END,
             v_ai_id,
             CASE
-                WHEN v_i = 2 THEN upper(substr(md5('payverge-fixture-ai-pro-table-2'), 1, 10))
-                WHEN v_i <= 10 THEN upper(substr(md5('payverge-fixture-ai-pro-table-' || (((v_i - 1) % 16) + 1)::text), 1, 10))
+                WHEN v_i = 2 THEN upper(substr(md5('namakdan-fixture-ai-pro-table-2'), 1, 10))
+                WHEN v_i <= 10 THEN upper(substr(md5('namakdan-fixture-ai-pro-table-' || (((v_i - 1) % 16) + 1)::text), 1, 10))
                 ELSE ''
             END,
             (ARRAY['en','ar','es','fr','zh'])[((v_i - 1) % 5) + 1],
@@ -1932,8 +1932,8 @@ BEGIN
 
     FOR v_job_id IN SELECT id FROM menu_extraction_jobs WHERE business_id = v_ai_id ORDER BY id LOOP
         INSERT INTO menu_extraction_images (job_id, file_path, page_order, created_at) VALUES
-            (v_job_id, 's3://demo-payverge/ai-menu/job-' || v_job_id || '-page-1.png', 1, now()),
-            (v_job_id, 's3://demo-payverge/ai-menu/job-' || v_job_id || '-page-2.png', 2, now());
+            (v_job_id, 's3://demo-namakdan/ai-menu/job-' || v_job_id || '-page-1.png', 1, now()),
+            (v_job_id, 's3://demo-namakdan/ai-menu/job-' || v_job_id || '-page-2.png', 2, now());
     END LOOP;
 
     INSERT INTO menu_wizard_sessions (business_id, status, generated_menu, config, created_at, updated_at)
@@ -1958,7 +1958,7 @@ BEGIN
         VALUES
             (v_thread_id, v_ai_id, 'user', 'en', 'What should I focus on for this area?', '{}', '', 0, NULL, NULL, now() - interval '35 minutes', now()),
             (v_thread_id, v_ai_id, 'assistant', 'en', 'Focus on high-margin mocktails, VIP reservations, low-stock premium ingredients, and delivery cancellation patterns.',
-             '{"cards":[{"title":"Review high-margin bundles","href":"/dashboard/inventory"},{"title":"Check VIP guests","href":"/dashboard/crm"}],"seed":"payverge-demo-seed-fixture"}',
+             '{"cards":[{"title":"Review high-margin bundles","href":"/dashboard/inventory"},{"title":"Check VIP guests","href":"/dashboard/crm"}],"seed":"namakdan-demo-seed-fixture"}',
              'gpt-demo-director', 1240,
              CASE WHEN v_status IN ('Revenue opportunities this week','VIP guest retention plan') THEN 'up' ELSE NULL END,
              CASE WHEN v_status IN ('Revenue opportunities this week','VIP guest retention plan') THEN now() - interval '20 minutes' ELSE NULL END,
@@ -1968,8 +1968,8 @@ BEGIN
     IF to_regclass('public.user_sessions') IS NOT NULL THEN
         INSERT INTO user_sessions (user_id, address, session_token, provider, ip_address, user_agent, revoked, expires_at, created_at, last_used_at, refresh_token, refresh_expires_at)
         VALUES
-            (v_owner_id, v_wallet, 'pvseed-demo-revoked-core-session', 'google', '127.0.0.1', 'Payverge demo seed', true, now() - interval '1 day', now() - interval '8 days', now() - interval '2 days', 'pvseed-demo-refresh-core', now() - interval '1 day'),
-            (v_owner_id, v_wallet, 'pvseed-demo-revoked-ai-session', 'wallet', '127.0.0.1', 'Payverge demo seed', true, now() - interval '2 days', now() - interval '10 days', now() - interval '3 days', 'pvseed-demo-refresh-ai', now() - interval '2 days')
+            (v_owner_id, v_wallet, 'pvseed-demo-revoked-core-session', 'google', '127.0.0.1', 'Namakdan demo seed', true, now() - interval '1 day', now() - interval '8 days', now() - interval '2 days', 'pvseed-demo-refresh-core', now() - interval '1 day'),
+            (v_owner_id, v_wallet, 'pvseed-demo-revoked-ai-session', 'wallet', '127.0.0.1', 'Namakdan demo seed', true, now() - interval '2 days', now() - interval '10 days', now() - interval '3 days', 'pvseed-demo-refresh-ai', now() - interval '2 days')
         ON CONFLICT (session_token) DO UPDATE SET revoked = true, expires_at = EXCLUDED.expires_at;
     END IF;
 
@@ -1990,9 +1990,9 @@ BEGIN
     SELECT id INTO v_admin_user_id FROM users WHERE role = 'admin' ORDER BY id LIMIT 1;
     IF v_admin_user_id IS NOT NULL THEN
         INSERT INTO admin_actions (admin_user_id, target_user_id, action_type, details, created_at) VALUES
-            (v_admin_user_id, v_owner_id, 'suspend_business', '{"seed":"payverge-demo-seed-fixture","business_id":"demo-ai-pro-business","reason":"demo admin lifecycle history"}'::jsonb, now() - interval '7 days'),
-            (v_admin_user_id, v_owner_id, 'reactivate_business', '{"seed":"payverge-demo-seed-fixture","business_id":"demo-ai-pro-business"}'::jsonb, now() - interval '7 days' + interval '1 hour'),
-            (v_admin_user_id, v_owner_id, 'reset_password', '{"seed":"payverge-demo-seed-fixture","reason":"demo admin user detail history"}'::jsonb, now() - interval '2 days');
+            (v_admin_user_id, v_owner_id, 'suspend_business', '{"seed":"namakdan-demo-seed-fixture","business_id":"demo-ai-pro-business","reason":"demo admin lifecycle history"}'::jsonb, now() - interval '7 days'),
+            (v_admin_user_id, v_owner_id, 'reactivate_business', '{"seed":"namakdan-demo-seed-fixture","business_id":"demo-ai-pro-business"}'::jsonb, now() - interval '7 days' + interval '1 hour'),
+            (v_admin_user_id, v_owner_id, 'reset_password', '{"seed":"namakdan-demo-seed-fixture","reason":"demo admin user detail history"}'::jsonb, now() - interval '2 days');
     END IF;
 
     -- Keep the demo operational data fresh on every run. This makes financial
@@ -2360,10 +2360,10 @@ BEGIN
         UPDATE admin_actions
         SET created_at = v_demo_day + interval '10 hours'
         WHERE target_user_id = v_owner_id
-          AND details::text LIKE '%payverge-demo-seed-fixture%';
+          AND details::text LIKE '%namakdan-demo-seed-fixture%';
     END IF;
 
-    RAISE NOTICE 'Payverge demo seed complete. Core business id %, AI Pro business id %', v_core_id, v_ai_id;
+    RAISE NOTICE 'Namakdan demo seed complete. Core business id %, AI Pro business id %', v_core_id, v_ai_id;
 END $$ LANGUAGE plpgsql;
 
 COMMIT;

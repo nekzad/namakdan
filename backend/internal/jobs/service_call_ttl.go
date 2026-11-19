@@ -7,8 +7,8 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	operational_alerts "github.com/stdevmac/payverge/backend/internal/services/operational_alerts"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	operational_alerts "github.com/nekzad/namakdan/backend/internal/services/operational_alerts"
 )
 
 // ServiceCallTTLJanitor resolves open waiter calls past the seating SLA so

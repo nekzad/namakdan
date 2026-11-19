@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
@@ -59,8 +59,8 @@ func TestListIssuableBillsAccessShape(t *testing.T) {
 		}
 	}
 	// Scan into a struct slice can land on Query or Row depending on dialect.
-	const queryCB = "payverge:test_list_issuable_sql_query"
-	const rowCB = "payverge:test_list_issuable_sql_row"
+	const queryCB = "namakdan:test_list_issuable_sql_query"
+	const rowCB = "namakdan:test_list_issuable_sql_row"
 	require.NoError(t, db.Callback().Query().After("gorm:query").Register(queryCB, capture))
 	require.NoError(t, db.Callback().Row().After("gorm:row").Register(rowCB, capture))
 	t.Cleanup(func() {

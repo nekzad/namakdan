@@ -12,7 +12,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func TestCreatePushSubscriptionRejectsUnauthorizedBusiness(t *testing.T) {
@@ -273,7 +273,7 @@ func TestCreatePushSubscriptionRejectsNonPushServiceEndpoint(t *testing.T) {
 
 	for _, endpoint := range []string{
 		"http://169.254.169.254/latest/meta-data/",
-		"https://internal.payverge.local/hook",
+		"https://internal.example.test/hook",
 		"http://fcm.googleapis.com/fcm/send/x",
 	} {
 		body := bytes.NewBufferString(fmt.Sprintf(`{"business_id":%d,"endpoint":%q,"p256dh_key":"key","auth_key":"auth"}`, business.ID, endpoint))

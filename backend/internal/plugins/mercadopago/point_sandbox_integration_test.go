@@ -62,8 +62,8 @@ func createSandboxPointOrder(t *testing.T, ctx context.Context, plugin *MercadoP
 	// ARS 100.00 — decimal string per Orders API (zero commission: no marketplace_fee).
 	body := map[string]interface{}{
 		"type":               "point",
-		"external_reference": fmt.Sprintf("payverge_%s_%d", refSuffix, time.Now().UnixNano()),
-		"description":        "Payverge Point sandbox integration",
+		"external_reference": fmt.Sprintf("namakdan_%s_%d", refSuffix, time.Now().UnixNano()),
+		"description":        "Namakdan Point sandbox integration",
 		"transactions": map[string]interface{}{
 			"payments": []map[string]string{
 				{"amount": "100.00"},

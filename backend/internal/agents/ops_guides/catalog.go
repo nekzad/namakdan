@@ -7,7 +7,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/stdevmac/payverge/backend/internal/assistantcontract"
+	"github.com/nekzad/namakdan/backend/internal/assistantcontract"
 )
 
 // Guide is one deterministic Ops how-to entry. Stable fields (ID/tab/destination/

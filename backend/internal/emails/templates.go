@@ -11,8 +11,8 @@ import (
 	"sync"
 	texttemplate "text/template"
 
-	appconfig "github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/locales"
+	appconfig "github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/locales"
 )
 
 // TemplateManager handles loading and rendering of email templates

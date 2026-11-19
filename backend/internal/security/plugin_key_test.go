@@ -10,7 +10,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/config"
 )
 
 func devPluginKeyTestEnv(t *testing.T) {
@@ -93,7 +93,7 @@ func TestEnsureDevPluginSecretKey_GeneratesPersistsAndReuses(t *testing.T) {
 
 func TestEnsureDevPluginSecretKey_IsNeverTheRetiredConstant(t *testing.T) {
 	devPluginKeyTestEnv(t)
-	legacy := sha256.Sum256([]byte("payverge-local-plugin-secret-key"))
+	legacy := sha256.Sum256([]byte("namakdan-local-plugin-secret-key"))
 
 	if _, err := EnsureDevPluginSecretKey(false, t.TempDir()); err != nil {
 		t.Fatalf("EnsureDevPluginSecretKey() error = %v", err)
@@ -116,7 +116,7 @@ func TestEnsureDevPluginSecretKey_IsNeverTheRetiredConstant(t *testing.T) {
 
 func TestPluginSecretKey_UnconfiguredProcessUsesEphemeralKey(t *testing.T) {
 	devPluginKeyTestEnv(t)
-	legacy := sha256.Sum256([]byte("payverge-local-plugin-secret-key"))
+	legacy := sha256.Sum256([]byte("namakdan-local-plugin-secret-key"))
 
 	key := currentDevKey(t)
 	if bytes.Equal(key, legacy[:]) {

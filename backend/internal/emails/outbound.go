@@ -19,7 +19,7 @@ const (
 	OutboundStatusFailed     = "failed"
 )
 
-// EmailOutboundSend is the application-owned join row between a Payverge
+// EmailOutboundSend is the application-owned join row between a Namakdan
 // send and the provider's message ID. Bounce/delivery webhooks update it
 // by (provider, provider_message_id). Recipient is stored redacted only.
 type EmailOutboundSend struct {

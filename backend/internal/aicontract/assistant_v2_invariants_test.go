@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/assistantcontract"
+	"github.com/nekzad/namakdan/backend/internal/assistantcontract"
 	"github.com/stretchr/testify/require"
 )
 
@@ -166,7 +166,7 @@ func TestAssistantV2InvariantScenarioFieldsAreRequired(t *testing.T) {
 			Code: "ok",
 			AssistantV2: &AssistantV2Expected{
 				RolloutEnabled:       true,
-				AllowedActionTargets: []string{"navigate|payverge_page|pricing|/pricing||"},
+				AllowedActionTargets: []string{"navigate|namakdan_page|pricing|/pricing||"},
 				TrustedSources:       []string{"pricing:plans|pricing_registry|pricing_registry|/pricing"},
 				CanonicalEntities:    []string{},
 				LocaleContains:       []string{"precios"},

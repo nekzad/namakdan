@@ -16,8 +16,8 @@ func TestPublicURLContract(t *testing.T) {
 	require.Equal(t, "https://pos.example.test/media/a/b.png", PublicURL("a/b.png"))
 
 	// A sub-path deployment keeps its prefix.
-	SetPublicURL("https://example.test/payverge")
-	require.Equal(t, "https://example.test/payverge/media/a/b.png", PublicURL("a/b.png"))
+	SetPublicURL("https://example.test/namakdan")
+	require.Equal(t, "https://example.test/namakdan/media/a/b.png", PublicURL("a/b.png"))
 
 	// Garbage PUBLIC_URL degrades to relative URLs instead of emitting junk.
 	SetPublicURL("javascript:alert(1)")
@@ -38,7 +38,7 @@ func TestKeyFromURLAcceptsEveryStoredShape(t *testing.T) {
 	updateState(func(s *storageState) {
 		s.cdnBaseURL = "https://images.example.test/base"
 		s.s3EndpointHost = "minio.example.test:9000"
-		s.s3Bucket = "payverge"
+		s.s3Bucket = "namakdan"
 	})
 	defer updateState(func(s *storageState) { s.cdnBaseURL, s.s3EndpointHost, s.s3Bucket = "", "", "" })
 
@@ -49,10 +49,10 @@ func TestKeyFromURLAcceptsEveryStoredShape(t *testing.T) {
 		"https://pos.example.test/media/businesses/1/a.png":                 "businesses/1/a.png",
 		"https://other-origin.test/media/businesses/1/a.png":                "businesses/1/a.png",
 		"https://images.example.test/base/businesses/1/a.png":               "businesses/1/a.png",
-		"https://payverge.s3.us-east-1.amazonaws.com/businesses/1/a.png":    "businesses/1/a.png",
-		"https://payverge.j5f7.c18.e2-3.dev/businesses/1/a.png":             "businesses/1/a.png",
-		"http://minio.example.test:9000/payverge/businesses/1/a.png":        "businesses/1/a.png",
-		"https://payverge.s3.amazonaws.com/businesses/1/Menu%20Photo.png":   "businesses/1/Menu Photo.png",
+		"https://example-bucket.s3.us-east-1.amazonaws.com/businesses/1/a.png":    "businesses/1/a.png",
+		"https://namakdan.j5f7.c18.e2-3.dev/businesses/1/a.png":             "businesses/1/a.png",
+		"http://minio.example.test:9000/namakdan/businesses/1/a.png":        "businesses/1/a.png",
+		"https://example-bucket.s3.amazonaws.com/businesses/1/Menu%20Photo.png":   "businesses/1/Menu Photo.png",
 		"https://pos.example.test/media/businesses/1/a.png?v=2#frag":        "businesses/1/a.png",
 		"  https://pos.example.test/media/businesses/1/a.png  ":             "businesses/1/a.png",
 		"https://images.example.test/base/demo-arg/assets/carta/flan.jpg":   "demo-arg/assets/carta/flan.jpg",

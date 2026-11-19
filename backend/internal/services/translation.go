@@ -12,9 +12,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/httpclientx"
-	"github.com/stdevmac/payverge/backend/internal/locales"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/httpclientx"
+	"github.com/nekzad/namakdan/backend/internal/locales"
 )
 
 // Google Translate API structures

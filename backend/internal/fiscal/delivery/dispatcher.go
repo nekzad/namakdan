@@ -8,11 +8,11 @@ import (
 	"context"
 	"errors"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/emails"
-	"github.com/stdevmac/payverge/backend/internal/fiscal"
-	"github.com/stdevmac/payverge/backend/internal/s3"
-	printsvc "github.com/stdevmac/payverge/backend/internal/services/print"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/fiscal"
+	"github.com/nekzad/namakdan/backend/internal/s3"
+	printsvc "github.com/nekzad/namakdan/backend/internal/services/print"
 )
 
 // Dispatcher is the production fiscal.ReceiptDispatcher: it uploads receipt

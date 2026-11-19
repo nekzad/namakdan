@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/runtimecontrol"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/runtimecontrol"
 
 	"github.com/stretchr/testify/require"
 )
@@ -14,7 +14,7 @@ import (
 func TestIsDemoPlaceholderFiscalReceipt(t *testing.T) {
 	auth := "AUTH-144"
 	demoNum := "DEMO-144"
-	localQR := "https://payverge.local/fiscal/144"
+	localQR := "https://example.test/fiscal/144"
 	realCAE := "71234567890123"
 	realQR := "https://www.arca.gob.ar/fe/qr/?p=abc"
 	realNum := "00000042"

@@ -45,7 +45,7 @@ func TestLogProviderMetadataOmitsRecipientsAndLinks(t *testing.T) {
 	p := NewLogProvider(l)
 
 	msg := EmailMessage{
-		From:         "Payverge <noreply@example.test>",
+		From:         "Namakdan <noreply@example.test>",
 		To:           []string{"Owner@Example.TEST", " other@example.test "},
 		ReplyTo:      "reply@example.test",
 		Subject:      "Reset your password",

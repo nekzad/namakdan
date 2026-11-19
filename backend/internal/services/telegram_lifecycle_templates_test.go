@@ -9,20 +9,20 @@ import (
 
 func TestRenderTelegramWelcomeMessage_Localizes(t *testing.T) {
 	en := RenderTelegramWelcomeMessage("Bistro 21", "en")
-	assert.Contains(t, en, "Welcome to Payverge Notifications")
+	assert.Contains(t, en, "Welcome to Namakdan Notifications")
 	assert.Contains(t, en, "Bistro 21")
 	assert.Contains(t, en, "Order notifications")
 	assert.Contains(t, en, "You can customize")
 
 	es := RenderTelegramWelcomeMessage("Bistró 21", "es")
-	assert.Contains(t, es, "Bienvenido a las notificaciones de Payverge")
+	assert.Contains(t, es, "Bienvenido a las notificaciones de Namakdan")
 	assert.Contains(t, es, "Bistró 21")
 	assert.Contains(t, es, "Notificaciones de pedidos")
 	assert.Contains(t, es, "Puedes personalizar")
 	assert.NotContains(t, es, "Podés")
 
 	esar := RenderTelegramWelcomeMessage("Bistró 21", "es-AR")
-	assert.Contains(t, esar, "Bienvenido a las notificaciones de Payverge")
+	assert.Contains(t, esar, "Bienvenido a las notificaciones de Namakdan")
 	assert.Contains(t, esar, "Podés personalizar")
 	assert.NotContains(t, esar, "Puedes personalizar")
 }
@@ -30,7 +30,7 @@ func TestRenderTelegramWelcomeMessage_Localizes(t *testing.T) {
 func TestRenderTelegramWelcomeMessage_UnknownLanguageFallsBackToEnglish(t *testing.T) {
 	for _, lang := range []string{"", "   ", "klingon", "fr"} {
 		msg := RenderTelegramWelcomeMessage("X", lang)
-		assert.Contains(t, msg, "Welcome to Payverge Notifications", "lang %q", lang)
+		assert.Contains(t, msg, "Welcome to Namakdan Notifications", "lang %q", lang)
 	}
 }
 

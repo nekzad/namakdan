@@ -222,10 +222,10 @@ skills-lock.json
 .playwright-mcp/
 
 # Local audit binaries (docx exports, kept locally under .local/audit-exports/)
-payverge-code-audit-*.docx
-payverge-codebase-audit-*.docx
-payverge-audit-*.docx
-payverge_code_audit_*.docx
+namakdan-code-audit-*.docx
+namakdan-codebase-audit-*.docx
+namakdan-audit-*.docx
+namakdan_code_audit_*.docx
 /codebase-audit-*.docx
 
 # Local artifacts from generative tooling (investor decks, etc.) — not project source
@@ -251,7 +251,7 @@ brag-output-*/
 /.grok-media/
 /frames/
 /marketing/
-/stdevMac/
+/nekzad/
 /transcript/
 /notion.mp4
 /notion_audio.wav

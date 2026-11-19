@@ -78,7 +78,7 @@ wait_for() {
 }
 
 postgres_ready() {
-  compose exec -T postgres pg_isready -U payverge -d payverge >/dev/null 2>&1
+  compose exec -T postgres pg_isready -U namakdan -d namakdan >/dev/null 2>&1
 }
 
 backend_live() {

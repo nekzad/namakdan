@@ -10,10 +10,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/demomode"
-	"github.com/stdevmac/payverge/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/demomode"
+	"github.com/nekzad/namakdan/backend/internal/session"
 )
 
 // seedProviderRefreshSession seeds a refreshable session for userID under
@@ -54,7 +54,7 @@ func TestRefreshToken_DemoSharedIdentityReuseRevokesOnlyThatSession(t *testing.T
 			db, user := setupRefreshHandlerTest(t)
 			if provider == demomode.StaffSessionProvider {
 				require.NoError(t, db.AutoMigrate(&database.Staff{}))
-				staff := &database.Staff{BusinessID: 1, Name: "Demo waiter", Email: "waiter@demo.payverge.invalid", Role: database.StaffRoleServer, IsActive: true}
+				staff := &database.Staff{BusinessID: 1, Name: "Demo waiter", Email: "waiter@demo.namakdan.invalid", Role: database.StaffRoleServer, IsActive: true}
 				require.NoError(t, db.Create(staff).Error)
 				user = &database.User{ID: staff.ID}
 			}
@@ -103,7 +103,7 @@ func TestRefreshToken_DemoStaffSessionDiesWithoutDemoMode(t *testing.T) {
 	config.SetDemoModeForTesting(t, false)
 	db, _ := setupRefreshHandlerTest(t)
 	require.NoError(t, db.AutoMigrate(&database.Staff{}))
-	staff := &database.Staff{BusinessID: 1, Name: "Demo kitchen", Email: "kitchen@demo.payverge.invalid", Role: database.StaffRoleKitchen, IsActive: true}
+	staff := &database.Staff{BusinessID: 1, Name: "Demo kitchen", Email: "kitchen@demo.namakdan.invalid", Role: database.StaffRoleKitchen, IsActive: true}
 	require.NoError(t, db.Create(staff).Error)
 	demo := seedProviderRefreshSession(t, staff.ID, demomode.StaffSessionProvider, "demo-staff-1")
 	ordinary := seedProviderRefreshSession(t, staff.ID, "staff_code", "real-staff-1")

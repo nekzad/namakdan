@@ -2689,7 +2689,7 @@ recognized-payment UNION.
   ```
   The change is correctness-driven (eliminate the lost-update race), not a latency optimization — omitting 14 columns from the UPDATE is a wash on a single-row write. Allocs/op and B/op are stable across the 3 runs.
 
-**Note (plan deviation)**: the plan's `BenchmarkUpdateBusinessExceptDesign` body called `setupStaffHandlerTestDBForTB(b)` but never created the `businesses` table — that helper's `*testing.B` path (`setupBenchmarkStaffHandlerDB`) only registers the DB + RBAC and does not auto-migrate. Added `gormDB.AutoMigrate(&database.Business{})` after the setup call, mirroring the existing `setupPaymentHistoryPerfDB` benchmark pattern (`payment_history_perf_test.go:26`). The plan's test import path `github.com/payverge/backend/internal/database` was also corrected to the real module path `payverge/internal/database` (now `github.com/stdevmac/payverge/backend/internal/database`).
+**Note (plan deviation)**: the plan's `BenchmarkUpdateBusinessExceptDesign` body called `setupStaffHandlerTestDBForTB(b)` but never created the `businesses` table — that helper's `*testing.B` path (`setupBenchmarkStaffHandlerDB`) only registers the DB + RBAC and does not auto-migrate. Added `gormDB.AutoMigrate(&database.Business{})` after the setup call, mirroring the existing `setupPaymentHistoryPerfDB` benchmark pattern (`payment_history_perf_test.go:26`). The plan's test import path `github.com/namakdan/backend/internal/database` was also corrected to the real module path `namakdan/internal/database` (now `github.com/nekzad/namakdan/backend/internal/database`).
 
 **Commands run**:
 ```
@@ -2757,7 +2757,7 @@ go test ./internal/fiscal/ -bench BenchmarkFiscalWorkerProcessDue -benchmem -cou
 - **C-2 (credit notes DOA)**: `processCreditNoteJob` built a `CreditNoteInput` with no `Settings`, so the real AR mapper rejected every credit note on CUIT/PoS validation and the job churned its whole retry budget. Now passes `Settings: settingsFromModel(jobCtx.Settings)`; `TestFiscalWorkerDispatchesCreditNote` asserts the input carries the issuer CUIT + point of sale.
 - Minor: renamed the `cap` local in `backoffForAttempt` to `maxBackoff` (builtin shadow).
 
-**Fiscal worker metrics (Task 28)**: Added three Prometheus series mirroring the plugin-notification worker — `payverge_fiscal_receipts_total{status}` (incremented per terminal/transition outcome in `applyOutcome`), `payverge_fiscal_job_attempts_total{action}` (per `processJob` call), `payverge_fiscal_jobs_queue_depth` (gauge, sampled once per `ProcessDue` from the new `database.CountDueFiscalJobs`). Perf: the gauge adds exactly one `COUNT(*)` per worker tick, using the same predicate as the claim (`status IN (pending,failed_retryable) AND next_attempt_at due AND locked_at IS NULL`) so it is fully served by `idx_fiscal_jobs_claim (status, next_attempt_at)` — one indexed count every `FISCAL_WORKER_INTERVAL_SECONDS` (default 10s), negligible. Counter increments are O(1) lock-free. Test `TestFiscalWorkerRecordsMetrics` asserts deltas via `prometheus/testutil`. go.mod gained one indirect dep (`kylelemons/godebug`, a testutil transitive).
+**Fiscal worker metrics (Task 28)**: Added three Prometheus series mirroring the plugin-notification worker — `namakdan_fiscal_receipts_total{status}` (incremented per terminal/transition outcome in `applyOutcome`), `namakdan_fiscal_job_attempts_total{action}` (per `processJob` call), `namakdan_fiscal_jobs_queue_depth` (gauge, sampled once per `ProcessDue` from the new `database.CountDueFiscalJobs`). Perf: the gauge adds exactly one `COUNT(*)` per worker tick, using the same predicate as the claim (`status IN (pending,failed_retryable) AND next_attempt_at due AND locked_at IS NULL`) so it is fully served by `idx_fiscal_jobs_claim (status, next_attempt_at)` — one indexed count every `FISCAL_WORKER_INTERVAL_SECONDS` (default 10s), negligible. Counter increments are O(1) lock-free. Test `TestFiscalWorkerRecordsMetrics` asserts deltas via `prometheus/testutil`. go.mod gained one indirect dep (`kylelemons/godebug`, a testutil transitive).
 
 **Receipt delivery (Task 24)**: An authorized `issue_receipt` job now delivers the receipt to the customer — render PDF + QR, upload both to the PROTECTED S3 bucket (`s3.UploadBytesProtected`, new), email the PDF as an attachment to the bill's CRM-customer email (new `SendFiscalReceiptEmail` + `fiscal_receipt` template in eng/es/es_ar, guest footer), and best-effort enqueue a `PrintJobKindReceipt`. Hooked in `processIssueJob` (service_jobs.go) after `persistReceiptResult` returns an authorized issue receipt; gated behind an injected `ReceiptDispatcher` (nil = disabled). Idempotent via the new `fiscal_receipts.delivered_at` column (mig 000087, model `FiscalReceipt.DeliveredAt`): `DeliverReceipt` short-circuits when non-nil and stamps it only AFTER a successful email send (or when there is no recipient), so a transient email failure leaves it nil for the next sweep to retry. Delivery is fully best-effort — a render/upload/email/print failure is logged and never fails the fiscal job.
 
@@ -3388,7 +3388,7 @@ The worst fiscal failure (AFIP committed a CAE — a legal invoice number was
 consumed — but the local `FiscalReceipt` row couldn't be persisted after the
 bounded retry, so the job goes `failed_permanent` WITHOUT re-issuing) was a bare
 stdlib `log.Printf` to stdout. Replaced with `logger.Logger.WithFields(...).Errorf`
-structured error + a dedicated counter `payverge_fiscal_orphaned_cae_total`
+structured error + a dedicated counter `namakdan_fiscal_orphaned_cae_total`
 (`prometheus.MustRegister`ed). Each increment is a page-the-operator,
 reconcile-by-hand event. Terminal behavior unchanged. Tests:
 `TestFiscalOrphanedCAETotalRegistered` (metric identity) +
@@ -3397,10 +3397,10 @@ reconcile-by-hand event. Terminal behavior unchanged. Tests:
 + exactly-one increment).
 
 ### P9.2 — untrack ~108MB build binaries (`6db5a027`)
-`backend/payverge` (47MB) + `backend/payverge-backend` (56MB) were tracked at the
-module root; a natural `go build -o payverge` re-stages a fresh blob. `git rm
---cached`ed both (kept on disk) + added `backend/.gitignore` (`/payverge`,
-`/payverge-backend`, `/bin/`). Guard test `internal/hygiene/TestNoCommittedRootBinaries`
+`backend/namakdan` (47MB) + `backend/namakdan-backend` (56MB) were tracked at the
+module root; a natural `go build -o namakdan` re-stages a fresh blob. `git rm
+--cached`ed both (kept on disk) + added `backend/.gitignore` (`/namakdan`,
+`/namakdan-backend`, `/bin/`). Guard test `internal/hygiene/TestNoCommittedRootBinaries`
 fails if either is ever re-tracked. History scrub (git-filter-repo to reclaim the
 108MB) is deliberately left out-of-band.
 
@@ -3423,7 +3423,7 @@ template (`CarMetrics`, `FleetInvestmentAmount`, `FleetRentalDuration`,
 `UserReferrals`, `ActiveUsers`) + their registrations — each verified 0 external
 callers before deletion (`go build ./...` is the backstop). They exported
 zero-value series that mislead restaurant/payment dashboards. Added the real
-signal in their place: `payverge_payment_webhook_processing_failures_total{plugin,reason}`.
+signal in their place: `namakdan_payment_webhook_processing_failures_total{plugin,reason}`.
 Kept the in-use `ActiveSubscribers`/`AuthOperations`/`SubscriptionOperations`/
 `SubscriptionResponseTime`/`SubscribersByContact`/`UserOperations`/`UserResponseTime`.
 Guard test `TestNoDeadCarFleetMetricsRegistered`.

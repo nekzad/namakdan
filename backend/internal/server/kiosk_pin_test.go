@@ -9,8 +9,8 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/auththrottle"
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/auththrottle"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // TestVerifyKioskPin_CorrectClearsThrottle: a correct PIN returns nil and clears

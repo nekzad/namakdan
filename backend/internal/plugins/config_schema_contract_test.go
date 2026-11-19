@@ -6,9 +6,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/plugins/mercadopago"
-	"github.com/stdevmac/payverge/backend/internal/plugins/paypal"
-	"github.com/stdevmac/payverge/backend/internal/plugins/stripe"
+	"github.com/nekzad/namakdan/backend/internal/plugins/mercadopago"
+	"github.com/nekzad/namakdan/backend/internal/plugins/paypal"
+	"github.com/nekzad/namakdan/backend/internal/plugins/stripe"
 )
 
 // configSchemaProvider is the minimal surface each payment plugin exposes for

@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 )
 
 // UpdateNotificationPreferencesRequest represents the request body for updating notification preferences

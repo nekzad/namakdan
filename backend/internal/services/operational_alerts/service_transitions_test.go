@@ -10,8 +10,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/events"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/events"
 )
 
 func upsertTestAlert(t *testing.T, svc *Service, businessID uint, resourceID uint) *database.OperationalAlert {

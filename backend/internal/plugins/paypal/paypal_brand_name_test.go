@@ -9,19 +9,19 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // The merchant label PayPal shows the payer at checkout is this instance's
-// PRODUCT_NAME (default Payverge), never a hard-coded upstream brand.
+// PRODUCT_NAME (default Namakdan), never a hard-coded upstream brand.
 func TestCreateBillPaymentBrandNameFollowsProductName(t *testing.T) {
 	originalCallbackBase := callbackBaseURL
 	callbackBaseURL = func() string { return "https://pos.example.org" }
 	t.Cleanup(func() { callbackBaseURL = originalCallbackBase })
 
 	for _, tc := range []struct{ productName, want string }{
-		{"", "Payverge"},
+		{"", "Namakdan"},
 		{"Acme POS", "Acme POS"},
 	} {
 		t.Run(tc.want, func(t *testing.T) {

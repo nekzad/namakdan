@@ -9,7 +9,7 @@ import (
 	_ "image/png"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/s3"
+	"github.com/nekzad/namakdan/backend/internal/s3"
 
 	_ "golang.org/x/image/webp"
 )
@@ -113,7 +113,7 @@ func validateGeneratedImageDelivery(ctx context.Context, image *GeneratedImage, 
 }
 
 // ValidateGeneratedImageDelivery verifies that the uploaded image is available
-// from Payverge's canonical public asset host and still contains safe image bytes.
+// from Namakdan's canonical public asset host and still contains safe image bytes.
 func ValidateGeneratedImageDelivery(ctx context.Context, image *GeneratedImage) error {
 	return validateGeneratedImageDelivery(ctx, image, s3.DownloadPublicAsset)
 }

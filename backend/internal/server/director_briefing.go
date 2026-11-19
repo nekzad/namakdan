@@ -4,10 +4,10 @@ import (
 	"math"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/analytics"
-	"github.com/stdevmac/payverge/backend/internal/services/foodcost"
-	"github.com/stdevmac/payverge/backend/internal/services/labor"
-	"github.com/stdevmac/payverge/backend/internal/services/menuengineering"
+	"github.com/nekzad/namakdan/backend/internal/analytics"
+	"github.com/nekzad/namakdan/backend/internal/services/foodcost"
+	"github.com/nekzad/namakdan/backend/internal/services/labor"
+	"github.com/nekzad/namakdan/backend/internal/services/menuengineering"
 )
 
 // Sage Briefing front door.

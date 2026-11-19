@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { PayvergeAdminClientError } from "../src/backendClient.mjs";
-import { createPayvergeTools, diagnoseIssueWithinAllowList } from "../src/tools.mjs";
+import { NamakdanAdminClientError } from "../src/backendClient.mjs";
+import { createNamakdanTools, diagnoseIssueWithinAllowList } from "../src/tools.mjs";
 
 function fakeClient(responses) {
   const calls = [];
@@ -33,9 +33,9 @@ test("health snapshot gathers core health plus optional issue queues", async () 
     "GET /admin/webhooks/failed": { events: [{ id: 4, provider: "plugin_paypal" }], count: 1 },
     "GET /admin/fiscal/summary": { failed_retryable_jobs: 3 },
   });
-  const tools = createPayvergeTools({ client });
+  const tools = createNamakdanTools({ client });
 
-  const result = await tools.callTool("payverge_health_snapshot", {
+  const result = await tools.callTool("namakdan_health_snapshot", {
     includeErrors: true,
     includeFailedWebhooks: true,
     includeFiscal: true,
@@ -58,13 +58,13 @@ test("mutation tools default to dry-run and only POST when dryRun is false", asy
     "POST /admin/fiscal/jobs/12/requeue": { job: { id: 12, status: "pending" } },
     "POST /admin/webhooks/44/acknowledge": { event: { id: 44, status: "ignored" } },
   });
-  const tools = createPayvergeTools({ client });
+  const tools = createNamakdanTools({ client });
 
-  const dryRun = await tools.callTool("payverge_requeue_fiscal_job", { id: 12 });
+  const dryRun = await tools.callTool("namakdan_requeue_fiscal_job", { id: 12 });
   assert.equal(dryRun.structuredContent.dryRun, true);
   assert.equal(client.calls.length, 0);
 
-  const executed = await tools.callTool("payverge_requeue_fiscal_job", {
+  const executed = await tools.callTool("namakdan_requeue_fiscal_job", {
     id: 12,
     dryRun: false,
     confirm: true,
@@ -74,14 +74,14 @@ test("mutation tools default to dry-run and only POST when dryRun is false", asy
     { method: "POST", path: "/admin/fiscal/jobs/12/requeue", body: {} },
   ]);
 
-  const ackDryRun = await tools.callTool("payverge_ack_failed_webhook", {
+  const ackDryRun = await tools.callTool("namakdan_ack_failed_webhook", {
     id: 44,
     reason: "reviewed stale no-op",
   });
   assert.equal(ackDryRun.structuredContent.dryRun, true);
   assert.equal(client.calls.length, 1);
 
-  const ackExecuted = await tools.callTool("payverge_ack_failed_webhook", {
+  const ackExecuted = await tools.callTool("namakdan_ack_failed_webhook", {
     id: 44,
     reason: "reviewed stale no-op",
     dryRun: false,
@@ -129,9 +129,9 @@ test("diagnose issue combines health, errors, webhooks, fiscal, and business con
       business: { id: 42, name: "Cafe Verde", status: "active" },
     },
   });
-  const tools = createPayvergeTools({ client });
+  const tools = createNamakdanTools({ client });
 
-  const result = await tools.callTool("payverge_diagnose_issue", {
+  const result = await tools.callTool("namakdan_diagnose_issue", {
     businessId: 42,
     component: "checkout",
   });
@@ -144,21 +144,21 @@ test("diagnose issue combines health, errors, webhooks, fiscal, and business con
     "recent_errors",
     "fiscal_failed_jobs",
   ]);
-  assert.ok(result.structuredContent.recommendations.some((r) => r.includes("payverge_ack_failed_webhook")));
-  assert.ok(result.structuredContent.recommendations.some((r) => r.includes("payverge_requeue_fiscal_job")));
+  assert.ok(result.structuredContent.recommendations.some((r) => r.includes("namakdan_ack_failed_webhook")));
+  assert.ok(result.structuredContent.recommendations.some((r) => r.includes("namakdan_requeue_fiscal_job")));
   assert.equal(result.structuredContent.business.business.name, "Cafe Verde");
 });
 
 test("admin tools explain a missing or rejected admin token as structured errors", async () => {
-  const ownerOnly = createPayvergeTools({ ownerClient: fakeClient({}) });
-  const missing = await ownerOnly.callTool("payverge_health_snapshot", {});
+  const ownerOnly = createNamakdanTools({ ownerClient: fakeClient({}) });
+  const missing = await ownerOnly.callTool("namakdan_health_snapshot", {});
   assert.equal(missing.isError, true);
   assert.equal(missing.structuredContent.error.code, "admin_auth_not_configured");
-  assert.match(missing.structuredContent.error.hint, /PAYVERGE_ADMIN_MCP_TOKEN/);
+  assert.match(missing.structuredContent.error.hint, /NAMAKDAN_ADMIN_MCP_TOKEN/);
 
   const rejecting = (status) => ({
     async get(path) {
-      throw new PayvergeAdminClientError(`GET ${path} failed with ${status}`, {
+      throw new NamakdanAdminClientError(`GET ${path} failed with ${status}`, {
         status,
         body: { error: "nope" },
         method: "GET",
@@ -167,14 +167,14 @@ test("admin tools explain a missing or rejected admin token as structured errors
       });
     },
   });
-  const unauthorized = await createPayvergeTools({ client: rejecting(401) }).callTool("payverge_fiscal_summary", {});
+  const unauthorized = await createNamakdanTools({ client: rejecting(401) }).callTool("namakdan_fiscal_summary", {});
   assert.equal(unauthorized.structuredContent.error.code, "admin_unauthorized");
   assert.equal(unauthorized.structuredContent.error.request_id, "req-admin");
-  const forbidden = await createPayvergeTools({ client: rejecting(403) }).callTool("payverge_fiscal_summary", {});
+  const forbidden = await createNamakdanTools({ client: rejecting(403) }).callTool("namakdan_fiscal_summary", {});
   assert.equal(forbidden.structuredContent.error.code, "admin_forbidden");
-  assert.match(forbidden.structuredContent.error.hint, /PAYVERGE_ADMIN_MCP_ALLOWED_IPS/);
+  assert.match(forbidden.structuredContent.error.hint, /NAMAKDAN_ADMIN_MCP_ALLOWED_IPS/);
 
-  await assert.rejects(ownerOnly.callTool("payverge_not_a_tool", {}), /Unknown tool/);
+  await assert.rejects(ownerOnly.callTool("namakdan_not_a_tool", {}), /Unknown tool/);
 });
 
 test("admin writes are destructive and refuse an apply that is not confirmed", async () => {
@@ -182,27 +182,27 @@ test("admin writes are destructive and refuse an apply that is not confirmed", a
     "POST /admin/fiscal/jobs/12/requeue": { job: { id: 12, status: "pending" } },
     "POST /admin/webhooks/44/acknowledge": { event: { id: 44, status: "ignored" } },
   });
-  const tools = createPayvergeTools({ client });
+  const tools = createNamakdanTools({ client });
 
-  for (const name of ["payverge_ack_failed_webhook", "payverge_requeue_fiscal_job"]) {
+  for (const name of ["namakdan_ack_failed_webhook", "namakdan_requeue_fiscal_job"]) {
     const def = tools.listTools().find((tool) => tool.name === name);
     assert.equal(def.annotations.destructiveHint, true, name);
   }
 
-  const requeuePreview = await tools.callTool("payverge_requeue_fiscal_job", { id: 12 });
+  const requeuePreview = await tools.callTool("namakdan_requeue_fiscal_job", { id: 12 });
   assert.equal(requeuePreview.structuredContent.dry_run, true);
-  const ackPreview = await tools.callTool("payverge_ack_failed_webhook", { id: 44 });
+  const ackPreview = await tools.callTool("namakdan_ack_failed_webhook", { id: 44 });
   assert.equal(ackPreview.structuredContent.dry_run, true);
   assert.equal(client.calls.length, 0);
 
-  const requeueRefused = await tools.callTool("payverge_requeue_fiscal_job", { id: 12, dry_run: false });
+  const requeueRefused = await tools.callTool("namakdan_requeue_fiscal_job", { id: 12, dry_run: false });
   assert.equal(requeueRefused.structuredContent.error.code, "confirmation_required");
   assert.ok(requeueRefused.structuredContent.error.hint);
-  const ackRefused = await tools.callTool("payverge_ack_failed_webhook", { id: 44, dry_run: false, reason: "reviewed" });
+  const ackRefused = await tools.callTool("namakdan_ack_failed_webhook", { id: 44, dry_run: false, reason: "reviewed" });
   assert.equal(ackRefused.structuredContent.error.code, "confirmation_required");
   assert.equal(client.calls.length, 0, "an unconfirmed apply must not call the backend");
 
-  const ackNoReason = await tools.callTool("payverge_ack_failed_webhook", {
+  const ackNoReason = await tools.callTool("namakdan_ack_failed_webhook", {
     id: 44,
     dry_run: false,
     confirm: true,
@@ -212,7 +212,7 @@ test("admin writes are destructive and refuse an apply that is not confirmed", a
   assert.equal(ackNoReason.structuredContent.error.message, "reason is required to acknowledge a failed webhook");
   assert.equal(client.calls.length, 0);
 
-  const requeued = await tools.callTool("payverge_requeue_fiscal_job", {
+  const requeued = await tools.callTool("namakdan_requeue_fiscal_job", {
     id: 12,
     dry_run: false,
     confirm: true,
@@ -226,15 +226,15 @@ test("admin writes are destructive and refuse an apply that is not confirmed", a
 
 test("read-only mode refuses admin mutations but keeps their previews", async () => {
   const client = fakeClient({});
-  const tools = createPayvergeTools({ client, options: { readOnly: true } });
-  const preview = await tools.callTool("payverge_requeue_fiscal_job", { id: 3 });
+  const tools = createNamakdanTools({ client, options: { readOnly: true } });
+  const preview = await tools.callTool("namakdan_requeue_fiscal_job", { id: 3 });
   assert.equal(preview.structuredContent.dry_run, true);
-  const refused = await tools.callTool("payverge_requeue_fiscal_job", { id: 3, dry_run: false });
+  const refused = await tools.callTool("namakdan_requeue_fiscal_job", { id: 3, dry_run: false });
   assert.equal(refused.structuredContent.error.code, "read_only_mode");
   assert.equal(client.calls.length, 0);
 });
 
-test("PAYVERGE_MCP_BUSINESS_IDS also limits the admin tools that read one business", async () => {
+test("NAMAKDAN_MCP_BUSINESS_IDS also limits the admin tools that read one business", async () => {
   const client = fakeClient({
     "GET /admin/businesses/12/detail": { business: { id: 12 } },
     "GET /admin/system/health": { status: "ok", queues: [] },
@@ -243,21 +243,21 @@ test("PAYVERGE_MCP_BUSINESS_IDS also limits the admin tools that read one busine
     "GET /admin/fiscal/summary": {},
     "GET /admin/fiscal/jobs": { jobs: [] },
   });
-  const tools = createPayvergeTools({ client, options: { businessAllowList: [12, 14] } });
+  const tools = createNamakdanTools({ client, options: { businessAllowList: [12, 14] } });
 
-  const allowed = await tools.callTool("payverge_inspect_business", { id: "12" });
+  const allowed = await tools.callTool("namakdan_inspect_business", { id: "12" });
   assert.equal(allowed.isError, undefined);
   assert.deepEqual(allowed.structuredContent, { business: { id: 12 } });
 
-  const outside = await tools.callTool("payverge_inspect_business", { id: 13 });
+  const outside = await tools.callTool("namakdan_inspect_business", { id: 13 });
   assert.equal(outside.isError, true);
   assert.equal(outside.structuredContent.error.code, "business_not_allowed");
 
-  const byString = await tools.callTool("payverge_inspect_business", { id: "other-restaurant" });
+  const byString = await tools.callTool("namakdan_inspect_business", { id: "other-restaurant" });
   assert.equal(byString.structuredContent.error.code, "business_not_allowed");
   assert.match(byString.structuredContent.error.hint, /numeric business id/);
 
-  const diagnose = await tools.callTool("payverge_diagnose_issue", { businessId: 99 });
+  const diagnose = await tools.callTool("namakdan_diagnose_issue", { businessId: 99 });
   assert.equal(diagnose.structuredContent.error.code, "business_not_allowed");
 
   assert.deepEqual(
@@ -267,7 +267,7 @@ test("PAYVERGE_MCP_BUSINESS_IDS also limits the admin tools that read one busine
   );
 
   // Instance-wide admin reads are not tenant-scoped and stay available.
-  const unscoped = await tools.callTool("payverge_diagnose_issue", {});
+  const unscoped = await tools.callTool("namakdan_diagnose_issue", {});
   assert.equal(unscoped.isError, undefined);
 });
 
@@ -280,7 +280,7 @@ test("the admin business allow-list checks the same id the request uses", async 
     "GET /admin/fiscal/summary": {},
     "GET /admin/fiscal/jobs": { jobs: [] },
   });
-  const tools = createPayvergeTools({ client, options: { businessAllowList: [12] } });
+  const tools = createNamakdanTools({ client, options: { businessAllowList: [12] } });
 
   // An allowed id in the other spelling must not wave a different business through.
   for (const args of [
@@ -288,7 +288,7 @@ test("the admin business allow-list checks the same id the request uses", async 
     { id: "13", businessId: "12" },
     { id: 12, businessId: 13 },
   ]) {
-    for (const name of ["payverge_inspect_business", "payverge_diagnose_issue"]) {
+    for (const name of ["namakdan_inspect_business", "namakdan_diagnose_issue"]) {
       const result = await tools.callTool(name, args);
       assert.equal(result.isError, true, `${name} ${JSON.stringify(args)}`);
       assert.equal(result.structuredContent.error.code, "invalid_arguments");
@@ -297,7 +297,7 @@ test("the admin business allow-list checks the same id the request uses", async 
 
   // A blank id is refused rather than skipping the check.
   for (const args of [{ businessId: "", id: 13 }, { id: "  " }, { businessId: "" }]) {
-    for (const name of ["payverge_inspect_business", "payverge_diagnose_issue"]) {
+    for (const name of ["namakdan_inspect_business", "namakdan_diagnose_issue"]) {
       const result = await tools.callTool(name, args);
       assert.equal(result.isError, true, `${name} ${JSON.stringify(args)}`);
       assert.equal(result.structuredContent.error.code, "invalid_arguments");
@@ -305,16 +305,16 @@ test("the admin business allow-list checks the same id the request uses", async 
   }
 
   // The other spelling alone still goes through the guard.
-  const aliasOutside = await tools.callTool("payverge_inspect_business", { businessId: 13 });
+  const aliasOutside = await tools.callTool("namakdan_inspect_business", { businessId: 13 });
   assert.equal(aliasOutside.structuredContent.error.code, "business_not_allowed");
-  const aliasDiagnose = await tools.callTool("payverge_diagnose_issue", { id: 13 });
+  const aliasDiagnose = await tools.callTool("namakdan_diagnose_issue", { id: 13 });
   assert.equal(aliasDiagnose.structuredContent.error.code, "business_not_allowed");
   assert.deepEqual(client.calls, [], "no refused call reaches the backend");
 
   // Matching spellings are fine, and the canonical numeric id is what is fetched.
-  const same = await tools.callTool("payverge_inspect_business", { id: " 012 ", businessId: " 012" });
+  const same = await tools.callTool("namakdan_inspect_business", { id: " 012 ", businessId: " 012" });
   assert.equal(same.isError, undefined);
-  const diagnose = await tools.callTool("payverge_diagnose_issue", { businessId: "12" });
+  const diagnose = await tools.callTool("namakdan_diagnose_issue", { businessId: "12" });
   assert.equal(diagnose.isError, undefined);
   assert.deepEqual(diagnose.structuredContent.business, { business: { id: 12 } });
   assert.deepEqual(
@@ -323,7 +323,7 @@ test("the admin business allow-list checks the same id the request uses", async 
   );
 });
 
-test("diagnoseIssueWithinAllowList refuses a business outside PAYVERGE_MCP_BUSINESS_IDS", async () => {
+test("diagnoseIssueWithinAllowList refuses a business outside NAMAKDAN_MCP_BUSINESS_IDS", async () => {
   const client = fakeClient({
     "GET /admin/businesses/12/detail": { business: { id: 12 } },
     "GET /admin/system/health": { status: "ok", queues: [] },
@@ -370,8 +370,8 @@ test("without an allow-list the admin business tools still take either spelling"
   const client = fakeClient({
     "GET /admin/businesses/demo-bistro/detail": { business: { business_id: "demo-bistro" } },
   });
-  const tools = createPayvergeTools({ client });
-  const result = await tools.callTool("payverge_inspect_business", { businessId: "demo-bistro" });
+  const tools = createNamakdanTools({ client });
+  const result = await tools.callTool("namakdan_inspect_business", { businessId: "demo-bistro" });
   assert.equal(result.isError, undefined);
   assert.deepEqual(client.calls.map((call) => call.path), ["/admin/businesses/demo-bistro/detail"]);
 });

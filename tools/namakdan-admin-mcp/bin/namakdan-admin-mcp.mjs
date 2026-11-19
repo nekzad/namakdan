@@ -7,6 +7,6 @@ try {
   const runtime = createRuntime(loadConfig());
   runStdioServer({ tools: runtime.tools });
 } catch (err) {
-  process.stderr.write(`payverge-admin-mcp failed to start: ${err?.message ?? err}\n`);
+  process.stderr.write(`namakdan-admin-mcp failed to start: ${err?.message ?? err}\n`);
   process.exitCode = 1;
 }

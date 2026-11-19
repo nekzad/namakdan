@@ -17,9 +17,9 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 )
 
 // TestStaffRBACMatrix is the table-driven test that locks in the per-role
@@ -94,7 +94,7 @@ func TestStaffRBACMatrix(t *testing.T) {
 		s := &database.Staff{
 			BusinessID: biz.ID,
 			Name:       fmt.Sprintf("Test %s", r),
-			Email:      fmt.Sprintf("test-%s-%d@payverge.test", r, bizID),
+			Email:      fmt.Sprintf("test-%s-%d@example.test", r, bizID),
 			Role:       r,
 			IsActive:   true,
 		}

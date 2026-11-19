@@ -15,8 +15,8 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	alerts "github.com/stdevmac/payverge/backend/internal/services/operational_alerts"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	alerts "github.com/nekzad/namakdan/backend/internal/services/operational_alerts"
 )
 
 func setupAlertHandlerTest(t *testing.T) (*gorm.DB, *database.Business, *database.Staff, *OperationalAlertHandlers) {

@@ -28,7 +28,7 @@ const (
 
 var refreshOutcomes = prometheus.NewCounterVec(
 	prometheus.CounterOpts{
-		Name: "payverge_auth_refresh_outcomes_total",
+		Name: "namakdan_auth_refresh_outcomes_total",
 		Help: "Total refresh requests by credential realm and terminal outcome.",
 	},
 	[]string{"realm", "outcome"},

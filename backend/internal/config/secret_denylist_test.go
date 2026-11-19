@@ -422,14 +422,14 @@ func TestValidateProduction_RejectsEveryRepoLiteralInSecretSlots(t *testing.T) {
 }
 
 func TestIsKnownUnsafeSecret(t *testing.T) {
-	legacySeed := "payverge-local-plugin-secret-key"
+	legacySeed := "namakdan-local-plugin-secret-key"
 	legacyKey := sha256.Sum256([]byte(legacySeed))
 
 	unsafe := []string{
-		"payverge_local_dev_jwt_secret_2026",
-		"payverge_local_dev_jwt_secret_2026_min32",
-		"PAYVERGE_LOCAL_DEV_anything",
-		"payverge_password",
+		"namakdan_local_dev_jwt_secret_2026",
+		"namakdan_local_dev_jwt_secret_2026_min32",
+		"NAMAKDAN_LOCAL_DEV_anything",
+		"namakdan_password",
 		"Password",
 		" postgres ",
 		"replace_with_strong_secret",
@@ -464,10 +464,10 @@ func TestIsKnownUnsafeSecret(t *testing.T) {
 // TestIsKnownUnsafePluginKey checks that a published key is refused in every
 // spelling the cipher accepts, not only the one that was committed.
 func TestIsKnownUnsafePluginKey(t *testing.T) {
-	legacyKey := sha256.Sum256([]byte("payverge-local-plugin-secret-key"))
+	legacyKey := sha256.Sum256([]byte("namakdan-local-plugin-secret-key"))
 	for name, material := range map[string][]byte{
 		"sequential hex": []byte("0123456789abcdef0123456789abcdef"),
-		"hermetic test":  []byte("payverge-hermetic-test-key-00000"),
+		"hermetic test":  []byte("namakdan-hermetic-test-key-00000"),
 		"legacy":         legacyKey[:],
 	} {
 		for form, value := range map[string]string{

@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/dailyquota"
+	"github.com/nekzad/namakdan/backend/internal/dailyquota"
 )
 
 // WhatsApp per-sender daily ceiling (SEC H-ai-cost). The per-sender sliding

@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -96,7 +96,7 @@ func TestStaffOAuthMembershipSelectionRedirectCarriesSignedHandoffInFragment(t *
 		},
 	}
 	redirect, err := staffOAuthMembershipSelectionRedirect(
-		"https://payverge.test/staff/login?redirect=%2Fstaff%2Fhome",
+		"https://example.test/staff/login?redirect=%2Fstaff%2Fhome",
 		payload,
 	)
 	require.NoError(t, err)

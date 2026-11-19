@@ -2,7 +2,7 @@
 set -euo pipefail
 umask 077
 
-# Database backup script for Payverge
+# Database backup script for Namakdan
 # Creates timestamped gzipped pg_dump backups with:
 #   - atomic tmp-then-rename writes (a truncated dump can never be mistaken
 #     for a complete one)
@@ -14,14 +14,14 @@ umask 077
 #   - local retention cleanup
 #
 # Requires bash (process substitution below). In the production compose
-# `backup` service this runs inside the payverge-backup image (alpine +
+# `backup` service this runs inside the namakdan-backup image (alpine +
 # bash + postgresql18-client + aws-cli).
 
 DB_HOST="${DB_HOST:-localhost}"
 DB_PORT="${DB_PORT:-5432}"
 DB_USER="${DB_USER:-postgres}"
 DB_PASSWORD="${DB_PASSWORD:-}"
-DB_NAME="${DB_NAME:-payverge}"
+DB_NAME="${DB_NAME:-namakdan}"
 BACKUP_DIR="${BACKUP_DIR:-./backups}"
 RETENTION_DAYS="${RETENTION_DAYS:-7}"
 S3_BACKUP_BUCKET="${S3_BACKUP_BUCKET:-}"
@@ -67,7 +67,7 @@ build_aws_args() {
   fi
 }
 
-echo "=== Payverge Database Backup ==="
+echo "=== Namakdan Database Backup ==="
 echo "Host:      ${DB_HOST}:${DB_PORT}"
 echo "Database:  ${DB_NAME}"
 echo "Backup to: ${BACKUP_FILE}"

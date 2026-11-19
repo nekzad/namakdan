@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/logger"
 )
 
 // dbWorkerShutdownTimeout caps how long shutdown waits for DB-backed

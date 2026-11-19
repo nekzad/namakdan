@@ -5,7 +5,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/stdevmac/payverge/backend/internal/agents/ops_guides"
+	"github.com/nekzad/namakdan/backend/internal/agents/ops_guides"
 )
 
 const (
@@ -105,7 +105,7 @@ func hasExplicitSupportIntent(query string, guide ops_guides.Guide) bool {
 
 func hasSupplementalSupportIntent(query string) bool {
 	for _, phrase := range []string{
-		"help desk", "human agent", "support agent", "contact payverge",
+		"help desk", "human agent", "support agent", "contact namakdan",
 		"speak to an agent", "conectarme con un agente", "ayuda de una persona",
 	} {
 		if containsOpsIntentPhrase(query, phrase) {
@@ -288,7 +288,7 @@ func opsPauseTakeoverQuery(query string) bool {
 }
 
 // opsStopVerbBelongsToAnotherSurface reports whether a stop-style verb is aimed
-// at a Payverge surface that owns it, rather than at the AI Waiter. Without
+// at a Namakdan surface that owns it, rather than at the AI Waiter. Without
 // this the takeover alias swallows "pause my AI plan", which is not a question
 // about the AI Waiter. The same greediness pulled "turn off AI recommendations in inventory" (an
 // Inventory question), "stop chat notifications for my team" and "stop a waiter

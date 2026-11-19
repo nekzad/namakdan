@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"gorm.io/gorm"
 )
@@ -61,7 +61,7 @@ func IsDemoPlaceholderFiscalReceipt(receipt *database.FiscalReceipt) bool {
 		return true
 	}
 	qr := strings.ToLower(strings.TrimSpace(ptrStringValue(receipt.QRPayload)))
-	return strings.Contains(qr, "payverge.local")
+	return strings.Contains(qr, "example.test")
 }
 
 func ptrStringValue(s *string) string {

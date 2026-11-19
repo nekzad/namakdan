@@ -44,7 +44,7 @@ func TestPostmarkProviderReturnsErrorOnAPIError(t *testing.T) {
 	p := &PostmarkProvider{client: client}
 
 	err := p.Send(context.Background(), EmailMessage{
-		From:        "test@payverge.io",
+		From:        "test@example.test",
 		To:          []string{"user@example.com"},
 		Subject:     "x",
 		HTMLBody:    "<p>x</p>",
@@ -84,7 +84,7 @@ func TestPostmarkProviderPreservesIdempotencyKeyAsTraceHeader(t *testing.T) {
 	}); err != nil {
 		t.Fatal(err)
 	}
-	if len(payload.Headers) != 1 || payload.Headers[0].Name != "X-Payverge-Idempotency-Key" || payload.Headers[0].Value != "report:42:window" {
+	if len(payload.Headers) != 1 || payload.Headers[0].Name != "x-namakdan-Idempotency-Key" || payload.Headers[0].Value != "report:42:window" {
 		t.Fatalf("unexpected Postmark trace headers: %+v", payload.Headers)
 	}
 }

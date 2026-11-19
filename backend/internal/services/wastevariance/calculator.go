@@ -9,8 +9,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services/foodcost"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services/foodcost"
 )
 
 // Seams (all satisfied by concrete services in production).

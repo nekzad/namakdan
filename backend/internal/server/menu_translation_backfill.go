@@ -6,7 +6,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/stdevmac/payverge/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/logger"
 )
 
 // menuTranslationBackfillInFlight de-duplicates concurrent storefront backfills.

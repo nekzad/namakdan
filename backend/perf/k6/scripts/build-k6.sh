@@ -2,7 +2,7 @@
 # Reproducible local k6 build with the community SSE extension.
 set -euo pipefail
 
-output="${1:-/tmp/payverge-k6}"
+output="${1:-/tmp/namakdan-k6}"
 xk6_version="v1.4.8"
 k6_version="v1.8.0"
 sse_version="v0.1.12"

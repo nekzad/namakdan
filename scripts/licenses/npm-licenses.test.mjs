@@ -152,7 +152,7 @@ test("every dependency NOTICE file must be named in the root NOTICE", () => {
     pkg("noticed", "Apache-2.0", { notice: "NOTICE" }),
     pkg("covered", "Apache-2.0", { notice: "NOTICE.txt" }),
   ];
-  assert.deepEqual(checkNotices(packages, "Payverge\n  covered\n  Copyright 2020 Someone"), [
+  assert.deepEqual(checkNotices(packages, "namakdan\n  covered\n  Copyright 2020 Someone"), [
     "noticed: ships node_modules/noticed/NOTICE; reproduce its notice in the root NOTICE file",
   ]);
 });

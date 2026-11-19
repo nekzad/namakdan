@@ -16,7 +16,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
 )
 
 func TestMercadoPagoSandboxIntegration_CreatePreferenceAndVerifyWebhookSecret(t *testing.T) {
@@ -38,7 +38,7 @@ func TestMercadoPagoSandboxIntegration_CreatePreferenceAndVerifyWebhookSecret(t 
 	preferenceResponse, err := plugin.makeMercadoPagoAPICall(context.Background(), http.MethodPost, "/checkout/preferences", PaymentPreferenceRequest{
 		Items: []PreferenceItem{
 			{
-				Title:      "Payverge sandbox bill payment readiness check",
+				Title:      "Namakdan sandbox bill payment readiness check",
 				Quantity:   1,
 				UnitPrice:  1.00,
 				CurrencyID: mercadoPagoSandboxCurrency(),
@@ -94,9 +94,9 @@ func mercadoPagoSandboxConfigFromEnv(t *testing.T) *MercadoPagoConfig {
 	if accessToken == "" || publicKey == "" || webhookSecret == "" {
 		t.Skip("set MERCADOPAGO_SANDBOX_ACCESS_TOKEN, MERCADOPAGO_SANDBOX_PUBLIC_KEY, and MERCADOPAGO_SANDBOX_WEBHOOK_SECRET to run MercadoPago sandbox integration tests")
 	}
-	baseURL := strings.TrimSpace(os.Getenv("PAYVERGE_PUBLIC_WEBHOOK_BASE_URL"))
+	baseURL := strings.TrimSpace(os.Getenv("NAMAKDAN_PUBLIC_WEBHOOK_BASE_URL"))
 	if baseURL == "" {
-		t.Skip("set PAYVERGE_PUBLIC_WEBHOOK_BASE_URL to run MercadoPago sandbox integration tests")
+		t.Skip("set NAMAKDAN_PUBLIC_WEBHOOK_BASE_URL to run MercadoPago sandbox integration tests")
 	}
 	return &MercadoPagoConfig{
 		AccessToken:   accessToken,

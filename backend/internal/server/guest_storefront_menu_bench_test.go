@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm/logger"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // BenchmarkGetMenuByBusinessCustomUrl_Storefront measures the guest-hot

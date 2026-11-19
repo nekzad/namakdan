@@ -7,9 +7,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/fiscal"
-	"github.com/stdevmac/payverge/backend/internal/s3"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/fiscal"
+	"github.com/nekzad/namakdan/backend/internal/s3"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"

@@ -35,7 +35,7 @@ func TestHermeticBackendVerificationEntryPoint(t *testing.T) {
 		"unset ALLOWED_REDIRECT_DOMAINS APP_DOMAIN API_DOMAIN COOKIE_DOMAIN DOMAIN",
 		"unset ENV APP_ENV NODE_ENV NEXT_PUBLIC_ENV",
 		"unset GOOGLE_TRANSLATE_API_KEY GEMINI_API_KEY OPENROUTER_API_KEY FIRECRAWL_API_KEY LIFI_API_KEY",
-		"export PLUGIN_SECRET_KEY=payverge-hermetic-test-key-00000",
+		"export PLUGIN_SECRET_KEY=namakdan-hermetic-test-key-00000",
 		"go test -count=1 -race ./...",
 		"go test -count=1 -tags integration ./internal/server/...",
 		"go test -count=1 -tags integration_postgres ./internal/database -run 'Test(RollbackRehearsal_EachMigration|DemoSeed_PostgresIdempotentAndVerified)'",
@@ -184,12 +184,12 @@ func TestBackendEnvMatchesVerifyBackend(t *testing.T) {
 			t.Errorf("scripts/ci/backend-env.sh must unset %s", name)
 		}
 	}
-	for _, export := range []string{"export PLUGIN_SECRET_KEY=payverge-hermetic-test-key-00000", "export GO_ENV=test"} {
+	for _, export := range []string{"export PLUGIN_SECRET_KEY=namakdan-hermetic-test-key-00000", "export GO_ENV=test"} {
 		if !strings.Contains(ci, export) {
 			t.Errorf("scripts/ci/backend-env.sh is missing %q", export)
 		}
 	}
-	if !strings.Contains(local, "export PLUGIN_SECRET_KEY=payverge-hermetic-test-key-00000") {
+	if !strings.Contains(local, "export PLUGIN_SECRET_KEY=namakdan-hermetic-test-key-00000") {
 		t.Error("scripts/verify-backend.sh must export the same PLUGIN_SECRET_KEY as CI")
 	}
 	info, err := os.Stat(repoPath("scripts", "ci", "backend-env.sh"))

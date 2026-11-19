@@ -59,7 +59,7 @@ lic_go_licenses_bin() {
     command -v go-licenses
     return
   fi
-  local bindir="${XDG_CACHE_HOME:-$HOME/.cache}/payverge/go-licenses/$GO_LICENSES_VERSION"
+  local bindir="${XDG_CACHE_HOME:-$HOME/.cache}/namakdan/go-licenses/$GO_LICENSES_VERSION"
   if [[ ! -x "$bindir/go-licenses" ]]; then
     lic_log "installing github.com/google/go-licenses/v2@$GO_LICENSES_VERSION into $bindir"
     mkdir -p "$bindir"

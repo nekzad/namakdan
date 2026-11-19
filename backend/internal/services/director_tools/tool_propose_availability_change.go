@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/services/director_actions"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/services/director_actions"
 )
 
 // ProposeAvailabilityChangeTool stages (dry-run only) an availability change

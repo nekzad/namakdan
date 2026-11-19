@@ -25,7 +25,7 @@ func TestDemoAssetURLsNeverPointAtTheUpstreamCDN(t *testing.T) {
 	}
 	for _, u := range seeded {
 		require.NotEmpty(t, u)
-		require.NotContains(t, u, "payverge.io")
+		require.NotContains(t, u, "example.test")
 		require.True(t, strings.HasSuffix(u, ".jpg"), u)
 		require.True(t, isOwnHostedDemoAsset(u), "%s must count as own-hosted", u)
 	}

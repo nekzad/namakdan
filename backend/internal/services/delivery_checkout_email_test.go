@@ -43,7 +43,7 @@ func TestLocalizedDeliveryLifecycleMessages(t *testing.T) {
 			return localizedReceivedMessage("DEL-X", l)
 		}},
 		{"acceptedPay", func(l NotificationLocale) (string, string) {
-			return localizedAcceptedPayMessage("DEL-X", "https://payverge.io/delivery/DEL-X/pay", 15, l)
+			return localizedAcceptedPayMessage("DEL-X", "https://example.test/delivery/DEL-X/pay", 15, l)
 		}},
 		{"acceptedCOD", func(l NotificationLocale) (string, string) {
 			return localizedAcceptedCODMessage("DEL-X", "$17.00", l)

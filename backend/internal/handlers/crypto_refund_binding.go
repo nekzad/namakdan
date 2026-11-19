@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/utils"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/utils"
 )
 
 const (
@@ -47,7 +47,7 @@ type RefundDestinationBinding struct {
 // FormatRefundDestinationBindingMessage produces the exact personal_sign message.
 func FormatRefundDestinationBindingMessage(b RefundDestinationBinding) string {
 	return strings.Join([]string{
-		"Payverge refund destination binding",
+		"Namakdan refund destination binding",
 		"domain:" + b.Domain,
 		"bill_id:" + strconv.FormatUint(uint64(b.BillID), 10),
 		"business_id:" + strconv.FormatUint(uint64(b.BusinessID), 10),

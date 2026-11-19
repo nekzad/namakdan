@@ -3,7 +3,7 @@ package loyalty
 import (
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"

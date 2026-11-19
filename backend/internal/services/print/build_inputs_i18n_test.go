@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services/print/formatters"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services/print/formatters"
 )
 
 // The receipt input builder must hand the formatter LOCALIZED payment-method

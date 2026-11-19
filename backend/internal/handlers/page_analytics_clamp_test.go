@@ -7,7 +7,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/stdevmac/payverge/backend/internal/models"
+	"github.com/nekzad/namakdan/backend/internal/models"
 )
 
 // TestTruncate_BoundsWithoutCorruptingUTF8 verifies the shared truncate helper

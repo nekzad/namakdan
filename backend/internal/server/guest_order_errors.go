@@ -4,7 +4,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/services"
 
 	"github.com/gin-gonic/gin"
 )

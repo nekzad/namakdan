@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/stdevmac/payverge/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/config"
 )
 
 func init() { gin.SetMode(gin.TestMode) }
@@ -75,7 +75,7 @@ func TestGuardRefusesEveryRuleWith403AndClearMessage(t *testing.T) {
 			if body.Code != ErrorCode || body.Params.Reason != "demo_mode" || body.Params.Kind != string(rule.Kind) {
 				t.Errorf("%s %s: body %+v", method, pattern, body)
 			}
-			if !strings.Contains(body.Error, "public demo") || !strings.Contains(body.Error, "Install your own Payverge") {
+			if !strings.Contains(body.Error, "public demo") || !strings.Contains(body.Error, "Install your own Namakdan") {
 				t.Errorf("%s %s: unclear message %q", method, pattern, body.Error)
 			}
 			if rule.Kind != KindUpload && !strings.Contains(body.Error, rule.Action) {

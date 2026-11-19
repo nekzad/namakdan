@@ -151,7 +151,7 @@ func TestScrubEvent_RemovesSensitiveRequestData(t *testing.T) {
 			},
 		},
 		Request: &sentry.Request{
-			URL:         "https://api.payverge.io/api/v1/orders?token=secret#checkout",
+			URL:         "https://api.example.test/api/v1/orders?token=secret#checkout",
 			QueryString: "token=secret",
 			Cookies:     "session=secret",
 			Data:        `{"password":"secret"}`,
@@ -166,7 +166,7 @@ func TestScrubEvent_RemovesSensitiveRequestData(t *testing.T) {
 			"business_id":   "biz_123",
 		},
 		Contexts: map[string]sentry.Context{
-			"payverge": {
+			"namakdan": {
 				"customer_email": "guest@example.com",
 				"business_id":    "biz_123",
 			},
@@ -183,7 +183,7 @@ func TestScrubEvent_RemovesSensitiveRequestData(t *testing.T) {
 	require.Empty(t, scrubbed.User.Name)
 	require.Empty(t, scrubbed.User.Data)
 
-	require.Equal(t, "https://api.payverge.io/api/v1/orders", scrubbed.Request.URL)
+	require.Equal(t, "https://api.example.test/api/v1/orders", scrubbed.Request.URL)
 	require.Empty(t, scrubbed.Request.QueryString)
 	require.Empty(t, scrubbed.Request.Cookies)
 	require.Empty(t, scrubbed.Request.Data)
@@ -193,8 +193,8 @@ func TestScrubEvent_RemovesSensitiveRequestData(t *testing.T) {
 
 	require.Equal(t, redactedValue, scrubbed.Tags["payment_token"])
 	require.Equal(t, "biz_123", scrubbed.Tags["business_id"])
-	require.Equal(t, redactedValue, scrubbed.Contexts["payverge"]["customer_email"])
-	require.Equal(t, "biz_123", scrubbed.Contexts["payverge"]["business_id"])
+	require.Equal(t, redactedValue, scrubbed.Contexts["namakdan"]["customer_email"])
+	require.Equal(t, "biz_123", scrubbed.Contexts["namakdan"]["business_id"])
 }
 
 func TestScrubEvent_RedactsRequestURLPathSensitiveSegments(t *testing.T) {
@@ -254,9 +254,9 @@ func TestScrubEvent_RedactsPublicRouteAccessTokens(t *testing.T) {
 		},
 		{
 			name:       "guest bill number",
-			rawURL:     "https://api.payverge.io/api/v1/guest/bill/BILL-guest-abc123/payments/history?token=secret",
+			rawURL:     "https://api.example.test/api/v1/guest/bill/BILL-guest-abc123/payments/history?token=secret",
 			secret:     "BILL-guest-abc123",
-			wantPrefix: "https://api.payverge.io/api/v1/guest/bill/",
+			wantPrefix: "https://api.example.test/api/v1/guest/bill/",
 			wantSuffix: "/payments/history",
 		},
 		{
@@ -307,7 +307,7 @@ func TestScrubEvent_RedactsSensitiveValuesUnderSafeKeys(t *testing.T) {
 			"safe_value":        "biz_123",
 		},
 		Contexts: map[string]sentry.Context{
-			"payverge": {
+			"namakdan": {
 				"nested_safe_key": "Bearer nested-secret",
 			},
 		},
@@ -322,7 +322,7 @@ func TestScrubEvent_RedactsSensitiveValuesUnderSafeKeys(t *testing.T) {
 	require.Equal(t, redactedValue, scrubbed.Tags["evm_key_value"])
 	require.Equal(t, redactedValue, scrubbed.Tags["wallet_value"])
 	require.Equal(t, "biz_123", scrubbed.Tags["safe_value"])
-	require.Equal(t, redactedValue, scrubbed.Contexts["payverge"]["nested_safe_key"])
+	require.Equal(t, redactedValue, scrubbed.Contexts["namakdan"]["nested_safe_key"])
 }
 
 func TestScrubEvent_RedactsBreadcrumbDataAndMessage(t *testing.T) {
@@ -658,10 +658,10 @@ func TestScrubEvent_RedactsTypedStringAliasValues(t *testing.T) {
 
 func TestSanitizeURL_FallbackStripsQuery(t *testing.T) {
 	require.Equal(t, "/api/v1/orders", sanitizeURL("/api/v1/orders?token=secret"))
-	require.Equal(t, "https://api.payverge.io/api/v1/orders", sanitizeURL("https://api.payverge.io/api/v1/orders?token=secret#checkout"))
-	require.Equal(t, "https://api.payverge.io/api/v1/orders", sanitizeURL("https://user:pass@api.payverge.io/api/v1/orders?token=secret#checkout"))
+	require.Equal(t, "https://api.example.test/api/v1/orders", sanitizeURL("https://api.example.test/api/v1/orders?token=secret#checkout"))
+	require.Equal(t, "https://api.example.test/api/v1/orders", sanitizeURL("https://user:pass@api.example.test/api/v1/orders?token=secret#checkout"))
 
-	malformed := sanitizeURL("https://user:pass@api.payverge.io/%zz?token=secret#checkout")
+	malformed := sanitizeURL("https://user:pass@api.example.test/%zz?token=secret#checkout")
 	require.NotContains(t, malformed, "user:pass@")
-	require.Equal(t, "https://api.payverge.io/%zz", malformed)
+	require.Equal(t, "https://api.example.test/%zz", malformed)
 }

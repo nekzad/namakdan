@@ -13,7 +13,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 type reservationSQLCaptureLogger struct {
@@ -353,7 +353,7 @@ func TestReservationServiceGetAvailabilityBatchesReservationConflictQueries(t *t
 	}
 
 	queryCount := 0
-	callbackName := "payverge:test_reservation_availability_query_counter"
+	callbackName := "namakdan:test_reservation_availability_query_counter"
 	require.NoError(t, db.Callback().Query().Before("gorm:query").Register(callbackName, func(tx *gorm.DB) {
 		queryCount++
 	}))
@@ -1606,13 +1606,13 @@ func TestReservationServiceUpdateReservation_ReturnsPriorSnapshot(t *testing.T) 
 }
 
 func TestReservationNotificationPayload_IncludesDashboardURL(t *testing.T) {
-	t.Setenv("PUBLIC_URL", "https://payverge.io")
+	t.Setenv("PUBLIC_URL", "https://example.test")
 	payload := reservationNotificationPayload(&database.TableReservation{
 		ID:         3,
 		BusinessID: 7,
 		Status:     "pending",
 	})
-	require.Equal(t, "https://payverge.io/business/7/dashboard?tab=reservations", payload["dashboard_url"])
+	require.Equal(t, "https://example.test/business/7/dashboard?tab=reservations", payload["dashboard_url"])
 }
 
 func TestGetAvailabilityNetsReservedAndOccupiedTables(t *testing.T) {

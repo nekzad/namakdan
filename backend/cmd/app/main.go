@@ -17,65 +17,65 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/accounting"
-	"github.com/stdevmac/payverge/backend/internal/activation"
-	"github.com/stdevmac/payverge/backend/internal/adminruntime"
-	"github.com/stdevmac/payverge/backend/internal/agents"
-	"github.com/stdevmac/payverge/backend/internal/agents/ops_tools"
-	"github.com/stdevmac/payverge/backend/internal/analytics"
-	"github.com/stdevmac/payverge/backend/internal/auth"
-	"github.com/stdevmac/payverge/backend/internal/auththrottle"
-	"github.com/stdevmac/payverge/backend/internal/blockchain"
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/crm"
-	"github.com/stdevmac/payverge/backend/internal/demo"
-	"github.com/stdevmac/payverge/backend/internal/demomode"
-	"github.com/stdevmac/payverge/backend/internal/events"
-	"github.com/stdevmac/payverge/backend/internal/guardrails"
-	"github.com/stdevmac/payverge/backend/internal/handlers"
-	"github.com/stdevmac/payverge/backend/internal/health"
-	"github.com/stdevmac/payverge/backend/internal/jobs"
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/llm/openrouter"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/middleware"
-	"github.com/stdevmac/payverge/backend/internal/notifications"
-	"github.com/stdevmac/payverge/backend/internal/observability"
-	"github.com/stdevmac/payverge/backend/internal/s3"
-	"github.com/stdevmac/payverge/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/accounting"
+	"github.com/nekzad/namakdan/backend/internal/activation"
+	"github.com/nekzad/namakdan/backend/internal/adminruntime"
+	"github.com/nekzad/namakdan/backend/internal/agents"
+	"github.com/nekzad/namakdan/backend/internal/agents/ops_tools"
+	"github.com/nekzad/namakdan/backend/internal/analytics"
+	"github.com/nekzad/namakdan/backend/internal/auth"
+	"github.com/nekzad/namakdan/backend/internal/auththrottle"
+	"github.com/nekzad/namakdan/backend/internal/blockchain"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/crm"
+	"github.com/nekzad/namakdan/backend/internal/demo"
+	"github.com/nekzad/namakdan/backend/internal/demomode"
+	"github.com/nekzad/namakdan/backend/internal/events"
+	"github.com/nekzad/namakdan/backend/internal/guardrails"
+	"github.com/nekzad/namakdan/backend/internal/handlers"
+	"github.com/nekzad/namakdan/backend/internal/health"
+	"github.com/nekzad/namakdan/backend/internal/jobs"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/llm/openrouter"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/middleware"
+	"github.com/nekzad/namakdan/backend/internal/notifications"
+	"github.com/nekzad/namakdan/backend/internal/observability"
+	"github.com/nekzad/namakdan/backend/internal/s3"
+	"github.com/nekzad/namakdan/backend/internal/session"
 
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/emails"
-	"github.com/stdevmac/payverge/backend/internal/escalation"
-	"github.com/stdevmac/payverge/backend/internal/fiscal"
-	fiscaldelivery "github.com/stdevmac/payverge/backend/internal/fiscal/delivery"
-	"github.com/stdevmac/payverge/backend/internal/fiscal/providers"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	"github.com/stdevmac/payverge/backend/internal/runtimecontrol"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/services"
-	"github.com/stdevmac/payverge/backend/internal/services/cryptorefund"
-	"github.com/stdevmac/payverge/backend/internal/services/director_tools"
-	"github.com/stdevmac/payverge/backend/internal/services/foodcost"
-	"github.com/stdevmac/payverge/backend/internal/services/marketing"
-	"github.com/stdevmac/payverge/backend/internal/services/menuengineering"
-	operational_alerts "github.com/stdevmac/payverge/backend/internal/services/operational_alerts"
-	printsvc "github.com/stdevmac/payverge/backend/internal/services/print"
-	"github.com/stdevmac/payverge/backend/internal/services/reorgwatch"
-	"github.com/stdevmac/payverge/backend/internal/spaces/scan"
-	"github.com/stdevmac/payverge/backend/internal/structs"
-	"github.com/stdevmac/payverge/backend/internal/telegram"
-	"github.com/stdevmac/payverge/backend/internal/utils"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/escalation"
+	"github.com/nekzad/namakdan/backend/internal/fiscal"
+	fiscaldelivery "github.com/nekzad/namakdan/backend/internal/fiscal/delivery"
+	"github.com/nekzad/namakdan/backend/internal/fiscal/providers"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/runtimecontrol"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/services/cryptorefund"
+	"github.com/nekzad/namakdan/backend/internal/services/director_tools"
+	"github.com/nekzad/namakdan/backend/internal/services/foodcost"
+	"github.com/nekzad/namakdan/backend/internal/services/marketing"
+	"github.com/nekzad/namakdan/backend/internal/services/menuengineering"
+	operational_alerts "github.com/nekzad/namakdan/backend/internal/services/operational_alerts"
+	printsvc "github.com/nekzad/namakdan/backend/internal/services/print"
+	"github.com/nekzad/namakdan/backend/internal/services/reorgwatch"
+	"github.com/nekzad/namakdan/backend/internal/spaces/scan"
+	"github.com/nekzad/namakdan/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/telegram"
+	"github.com/nekzad/namakdan/backend/internal/utils"
 
 	// Import plugin packages to trigger their init() functions
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	mercadopago "github.com/stdevmac/payverge/backend/internal/plugins/mercadopago"
-	_ "github.com/stdevmac/payverge/backend/internal/plugins/paypal"
-	stripeplugin "github.com/stdevmac/payverge/backend/internal/plugins/stripe"
-	telegramPlugin "github.com/stdevmac/payverge/backend/internal/plugins/telegram"
-	_ "github.com/stdevmac/payverge/backend/internal/plugins/trustpilot"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	mercadopago "github.com/nekzad/namakdan/backend/internal/plugins/mercadopago"
+	_ "github.com/nekzad/namakdan/backend/internal/plugins/paypal"
+	stripeplugin "github.com/nekzad/namakdan/backend/internal/plugins/stripe"
+	telegramPlugin "github.com/nekzad/namakdan/backend/internal/plugins/telegram"
+	_ "github.com/nekzad/namakdan/backend/internal/plugins/trustpilot"
 
 	"github.com/getsentry/sentry-go"
 	"github.com/gin-gonic/gin"
@@ -198,9 +198,9 @@ func main() {
 	var (
 		dbHost                    = flag.String("db-host", envOrDefault("DB_HOST", "localhost"), "PostgreSQL database host")
 		dbPort                    = flag.String("db-port", envOrDefault("DB_PORT", "5432"), "PostgreSQL database port")
-		dbUser                    = flag.String("db-user", envOrDefault("DB_USER", "payverge"), "PostgreSQL database user")
+		dbUser                    = flag.String("db-user", envOrDefault("DB_USER", "namakdan"), "PostgreSQL database user")
 		dbPassword                = flag.String("db-password", "", "PostgreSQL database password")
-		dbName                    = flag.String("db-name", envOrDefault("DB_NAME", "payverge"), "PostgreSQL database name")
+		dbName                    = flag.String("db-name", envOrDefault("DB_NAME", "namakdan"), "PostgreSQL database name")
 		dbSSLMode                 = flag.String("db-sslmode", envOrDefault("DB_SSLMODE", "require"), "PostgreSQL SSL mode")
 		production                = flag.Bool("production", false, "Production mode")
 		rpcUrl                    = flag.String("rpc-url", "", "RPC URL for the Ethereum node")
@@ -1731,7 +1731,7 @@ func main() {
 		missingTranslationHandler := handlers.NewMissingTranslationHandler()
 		publicRoutes.POST("/analytics/missing_translation", missingTranslationRateLimiter.RateLimit(), missingTranslationHandler.IngestMissing)
 
-		// Payverge public routes (for guests). Share the guest-table read
+		// Namakdan public routes (for guests). Share the guest-table read
 		// budget so /table/:code cannot bypass /guest/table/:code probing limits (#293).
 		// Budget lives in middleware.GuestTableReadRequestsPerMinute and must
 		// cover a full table of diners behind a venue NAT (#814).
@@ -1954,7 +1954,7 @@ func main() {
 		protectedRoutes.PUT("/settings/notifications", server.UpdateNotificationPreferences)
 		protectedRoutes.GET("/settings/notifications", server.GetNotificationPreferences)
 
-		// Payverge Business routes
+		// Namakdan Business routes
 		protectedRoutes.POST("/businesses/generate-id", server.GenerateBusinessId)
 		protectedRoutes.POST("/businesses", server.CreateBusiness)
 		protectedRoutes.GET("/businesses", server.GetMyBusinesses)

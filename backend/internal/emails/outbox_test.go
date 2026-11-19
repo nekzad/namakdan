@@ -44,7 +44,7 @@ func (p *outboxProviderStub) ProviderName() string { return "resend" }
 
 func newOutboxTestServer(t *testing.T, db *gorm.DB, provider EmailProvider) (*EmailServer, *GormOutboxStore) {
 	t.Helper()
-	server, err := NewEmailServer(provider, "noreply@payverge.io", "updates@payverge.io", resolveTemplatesRoot(t))
+	server, err := NewEmailServer(provider, "noreply@example.test", "updates@example.test", resolveTemplatesRoot(t))
 	require.NoError(t, err)
 	server.SetOutboundStore(NewGormOutboundStore(db))
 	store := NewGormOutboxStore(db)
@@ -64,7 +64,7 @@ func TestDispatchEnqueuesInsteadOfCallingProvider(t *testing.T) {
 	provider := &outboxProviderStub{}
 	server, _ := newOutboxTestServer(t, db, provider)
 
-	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://payverge.io/reset", "en"))
+	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://example.test/reset", "en"))
 	require.Zero(t, provider.calls, "the outbox must absorb the send; the worker performs the provider call")
 
 	var rows []EmailOutbox
@@ -86,7 +86,7 @@ func TestOutboxEnqueueIsIdempotent(t *testing.T) {
 	provider := &outboxProviderStub{}
 	server, _ := newOutboxTestServer(t, db, provider)
 
-	body := map[string]interface{}{"business_name": "Test Co", "reset_url": "https://payverge.io/reset"}
+	body := map[string]interface{}{"business_name": "Test Co", "reset_url": "https://example.test/reset"}
 	for i := 0; i < 3; i++ {
 		require.NoError(t, server.SendTransactionalEmailIdempotent(
 			[]string{"guest@example.test"}, "password_reset", body, "en", "pv-fixed-key-1"))
@@ -102,7 +102,7 @@ func TestOutboxWorkerDeliversAndPersistsProviderMessageID(t *testing.T) {
 	provider := &outboxProviderStub{}
 	server, store := newOutboxTestServer(t, db, provider)
 
-	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://payverge.io/reset", "en"))
+	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://example.test/reset", "en"))
 
 	worker := NewOutboxWorker(store, server)
 	processed, err := worker.ProcessDue(context.Background())
@@ -135,7 +135,7 @@ func TestOutboxWorkerRetryBackoffScheduleThenDeadLetters(t *testing.T) {
 	provider := &outboxProviderStub{failTimes: 100, failErr: errors.New("resend 503 upstream")}
 	server, store := newOutboxTestServer(t, db, provider)
 
-	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://payverge.io/reset", "en"))
+	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://example.test/reset", "en"))
 	var seeded EmailOutbox
 	require.NoError(t, db.First(&seeded).Error)
 
@@ -197,11 +197,11 @@ func TestOutboxWorkerDeadLettersNonRetryableFailureImmediately(t *testing.T) {
 	db := outboxTestDB(t)
 	provider := &outboxProviderStub{
 		failTimes: 100,
-		failErr:   errors.New("not authorized to send emails from noreply@payverge.io"),
+		failErr:   errors.New("not authorized to send emails from noreply@example.test"),
 	}
 	server, store := newOutboxTestServer(t, db, provider)
 
-	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://payverge.io/reset", "en"))
+	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://example.test/reset", "en"))
 
 	worker := NewOutboxWorker(store, server)
 	processed, err := worker.ProcessDue(context.Background())
@@ -221,7 +221,7 @@ func TestOutboxTerminalPayloadDropsSecrets(t *testing.T) {
 		db := outboxTestDB(t)
 		provider := &outboxProviderStub{}
 		server, store := newOutboxTestServer(t, db, provider)
-		require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://payverge.io/reset", "en"))
+		require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://example.test/reset", "en"))
 
 		worker := NewOutboxWorker(store, server)
 		processed, err := worker.ProcessDue(context.Background())
@@ -238,10 +238,10 @@ func TestOutboxTerminalPayloadDropsSecrets(t *testing.T) {
 		db := outboxTestDB(t)
 		provider := &outboxProviderStub{
 			failTimes: 100,
-			failErr:   errors.New("not authorized to send emails from noreply@payverge.io"),
+			failErr:   errors.New("not authorized to send emails from noreply@example.test"),
 		}
 		server, store := newOutboxTestServer(t, db, provider)
-		require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://payverge.io/reset", "en"))
+		require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://example.test/reset", "en"))
 
 		worker := NewOutboxWorker(store, server)
 		processed, err := worker.ProcessDue(context.Background())
@@ -269,7 +269,7 @@ func assertRedactedOutboxPayload(t *testing.T, db *gorm.DB, id uint) {
 	var raw string
 	require.NoError(t, db.Raw("SELECT payload FROM email_outbox WHERE id = ?", id).Scan(&raw).Error)
 	require.NotContains(t, raw, "guest@example.test")
-	require.NotContains(t, raw, "https://payverge.io/reset")
+	require.NotContains(t, raw, "https://example.test/reset")
 }
 
 func TestOutboxWorkerDropsRecipientSuppressedAfterEnqueue(t *testing.T) {
@@ -279,7 +279,7 @@ func TestOutboxWorkerDropsRecipientSuppressedAfterEnqueue(t *testing.T) {
 	suppressions := NewGormSuppressionStore(db)
 	server.SetSuppressionStore(suppressions)
 
-	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://payverge.io/reset", "en"))
+	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://example.test/reset", "en"))
 
 	// The address bounces between enqueue and delivery.
 	require.NoError(t, suppressions.Suppress(context.Background(), EmailSuppression{
@@ -344,8 +344,8 @@ func TestOutboxJanitorExpiresPendingAndPurgesTerminal(t *testing.T) {
 	secretPayload := EmailMessage{
 		To:       []string{"guest@example.com"},
 		Subject:  "Reset your password",
-		HTMLBody: `<a href="https://payverge.io/reset?token=SECRET">reset</a>`,
-		TextBody: "https://payverge.io/reset?token=SECRET",
+		HTMLBody: `<a href="https://example.test/reset?token=SECRET">reset</a>`,
+		TextBody: "https://example.test/reset?token=SECRET",
 	}
 	old := &EmailOutbox{IdempotencyKey: "pv-old-pending", TemplateName: "password_reset", NextAttemptAt: now, Payload: secretPayload}
 	recent := &EmailOutbox{IdempotencyKey: "pv-recent-pending", TemplateName: "password_reset", NextAttemptAt: now, Payload: secretPayload}
@@ -395,12 +395,12 @@ func (failingOutboxStore) Enqueue(context.Context, *EmailOutbox) error {
 func TestDispatchFallsBackToSynchronousSendWhenEnqueueFails(t *testing.T) {
 	db := outboxTestDB(t)
 	provider := &outboxProviderStub{}
-	server, err := NewEmailServer(provider, "noreply@payverge.io", "updates@payverge.io", resolveTemplatesRoot(t))
+	server, err := NewEmailServer(provider, "noreply@example.test", "updates@example.test", resolveTemplatesRoot(t))
 	require.NoError(t, err)
 	server.SetOutboundStore(NewGormOutboundStore(db))
 	server.SetOutboxStore(failingOutboxStore{OutboxStore: NewGormOutboxStore(db)})
 
-	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://payverge.io/reset", "en"))
+	require.NoError(t, server.SendPasswordResetEmail([]string{"guest@example.test"}, "https://example.test/reset", "en"))
 	require.Equal(t, 1, provider.calls, "a queue write failure must not lose the message")
 
 	var queued int64
@@ -421,7 +421,7 @@ func TestDispatchNeverQueuesASuppressedRecipient(t *testing.T) {
 		SuppressedAt: time.Now().UTC(),
 	}))
 
-	err := server.SendPasswordResetEmail([]string{"BLOCKED@example.test"}, "https://payverge.io/reset", "en")
+	err := server.SendPasswordResetEmail([]string{"BLOCKED@example.test"}, "https://example.test/reset", "en")
 	require.ErrorIs(t, err, ErrRecipientSuppressed)
 
 	var queued int64

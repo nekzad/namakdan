@@ -5,9 +5,9 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/agents"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/agents"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/emails"
 
 	"github.com/stretchr/testify/require"
 )
@@ -27,7 +27,7 @@ func newCountingEmailServer(t *testing.T) (*emails.EmailServer, *countingProvide
 	emails.AdminsEmails = []string{"ops@example.org"}
 	t.Cleanup(func() { emails.AdminsEmails = originalAdmins })
 	provider := &countingProvider{}
-	srv, err := emails.NewEmailServer(provider, "noreply@test.payverge.io", "updates@test.payverge.io", "../../email/templates")
+	srv, err := emails.NewEmailServer(provider, "noreply@test.example.test", "updates@test.example.test", "../../email/templates")
 	require.NoError(t, err)
 	return srv, provider
 }

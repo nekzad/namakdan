@@ -3,7 +3,7 @@
 -- Usage:
 --   psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f backend/scripts/verify_demo_seed.sql
 
-\echo 'Verifying Payverge demo seed...'
+\echo 'Verifying Namakdan demo seed...'
 
 DROP TABLE IF EXISTS demo_seed_checks;
 CREATE TEMP TABLE demo_seed_checks (
@@ -99,7 +99,7 @@ SELECT
 FROM tables t
 JOIN businesses b ON b.id = t.business_id
 WHERE b.business_id = 'demo-ai-pro-business'
-  AND t.table_code = upper(substr(md5('payverge-fixture-ai-pro-table-2'), 1, 10))
+  AND t.table_code = upper(substr(md5('namakdan-fixture-ai-pro-table-2'), 1, 10))
   AND t.is_active = true;
 
 INSERT INTO demo_seed_checks
@@ -364,4 +364,4 @@ SELECT check_name, actual, expected
 FROM demo_seed_checks
 ORDER BY check_name;
 
-\echo 'Payverge demo seed verification passed.'
+\echo 'Namakdan demo seed verification passed.'

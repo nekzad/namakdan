@@ -11,7 +11,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/stdevmac/payverge/backend/internal/services/print/formatters"
+	"github.com/nekzad/namakdan/backend/internal/services/print/formatters"
 )
 
 func main() {

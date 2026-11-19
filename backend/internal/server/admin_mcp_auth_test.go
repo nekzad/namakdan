@@ -13,9 +13,9 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/session"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 )
 
 func setupAdminMCPAuthRouter(t *testing.T) *gin.Engine {
@@ -54,7 +54,7 @@ func performAdminMCPAuthRequest(r *gin.Engine, token, remoteAddr string) *httpte
 }
 
 func TestAuthenticationAdminMiddlewareAcceptsRawMCPTokenFromLoopback(t *testing.T) {
-	t.Setenv("PAYVERGE_ADMIN_MCP_TOKEN", "mcp-secret-token")
+	t.Setenv("NAMAKDAN_ADMIN_MCP_TOKEN", "mcp-secret-token")
 
 	r := setupAdminMCPAuthRouter(t)
 	w := performAdminMCPAuthRequest(r, "mcp-secret-token", "127.0.0.1:51742")
@@ -65,8 +65,8 @@ func TestAuthenticationAdminMiddlewareAcceptsRawMCPTokenFromLoopback(t *testing.
 
 func TestAuthenticationAdminMiddlewareAcceptsSHA256MCPTokenFromAllowedCIDR(t *testing.T) {
 	sum := sha256.Sum256([]byte("mcp-secret-token"))
-	t.Setenv("PAYVERGE_ADMIN_MCP_TOKEN_SHA256", hex.EncodeToString(sum[:]))
-	t.Setenv("PAYVERGE_ADMIN_MCP_ALLOWED_IPS", "198.51.100.0/24")
+	t.Setenv("NAMAKDAN_ADMIN_MCP_TOKEN_SHA256", hex.EncodeToString(sum[:]))
+	t.Setenv("NAMAKDAN_ADMIN_MCP_ALLOWED_IPS", "198.51.100.0/24")
 
 	r := setupAdminMCPAuthRouter(t)
 	w := performAdminMCPAuthRequest(r, "mcp-secret-token", "198.51.100.23:51742")
@@ -76,8 +76,8 @@ func TestAuthenticationAdminMiddlewareAcceptsSHA256MCPTokenFromAllowedCIDR(t *te
 }
 
 func TestAuthenticationAdminMiddlewareRejectsMCPTokenFromUnallowedIP(t *testing.T) {
-	t.Setenv("PAYVERGE_ADMIN_MCP_TOKEN", "mcp-secret-token")
-	t.Setenv("PAYVERGE_ADMIN_MCP_ALLOWED_IPS", "127.0.0.1/32,::1")
+	t.Setenv("NAMAKDAN_ADMIN_MCP_TOKEN", "mcp-secret-token")
+	t.Setenv("NAMAKDAN_ADMIN_MCP_ALLOWED_IPS", "127.0.0.1/32,::1")
 
 	r := setupAdminMCPAuthRouter(t)
 	w := performAdminMCPAuthRequest(r, "mcp-secret-token", "203.0.113.10:51742")
@@ -91,7 +91,7 @@ func TestAuthenticationAdminMiddlewareRejectsMCPTokenFromUnallowedIP(t *testing.
 // 127.0.0.1 in X-Forwarded-For, or reaches a loopback peer with forwarding
 // headers (a proxy on the same host), is refused under the default allowlist.
 func TestAuthenticationAdminMiddlewareRejectsForwardedLoopback(t *testing.T) {
-	t.Setenv("PAYVERGE_ADMIN_MCP_TOKEN", "mcp-secret-token")
+	t.Setenv("NAMAKDAN_ADMIN_MCP_TOKEN", "mcp-secret-token")
 
 	r := setupAdminMCPAuthRouter(t)
 	require.NoError(t, r.SetTrustedProxies([]string{"0.0.0.0/0", "::/0"})) // worst case: trust every proxy
@@ -136,7 +136,7 @@ func TestAuthenticationAdminMiddlewareStillAcceptsAdminJWT(t *testing.T) {
 }
 
 func TestAdminMCPTokenRouteAllowlist(t *testing.T) {
-	t.Setenv("PAYVERGE_ADMIN_MCP_TOKEN", "mcp-secret-token")
+	t.Setenv("NAMAKDAN_ADMIN_MCP_TOKEN", "mcp-secret-token")
 	r := setupAdminMCPAuthRouter(t)
 
 	allowed := performAdminMCPAuthRequest(r, "mcp-secret-token", "127.0.0.1:51742")

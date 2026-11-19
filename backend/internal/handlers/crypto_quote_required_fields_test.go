@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/stdevmac/payverge/backend/internal/blockchain"
+	"github.com/nekzad/namakdan/backend/internal/blockchain"
 )
 
 // TestRequireTransferAfterQuote_RejectsTokenWithoutIat pins that a quote token

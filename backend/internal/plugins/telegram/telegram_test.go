@@ -14,8 +14,8 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 type fakeTelegramBotSender struct {
@@ -159,9 +159,9 @@ func TestTelegramConnectBusiness_SendsWelcomeInBusinessLanguage(t *testing.T) {
 
 	msg, ok := sender.message.(tgbotapi.MessageConfig)
 	require.True(t, ok)
-	assert.Contains(t, msg.Text, "Bienvenido a las notificaciones de Payverge")
+	assert.Contains(t, msg.Text, "Bienvenido a las notificaciones de Namakdan")
 	assert.Contains(t, msg.Text, "Bistró 21")
-	assert.NotContains(t, msg.Text, "Welcome to Payverge")
+	assert.NotContains(t, msg.Text, "Welcome to Namakdan")
 }
 
 func TestTelegramSendNotification_RendersTestMessageInBusinessLanguage(t *testing.T) {

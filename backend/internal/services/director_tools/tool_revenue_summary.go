@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/analytics"
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/analytics"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 // RevenueProvider is the slice of the analytics service the revenue tool

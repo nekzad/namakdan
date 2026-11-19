@@ -100,8 +100,8 @@ func TestResolveOrderAlerts_BatchesUpdatesAndInserts(t *testing.T) {
 	var alertUpdates atomic.Int64
 	var eventInserts atomic.Int64
 
-	const cbUpdate = "payverge:test:n1_03_alert_update"
-	const cbInsert = "payverge:test:n1_03_event_insert"
+	const cbUpdate = "namakdan:test:n1_03_alert_update"
+	const cbInsert = "namakdan:test:n1_03_event_insert"
 
 	require.NoError(t, db.Callback().Update().Before("gorm:update").Register(cbUpdate, func(tx *gorm.DB) {
 		if tx.Statement == nil || tx.Statement.Schema == nil {

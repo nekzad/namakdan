@@ -15,8 +15,8 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/server"
 )
 
 // TestStampBillClosedByStaff_PostgresIntegration exercises the bill-stamp
@@ -80,7 +80,7 @@ func TestStampBillClosedByStaff_PostgresIntegration(t *testing.T) {
 	staff := &database.Staff{
 		BusinessID: biz.ID,
 		Name:       "PG Stamp Staff",
-		Email:      fmt.Sprintf("pg-stamp-staff-%d@payverge.test", time.Now().UnixNano()),
+		Email:      fmt.Sprintf("pg-stamp-staff-%d@example.test", time.Now().UnixNano()),
 		Role:       database.StaffRoleManager,
 		IsActive:   true,
 	}

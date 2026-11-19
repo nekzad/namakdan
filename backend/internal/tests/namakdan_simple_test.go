@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 	"gorm.io/driver/postgres"
@@ -13,12 +13,12 @@ import (
 	"gorm.io/gorm"
 )
 
-type PayvergeSimpleTestSuite struct {
+type NamakdanSimpleTestSuite struct {
 	suite.Suite
 	db *gorm.DB
 }
 
-func (suite *PayvergeSimpleTestSuite) SetupSuite() {
+func (suite *NamakdanSimpleTestSuite) SetupSuite() {
 	var db *gorm.DB
 	var err error
 
@@ -73,14 +73,14 @@ func (suite *PayvergeSimpleTestSuite) SetupSuite() {
 	}
 }
 
-func (suite *PayvergeSimpleTestSuite) TearDownSuite() {
+func (suite *NamakdanSimpleTestSuite) TearDownSuite() {
 	if suite.db != nil {
 		sqlDB, _ := suite.db.DB()
 		_ = sqlDB.Close()
 	}
 }
 
-func (suite *PayvergeSimpleTestSuite) SetupTest() {
+func (suite *NamakdanSimpleTestSuite) SetupTest() {
 	// Clean up data before each test, children first. bill_items references
 	// bills: without deleting it, the bill TestBillOperations creates blocks
 	// every later delete on PostgreSQL, the businesses survive and each
@@ -103,12 +103,12 @@ func (suite *PayvergeSimpleTestSuite) SetupTest() {
 	}
 }
 
-func TestPayvergeSimpleTestSuite(t *testing.T) {
-	suite.Run(t, new(PayvergeSimpleTestSuite))
+func TestNamakdanSimpleTestSuite(t *testing.T) {
+	suite.Run(t, new(NamakdanSimpleTestSuite))
 }
 
 // Test Business CRUD operations
-func (suite *PayvergeSimpleTestSuite) TestBusinessCRUD() {
+func (suite *NamakdanSimpleTestSuite) TestBusinessCRUD() {
 	business := &database.Business{
 		OwnerAddress: "0x742d35Cc6635C0532925a3b8D400E4C3f2c0C1c1",
 		Name:         "Test Restaurant",
@@ -166,7 +166,7 @@ func (suite *PayvergeSimpleTestSuite) TestBusinessCRUD() {
 }
 
 // Test Menu operations
-func (suite *PayvergeSimpleTestSuite) TestMenuOperations() {
+func (suite *NamakdanSimpleTestSuite) TestMenuOperations() {
 	// Create business first
 	business := &database.Business{
 		OwnerAddress:   "0x742d35Cc6635C0532925a3b8D400E4C3f2c0C1c1",
@@ -217,7 +217,7 @@ func (suite *PayvergeSimpleTestSuite) TestMenuOperations() {
 }
 
 // Test Table operations
-func (suite *PayvergeSimpleTestSuite) TestTableOperations() {
+func (suite *NamakdanSimpleTestSuite) TestTableOperations() {
 	// Create business first
 	business := &database.Business{
 		OwnerAddress:   "0x742d35Cc6635C0532925a3b8D400E4C3f2c0C1c1",
@@ -263,7 +263,7 @@ func (suite *PayvergeSimpleTestSuite) TestTableOperations() {
 }
 
 // Test Bill operations
-func (suite *PayvergeSimpleTestSuite) TestBillOperations() {
+func (suite *NamakdanSimpleTestSuite) TestBillOperations() {
 	// Setup business and table
 	business := &database.Business{
 		OwnerAddress:   "0x742d35Cc6635C0532925a3b8D400E4C3f2c0C1c1",
@@ -325,7 +325,7 @@ func (suite *PayvergeSimpleTestSuite) TestBillOperations() {
 }
 
 // Test Payment operations
-func (suite *PayvergeSimpleTestSuite) TestPaymentOperations() {
+func (suite *NamakdanSimpleTestSuite) TestPaymentOperations() {
 	// Setup business, table, and bill
 	business := &database.Business{
 		OwnerAddress:   "0x742d35Cc6635C0532925a3b8D400E4C3f2c0C1c1",

@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/testperf/genesisdb"
+	"github.com/nekzad/namakdan/backend/internal/testperf/genesisdb"
 
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"

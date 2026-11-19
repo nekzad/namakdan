@@ -7,10 +7,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/assistantcontract"
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/assistantcontract"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -21,7 +21,7 @@ func waiterSpeechSnapshot(t *testing.T, locale, mode string) WaiterMenuSnapshot 
 	t.Helper()
 	business := &database.Business{
 		ID: 86, DefaultLanguage: "en", IsActive: true, KitchenEnabled: true, OrdersEnabled: true,
-		Name: "Payverge AI Pro Demo Lounge",
+		Name: "Namakdan AI Pro Demo Lounge",
 	}
 	steakID := "demo-steak"
 	dateNight, err := json.Marshal([]database.BundleItemRef{

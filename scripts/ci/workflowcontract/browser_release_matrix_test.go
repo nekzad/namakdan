@@ -68,7 +68,7 @@ func TestCriticalReleaseSmokeCoversRTLAndPaymentProviderReturn(t *testing.T) {
 		`provider-handoff`,
 		`/payment-plugins`,
 		`/plugin-payment`,
-		`sessionStorage.getItem("payverge_payment")`,
+		`sessionStorage.getItem("namakdan_payment")`,
 		`payment=cancelled`,
 		`?lang=ar`,
 		`toHaveAttribute("lang", "ar")`,

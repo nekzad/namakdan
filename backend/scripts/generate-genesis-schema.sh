@@ -55,7 +55,7 @@ wait_for_target_db() {
   local container_name="$1"
   local ready=0
   for _ in $(seq 1 60); do
-    if docker exec "${container_name}" psql -U payverge -d payverge -v ON_ERROR_STOP=1 -c 'SELECT 1' >/dev/null 2>&1; then
+    if docker exec "${container_name}" psql -U namakdan -d namakdan -v ON_ERROR_STOP=1 -c 'SELECT 1' >/dev/null 2>&1; then
       ready=1
       break
     fi
@@ -68,8 +68,8 @@ wait_for_target_db() {
 }
 
 PORT="$(pick_free_port)"
-CONTAINER_NAME="${GENESIS_CONTAINER_PREFIX:-payverge-genesis}-$$-${PORT}-$(date +%s)"
-DSN="postgres://payverge:genesis@127.0.0.1:${PORT}/payverge?sslmode=disable"
+CONTAINER_NAME="${GENESIS_CONTAINER_PREFIX:-namakdan-genesis}-$$-${PORT}-$(date +%s)"
+DSN="postgres://namakdan:genesis@127.0.0.1:${PORT}/namakdan?sslmode=disable"
 
 cleanup() {
   docker rm -f "${CONTAINER_NAME}" >/dev/null 2>&1 || true
@@ -78,9 +78,9 @@ trap cleanup EXIT
 
 echo "Starting isolated ${GENESIS_POSTGRES_IMAGE} on 127.0.0.1:${PORT} (${CONTAINER_NAME})..."
 docker run -d --name "${CONTAINER_NAME}" \
-  -e POSTGRES_USER=payverge \
+  -e POSTGRES_USER=namakdan \
   -e POSTGRES_PASSWORD=genesis \
-  -e POSTGRES_DB=payverge \
+  -e POSTGRES_DB=namakdan \
   -p "127.0.0.1:${PORT}:5432" \
   "$GENESIS_POSTGRES_IMAGE" >/dev/null
 
@@ -111,7 +111,7 @@ NORM_DUMP="$(mktemp)"
 trap 'rm -f "${RAW_DUMP}" "${NORM_DUMP}" "${FINGERPRINT_OUT}"; cleanup' EXIT
 
 docker exec "${CONTAINER_NAME}" \
-  pg_dump --schema-only --no-owner --no-privileges -U payverge payverge \
+  pg_dump --schema-only --no-owner --no-privileges -U namakdan namakdan \
   > "${RAW_DUMP}"
 
 # Normalize deterministically: strip volatile dump metadata, collapse trailing WS.
@@ -152,7 +152,7 @@ cat > "${README_OUT}" <<EOF
 # Genesis schema baseline
 
 This directory holds a **schema-only** SQL baseline equal to what a **fresh
-Postgres 18** database looks like after Payverge's production startup
+Postgres 18** database looks like after Namakdan's production startup
 reconciliation — the same sequence as \`cmd/app/main.go\` and
 \`database.ReconcileReferenceSchema\`.
 

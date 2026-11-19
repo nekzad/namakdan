@@ -11,11 +11,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/handlers"
-	"github.com/stdevmac/payverge/backend/internal/services"
-	"github.com/stdevmac/payverge/backend/internal/testperf"
-	"github.com/stdevmac/payverge/backend/internal/testperf/genesisdb"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/handlers"
+	"github.com/nekzad/namakdan/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/testperf"
+	"github.com/nekzad/namakdan/backend/internal/testperf/genesisdb"
 )
 
 // seedRealisticMenuForOrders mirrors the server-package helper of the same

@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/stdevmac/payverge/backend/internal/spaces"
-	"github.com/stdevmac/payverge/backend/internal/spaces/geometry"
+	"github.com/nekzad/namakdan/backend/internal/spaces"
+	"github.com/nekzad/namakdan/backend/internal/spaces/geometry"
 )
 
 // RoomPlanProcessor converts Apple RoomPlan (or RoomPlan-like) structured JSON

@@ -20,7 +20,7 @@ func TestRenderSubjectFromBlock(t *testing.T) {
 	}
 
 	// A template with a variable subject renders the variable.
-	got, err = tm.renderSubject("en", "payverge_update", map[string]interface{}{
+	got, err = tm.renderSubject("en", "namakdan_update", map[string]interface{}{
 		"update_title": "New feature shipped",
 	})
 	if err != nil {

@@ -6,9 +6,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	demosvc "github.com/stdevmac/payverge/backend/internal/demo"
-	"github.com/stdevmac/payverge/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	demosvc "github.com/nekzad/namakdan/backend/internal/demo"
+	"github.com/nekzad/namakdan/backend/internal/server"
 )
 
 type AdminDemoService interface {

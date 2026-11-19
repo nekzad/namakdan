@@ -8,22 +8,22 @@ import { dirname, resolve } from "node:path";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
-const bin = resolve(root, "bin/payverge-admin-mcp.mjs");
+const bin = resolve(root, "bin/namakdan-admin-mcp.mjs");
 
 const backend = await startFakeAdminApi();
 const child = spawn(process.execPath, [bin], {
   cwd: root,
   env: {
     ...process.env,
-    PAYVERGE_API_BASE_URL: `${backend.url}/api/v1`,
-    PAYVERGE_ADMIN_MCP_TOKEN: "smoke-admin-token",
-    PAYVERGE_ADMIN_TOKEN: "smoke-admin-token",
-    PAYVERGE_OWNER_EMAIL: "owner@smoke.test",
-    PAYVERGE_OWNER_PASSWORD: "smoke-owner-password",
-    PAYVERGE_MCP_READ_ONLY: "",
-    PAYVERGE_MCP_BUSINESS_IDS: "",
-    PAYVERGE_OWNER_TOKEN: "",
-    PAYVERGE_PUBLIC_URL: "",
+    NAMAKDAN_API_BASE_URL: `${backend.url}/api/v1`,
+    NAMAKDAN_ADMIN_MCP_TOKEN: "smoke-admin-token",
+    NAMAKDAN_ADMIN_TOKEN: "smoke-admin-token",
+    NAMAKDAN_OWNER_EMAIL: "owner@smoke.test",
+    NAMAKDAN_OWNER_PASSWORD: "smoke-owner-password",
+    NAMAKDAN_MCP_READ_ONLY: "",
+    NAMAKDAN_MCP_BUSINESS_IDS: "",
+    NAMAKDAN_OWNER_TOKEN: "",
+    NAMAKDAN_PUBLIC_URL: "",
   },
   stdio: ["pipe", "pipe", "pipe"],
 });
@@ -42,7 +42,7 @@ try {
     params: {
       protocolVersion: "2025-11-25",
       capabilities: {},
-      clientInfo: { name: "payverge-admin-mcp-smoke", version: "0" },
+      clientInfo: { name: "namakdan-admin-mcp-smoke", version: "0" },
     },
   })}\n`);
   child.stdin.write(`${JSON.stringify({
@@ -50,7 +50,7 @@ try {
     id: 2,
     method: "tools/call",
     params: {
-      name: "payverge_diagnose_issue",
+      name: "namakdan_diagnose_issue",
       arguments: { businessId: 42, component: "checkout" },
     },
   })}\n`);
@@ -59,18 +59,18 @@ try {
     jsonrpc: "2.0",
     id: 4,
     method: "tools/call",
-    params: { name: "payverge_instance_status", arguments: {} },
+    params: { name: "namakdan_instance_status", arguments: {} },
   })}\n`);
   child.stdin.write(`${JSON.stringify({
     jsonrpc: "2.0",
     id: 5,
     method: "tools/call",
-    params: { name: "payverge_bulk_create_tables", arguments: { business_id: 42, count: 3 } },
+    params: { name: "namakdan_bulk_create_tables", arguments: { business_id: 42, count: 3 } },
   })}\n`);
   child.stdin.end();
 
   const initialize = await waitForResponse(responses, 1);
-  assert.equal(initialize.result.serverInfo.name, "payverge-admin-mcp");
+  assert.equal(initialize.result.serverInfo.name, "namakdan-admin-mcp");
 
   const diagnosisResponse = await waitForResponse(responses, 2);
   const diagnosis = diagnosisResponse.result.structuredContent;
@@ -81,8 +81,8 @@ try {
 
   const list = await waitForResponse(responses, 3);
   const names = list.result.tools.map((tool) => tool.name);
-  assert.ok(names.includes("payverge_import_menu"), "config tools are listed");
-  assert.ok(names.includes("payverge_diagnose_issue"), "admin tools are listed when the admin token is set");
+  assert.ok(names.includes("namakdan_import_menu"), "config tools are listed");
+  assert.ok(names.includes("namakdan_diagnose_issue"), "admin tools are listed when the admin token is set");
 
   const status = (await waitForResponse(responses, 4)).result.structuredContent;
   assert.equal(status.instance.product_name, "Smoke POS");
@@ -97,7 +97,7 @@ try {
 
   const exitCode = await waitForExit(child);
   assert.equal(exitCode, 0, stderr.join(""));
-  console.log("payverge-admin-mcp smoke passed");
+  console.log("namakdan-admin-mcp smoke passed");
 } finally {
   child.kill();
   await backend.close();

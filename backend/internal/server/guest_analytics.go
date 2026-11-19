@@ -18,8 +18,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
 )
 
 // guestAnalyticsTrackHook is metrics.TrackEvent behind a package var so tests

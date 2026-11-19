@@ -11,7 +11,7 @@ import (
 	sentrygin "github.com/getsentry/sentry-go/gin"
 	"github.com/gin-gonic/gin"
 
-	"github.com/stdevmac/payverge/backend/internal/middleware"
+	"github.com/nekzad/namakdan/backend/internal/middleware"
 )
 
 type RequestContext struct {
@@ -114,7 +114,7 @@ func ApplyRequestContext(scope *sentry.Scope, requestContext RequestContext) {
 		scope.SetUser(sentry.User{ID: requestContext.UserID})
 	}
 	if len(requestContext.Context) > 0 {
-		scope.SetContext("payverge", sentry.Context(requestContext.Context))
+		scope.SetContext("namakdan", sentry.Context(requestContext.Context))
 	}
 }
 

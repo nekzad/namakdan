@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/money"
+	"github.com/nekzad/namakdan/backend/internal/money"
 
 	"gorm.io/gorm"
 )

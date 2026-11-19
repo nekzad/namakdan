@@ -77,7 +77,7 @@ func TestExtractLeakedActions_unknownKindMapping(t *testing.T) {
 	if len(internalActs) != 1 || internalActs[0].Kind != "navigate" {
 		t.Fatalf("internal unknown kind not mapped to navigate: %#v", internalActs)
 	}
-	_, externalActs := extractLeakedActions("Docs: href: https://payverge.io/docs kind: primary", 5)
+	_, externalActs := extractLeakedActions("Docs: href: https://example.test/docs kind: primary", 5)
 	if len(externalActs) != 1 || externalActs[0].Kind != "external" {
 		t.Fatalf("external unknown kind not mapped to external: %#v", externalActs)
 	}

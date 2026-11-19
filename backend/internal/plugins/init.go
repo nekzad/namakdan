@@ -1,7 +1,7 @@
 package plugins
 
 import (
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/services"
 	"log"
 	"sort"
 )

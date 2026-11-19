@@ -53,9 +53,9 @@ make_sandbox() {
   echo 0 > "${CURL_COUNT_FILE}"
 
   # Default fixture content (overwritten per test)
-  printf 'timestamp=%s\nfile=/backups/payverge_test.sql.gz\nsize_bytes=1234\n' "${FRESH_TS}" \
+  printf 'timestamp=%s\nfile=/backups/namakdan_test.sql.gz\nsize_bytes=1234\n' "${FRESH_TS}" \
     > "${FIXTURES}/.last-local-success"
-  printf 'timestamp=%s\nobject=s3://example-db-backups/db/payverge_test.sql.gz\n' "${FRESH_TS}" \
+  printf 'timestamp=%s\nobject=s3://example-db-backups/db/namakdan_test.sql.gz\n' "${FRESH_TS}" \
     > "${FIXTURES}/.last-upload-success"
 
   # Mock docker: cat fixture for the marker path in the command line.
@@ -171,7 +171,7 @@ rm -rf "${SANDBOX}"
 
 echo "=== Test 2: local fresh, upload STALE → exit 1, alert mentions upload ==="
 make_sandbox
-printf 'timestamp=%s\nobject=s3://example-db-backups/db/payverge_test.sql.gz\n' "${STALE_TS}" \
+printf 'timestamp=%s\nobject=s3://example-db-backups/db/namakdan_test.sql.gz\n' "${STALE_TS}" \
   > "${FIXTURES}/.last-upload-success"
 run_check
 RC=$?
@@ -184,7 +184,7 @@ rm -rf "${SANDBOX}"
 
 echo "=== Test 3: upload fresh, local STALE → exit 1, alert mentions local ==="
 make_sandbox
-printf 'timestamp=%s\nfile=/backups/payverge_test.sql.gz\nsize_bytes=1234\n' "${STALE_TS}" \
+printf 'timestamp=%s\nfile=/backups/namakdan_test.sql.gz\nsize_bytes=1234\n' "${STALE_TS}" \
   > "${FIXTURES}/.last-local-success"
 run_check
 RC=$?
@@ -217,7 +217,7 @@ rm -rf "${SANDBOX}"
 
 echo "=== Test 6: future timestamp (> now+300s) → problem ==="
 make_sandbox
-printf 'timestamp=%s\nfile=/backups/payverge_test.sql.gz\nsize_bytes=1234\n' "${FUTURE_TS}" \
+printf 'timestamp=%s\nfile=/backups/namakdan_test.sql.gz\nsize_bytes=1234\n' "${FUTURE_TS}" \
   > "${FIXTURES}/.last-local-success"
 run_check
 RC=$?
@@ -256,11 +256,11 @@ rm -f "${FIXTURES}/.last-local-success"
 run_check MOCK_CURL_FAIL=1 NODE_EXPORTER_TEXTFILE_DIR="${TEXTFILE_DIR}"
 RC=$?
 assert "exits 2" "$([ ${RC} -eq 2 ] && echo 0 || echo 1)"
-PROM="${TEXTFILE_DIR}/payverge_backup_check.prom"
+PROM="${TEXTFILE_DIR}/namakdan_backup_check.prom"
 assert ".prom file written" "$([ -f "${PROM}" ] && echo 0 || echo 1)"
-assert "alert_delivered is 0" "$(grep -qE 'payverge_backup_check_alert_delivered 0$' "${PROM}" 2>/dev/null && echo 0 || echo 1)"
-assert "local success is 0" "$(grep -qE 'payverge_backup_check_success\{type="local"\} 0' "${PROM}" 2>/dev/null && echo 0 || echo 1)"
-assert "last_run_timestamp present" "$(grep -q 'payverge_backup_check_last_run_timestamp ' "${PROM}" 2>/dev/null && echo 0 || echo 1)"
+assert "alert_delivered is 0" "$(grep -qE 'namakdan_backup_check_alert_delivered 0$' "${PROM}" 2>/dev/null && echo 0 || echo 1)"
+assert "local success is 0" "$(grep -qE 'namakdan_backup_check_success\{type="local"\} 0' "${PROM}" 2>/dev/null && echo 0 || echo 1)"
+assert "last_run_timestamp present" "$(grep -q 'namakdan_backup_check_last_run_timestamp ' "${PROM}" 2>/dev/null && echo 0 || echo 1)"
 rm -rf "${SANDBOX}"
 
 echo "=== Test 10: alerting not configured while problem exists → exit 2 ==="
@@ -282,12 +282,12 @@ make_sandbox
 run_check NODE_EXPORTER_TEXTFILE_DIR="${TEXTFILE_DIR}"
 RC=$?
 assert "exits 0" "$([ ${RC} -eq 0 ] && echo 0 || echo 1)"
-PROM="${TEXTFILE_DIR}/payverge_backup_check.prom"
+PROM="${TEXTFILE_DIR}/namakdan_backup_check.prom"
 assert ".prom file written" "$([ -f "${PROM}" ] && echo 0 || echo 1)"
-assert "local success 1" "$(grep -qE 'payverge_backup_check_success\{type="local"\} 1' "${PROM}" && echo 0 || echo 1)"
-assert "upload success 1" "$(grep -qE 'payverge_backup_check_success\{type="upload"\} 1' "${PROM}" && echo 0 || echo 1)"
-assert "remote_object success 1" "$(grep -qE 'payverge_backup_check_success\{type="remote_object"\} 1' "${PROM}" && echo 0 || echo 1)"
-assert "alert_delivered 1" "$(grep -qE 'payverge_backup_check_alert_delivered 1$' "${PROM}" && echo 0 || echo 1)"
+assert "local success 1" "$(grep -qE 'namakdan_backup_check_success\{type="local"\} 1' "${PROM}" && echo 0 || echo 1)"
+assert "upload success 1" "$(grep -qE 'namakdan_backup_check_success\{type="upload"\} 1' "${PROM}" && echo 0 || echo 1)"
+assert "remote_object success 1" "$(grep -qE 'namakdan_backup_check_success\{type="remote_object"\} 1' "${PROM}" && echo 0 || echo 1)"
+assert "alert_delivered 1" "$(grep -qE 'namakdan_backup_check_alert_delivered 1$' "${PROM}" && echo 0 || echo 1)"
 rm -rf "${SANDBOX}"
 
 echo "=== Test 12: MAX_LOCAL_AGE_SECONDS sets the local threshold; MAX_AGE_SECONDS is not read ==="

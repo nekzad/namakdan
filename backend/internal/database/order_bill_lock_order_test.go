@@ -30,8 +30,8 @@ func lockSequence(t *testing.T) func() []string {
 		}
 		return tx.Statement.Schema.Table, true
 	}
-	const queryCB = "payverge:test:lock_seq_query"
-	const updateCB = "payverge:test:lock_seq_update"
+	const queryCB = "namakdan:test:lock_seq_query"
+	const updateCB = "namakdan:test:lock_seq_update"
 	require.NoError(t, db.Callback().Query().Before("gorm:query").Register(queryCB, func(tx *gorm.DB) {
 		if table, ok := lockedTable(tx); ok {
 			mu.Lock()
@@ -87,8 +87,8 @@ func TestOrderBillWriters_LockBillBeforeOrder(t *testing.T) {
 		require.NotEqual(t, -1, bill, "%s: bill never locked (%v)", name, got)
 		require.NotEqual(t, -1, order, "%s: order never locked (%v)", name, got)
 		require.Less(t, bill, order, "%s: bill must be locked before the order (%v)", name, got)
-		_ = db.Callback().Query().Remove("payverge:test:lock_seq_query")
-		_ = db.Callback().Update().Remove("payverge:test:lock_seq_update")
+		_ = db.Callback().Query().Remove("namakdan:test:lock_seq_query")
+		_ = db.Callback().Update().Remove("namakdan:test:lock_seq_update")
 	}
 
 	approveBill := helperBill(t, business, nil, 0)

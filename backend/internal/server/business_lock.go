@@ -3,14 +3,14 @@ package server
 import (
 	"net/http"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"github.com/gin-gonic/gin"
 )
 
 // ErrCodeBusinessSuspended / ErrCodeBusinessClosed are the operator-route
 // denials for a business the server administrator suspended (is_active=false)
-// or closed (closed_at). They are the only business locks Payverge has.
+// or closed (closed_at). They are the only business locks Namakdan has.
 const (
 	ErrCodeBusinessSuspended = database.BusinessLockCodeSuspended
 	ErrCodeBusinessClosed    = database.BusinessLockCodeClosed

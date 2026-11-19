@@ -7,10 +7,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/agents"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/emails"
-	"github.com/stdevmac/payverge/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/agents"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/logger"
 )
 
 // Service persists escalations and fans them out to Telegram (dedicated bot) and
@@ -113,7 +113,7 @@ func escalationTitle(ev agents.EscalationEvent) string {
 
 func telegramText(ev agents.EscalationEvent, row *database.Escalation) string {
 	var b strings.Builder
-	fmt.Fprintf(&b, "🚨 Payverge escalation (%s)\n", ev.Source)
+	fmt.Fprintf(&b, "🚨 Namakdan escalation (%s)\n", ev.Source)
 	fmt.Fprintf(&b, "Reason: %s\n", ev.Reason)
 	fmt.Fprintf(&b, "Business: %s\n", businessLabel(ev.BusinessID))
 	if ref := sessionRef(ev); ref != "" {
@@ -143,7 +143,7 @@ func emailHTML(ev agents.EscalationEvent, row *database.Escalation) string {
 	if row != nil && row.ID != 0 {
 		idLabel = fmt.Sprintf("#%d", row.ID)
 	}
-	return "<h2>Payverge escalation " + html.EscapeString(idLabel) + "</h2>" +
+	return "<h2>Namakdan escalation " + html.EscapeString(idLabel) + "</h2>" +
 		rowFn("Source", ev.Source) +
 		rowFn("Reason", ev.Reason) +
 		rowFn("Business", businessLabel(ev.BusinessID)) +

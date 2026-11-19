@@ -13,7 +13,7 @@ export const defaults = {
 };
 
 // Curated marketing shot list. Add a shot by appending one object.
-//   name     -> output file slug (payverge-shots/<date>/<name>.png)
+//   name     -> output file slug (namakdan-shots/<date>/<name>.png)
 //   url      -> path template; {businessId}/{tableCode}/{customUrl} are filled
 //   waitFor  -> optional selector to await before capture
 //   settleMs -> optional extra settle after ready (default 800ms in content.js)

@@ -11,21 +11,21 @@ func TestCriticalTransactionalEmailContractsReachProvider(t *testing.T) {
 	provider := &captureProvider{}
 	server, err := NewEmailServer(
 		provider,
-		"Payverge <noreply@payverge.io>",
-		"updates@payverge.io",
+		"Namakdan <noreply@example.test>",
+		"updates@example.test",
 		resolveTemplatesRoot(t),
 	)
 	require.NoError(t, err)
 
 	require.NoError(t, server.SendEmailVerificationEmail(
-		[]string{"verify@example.test"}, "Vera", "https://payverge.io/verify-email?token=verify-contract", "en",
+		[]string{"verify@example.test"}, "Vera", "https://example.test/verify-email?token=verify-contract", "en",
 	))
 	require.NoError(t, server.SendPasswordResetEmail(
-		[]string{"reset@example.test"}, "https://payverge.io/reset-password?token=reset-contract", "en",
+		[]string{"reset@example.test"}, "https://example.test/reset-password?token=reset-contract", "en",
 	))
 	require.NoError(t, server.SendStaffInvitationEmail(
 		[]string{"invite@example.test"}, "Contract Cafe", "Inez", "manager",
-		"https://payverge.io/staff/invitation?token=invite-contract", "en", 7,
+		"https://example.test/staff/invitation?token=invite-contract", "en", 7,
 	))
 	require.NoError(t, server.SendPaymentReceiptEmail(
 		[]string{"receipt@example.test"}, "Contract Cafe", "August 1, 2026", "Card", "receipt-contract",
@@ -45,7 +45,7 @@ func TestCriticalTransactionalEmailContractsReachProvider(t *testing.T) {
 	for i, contract := range contracts {
 		msg := provider.sent[i]
 		require.Equal(t, []string{contract.to}, msg.To)
-		require.Equal(t, "Payverge <noreply@payverge.io>", msg.From)
+		require.Equal(t, "Namakdan <noreply@example.test>", msg.From)
 		require.NotEmpty(t, strings.TrimSpace(msg.Subject))
 		require.Equal(t, MessageTypeTransactional, msg.MessageType)
 		require.Empty(t, msg.Headers["List-Unsubscribe"])

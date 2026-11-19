@@ -21,7 +21,7 @@ import (
 	"unicode/utf8"
 
 	"github.com/gin-gonic/gin"
-	"github.com/stdevmac/payverge/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/config"
 )
 
 // ErrorCode is the stable error code of a refused demo action.
@@ -257,9 +257,9 @@ func isWrite(method string) bool {
 // Message is the refusal copy for one rule.
 func Message(r Rule) string {
 	if r.Kind == KindUpload {
-		return "Uploads are disabled in the public demo. Install your own Payverge to upload files."
+		return "Uploads are disabled in the public demo. Install your own Namakdan to upload files."
 	}
-	return "Disabled in the public demo: " + r.Action + ". Install your own Payverge to use it — everything else here works, and the demo resets nightly."
+	return "Disabled in the public demo: " + r.Action + ". Install your own Namakdan to use it — everything else here works, and the demo resets nightly."
 }
 
 func abort(c *gin.Context, rule Rule) {

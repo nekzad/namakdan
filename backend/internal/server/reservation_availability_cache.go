@@ -7,8 +7,8 @@ import (
 
 	"golang.org/x/sync/singleflight"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // reservationAvailabilityCacheMaxEntries bounds the whole cache and

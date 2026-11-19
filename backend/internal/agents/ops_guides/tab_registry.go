@@ -64,7 +64,7 @@ func readDashboardTabsJSON() ([]byte, error) {
 			if b, err := os.ReadFile(candidate); err == nil {
 				return b, nil
 			}
-			// Also try from agents/ops_guides → payverge root (4 levels up).
+			// Also try from agents/ops_guides → namakdan root (4 levels up).
 			parent := filepath.Dir(dir)
 			if parent == dir {
 				break

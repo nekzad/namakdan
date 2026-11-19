@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/locales"
+	"github.com/nekzad/namakdan/backend/internal/locales"
 )
 
 func TestWaiterPromptMatrixCoversAllGuestLocales(t *testing.T) {

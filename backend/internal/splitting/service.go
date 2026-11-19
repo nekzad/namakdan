@@ -3,7 +3,7 @@ package splitting
 import (
 	"errors"
 	"fmt"
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 	"math"
 	"sort"
 	"time"

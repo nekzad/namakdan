@@ -1,4 +1,4 @@
-# Payverge root Makefile
+# Namakdan root Makefile
 #
 # Targets:
 #   install-hooks      — install git hooks (secret scan, i18n parity, pre-commit guards)

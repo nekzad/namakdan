@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func resetDemoPINKeyForTest(t *testing.T) {
@@ -68,12 +68,12 @@ func TestDemoStaffPIN_DependsOnServerSecret(t *testing.T) {
 
 func TestDemoPINKey_DerivedFromPluginSecretKey(t *testing.T) {
 	resetDemoPINKeyForTest(t)
-	t.Setenv("PLUGIN_SECRET_KEY", "payverge-hermetic-test-key-00000")
+	t.Setenv("PLUGIN_SECRET_KEY", "namakdan-hermetic-test-key-00000")
 
-	mac := hmac.New(sha256.New, []byte("payverge-hermetic-test-key-00000"))
+	mac := hmac.New(sha256.New, []byte("namakdan-hermetic-test-key-00000"))
 	mac.Write([]byte(demoPINKeyLabel))
 	assert.Equal(t, mac.Sum(nil), demoPINKey())
-	assert.NotEqual(t, []byte("payverge-hermetic-test-key-00000"), demoPINKey(), "the raw plugin key must not be reused")
+	assert.NotEqual(t, []byte("namakdan-hermetic-test-key-00000"), demoPINKey(), "the raw plugin key must not be reused")
 }
 
 func TestDemoPINKey_RandomPerProcessWithoutSecret(t *testing.T) {

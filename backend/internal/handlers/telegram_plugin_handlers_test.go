@@ -12,9 +12,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	telegramPlugin "github.com/stdevmac/payverge/backend/internal/plugins/telegram"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	telegramPlugin "github.com/nekzad/namakdan/backend/internal/plugins/telegram"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 func setupTelegramPluginHandlerTest(t *testing.T) (*database.Business, *TelegramPluginHandlers) {
@@ -43,7 +43,7 @@ func setupTelegramPluginHandlerTest(t *testing.T) (*database.Business, *Telegram
 
 func TestGenerateConnectionToken_ReturnsURLAndExpiryAndPersistsHash(t *testing.T) {
 	business, handlers := setupTelegramPluginHandlerTest(t)
-	t.Setenv("TELEGRAM_BOT_USERNAME", "@CustomPayvergeBot")
+	t.Setenv("TELEGRAM_BOT_USERNAME", "@CustomNamakdanBot")
 
 	w := httptest.NewRecorder()
 	c, _ := gin.CreateTestContext(w)
@@ -60,7 +60,7 @@ func TestGenerateConnectionToken_ReturnsURLAndExpiryAndPersistsHash(t *testing.T
 	assert.Contains(t, response, "expires_at")
 	assert.NotContains(t, response, "token")
 	assert.NotContains(t, response, "connection_url")
-	assert.Contains(t, response["url"], "https://t.me/CustomPayvergeBot?start=pv_tg_")
+	assert.Contains(t, response["url"], "https://t.me/CustomNamakdanBot?start=pv_tg_")
 
 	var stored database.TelegramConnectionToken
 	require.NoError(t, database.GetDB().Where("business_id = ?", business.ID).First(&stored).Error)

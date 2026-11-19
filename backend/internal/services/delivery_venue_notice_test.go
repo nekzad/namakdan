@@ -9,8 +9,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 )
 
 func seedVenueNoticeOwner(t *testing.T, db *gorm.DB, business *database.Business, email string, verified bool) {

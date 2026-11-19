@@ -1,5 +1,5 @@
 # Backend routes with no first-party caller in frontend/src,
-# tools/payverge-admin-mcp/src or docs/api, and why each one stays.
+# tools/namakdan-admin-mcp/src or docs/api, and why each one stays.
 # Format: METHOD /path  # reason (the reason is required).
 # `cd tools/route-coverage && go run . -repo ../..` fails on an uncovered route
 # missing here and on an entry here that is no longer uncovered.

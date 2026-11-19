@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/services/cashregister"
+	"github.com/nekzad/namakdan/backend/internal/services/cashregister"
 )
 
 func BenchmarkCurrentDemoHouseRailAlreadyOpen(b *testing.B) {

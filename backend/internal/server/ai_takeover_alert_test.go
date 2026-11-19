@@ -12,10 +12,10 @@ import (
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/services"
-	operational_alerts "github.com/stdevmac/payverge/backend/internal/services/operational_alerts"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/services"
+	operational_alerts "github.com/nekzad/namakdan/backend/internal/services/operational_alerts"
 )
 
 func setupAITakeoverAlertTest(t *testing.T) (*gorm.DB, *database.Business, *database.AiWaiterConversation, *database.Table) {

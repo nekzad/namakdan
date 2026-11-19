@@ -50,7 +50,7 @@ ENV NODE_OPTIONS="--max-old-space-size=4096"
 # Runtime-class settings (PUBLIC_URL, API_URL, SUPPORT_EMAIL, NETWORK,
 # PUBLIC_RPC_URL, FRONTEND_SENTRY_*, VAPID_PUBLIC_KEY, MEDIA_ORIGINS, ...) are
 # read from the CONTAINER environment at request time and published to the
-# browser through window.__PAYVERGE_ENV__ (src/config/publicConfig.ts), so one
+# browser through window.__NAMAKDAN_ENV__ (src/config/publicConfig.ts), so one
 # image serves any origin. The NEXT_PUBLIC_* ARGs below are an optional legacy
 # fallback only: they are inlined at build time and lose to any runtime value.
 # Leave them empty for a portable image. See docs/self-hosting/frontend-config.md.
@@ -144,16 +144,16 @@ RUN addgroup --system --gid 1001 nodejs && \
 # checks this), so a plain `docker build frontend` ships them too. The image
 # also links LGPL-3.0-or-later code (the sharp-libvips shared libraries),
 # so LICENSES/ carries the verbatim LGPL-3.0 and the GPL-3.0 it incorporates.
-LABEL org.opencontainers.image.title="payverge-frontend" \
+LABEL org.opencontainers.image.title="namakdan-frontend" \
       org.opencontainers.image.licenses="Apache-2.0 AND LGPL-3.0-or-later" \
-      org.opencontainers.image.source="https://github.com/stdevMac/payverge" \
-      org.opencontainers.image.vendor="Payverge"
+      org.opencontainers.image.source="https://github.com/nekzad/namakdan" \
+      org.opencontainers.image.vendor="Namakdan"
 
 # Set working directory
 WORKDIR /app
 
-COPY LICENSE NOTICE /usr/share/doc/payverge/
-COPY LICENSES/ /usr/share/doc/payverge/LICENSES/
+COPY LICENSE NOTICE /usr/share/doc/namakdan/
+COPY LICENSES/ /usr/share/doc/namakdan/LICENSES/
 
 # Set environment to production
 ENV NODE_ENV=production

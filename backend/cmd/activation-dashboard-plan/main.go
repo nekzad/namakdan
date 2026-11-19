@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/stdevmac/payverge/backend/internal/activation"
+	"github.com/nekzad/namakdan/backend/internal/activation"
 )
 
 func main() {

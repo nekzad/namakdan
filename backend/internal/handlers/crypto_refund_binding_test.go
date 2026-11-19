@@ -155,8 +155,8 @@ func TestRefundBindingDomainFollowsInstanceHost(t *testing.T) {
 	for _, k := range []string{"PUBLIC_URL", "FRONTEND_URL", "BASE_URL", "NEXT_PUBLIC_BASE_URL", "APP_BASE_URL"} {
 		t.Setenv(k, "")
 	}
-	t.Setenv("PUBLIC_URL", "https://payverge.io")
-	require.Equal(t, "payverge.io/crypto-refund-destination/v1", refundBindingDomain(),
+	t.Setenv("PUBLIC_URL", "https://example.test")
+	require.Equal(t, "example.test/crypto-refund-destination/v1", refundBindingDomain(),
 		"hosted upstream keeps its historical binding domain")
 	t.Setenv("PUBLIC_URL", "https://POS.Example.com/")
 	require.Equal(t, "pos.example.com/crypto-refund-destination/v1", refundBindingDomain())

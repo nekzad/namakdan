@@ -1,8 +1,8 @@
 package server
 
 import (
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 var aiService *services.AIService

@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/s3"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/s3"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

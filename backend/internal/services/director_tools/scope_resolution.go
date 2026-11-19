@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // maxScopeSuggestions caps how many candidate names an error message lists.

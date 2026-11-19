@@ -4,7 +4,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/config"
 )
 
 // GuestURLKind classifies the public storefront destination for a play.

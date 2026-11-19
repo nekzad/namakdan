@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // newReservationWithSecrets builds a fully populated reservation whose embedded

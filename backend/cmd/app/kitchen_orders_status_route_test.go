@@ -3,8 +3,8 @@ package main
 import (
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/server"
 )
 
 // The dashboard reads kitchen-orders-status for every staff session and hides

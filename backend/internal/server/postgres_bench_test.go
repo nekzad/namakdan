@@ -6,9 +6,9 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/testperf"
-	"github.com/stdevmac/payverge/backend/internal/testperf/genesisdb"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/testperf"
+	"github.com/nekzad/namakdan/backend/internal/testperf/genesisdb"
 )
 
 var serverBenchPostgres struct {

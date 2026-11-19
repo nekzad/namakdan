@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Release gate: the default (untagged) backend build must link no GPL code.
 #
-# Payverge is Apache-2.0. The only GPL code reachable from the backend is the
+# Namakdan is Apache-2.0. The only GPL code reachable from the backend is the
 # WhatsApp integration (go.mau.fi/whatsmeow -> go.mau.fi/libsignal, GPL-3.0),
 # which compiles in only with `-tags whatsapp`. This script proves that:
 #
@@ -26,7 +26,7 @@
 #     reads the repo-root COPYING; every package outside cmd/ is LGPL-3.0
 #     (COPYING.LESSER). We link library packages only, and the cmd/ tree is
 #     denylisted below so a geth binary package can never sneak in.
-#   - github.com/golang/freetype: dual FreeType License / GPL-2.0+; Payverge
+#   - github.com/golang/freetype: dual FreeType License / GPL-2.0+; Namakdan
 #     elects the FTL (attribution in NOTICE).
 set -euo pipefail
 

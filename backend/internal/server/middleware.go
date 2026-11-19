@@ -6,17 +6,17 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"github.com/stdevmac/payverge/backend/internal/middleware"
+	"github.com/nekzad/namakdan/backend/internal/middleware"
 	"log"
 	"net"
 	"net/http"
 	"os"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	"github.com/stdevmac/payverge/backend/internal/session"
-	"github.com/stdevmac/payverge/backend/internal/utils"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/utils"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -251,8 +251,8 @@ func extractCookieTokenFromRequest(c *gin.Context, cookieName string) string {
 }
 
 func adminMCPTokenConfigured() bool {
-	return strings.TrimSpace(os.Getenv("PAYVERGE_ADMIN_MCP_TOKEN")) != "" ||
-		strings.TrimSpace(os.Getenv("PAYVERGE_ADMIN_MCP_TOKEN_SHA256")) != ""
+	return strings.TrimSpace(os.Getenv("NAMAKDAN_ADMIN_MCP_TOKEN")) != "" ||
+		strings.TrimSpace(os.Getenv("NAMAKDAN_ADMIN_MCP_TOKEN_SHA256")) != ""
 }
 
 func adminMCPTokenMatches(tokenString string) bool {
@@ -263,14 +263,14 @@ func adminMCPTokenMatches(tokenString string) bool {
 
 	presentedHash := sha256.Sum256([]byte(presented))
 
-	if expectedHashHex := strings.TrimSpace(os.Getenv("PAYVERGE_ADMIN_MCP_TOKEN_SHA256")); expectedHashHex != "" {
+	if expectedHashHex := strings.TrimSpace(os.Getenv("NAMAKDAN_ADMIN_MCP_TOKEN_SHA256")); expectedHashHex != "" {
 		expectedHash, err := hex.DecodeString(expectedHashHex)
 		if err == nil && len(expectedHash) == sha256.Size && subtle.ConstantTimeCompare(presentedHash[:], expectedHash) == 1 {
 			return true
 		}
 	}
 
-	if expectedRaw := strings.TrimSpace(os.Getenv("PAYVERGE_ADMIN_MCP_TOKEN")); expectedRaw != "" {
+	if expectedRaw := strings.TrimSpace(os.Getenv("NAMAKDAN_ADMIN_MCP_TOKEN")); expectedRaw != "" {
 		expectedHash := sha256.Sum256([]byte(expectedRaw))
 		return subtle.ConstantTimeCompare(presentedHash[:], expectedHash[:]) == 1
 	}
@@ -280,7 +280,7 @@ func adminMCPTokenMatches(tokenString string) bool {
 
 // adminMCPClientIPAllowed checks the client IP the backend resolved
 // (c.ClientIP(), which honours X-Forwarded-For only from TRUSTED_PROXIES)
-// against PAYVERGE_ADMIN_MCP_ALLOWED_IPS. A loopback client address is only
+// against NAMAKDAN_ADMIN_MCP_ALLOWED_IPS. A loopback client address is only
 // believed for a direct local connection: when it arrived through a proxy, or
 // with forwarding headers, it is a proxy-local or spoofed address and never
 // matches, so a misconfigured proxy cannot turn the default loopback-only
@@ -294,7 +294,7 @@ func adminMCPClientIPAllowed(c *gin.Context) bool {
 		return false
 	}
 
-	allowed := strings.TrimSpace(os.Getenv("PAYVERGE_ADMIN_MCP_ALLOWED_IPS"))
+	allowed := strings.TrimSpace(os.Getenv("NAMAKDAN_ADMIN_MCP_ALLOWED_IPS"))
 	if allowed == "" {
 		allowed = "127.0.0.1/32,::1/128"
 	}
@@ -341,7 +341,7 @@ func hydrateAdminMCPContext(c *gin.Context) {
 	c.Set("admin_auth_method", "mcp_token")
 }
 
-// adminMCPRouteAllowlist is the routes tools/payverge-admin-mcp calls.
+// adminMCPRouteAllowlist is the routes tools/namakdan-admin-mcp calls.
 // Keys are c.Request.Method + " " + c.FullPath(). The MCP admin token is a
 // synthetic identity (user_id 0) and is refused on every other admin route.
 var adminMCPRouteAllowlist = map[string]struct{}{

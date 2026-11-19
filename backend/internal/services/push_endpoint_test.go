@@ -9,7 +9,7 @@ import (
 	webpush "github.com/SherClockHolmes/webpush-go"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func TestValidatePushEndpoint(t *testing.T) {
@@ -31,7 +31,7 @@ func TestValidatePushEndpoint(t *testing.T) {
 		"https://169.254.169.254/latest/meta-data/",          // metadata IP
 		"https://127.0.0.1/push",                             // loopback
 		"https://[::1]/push",                                 // v6 loopback
-		"https://internal.payverge.local/push",               // not allowlisted
+		"https://internal.example.test/push",               // not allowlisted
 		"https://fcm.googleapis.com.evil.example/fcm/send/x", // suffix trick
 		"https://evilfcm.googleapis.com/fcm/send/x",          // not exact host
 		"https://notify.windows.com/x",                       // bare suffix

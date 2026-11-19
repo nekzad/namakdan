@@ -11,8 +11,8 @@ import (
 
 	"github.com/google/uuid"
 
-	appconfig "github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/database"
+	appconfig "github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // Config keys persisted after first store/POS provisioning.
@@ -65,10 +65,10 @@ func (m *MercadoPagoPlugin) ensureStoreAndPOS(businessID uint) (externalPOSID st
 		mpUserID = resolved
 	}
 
-	storeExternalID := fmt.Sprintf("payverge-store-%d", businessID)
+	storeExternalID := fmt.Sprintf("namakdan-store-%d", businessID)
 	// POS external_id is stricter than the store's: MP rejects anything
 	// non-alphanumeric ("external_id must be alphanumeric"), so no hyphens.
-	posExternalID := fmt.Sprintf("PAYVERGEPOS%d", businessID)
+	posExternalID := fmt.Sprintf("NAMAKDANPOS%d", businessID)
 
 	// The MP store is named after the business; this instance's
 	// PRODUCT_NAME is only the fallback for a nameless business.
@@ -151,7 +151,7 @@ func (m *MercadoPagoPlugin) createOrResolveStore(
 		// itself — use La Plata (the provincial capital) with its coordinates.
 		"location": map[string]interface{}{
 			"street_number": "0",
-			"street_name":   "Payverge",
+			"street_name":   "Namakdan",
 			"city_name":     "La Plata",
 			"state_name":    "Buenos Aires",
 			"latitude":      -34.9215,

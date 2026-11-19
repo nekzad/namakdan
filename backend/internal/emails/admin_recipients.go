@@ -8,7 +8,7 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/config"
 )
 
 // ErrNoRecipients is returned by every send path when the message has no

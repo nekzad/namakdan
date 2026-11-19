@@ -9,11 +9,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/accounting"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	s3pkg "github.com/stdevmac/payverge/backend/internal/s3"
-	"github.com/stdevmac/payverge/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/accounting"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	s3pkg "github.com/nekzad/namakdan/backend/internal/s3"
+	"github.com/nekzad/namakdan/backend/internal/server"
 
 	"github.com/gin-gonic/gin"
 )

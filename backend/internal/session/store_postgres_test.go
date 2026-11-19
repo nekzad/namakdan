@@ -13,7 +13,7 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/testperf"
+	"github.com/nekzad/namakdan/backend/internal/testperf"
 )
 
 func TestRotateSessionConcurrentCAS_PostgresIndependentConnections(t *testing.T) {

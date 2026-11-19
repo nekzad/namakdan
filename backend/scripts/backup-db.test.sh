@@ -86,14 +86,14 @@ EOF
 run_backup() {
   # Args are extra environment assignments, e.g. S3_BACKUP_BUCKET=b
   env PATH="${MOCK_BIN}:${PATH}" \
-    DB_HOST=mockhost DB_PORT=5432 DB_USER=payverge DB_PASSWORD=pw DB_NAME=payverge \
+    DB_HOST=mockhost DB_PORT=5432 DB_USER=namakdan DB_PASSWORD=pw DB_NAME=namakdan \
     BACKUP_DIR="${BACKUP_DIR}" RETENTION_DAYS=7 \
     "$@" \
     bash "${BACKUP_SCRIPT}" > "${SANDBOX}/stdout.log" 2> "${SANDBOX}/stderr.log"
 }
 
 count_final_backups() {
-  find "${BACKUP_DIR}" -name 'payverge_*.sql.gz' -type f | wc -l | tr -d ' '
+  find "${BACKUP_DIR}" -name 'namakdan_*.sql.gz' -type f | wc -l | tr -d ' '
 }
 
 count_tmp_files() {
@@ -128,7 +128,7 @@ make_sandbox
 # Mock bin with only pg_dump (no aws). Restrict PATH so a real host aws cannot leak in.
 rm -f "${MOCK_BIN}/aws"
 env PATH="${MOCK_BIN}:/bin:/usr/bin" \
-  DB_HOST=mockhost DB_PORT=5432 DB_USER=payverge DB_PASSWORD=pw DB_NAME=payverge \
+  DB_HOST=mockhost DB_PORT=5432 DB_USER=namakdan DB_PASSWORD=pw DB_NAME=namakdan \
   BACKUP_DIR="${BACKUP_DIR}" RETENTION_DAYS=7 \
   REQUIRE_OFFSITE_BACKUP=true S3_BACKUP_BUCKET=example-db-backups \
   bash "${BACKUP_SCRIPT}" > "${SANDBOX}/stdout.log" 2> "${SANDBOX}/stderr.log"
@@ -178,7 +178,7 @@ assert "local marker has file= line" "$(grep -q '^file=' "${BACKUP_DIR}/.last-lo
 assert "local marker has size_bytes= line" "$(grep -q '^size_bytes=' "${BACKUP_DIR}/.last-local-success" 2>/dev/null && echo 0 || echo 1)"
 assert "upload marker has object= line" "$(grep -q '^object=' "${BACKUP_DIR}/.last-upload-success" 2>/dev/null && echo 0 || echo 1)"
 assert "policy marker has file= and size_bytes=" "$(grep -q '^file=' "${BACKUP_DIR}/.last-success" 2>/dev/null && grep -q '^size_bytes=' "${BACKUP_DIR}/.last-success" 2>/dev/null && echo 0 || echo 1)"
-assert "durable policy marker exports offsite object identifier" "$(grep -q '^object=s3://example-db-backups/db/payverge_' "${BACKUP_DIR}/.last-success" 2>/dev/null && echo 0 || echo 1)"
+assert "durable policy marker exports offsite object identifier" "$(grep -q '^object=s3://example-db-backups/db/namakdan_' "${BACKUP_DIR}/.last-success" 2>/dev/null && echo 0 || echo 1)"
 # Policy mtime >= upload mtime (policy written after upload)
 if [ -f "${BACKUP_DIR}/.last-success" ] && [ -f "${BACKUP_DIR}/.last-upload-success" ]; then
   # Compare epoch seconds; allow equal if same-second write
@@ -188,7 +188,7 @@ if [ -f "${BACKUP_DIR}/.last-success" ] && [ -f "${BACKUP_DIR}/.last-upload-succ
 else
   assert ".last-success mtime >= .last-upload-success" "1"
 fi
-assert "aws called with s3 cp to s3://example-db-backups/db/" "$(grep -q 's3 cp' "${AWS_LOG}" 2>/dev/null && grep -q 's3://example-db-backups/db/payverge_' "${AWS_LOG}" 2>/dev/null && echo 0 || echo 1)"
+assert "aws called with s3 cp to s3://example-db-backups/db/" "$(grep -q 's3 cp' "${AWS_LOG}" 2>/dev/null && grep -q 's3://example-db-backups/db/namakdan_' "${AWS_LOG}" 2>/dev/null && echo 0 || echo 1)"
 assert "head-bucket precheck ran" "$(grep -q 's3api head-bucket' "${AWS_LOG}" 2>/dev/null && echo 0 || echo 1)"
 rm -rf "${SANDBOX}"
 
@@ -214,7 +214,7 @@ RC=$?
 assert "exits 0" "$([ ${RC} -eq 0 ] && echo 0 || echo 1)"
 assert "exactly one final .sql.gz exists" "$([ "$(count_final_backups)" = "1" ] && echo 0 || echo 1)"
 assert "no .tmp file left behind" "$([ "$(count_tmp_files)" = "0" ] && echo 0 || echo 1)"
-assert "final file is valid gzip" "$(gzip -t "${BACKUP_DIR}"/payverge_*.sql.gz 2>/dev/null && echo 0 || echo 1)"
+assert "final file is valid gzip" "$(gzip -t "${BACKUP_DIR}"/namakdan_*.sql.gz 2>/dev/null && echo 0 || echo 1)"
 assert ".last-success marker written" "$([ -f "${BACKUP_DIR}/.last-success" ] && echo 0 || echo 1)"
 assert ".last-local-success marker written" "$([ -f "${BACKUP_DIR}/.last-local-success" ] && echo 0 || echo 1)"
 assert "policy marker contains timestamp= line" "$(grep -q '^timestamp=' "${BACKUP_DIR}/.last-success" 2>/dev/null && echo 0 || echo 1)"
@@ -240,7 +240,7 @@ RC=$?
 assert "exits 0" "$([ ${RC} -eq 0 ] && echo 0 || echo 1)"
 assert "aws invoked" "$([ -f "${AWS_LOG}" ] && echo 0 || echo 1)"
 assert "aws called with s3 cp" "$(grep -q 's3 cp' "${AWS_LOG}" 2>/dev/null && echo 0 || echo 1)"
-assert "aws target is s3://example-db-backups/db/" "$(grep -q 's3://example-db-backups/db/payverge_' "${AWS_LOG}" 2>/dev/null && echo 0 || echo 1)"
+assert "aws target is s3://example-db-backups/db/" "$(grep -q 's3://example-db-backups/db/namakdan_' "${AWS_LOG}" 2>/dev/null && echo 0 || echo 1)"
 assert ".last-upload-success marker written" "$([ -f "${BACKUP_DIR}/.last-upload-success" ] && echo 0 || echo 1)"
 assert ".last-local-success present" "$([ -f "${BACKUP_DIR}/.last-local-success" ] && echo 0 || echo 1)"
 assert ".last-success present (upload ok)" "$([ -f "${BACKUP_DIR}/.last-success" ] && echo 0 || echo 1)"

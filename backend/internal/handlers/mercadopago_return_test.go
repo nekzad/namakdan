@@ -12,8 +12,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
 )
 
 func TestHandleMercadoPagoReturn_CapturesAndSettlesBill(t *testing.T) {
@@ -74,7 +74,7 @@ func TestHandleMercadoPagoReturn_CapturesAndSettlesBill(t *testing.T) {
 			Amount:    2500,
 			Currency:  "USD",
 			Metadata: map[string]interface{}{
-				"payverge_tracker_id": "mp_tracker_abc",
+				"namakdan_tracker_id": "mp_tracker_abc",
 			},
 		},
 	}

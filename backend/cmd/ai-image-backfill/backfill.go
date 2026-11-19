@@ -10,7 +10,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // defaultAIGeneratedPrefix is where GenerateMenuImage and menu AI generators

@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/activation"
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/activation"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"github.com/gin-gonic/gin"
 )

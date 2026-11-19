@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/require"
@@ -56,7 +56,7 @@ func TestExportAccountData_OwnedLifecycleSnapshot(t *testing.T) {
 	ExportAccountData(ctx)
 
 	require.Equal(t, http.StatusOK, response.Code)
-	require.Contains(t, response.Header().Get("Content-Disposition"), "payverge-account-export-")
+	require.Contains(t, response.Header().Get("Content-Disposition"), "namakdan-account-export-")
 	var payload accountExportPayload
 	require.NoError(t, json.Unmarshal(response.Body.Bytes(), &payload))
 	require.Equal(t, owner.ID, payload.Profile.ID)

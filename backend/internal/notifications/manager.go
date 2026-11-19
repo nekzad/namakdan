@@ -1,7 +1,7 @@
 package notifications
 
 import (
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 )
 
 // NotificationManager delivers notifications by email.

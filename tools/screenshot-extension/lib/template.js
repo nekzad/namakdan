@@ -1,4 +1,4 @@
-// Parse Payverge route context out of a full page URL. Only keys that are
+// Parse Namakdan route context out of a full page URL. Only keys that are
 // present in the URL are returned, so callers can spread over defaults.
 export function extractContext(url) {
   const ctx = {};

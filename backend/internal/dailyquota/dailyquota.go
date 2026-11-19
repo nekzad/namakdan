@@ -15,7 +15,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/boundedcache"
+	"github.com/nekzad/namakdan/backend/internal/boundedcache"
 )
 
 // keyTTL outlives one UTC day so a counter cannot expire mid-day; day-stamped

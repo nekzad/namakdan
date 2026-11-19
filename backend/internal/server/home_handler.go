@@ -1,7 +1,7 @@
 package server
 
 // GET /api/v1/home — public, unauthenticated resolution of what the instance
-// root ("/") serves. Payverge is self-hosted per venue (or venue group), so
+// root ("/") serves. Namakdan is self-hosted per venue (or venue group), so
 // "/" is the venue's public business page rather than a product site:
 //
 //   - PRIMARY_VENUE (numeric id, storefront slug or business_id slug) names
@@ -24,7 +24,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // HomeModeVenue, HomeModeDirectory and HomeModeEmpty are the three shapes of

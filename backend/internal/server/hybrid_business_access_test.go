@@ -13,9 +13,9 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/session"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 )
 
 // setupHybridBusinessAccessDB is a sqlite fixture for the list/open ownership
@@ -99,14 +99,14 @@ func TestHybridAuth_PlatformAdminCanGetListedDemoBusiness(t *testing.T) {
 		ownerID = uint(1)
 		adminID = uint(8)
 	)
-	biz := seedListedDemoBusiness(t, gdb, ownerID, "demo-admin-1-ai-pro", "Payverge AI Pro Demo Lounge")
+	biz := seedListedDemoBusiness(t, gdb, ownerID, "demo-admin-1-ai-pro", "Namakdan AI Pro Demo Lounge")
 
 	adminToken := issueInsideUserToken(t, adminID, "qa-admin@example.com", string(structs.RoleAdmin))
 	w := performHybridGetBusiness(t, adminToken, biz.BusinessId)
 
 	require.Equal(t, http.StatusOK, w.Code, "platform admin must GET a demo they can list; body=%s", w.Body.String())
 	assert.NotContains(t, w.Body.String(), `"code":"BIZ_NOT_OWNER"`)
-	assert.Contains(t, w.Body.String(), "Payverge AI Pro Demo Lounge")
+	assert.Contains(t, w.Body.String(), "Namakdan AI Pro Demo Lounge")
 	assert.Contains(t, w.Body.String(), "0x1111111111111111111111111111111111111111",
 		"admin impersonate must receive the full owner record, not the public projection")
 }
@@ -201,7 +201,7 @@ func TestHybridAuth_PlatformAdminCannotGetUnownedLiveBusiness(t *testing.T) {
 
 func TestHybridAuth_RegularUserStill403OnUnownedBusiness(t *testing.T) {
 	gdb := setupHybridBusinessAccessDB(t)
-	biz := seedListedDemoBusiness(t, gdb, 1, "demo-admin-1-core", "Payverge Core Demo Kitchen")
+	biz := seedListedDemoBusiness(t, gdb, 1, "demo-admin-1-core", "Namakdan Core Demo Kitchen")
 
 	strangerToken := issueInsideUserToken(t, 99, "stranger@example.com", string(structs.RoleUser))
 	w := performHybridGetBusiness(t, strangerToken, biz.BusinessId)
@@ -212,8 +212,8 @@ func TestHybridAuth_RegularUserStill403OnUnownedBusiness(t *testing.T) {
 
 func TestGetMyBusinesses_PlatformAdminListsUnownedDemo(t *testing.T) {
 	gdb := setupHybridBusinessAccessDB(t)
-	_ = seedListedDemoBusiness(t, gdb, 1, "demo-admin-1-ai-pro", "Payverge AI Pro Demo Lounge")
-	_ = seedListedDemoBusiness(t, gdb, 1, "demo-admin-1-core", "Payverge Core Demo Kitchen")
+	_ = seedListedDemoBusiness(t, gdb, 1, "demo-admin-1-ai-pro", "Namakdan AI Pro Demo Lounge")
+	_ = seedListedDemoBusiness(t, gdb, 1, "demo-admin-1-core", "Namakdan Core Demo Kitchen")
 
 	ownerUID := uint(8)
 	owned := &database.Business{
@@ -241,14 +241,14 @@ func TestGetMyBusinesses_PlatformAdminListsUnownedDemo(t *testing.T) {
 	for _, b := range listed {
 		names = append(names, b.Name)
 	}
-	assert.Contains(t, names, "Payverge AI Pro Demo Lounge")
-	assert.Contains(t, names, "Payverge Core Demo Kitchen")
+	assert.Contains(t, names, "Namakdan AI Pro Demo Lounge")
+	assert.Contains(t, names, "Namakdan Core Demo Kitchen")
 	assert.Contains(t, names, "Admin Owned Cafe")
 }
 
 func TestGetMyBusinesses_RegularUserDoesNotListOthersDemo(t *testing.T) {
 	gdb := setupHybridBusinessAccessDB(t)
-	_ = seedListedDemoBusiness(t, gdb, 1, "demo-admin-1-ai-pro", "Payverge AI Pro Demo Lounge")
+	_ = seedListedDemoBusiness(t, gdb, 1, "demo-admin-1-ai-pro", "Namakdan AI Pro Demo Lounge")
 
 	c, w := makeTestContext(http.MethodGet, "/api/v1/inside/businesses", nil)
 	c.Set("token_type", "user")

@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/session"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
@@ -460,7 +460,7 @@ func TestGoogleStaffCallback_ExpiresOwnerCookiesOnStaffLogin(t *testing.T) {
 	}
 
 	const state = "staff-oauth-state"
-	h.staffStateStore[state] = StaffOAuthState{ExpiresAt: time.Now().Add(time.Minute), Redirect: "https://payverge.io/staff/login"}
+	h.staffStateStore[state] = StaffOAuthState{ExpiresAt: time.Now().Add(time.Minute), Redirect: "https://example.test/staff/login"}
 
 	w := httptest.NewRecorder()
 	c, _ := gin.CreateTestContext(w)
@@ -487,7 +487,7 @@ func TestGoogleStaffCallback_FailedIssuanceDoesNotExpireOwnerCookies(t *testing.
 	}
 
 	const state = "staff-oauth-fail-state"
-	h.staffStateStore[state] = StaffOAuthState{ExpiresAt: time.Now().Add(time.Minute), Redirect: "https://payverge.io/staff/login"}
+	h.staffStateStore[state] = StaffOAuthState{ExpiresAt: time.Now().Add(time.Minute), Redirect: "https://example.test/staff/login"}
 
 	w := httptest.NewRecorder()
 	c, _ := gin.CreateTestContext(w)

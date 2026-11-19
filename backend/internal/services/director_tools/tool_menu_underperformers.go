@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/stdevmac/payverge/backend/internal/analytics"
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/analytics"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 // MenuUnderperformersTool surfaces the worst-revenue items inside the

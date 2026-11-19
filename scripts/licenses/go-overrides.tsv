@@ -6,10 +6,10 @@
 #             imports are still checked.
 #   detected  the LicenseName go-licenses reports for the module. The report
 #             override applies only while the detection still matches.
-#   license   the SPDX expression Payverge receives the module under
+#   license   the SPDX expression Namakdan receives the module under
 #   reason    short form; README.md has the long one
 # Each row needs a guard_<module> function in lib.sh (lic_run_guard maps
 # module path to guard). check.sh fails on a row without a guard and on a row
 # whose module is no longer in the dependency graph.
 github.com/ethereum/go-ethereum	GPL-3.0	LGPL-3.0-or-later	Library code outside cmd/ is LGPL-3.0 (upstream README, COPYING.LESSER); go-licenses only sees the root GPL COPYING. Guard: no go-ethereum/cmd/ package is linked.
-github.com/golang/freetype	Unknown	FTL	Dual FTL / GPL-2.0-or-later at the licensee's choice; Payverge elects the FreeType License. Credit in NOTICE. Guard: LICENSE still offers the choice and licenses/ftl.txt exists.
+github.com/golang/freetype	Unknown	FTL	Dual FTL / GPL-2.0-or-later at the licensee's choice; Namakdan elects the FreeType License. Credit in NOTICE. Guard: LICENSE still offers the choice and licenses/ftl.txt exists.

@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/posthog/posthog-go"
-	"github.com/stdevmac/payverge/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/logger"
 )
 
 var postHogClient posthog.Client

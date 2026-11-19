@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 const telegramNotificationEligibilityTTL = 5 * time.Second

@@ -1,5 +1,5 @@
 #!/bin/sh
-# Payverge restore job. Runs inside the postgres:18-alpine image as the
+# Namakdan restore job. Runs inside the postgres:18-alpine image as the
 # `restore` service of deploy/docker-compose.yml (profile: restore):
 #
 #   docker compose stop backend frontend          # (and minio, if you use it)
@@ -17,7 +17,7 @@
 #   2. refuses while anything else is connected to the database
 #   3. pg_restore --exit-on-error into a temporary database (<db>_restore)
 #   4. unpacks the uploads (and MinIO data, when the set has it) into a staging
-#      directory inside each volume (.payverge-restore-staging)
+#      directory inside each volume (.namakdan-restore-staging)
 #   5. only when 3 and 4 both succeeded: renames the live database to
 #      <db>_pre_restore and the temporary one to <db> in one transaction,
 #      swaps each volume's contents for its staging directory, gives the files
@@ -27,7 +27,7 @@
 #
 # The backend applies any newer migrations when it starts. It refuses a schema
 # newer than its own binary, so restore with the image version named in the
-# set's MANIFEST (PAYVERGE_VERSION in .env) or newer.
+# set's MANIFEST (NAMAKDAN_VERSION in .env) or newer.
 set -eu
 
 BACKUP_ROOT=${BACKUP_ROOT:-/backups}
@@ -108,7 +108,7 @@ fi
 
 tmpdb="${PGDATABASE}_restore"
 olddb="${PGDATABASE}_pre_restore"
-STAGING_NAME=.payverge-restore-staging
+STAGING_NAME=.namakdan-restore-staging
 
 # other_connections DB: sessions on DB other than this one.
 other_connections() {
@@ -167,7 +167,7 @@ SQL
 pg_restore --exit-on-error --no-owner --no-privileges --dbname="$tmpdb" "$set_dir/db.dump" ||
 	die "pg_restore failed; the live database and volumes were not changed"
 
-# stage_volume ARCHIVE DEST: unpack ARCHIVE into DEST/.payverge-restore-staging
+# stage_volume ARCHIVE DEST: unpack ARCHIVE into DEST/.namakdan-restore-staging
 # (same filesystem as DEST, so the swap moves entries instead of copying).
 stage_volume() {
 	archive=$1

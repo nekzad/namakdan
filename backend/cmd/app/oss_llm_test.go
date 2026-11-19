@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 func clearOSSLLMEnv(t *testing.T) {
@@ -23,7 +23,7 @@ func TestLLMProviderConfigOpenRouterDefault(t *testing.T) {
 	if cfg.OpenAICompatible || cfg.BaseURL != "" || cfg.APIKey != "sk-or-test" {
 		t.Fatalf("cfg = %+v", cfg)
 	}
-	if cfg.Referer != "https://pos.example.com" || cfg.Title != "Payverge" {
+	if cfg.Referer != "https://pos.example.com" || cfg.Title != "Namakdan" {
 		t.Fatalf("ranking headers = %q / %q", cfg.Referer, cfg.Title)
 	}
 	if llmDisabledReason() != "" {

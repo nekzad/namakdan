@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/locales"
+	"github.com/nekzad/namakdan/backend/internal/locales"
 )
 
 // The AI-prompt surface contract mirrors the transactional-email one: a locale

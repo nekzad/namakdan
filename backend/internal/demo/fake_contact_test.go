@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"github.com/stretchr/testify/require"
 )
@@ -62,7 +62,7 @@ func TestSeededDemoContactDataIsFictional(t *testing.T) {
 		requireFakeHouseNumber(t, "business address", b.Address.Street)
 		require.True(t, strings.HasSuffix(b.Website, ".example"), "business %d website %q must use the reserved .example TLD", b.ID, b.Website)
 		require.Equal(t, demoNoSocialMedia, b.SocialMedia, "business %d must carry no social handles", b.ID)
-		require.NotContains(t, strings.ToLower(b.Website+b.SocialMedia), "payverge")
+		require.NotContains(t, strings.ToLower(b.Website+b.SocialMedia), "namakdan")
 	}
 
 	var drivers []database.DeliveryDriver

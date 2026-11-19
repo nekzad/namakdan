@@ -12,9 +12,9 @@ services:
     image: postgres:18-alpine
     restart: always
     environment:
-      POSTGRES_DB: ${DB_NAME:-payverge}
-      POSTGRES_USER: ${DB_USER:-payverge}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-payverge_password}
+      POSTGRES_DB: ${DB_NAME:-namakdan}
+      POSTGRES_USER: ${DB_USER:-namakdan}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-namakdan_password}
     # Perf tuning. shared_buffers/work_mem/max_connections are sized for a
     # 4 vCPU / 8GB host. 100 connections leaves headroom while bounding memory;
     # the application pool is 25. log_min_duration_statement surfaces the same
@@ -34,7 +34,7 @@ services:
     networks:
       - server
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-payverge} -d ${DB_NAME:-payverge}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-namakdan} -d ${DB_NAME:-namakdan}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -42,7 +42,7 @@ services:
     cpus: "2.0"
 
   backend:
-    image: ${PAYVERGE_IMAGE_PREFIX:-ghcr.io/stdevmac/payverge}-backend:${PAYVERGE_IMAGE_TAG:-perf-latest}
+    image: ${NAMAKDAN_IMAGE_PREFIX:-ghcr.io/nekzad/namakdan}-backend:${NAMAKDAN_IMAGE_TAG:-perf-latest}
     pull_policy: always
     restart: always
     environment:
@@ -83,7 +83,7 @@ services:
       - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY:-}
       - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET:-}
       # SEC-1: env, not argv — see the note in the repo-root docker-compose.yml.
-      - DB_PASSWORD=${DB_PASSWORD:-payverge_password}
+      - DB_PASSWORD=${DB_PASSWORD:-namakdan_password}
     # Bind to 0.0.0.0 so k6 (or any external load generator) can reach the
     # backend. Production binds 127.0.0.1; this is the deliberate delta.
     ports:
@@ -101,9 +101,9 @@ services:
       - --db-port
       - ${DB_PORT:-5432}
       - --db-user
-      - ${DB_USER:-payverge}
+      - ${DB_USER:-namakdan}
       - --db-name
-      - ${DB_NAME:-payverge}
+      - ${DB_NAME:-namakdan}
       - --db-sslmode
       - ${DB_SSLMODE:-disable}
     mem_limit: 2g

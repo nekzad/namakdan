@@ -12,9 +12,9 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
 )
 
 var EmailServerInstance *EmailServer
@@ -111,7 +111,7 @@ func (e *EmailServer) dispatch(msg EmailMessage) error {
 	if !hasRecipient(msg.To) {
 		return ErrNoRecipients
 	}
-	// Special-use domains (demo+...@payverge.local) have no mail exchanger:
+	// Special-use domains (demo+...@example.test) have no mail exchanger:
 	// drop them before the provider ever sees them. A message left with no
 	// real recipient is a successful no-op, not a failure, so demo seeding
 	// and local fixtures stay quiet.
@@ -447,7 +447,7 @@ func (e *EmailServer) sendEmailWithAttachmentsIdempotent(to []string, from, tag,
 		subject = ""
 	}
 	if strings.TrimSpace(subject) == "" {
-		subject = "Notification from Payverge"
+		subject = "Notification from Namakdan"
 	}
 
 	msg := EmailMessage{

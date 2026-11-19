@@ -39,8 +39,8 @@ func setupReservationSettingsReadTestDB(t testing.TB) *gorm.DB {
 func failOnWriteCallbacks(t testing.TB, gormDB *gorm.DB, label string) {
 	t.Helper()
 
-	createName := "payverge:test_fail_on_create_" + label
-	updateName := "payverge:test_fail_on_update_" + label
+	createName := "namakdan:test_fail_on_create_" + label
+	updateName := "namakdan:test_fail_on_update_" + label
 
 	require.NoError(t, gormDB.Callback().Create().Before("gorm:create").Register(createName, func(tx *gorm.DB) {
 		if tx.Statement != nil && tx.Statement.Table == "reservation_settings" {

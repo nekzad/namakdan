@@ -11,9 +11,9 @@ import (
 	qrcode "github.com/skip2/go-qrcode"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/fiscal/display"
-	"github.com/stdevmac/payverge/backend/internal/services/print/formatters"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/fiscal/display"
+	"github.com/nekzad/namakdan/backend/internal/services/print/formatters"
 )
 
 // buildBillInputFromBill loads a Bill (with Business and Table preloaded) and

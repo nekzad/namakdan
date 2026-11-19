@@ -7,7 +7,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/guestsession"
+	"github.com/nekzad/namakdan/backend/internal/guestsession"
 )
 
 func guestFiscalBill(t testing.TB, biz *Business, number string, setter *string) *Bill {

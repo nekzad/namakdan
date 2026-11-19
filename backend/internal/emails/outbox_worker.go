@@ -7,8 +7,8 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
 )
 
 const (

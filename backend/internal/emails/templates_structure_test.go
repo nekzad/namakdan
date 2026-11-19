@@ -85,8 +85,8 @@ func TestAllTemplatesRenderWithTemplateManager(t *testing.T) {
 			templateName := strings.TrimSuffix(filename, filepath.Ext(filename))
 			htmlBody, renderErr := tm.Render(lang, templateName, map[string]interface{}{
 				"owner_name":      "Test Owner",
-				"dashboard_url":   "https://payverge.io/business/1/dashboard?tab=overview",
-				"unsubscribe_url": "https://payverge.io/account",
+				"dashboard_url":   "https://example.test/business/1/dashboard?tab=overview",
+				"unsubscribe_url": "https://example.test/account",
 			})
 			if renderErr != nil {
 				t.Fatalf("failed to render %s/%s: %v", lang, templateName, renderErr)
@@ -108,14 +108,14 @@ func TestTemplateManagerRenderNormalizesLanguageCodes(t *testing.T) {
 
 	testData := map[string]interface{}{
 		"owner_name":    "Test Owner",
-		"dashboard_url": "https://payverge.io/business/test/dashboard",
+		"dashboard_url": "https://example.test/business/test/dashboard",
 	}
 
 	englishBody, err := tm.Render("en-US", "welcome", testData)
 	if err != nil {
 		t.Fatalf("failed to render english alias: %v", err)
 	}
-	if !strings.Contains(englishBody, "Thanks for joining Payverge") {
+	if !strings.Contains(englishBody, "Thanks for joining Namakdan") {
 		t.Fatalf("expected english alias to render english template, got %q", englishBody)
 	}
 
@@ -130,7 +130,7 @@ func TestTemplateManagerRenderNormalizesLanguageCodes(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to render spanish alias: %v", err)
 	}
-	if !strings.Contains(spanishBody, "Gracias por sumarte a Payverge") {
+	if !strings.Contains(spanishBody, "Gracias por sumarte a Namakdan") {
 		t.Fatalf("expected spanish alias to render spanish template, got %q", spanishBody)
 	}
 }

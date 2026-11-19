@@ -1,4 +1,4 @@
-# Payverge edge, EDGE=cloudflare: Cloudflare proxies DOMAIN (orange cloud)
+# Namakdan edge, EDGE=cloudflare: Cloudflare proxies DOMAIN (orange cloud)
 # and connects to this Caddy, which still terminates TLS for the origin.
 #
 # Client IP: {client_ip} is taken from CF-Connecting-IP ONLY when the TCP peer
@@ -7,7 +7,7 @@
 # the origin directly cannot choose its IP by sending that header; Caddy then
 # uses the TCP peer. If Cloudflare ever omits CF-Connecting-IP, Caddy falls
 # back to X-Forwarded-For read right to left (trusted_proxies_strict), so a
-# client-supplied first entry is still ignored. payverge.caddy forwards
+# client-supplied first entry is still ignored. namakdan.caddy forwards
 # {client_ip} to the apps as the only X-Forwarded-For value and removes
 # CF-Connecting-IP and the other client-identity headers.
 #
@@ -33,4 +33,4 @@
 	}
 }
 
-import payverge.caddy
+import namakdan.caddy

@@ -18,7 +18,7 @@ func TestConsumeStaffState_ExactlyOnceUnderConcurrency(t *testing.T) {
 	const goroutines = 64
 	h := &AuthHandler{
 		staffStateStore: map[string]StaffOAuthState{
-			"state-token": {ExpiresAt: time.Now().Add(time.Hour), Redirect: "https://payverge.io/staff/login"},
+			"state-token": {ExpiresAt: time.Now().Add(time.Hour), Redirect: "https://example.test/staff/login"},
 		},
 	}
 
@@ -32,7 +32,7 @@ func TestConsumeStaffState_ExactlyOnceUnderConcurrency(t *testing.T) {
 			<-start
 			if data, ok := h.consumeStaffState("state-token"); ok {
 				atomic.AddInt64(&wins, 1)
-				if data.Redirect != "https://payverge.io/staff/login" {
+				if data.Redirect != "https://example.test/staff/login" {
 					t.Errorf("winner got wrong redirect: %q", data.Redirect)
 				}
 			}
@@ -72,46 +72,46 @@ func TestConsumeStaffState_MissingReturnsFalse(t *testing.T) {
 }
 
 func TestSanitizeStaffRedirect_rejectsEvilSubdomain(t *testing.T) {
-	os.Setenv("PUBLIC_URL", "https://payverge.io")
+	os.Setenv("PUBLIC_URL", "https://example.test")
 	defer os.Unsetenv("PUBLIC_URL")
 
-	result := sanitizeStaffRedirect("https://payverge.io.evil.com/steal")
-	if result == "https://payverge.io.evil.com/steal" {
+	result := sanitizeStaffRedirect("https://example.test.evil.com/steal")
+	if result == "https://example.test.evil.com/steal" {
 		t.Fatal("sanitizeStaffRedirect accepted a spoofed subdomain")
 	}
-	expected := "https://payverge.io/staff/login"
+	expected := "https://example.test/staff/login"
 	if result != expected {
 		t.Fatalf("expected %q, got %q", expected, result)
 	}
 }
 
 func TestSanitizeStaffRedirect_acceptsLegitimate(t *testing.T) {
-	os.Setenv("PUBLIC_URL", "https://payverge.io")
+	os.Setenv("PUBLIC_URL", "https://example.test")
 	defer os.Unsetenv("PUBLIC_URL")
 
-	result := sanitizeStaffRedirect("https://payverge.io/dashboard")
-	if result != "https://payverge.io/dashboard" {
+	result := sanitizeStaffRedirect("https://example.test/dashboard")
+	if result != "https://example.test/dashboard" {
 		t.Fatalf("expected legitimate URL to pass, got %q", result)
 	}
 }
 
 func TestSanitizeStaffRedirect_rejectsJavascriptProtocol(t *testing.T) {
-	os.Setenv("PUBLIC_URL", "https://payverge.io")
+	os.Setenv("PUBLIC_URL", "https://example.test")
 	defer os.Unsetenv("PUBLIC_URL")
 
 	result := sanitizeStaffRedirect("javascript:alert(1)")
-	expected := "https://payverge.io/staff/login"
+	expected := "https://example.test/staff/login"
 	if result != expected {
 		t.Fatalf("expected fallback %q, got %q", expected, result)
 	}
 }
 
 func TestSanitizeStaffRedirect_handlesEmpty(t *testing.T) {
-	os.Setenv("PUBLIC_URL", "https://payverge.io")
+	os.Setenv("PUBLIC_URL", "https://example.test")
 	defer os.Unsetenv("PUBLIC_URL")
 
 	result := sanitizeStaffRedirect("")
-	expected := "https://payverge.io/staff/login"
+	expected := "https://example.test/staff/login"
 	if result != expected {
 		t.Fatalf("expected fallback %q, got %q", expected, result)
 	}

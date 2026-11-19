@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/dailyquota"
-	"github.com/stdevmac/payverge/backend/internal/signedid"
-	"github.com/stdevmac/payverge/backend/internal/utils"
+	"github.com/nekzad/namakdan/backend/internal/dailyquota"
+	"github.com/nekzad/namakdan/backend/internal/signedid"
+	"github.com/nekzad/namakdan/backend/internal/utils"
 
 	"github.com/gin-gonic/gin"
 )

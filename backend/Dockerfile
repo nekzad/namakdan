@@ -47,15 +47,15 @@ FROM gcr.io/distroless/static-debian12:nonroot@sha256:afa5c872c891853ca7fcf1f12c
 # checks this), so a plain `docker build backend` ships them too. The image
 # also links LGPL-3.0-or-later code (go-ethereum library packages),
 # so LICENSES/ carries the verbatim LGPL-3.0 and the GPL-3.0 it incorporates.
-LABEL org.opencontainers.image.title="payverge-backend" \
+LABEL org.opencontainers.image.title="namakdan-backend" \
       org.opencontainers.image.licenses="Apache-2.0 AND LGPL-3.0-or-later" \
-      org.opencontainers.image.source="https://github.com/stdevMac/payverge" \
-      org.opencontainers.image.vendor="Payverge"
+      org.opencontainers.image.source="https://github.com/nekzad/namakdan" \
+      org.opencontainers.image.vendor="Namakdan"
 
 WORKDIR /app
 
-COPY --chown=nonroot:nonroot LICENSE NOTICE /usr/share/doc/payverge/
-COPY --chown=nonroot:nonroot LICENSES/ /usr/share/doc/payverge/LICENSES/
+COPY --chown=nonroot:nonroot LICENSE NOTICE /usr/share/doc/namakdan/
+COPY --chown=nonroot:nonroot LICENSES/ /usr/share/doc/namakdan/LICENSES/
 COPY --from=builder --chown=nonroot:nonroot /out/server      /app/server
 COPY --from=builder --chown=nonroot:nonroot /out/healthcheck /app/healthcheck
 COPY --from=builder --chown=nonroot:nonroot /out/email-smoke /app/email-smoke

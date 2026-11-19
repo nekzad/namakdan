@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/services/foodcost"
+	"github.com/nekzad/namakdan/backend/internal/services/foodcost"
 )
 
 func item(id string, fcPct float64, qty int, price, cost float64) foodcost.ItemMargin {

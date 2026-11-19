@@ -57,7 +57,7 @@ export function decodeJwtExpiry(token) {
  * @param {string} options.baseUrl  API base, e.g. https://pos.example.com/api/v1
  * @param {string} [options.email]
  * @param {string} [options.password]
- * @param {string} [options.staticToken]  PAYVERGE_OWNER_TOKEN (no re-login)
+ * @param {string} [options.staticToken]  NAMAKDAN_OWNER_TOKEN (no re-login)
  */
 export function createOwnerSession({
   baseUrl,
@@ -68,10 +68,10 @@ export function createOwnerSession({
   fetchImpl = globalThis.fetch,
   now = () => Date.now(),
 } = {}) {
-  if (!baseUrl) throw new Error("PAYVERGE_API_BASE_URL is required");
+  if (!baseUrl) throw new Error("NAMAKDAN_API_BASE_URL is required");
   const hasPassword = Boolean(email && password);
   if (!hasPassword && !staticToken) {
-    throw new Error("owner auth needs PAYVERGE_OWNER_EMAIL + PAYVERGE_OWNER_PASSWORD, or PAYVERGE_OWNER_TOKEN");
+    throw new Error("owner auth needs NAMAKDAN_OWNER_EMAIL + NAMAKDAN_OWNER_PASSWORD, or NAMAKDAN_OWNER_TOKEN");
   }
   const loginUrl = `${String(baseUrl).replace(/\/+$/, "")}/auth/login`;
   const mode = hasPassword ? "email_password" : "static_token";
@@ -96,7 +96,7 @@ export function createOwnerSession({
         headers: {
           accept: "application/json",
           "content-type": "application/json",
-          "user-agent": `payverge-admin-mcp/${MCP_SERVER_VERSION}`,
+          "user-agent": `namakdan-admin-mcp/${MCP_SERVER_VERSION}`,
         },
         body: JSON.stringify({ email, password }),
         signal: controller.signal,
@@ -106,7 +106,7 @@ export function createOwnerSession({
         err?.name === "AbortError"
           ? `owner login timed out after ${timeoutMs}ms`
           : `owner login request failed: ${err?.message ?? String(err)}`,
-        { code: "owner_login_unreachable", hint: "Check PAYVERGE_API_BASE_URL and that the backend is up (GET /api/v1/health/live)." },
+        { code: "owner_login_unreachable", hint: "Check NAMAKDAN_API_BASE_URL and that the backend is up (GET /api/v1/health/live)." },
       );
     } finally {
       clearTimeout(timer);
@@ -134,7 +134,7 @@ export function createOwnerSession({
         code: "owner_invalid_credentials",
         status: 401,
         requestId,
-        hint: "Fix PAYVERGE_OWNER_EMAIL / PAYVERGE_OWNER_PASSWORD and restart the MCP server. The server does not retry, because repeated failures lock the account. An admin can reset the password with `docker compose exec -T backend /app/server admin reset-password --email <email> --password-stdin`.",
+        hint: "Fix NAMAKDAN_OWNER_EMAIL / NAMAKDAN_OWNER_PASSWORD and restart the MCP server. The server does not retry, because repeated failures lock the account. An admin can reset the password with `docker compose exec -T backend /app/server admin reset-password --email <email> --password-stdin`.",
       });
       throw fatal;
     }
@@ -156,7 +156,7 @@ export function createOwnerSession({
           status: 403,
           requestId,
           hint: unverified
-            ? "Verify the address from the email Payverge sent, or use the ADMIN_EMAIL bootstrap account, which is created verified."
+            ? "Verify the address from the email Namakdan sent, or use the ADMIN_EMAIL bootstrap account, which is created verified."
             : "The account cannot sign in (deleted or blocked). Use another owner account.",
         },
       );
@@ -177,9 +177,9 @@ export function createOwnerSession({
       if (fatal) throw fatal;
       if (fresh()) return token;
       if (!hasPassword) {
-        throw new OwnerSessionError("PAYVERGE_OWNER_TOKEN has expired", {
+        throw new OwnerSessionError("NAMAKDAN_OWNER_TOKEN has expired", {
           code: "owner_token_expired",
-          hint: "Owner JWTs last 15 minutes. Prefer PAYVERGE_OWNER_EMAIL + PAYVERGE_OWNER_PASSWORD so the server can re-login.",
+          hint: "Owner JWTs last 15 minutes. Prefer NAMAKDAN_OWNER_EMAIL + NAMAKDAN_OWNER_PASSWORD so the server can re-login.",
         });
       }
       if (!inflight) {
@@ -192,10 +192,10 @@ export function createOwnerSession({
 
     invalidate(rejected) {
       if (!hasPassword) {
-        fatal = new OwnerSessionError("PAYVERGE_OWNER_TOKEN was rejected by the backend", {
+        fatal = new OwnerSessionError("NAMAKDAN_OWNER_TOKEN was rejected by the backend", {
           code: "owner_token_rejected",
           status: 401,
-          hint: "Mint a fresh token (sign in again) or switch to PAYVERGE_OWNER_EMAIL + PAYVERGE_OWNER_PASSWORD.",
+          hint: "Mint a fresh token (sign in again) or switch to NAMAKDAN_OWNER_EMAIL + NAMAKDAN_OWNER_PASSWORD.",
         });
         return;
       }

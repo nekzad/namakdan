@@ -6,9 +6,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/session"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -101,7 +101,7 @@ func TestRequireBillBusinessAccess_AllowsPlatformAdminListedDemo(t *testing.T) {
 	demoOwnerID := uint(99)
 	business := &database.Business{
 		BusinessId:      "demo-admin-1-core",
-		Name:            "Payverge Core Demo Kitchen",
+		Name:            "Namakdan Core Demo Kitchen",
 		OwnerAddress:    "0xDemoSeedOwner",
 		IsDemo:          true,
 		Kind:            database.BusinessKindDemo,
@@ -148,7 +148,7 @@ func TestGetBill_AllowsPlatformAdminListedDemoAfterMiddleware(t *testing.T) {
 	demoOwnerID := uint(99)
 	business := &database.Business{
 		BusinessId:      "demo-admin-1-core-getbill",
-		Name:            "Payverge Core Demo Kitchen",
+		Name:            "Namakdan Core Demo Kitchen",
 		OwnerAddress:    "0xDemoSeedOwner",
 		IsDemo:          true,
 		Kind:            database.BusinessKindDemo,
@@ -195,7 +195,7 @@ func TestResolveBillBusinessAccess_ReloadsDemoFlagsForPlatformAdmin(t *testing.T
 	demoOwnerID := uint(99)
 	business := &database.Business{
 		BusinessId:      "demo-admin-1-core-reload",
-		Name:            "Payverge Core Demo Kitchen",
+		Name:            "Namakdan Core Demo Kitchen",
 		OwnerAddress:    "0xDemoSeedOwner",
 		IsDemo:          true,
 		Kind:            database.BusinessKindDemo,
@@ -233,7 +233,7 @@ func TestResolveBillBusinessAccess_HydratesLiveAdminRole(t *testing.T) {
 	demoOwnerID := uint(99)
 	business := &database.Business{
 		BusinessId:      "demo-admin-live-role",
-		Name:            "Payverge Core Demo Kitchen",
+		Name:            "Namakdan Core Demo Kitchen",
 		OwnerAddress:    "0xDemoSeedOwner",
 		IsDemo:          true,
 		Kind:            database.BusinessKindDemo,

@@ -8,7 +8,7 @@ import (
 
 func TestEmailServerStripsCRLFFromSubject(t *testing.T) {
 	provider := &captureProvider{}
-	server, err := NewEmailServer(provider, "noreply@payverge.io", "updates@payverge.io", resolveTemplatesRoot(t))
+	server, err := NewEmailServer(provider, "noreply@example.test", "updates@example.test", resolveTemplatesRoot(t))
 	require.NoError(t, err)
 
 	err = server.SendCustomEmail(

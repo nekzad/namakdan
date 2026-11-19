@@ -12,7 +12,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 type publicReservationSQLRecorder struct {
@@ -198,8 +198,8 @@ func TestGetPublicSettingsDoesNotWriteOnRead(t *testing.T) {
 		Update("max_advance_days", 0).Error)
 
 	writes := 0
-	createName := "payverge:test_public_settings_fail_create"
-	updateName := "payverge:test_public_settings_fail_update"
+	createName := "namakdan:test_public_settings_fail_create"
+	updateName := "namakdan:test_public_settings_fail_update"
 	require.NoError(t, db.Callback().Create().Before("gorm:create").Register(createName, func(tx *gorm.DB) {
 		writes++
 		t.Errorf("unexpected INSERT against %s during GetPublicSettings", tx.Statement.Table)
@@ -234,8 +234,8 @@ func TestGetAvailabilityDoesNotWriteOnRead(t *testing.T) {
 		Update("max_advance_days", 0).Error)
 
 	writes := 0
-	createName := "payverge:test_public_avail_fail_create"
-	updateName := "payverge:test_public_avail_fail_update"
+	createName := "namakdan:test_public_avail_fail_create"
+	updateName := "namakdan:test_public_avail_fail_update"
 	require.NoError(t, db.Callback().Create().Before("gorm:create").Register(createName, func(tx *gorm.DB) {
 		writes++
 		t.Errorf("unexpected INSERT against %s during GetAvailability", tx.Statement.Table)

@@ -1,4 +1,4 @@
-module github.com/stdevmac/payverge/scripts/ci/workflowcontract
+module github.com/nekzad/namakdan/scripts/ci/workflowcontract
 
 go 1.25
 

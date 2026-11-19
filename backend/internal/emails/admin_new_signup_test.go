@@ -22,13 +22,13 @@ func TestSendAdminNewSignupEmail(t *testing.T) {
 	templatesRoot := resolveTemplatesRoot(t)
 	provider := &captureProvider{}
 
-	server, err := NewEmailServer(provider, "notifications@payverge.io", "updates@payverge.io", templatesRoot)
+	server, err := NewEmailServer(provider, "notifications@example.test", "updates@example.test", templatesRoot)
 	if err != nil {
 		t.Fatalf("failed to build email server: %v", err)
 	}
 
 	originalAdmins := AdminsEmails
-	AdminsEmails = []string{"admin1@payverge.io", "admin2@payverge.io"}
+	AdminsEmails = []string{"admin1@example.test", "admin2@example.test"}
 	defer func() { AdminsEmails = originalAdmins }()
 
 	err = server.SendAdminNewSignupEmail(AdminNewSignupInfo{
@@ -37,7 +37,7 @@ func TestSendAdminNewSignupEmail(t *testing.T) {
 		OwnerEmail:   "jane@example.com",
 		Country:      "US",
 		BusinessType: "restaurant",
-		DashboardURL: "https://payverge.io/business/1/dashboard",
+		DashboardURL: "https://example.test/business/1/dashboard",
 	})
 	if err != nil {
 		t.Fatalf("SendAdminNewSignupEmail returned error: %v", err)
@@ -48,13 +48,13 @@ func TestSendAdminNewSignupEmail(t *testing.T) {
 	}
 
 	msg := provider.sent[0]
-	if len(msg.To) != 2 || msg.To[0] != "admin1@payverge.io" || msg.To[1] != "admin2@payverge.io" {
+	if len(msg.To) != 2 || msg.To[0] != "admin1@example.test" || msg.To[1] != "admin2@example.test" {
 		t.Errorf("expected admin recipients, got %v", msg.To)
 	}
 	if !strings.Contains(msg.Subject, "Test Taqueria") {
 		t.Errorf("expected subject to contain business name, got %q", msg.Subject)
 	}
-	for _, want := range []string{"Test Taqueria", "Jane Owner", "jane@example.com", "US", "restaurant", "https://payverge.io/business/1/dashboard"} {
+	for _, want := range []string{"Test Taqueria", "Jane Owner", "jane@example.com", "US", "restaurant", "https://example.test/business/1/dashboard"} {
 		if !strings.Contains(msg.HTMLBody, want) {
 			t.Errorf("expected email body to contain %q, got:\n%s", want, msg.HTMLBody)
 		}

@@ -5,8 +5,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
 
 	"github.com/prometheus/client_golang/prometheus/testutil"
 	"github.com/stretchr/testify/require"
@@ -71,7 +71,7 @@ func TestProcessIssueJob_AdoptsExistingAuthorizedReceipt(t *testing.T) {
 // that when saveAuthorizedReceiptWithRetry exhausts all inline retries after a
 // successful AFIP authorization, the outcome is (a) terminal failed_permanent
 // with error code "persist_failed_terminal" and (b) the
-// payverge_fiscal_orphaned_cae_total counter is incremented exactly once.
+// namakdan_fiscal_orphaned_cae_total counter is incremented exactly once.
 func TestPersistReceiptResult_OrphanedCAE_IncrementsMetricAndGoesTerminal(t *testing.T) {
 	before := testutil.ToFloat64(metrics.FiscalOrphanedCAETotal)
 	svc, job, jobCtx, result := persistTestFixture(t)

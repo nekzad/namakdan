@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/llmeval/langid"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/llmeval/langid"
 )
 
 // langidMinConfidence is the floor below which a language_is assertion is

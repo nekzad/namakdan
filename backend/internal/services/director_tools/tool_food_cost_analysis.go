@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/services/foodcost"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/services/foodcost"
 )
 
 // defaultFoodCostThresholdPct is the food-cost fraction (0..1) above which a

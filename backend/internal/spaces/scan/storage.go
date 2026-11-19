@@ -7,8 +7,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/s3"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/s3"
 )
 
 // ArtifactStore persists scan upload bytes. Production uses protected S3;

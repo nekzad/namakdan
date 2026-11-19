@@ -14,10 +14,10 @@ import (
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	"github.com/stdevmac/payverge/backend/internal/plugins/mercadopago"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/plugins/mercadopago"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 func int64Ptr(v int64) *int64 { return &v }
@@ -174,7 +174,7 @@ func TestPluginWebhook_MercadoPagoPartialRefundReversedOnce(t *testing.T) {
 		"access_token":   "APP_USR-delta-access-token-1234567890",
 		"public_key":     "APP_USR-delta-public-key-1234567890",
 		"webhook_secret": "mp_delta", "environment": "sandbox",
-		"base_url": "https://api.payverge.test", "api_base_url": api.URL,
+		"base_url": "https://api.example.test", "api_base_url": api.URL,
 	})
 	billID = newProviderContractBill(t, businessID, 10000).ID
 	plugins.GlobalRegistry.RegisterPlugin(mercadopago.NewMercadoPagoPlugin(services.NewPluginService(database.GetDBWrapper())))

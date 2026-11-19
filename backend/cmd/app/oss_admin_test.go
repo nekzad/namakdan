@@ -5,10 +5,10 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/auth"
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/auth"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/logger"
 
 	"github.com/stretchr/testify/require"
 )

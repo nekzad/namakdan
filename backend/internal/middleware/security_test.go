@@ -31,7 +31,7 @@ func TestSecurityMiddlewareTestSuite(t *testing.T) {
 func TestRequireTrustedOriginForMutations_RejectsCustomerProfileMutationFromUntrustedOrigin(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	router := gin.New()
-	router.Use(RequireTrustedOriginForMutations([]string{"https://payverge.io"}))
+	router.Use(RequireTrustedOriginForMutations([]string{"https://example.test"}))
 	router.POST("/api/v1/customer/profile", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"status": "ok"})
 	})
@@ -166,7 +166,7 @@ func (suite *SecurityMiddlewareTestSuite) TestBusinessRateLimit_BlocksSpoofedFor
 
 // Test CORS Middleware
 func (suite *SecurityMiddlewareTestSuite) TestCORS_AllowsConfiguredOrigins() {
-	suite.router.Use(CORS([]string{"http://localhost:3000", "http://localhost:3001", "https://payverge.io", "https://www.payverge.io", "https://api.payverge.io"}))
+	suite.router.Use(CORS([]string{"http://localhost:3000", "http://localhost:3001", "https://example.test", "https://www.example.test", "https://api.example.test"}))
 	suite.router.GET("/test", func(c *gin.Context) {
 		c.JSON(200, gin.H{"status": "ok"})
 	})
@@ -182,7 +182,7 @@ func (suite *SecurityMiddlewareTestSuite) TestCORS_AllowsConfiguredOrigins() {
 }
 
 func (suite *SecurityMiddlewareTestSuite) TestCORS_BlocksUnauthorizedOrigins() {
-	suite.router.Use(CORS([]string{"http://localhost:3000", "http://localhost:3001", "https://payverge.io", "https://www.payverge.io", "https://api.payverge.io"}))
+	suite.router.Use(CORS([]string{"http://localhost:3000", "http://localhost:3001", "https://example.test", "https://www.example.test", "https://api.example.test"}))
 	suite.router.GET("/test", func(c *gin.Context) {
 		c.JSON(200, gin.H{"status": "ok"})
 	})
@@ -197,7 +197,7 @@ func (suite *SecurityMiddlewareTestSuite) TestCORS_BlocksUnauthorizedOrigins() {
 }
 
 func (suite *SecurityMiddlewareTestSuite) TestCORS_DoesNotEmitPreflightMetadataForUnauthorizedOrigins() {
-	suite.router.Use(CORS([]string{"https://payverge.io"}))
+	suite.router.Use(CORS([]string{"https://example.test"}))
 	suite.router.OPTIONS("/test", func(c *gin.Context) {
 		c.Status(200)
 	})
@@ -216,7 +216,7 @@ func (suite *SecurityMiddlewareTestSuite) TestCORS_DoesNotEmitPreflightMetadataF
 }
 
 func (suite *SecurityMiddlewareTestSuite) TestCORS_HandlesPreflightRequests() {
-	suite.router.Use(CORS([]string{"http://localhost:3000", "http://localhost:3001", "https://payverge.io", "https://www.payverge.io", "https://api.payverge.io"}))
+	suite.router.Use(CORS([]string{"http://localhost:3000", "http://localhost:3001", "https://example.test", "https://www.example.test", "https://api.example.test"}))
 	suite.router.OPTIONS("/test", func(c *gin.Context) {
 		c.Status(200)
 	})
@@ -235,7 +235,7 @@ func (suite *SecurityMiddlewareTestSuite) TestCORS_HandlesPreflightRequests() {
 }
 
 // TestCORS_AuthLoginKeepsHeadersOn200AndRateLimit429 is the issue 344
-// regression: a browser POST /auth/login from https://payverge.io must still
+// regression: a browser POST /auth/login from https://example.test must still
 // see Access-Control-Allow-Origin (and credentials) when the auth limiter
 // returns 429. Without ACAO the dashboard modal can only surface a generic
 // network error. 200 login must keep the same headers.
@@ -245,13 +245,13 @@ func TestCORS_AuthLoginKeepsHeadersOn200AndRateLimit429(t *testing.T) {
 	// Production-ish stack: sanitizer wraps the writer first, then CORS,
 	// then the auth limiter that actually emits the 429.
 	router.Use(ErrorSanitizer())
-	router.Use(CORS([]string{"https://payverge.io"}))
+	router.Use(CORS([]string{"https://example.test"}))
 	router.Use(AuthRateLimiter(10, 1))
 	router.POST("/auth/login", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"ok": true})
 	})
 
-	origin := "https://payverge.io"
+	origin := "https://example.test"
 	postLogin := func() *httptest.ResponseRecorder {
 		req := httptest.NewRequest(http.MethodPost, "/auth/login", nil)
 		req.Header.Set("Origin", origin)
@@ -276,7 +276,7 @@ func TestCORS_AuthLoginKeepsHeadersOn200AndRateLimit429(t *testing.T) {
 // 401/5xx written after CORS, including the public-error writer wrap.
 func TestCORS_KeepsHeadersOnLater401And5xx(t *testing.T) {
 	gin.SetMode(gin.TestMode)
-	origin := "https://payverge.io"
+	origin := "https://example.test"
 
 	cases := []struct {
 		name   string
@@ -522,7 +522,7 @@ func BenchmarkSimpleRateLimiterChurn(b *testing.B) {
 func TestRequireTrustedOriginForMutations_SkipsSafeMethods(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	router := gin.New()
-	router.Use(RequireTrustedOriginForMutations([]string{"https://payverge.io"}))
+	router.Use(RequireTrustedOriginForMutations([]string{"https://example.test"}))
 	router.GET("/p", func(c *gin.Context) { c.Status(200) })
 
 	req, _ := http.NewRequest("GET", "/p", nil)
@@ -535,11 +535,11 @@ func TestRequireTrustedOriginForMutations_SkipsSafeMethods(t *testing.T) {
 func TestRequireTrustedOriginForMutations_AllowsTrustedOrigin(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	router := gin.New()
-	router.Use(RequireTrustedOriginForMutations([]string{"https://payverge.io"}))
+	router.Use(RequireTrustedOriginForMutations([]string{"https://example.test"}))
 	router.POST("/p", func(c *gin.Context) { c.Status(200) })
 
 	req, _ := http.NewRequest("POST", "/p", nil)
-	req.Header.Set("Origin", "https://payverge.io")
+	req.Header.Set("Origin", "https://example.test")
 	w := httptest.NewRecorder()
 	router.ServeHTTP(w, req)
 	assert.Equal(t, 200, w.Code)
@@ -548,7 +548,7 @@ func TestRequireTrustedOriginForMutations_AllowsTrustedOrigin(t *testing.T) {
 func TestRequireTrustedOriginForMutations_RejectsUntrustedOrigin(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	router := gin.New()
-	router.Use(RequireTrustedOriginForMutations([]string{"https://payverge.io"}))
+	router.Use(RequireTrustedOriginForMutations([]string{"https://example.test"}))
 	router.POST("/p", func(c *gin.Context) { c.Status(200) })
 
 	req, _ := http.NewRequest("POST", "/p", nil)
@@ -562,12 +562,12 @@ func TestRequireTrustedOriginForMutations_RejectsUntrustedOrigin(t *testing.T) {
 func TestRequireTrustedOriginForMutations_FallsBackToRefererOrigin(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	router := gin.New()
-	router.Use(RequireTrustedOriginForMutations([]string{"https://payverge.io"}))
+	router.Use(RequireTrustedOriginForMutations([]string{"https://example.test"}))
 	router.POST("/p", func(c *gin.Context) { c.Status(200) })
 
 	// No Origin header, Referer present and trusted.
 	req, _ := http.NewRequest("POST", "/p", nil)
-	req.Header.Set("Referer", "https://payverge.io/admin/businesses")
+	req.Header.Set("Referer", "https://example.test/admin/businesses")
 	w := httptest.NewRecorder()
 	router.ServeHTTP(w, req)
 	assert.Equal(t, 200, w.Code)
@@ -583,7 +583,7 @@ func TestRequireTrustedOriginForMutations_FallsBackToRefererOrigin(t *testing.T)
 func TestRequireTrustedOriginForMutations_AllowsNonBrowserClient(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	router := gin.New()
-	router.Use(RequireTrustedOriginForMutations([]string{"https://payverge.io"}))
+	router.Use(RequireTrustedOriginForMutations([]string{"https://example.test"}))
 	router.POST("/p", func(c *gin.Context) { c.Status(200) })
 
 	// Neither Origin nor Referer set — a curl / server-to-server client.
@@ -630,7 +630,7 @@ func TestRequireTrustedOriginForMutations_RejectsCookieAuthWithoutOrigin(t *test
 
 	// Non-auth cookies (analytics, locale) do not trigger the check.
 	req, _ = http.NewRequest("POST", "/p", nil)
-	req.AddCookie(&http.Cookie{Name: "payverge_locale", Value: "es"})
+	req.AddCookie(&http.Cookie{Name: "namakdan_locale", Value: "es"})
 	w = httptest.NewRecorder()
 	router.ServeHTTP(w, req)
 	assert.Equal(t, 200, w.Code)

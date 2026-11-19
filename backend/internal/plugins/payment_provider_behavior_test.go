@@ -3,10 +3,10 @@ package plugins_test
 import (
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	"github.com/stdevmac/payverge/backend/internal/plugins/mercadopago"
-	"github.com/stdevmac/payverge/backend/internal/plugins/paypal"
-	"github.com/stdevmac/payverge/backend/internal/plugins/stripe"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/plugins/mercadopago"
+	"github.com/nekzad/namakdan/backend/internal/plugins/paypal"
+	"github.com/nekzad/namakdan/backend/internal/plugins/stripe"
 
 	"github.com/stretchr/testify/require"
 )

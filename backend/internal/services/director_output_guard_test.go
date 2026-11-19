@@ -187,7 +187,7 @@ func TestGuardDirectorOutput_FailsSafeOnDataBlockMarkerEcho(t *testing.T) {
 // poisoned external/phishing URL can never survive as a rendered deep link.
 func TestDeepLink_MaliciousExternalURLNeutralized(t *testing.T) {
 	for _, link := range []string{
-		"https://payverge-secure-login.evil.com/reset?tab=evil",
+		"https://example.invalid.evil.com/reset?tab=evil",
 		"http://attacker.test/?tab=crm",
 		"javascript:alert(1)",
 		"https://evil.com/phish",

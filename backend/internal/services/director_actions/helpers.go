@@ -3,7 +3,7 @@ package director_actions
 import (
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // replaceItemIDWithDisplayName swaps "item <internal-id>" in proposal titles

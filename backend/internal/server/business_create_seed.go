@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/geodefaults"
+	"github.com/nekzad/namakdan/backend/internal/geodefaults"
 )
 
 // serverValidBusinessTypes is the canonical enum (kept package-local to avoid an

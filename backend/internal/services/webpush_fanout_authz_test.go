@@ -13,7 +13,7 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func setupWebPushFanoutDB(t *testing.T) *gorm.DB {
@@ -48,7 +48,7 @@ func TestSendLocalizedPushToBusiness_SkipsDeactivatedStaffPrincipal(t *testing.T
 
 	vapidPriv, vapidPub, err := webpush.GenerateVAPIDKeys()
 	require.NoError(t, err)
-	svc := NewWebPushService(g, vapidPub, vapidPriv, "mailto:test@payverge.io")
+	svc := NewWebPushService(g, vapidPub, vapidPriv, "mailto:test@example.test")
 	svc.validateEndpoint = func(string) error { return nil } // httptest endpoints are plain http
 
 	ownerID := uint(9)

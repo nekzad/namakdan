@@ -1,4 +1,4 @@
-module github.com/stdevmac/payverge/backend
+module github.com/nekzad/namakdan/backend
 
 go 1.26.0
 

@@ -6,10 +6,10 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/runtimecontrol"
-	"github.com/stdevmac/payverge/backend/internal/session"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/runtimecontrol"
+	"github.com/nekzad/namakdan/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/require"
@@ -23,8 +23,8 @@ import (
 // handlers import fiscal, so a runtimecontrol → server test import is a cycle.
 func TestAdminControlSurfaceRequiresAdminAuthentication(t *testing.T) {
 	gin.SetMode(gin.TestMode)
-	t.Setenv("PAYVERGE_ADMIN_MCP_TOKEN", "runtime-admin-secret")
-	t.Setenv("PAYVERGE_ADMIN_MCP_ALLOWED_IPS", "127.0.0.1/32")
+	t.Setenv("NAMAKDAN_ADMIN_MCP_TOKEN", "runtime-admin-secret")
+	t.Setenv("NAMAKDAN_ADMIN_MCP_ALLOWED_IPS", "127.0.0.1/32")
 	previousStore := session.GlobalStore
 	session.GlobalStore = nil
 	t.Cleanup(func() { session.GlobalStore = previousStore })

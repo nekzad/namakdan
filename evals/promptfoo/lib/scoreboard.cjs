@@ -59,7 +59,7 @@ const lat = { gemini: { latency: 0, n: 0 }, 'gpt-4o-mini': { latency: 0, n: 0 } 
 const headSurface = 'Surface'.padEnd(18);
 console.log('');
 console.log('╔══════════════════════════════════════════════════════════════════╗');
-console.log('║              PAYVERGE MODEL BENCHMARK — SCOREBOARD                  ║');
+console.log('║              NAMAKDAN MODEL BENCHMARK — SCOREBOARD                  ║');
 console.log('╚══════════════════════════════════════════════════════════════════╝');
 console.log(`${headSurface}  ${'gemini'.padEnd(16)}  ${'gpt-4o-mini'.padEnd(16)}  winner`);
 console.log('─'.repeat(70));

@@ -290,7 +290,7 @@ func TestPublicWorkflowsAreHardened(t *testing.T) {
 			if m := writeLine.FindStringSubmatch(line); m != nil && !strings.Contains(m[1], "#") {
 				t.Errorf("%s:%d: write permission needs an inline `# reason` comment", name, i+1)
 			}
-			if strings.Contains(line, "payverge.io") {
+			if strings.Contains(line, "example.test") {
 				t.Errorf("%s:%d: workflows must not reference the private deployment", name, i+1)
 			}
 			for _, m := range secretRef.FindAllStringSubmatch(line, -1) {
@@ -734,7 +734,7 @@ func TestCIContractsLaneRunsEveryScriptTest(t *testing.T) {
 	)
 	// Node tool packages with their own jest suite.
 	contracts := runScript(requirePublicJob(t, "ci.yml", loadPublicWorkflow(t, "ci.yml"), "contracts"))
-	for _, dir := range []string{"tools/payverge-admin-mcp", "tools/screenshot-extension"} {
+	for _, dir := range []string{"tools/namakdan-admin-mcp", "tools/screenshot-extension"} {
 		if !strings.Contains(ci, "working-directory: "+dir) {
 			t.Errorf("ci.yml runs no step in %s", dir)
 		}
@@ -868,7 +868,7 @@ func TestScorecardMeetsPublishResultsRestrictions(t *testing.T) {
 func TestReleasePleaseUsesConfigUnderGitHubDir(t *testing.T) {
 	wf := loadPublicWorkflow(t, "release.yml")
 	job := requirePublicJob(t, "release.yml", wf, "release-please")
-	requireContainsAll(t, "release-please.if", job.If, "github.event_name == 'push'", "github.repository == 'stdevMac/payverge'")
+	requireContainsAll(t, "release-please.if", job.If, "github.event_name == 'push'", "github.repository == 'nekzad/namakdan'")
 	steps := stepsUsing(job, "googleapis/release-please-action")
 	if len(steps) != 1 {
 		t.Fatalf("release-please job must run googleapis/release-please-action once, found %d", len(steps))
@@ -920,7 +920,7 @@ func TestReleasePleaseUsesConfigUnderGitHubDir(t *testing.T) {
 	}
 }
 
-// The deploy files default PAYVERGE_VERSION to a release tag, never latest.
+// The deploy files default NAMAKDAN_VERSION to a release tag, never latest.
 // That default must equal the release-please manifest version (kept current by
 // the generic extra-files markers), so a copy of the deploy files names images
 // that release.yml has published for the same release.
@@ -930,7 +930,7 @@ func TestDeployImageDefaultsMatchReleaseManifest(t *testing.T) {
 		t.Fatalf("parse .github/.release-please-manifest.json: %v", err)
 	}
 	want := manifest["."]
-	versionRef := regexp.MustCompile(`\$\{PAYVERGE_VERSION:-([^}]*)\}|^PAYVERGE_VERSION=(\S*)`)
+	versionRef := regexp.MustCompile(`\$\{NAMAKDAN_VERSION:-([^}]*)\}|^NAMAKDAN_VERSION=(\S*)`)
 	for _, file := range [][]string{
 		{"deploy", "docker-compose.yml"},
 		{"deploy", ".env.example"},
@@ -945,11 +945,11 @@ func TestDeployImageDefaultsMatchReleaseManifest(t *testing.T) {
 			}
 			found++
 			if got := m[1] + m[2]; got != want {
-				t.Errorf("%s: PAYVERGE_VERSION default %q, want the manifest version %q: %s", name, got, want, strings.TrimSpace(line))
+				t.Errorf("%s: NAMAKDAN_VERSION default %q, want the manifest version %q: %s", name, got, want, strings.TrimSpace(line))
 			}
 		}
 		if found == 0 {
-			t.Errorf("%s: no PAYVERGE_VERSION default found", name)
+			t.Errorf("%s: no NAMAKDAN_VERSION default found", name)
 		}
 	}
 }
@@ -961,8 +961,8 @@ func TestReleaseBuildsNativeMultiArchImagesWithAttestations(t *testing.T) {
 		}
 	}
 	wf := loadPublicWorkflow(t, "release.yml")
-	if wf.Env["IMAGE_PREFIX"] != "ghcr.io/stdevmac/payverge" {
-		t.Errorf("IMAGE_PREFIX = %q, want ghcr.io/stdevmac/payverge", wf.Env["IMAGE_PREFIX"])
+	if wf.Env["IMAGE_PREFIX"] != "ghcr.io/nekzad/namakdan" {
+		t.Errorf("IMAGE_PREFIX = %q, want ghcr.io/nekzad/namakdan", wf.Env["IMAGE_PREFIX"])
 	}
 
 	build := requirePublicJob(t, "release.yml", wf, "build")
@@ -1165,7 +1165,7 @@ func TestReleasePublishesOnlyFromMain(t *testing.T) {
 		}
 	}
 
-	identity := "--certificate-identity https://github.com/stdevMac/payverge/.github/workflows/release.yml@refs/heads/main"
+	identity := "--certificate-identity https://github.com/nekzad/namakdan/.github/workflows/release.yml@refs/heads/main"
 	for _, parts := range [][]string{
 		{".github", "workflows", "release.yml"},
 		{"deploy", "README.md"},
@@ -1345,11 +1345,11 @@ func TestRenderBlueprintPinsReleaseImagesAndReadsDatabaseFromEnv(t *testing.T) {
 	images := map[string]string{}
 	for _, svc := range blueprint.Services {
 		images[svc.Name] = svc.Image.URL
-		if svc.Name != "payverge-backend" {
+		if svc.Name != "namakdan-backend" {
 			continue
 		}
 		if svc.DockerCommand != "" {
-			t.Errorf("payverge-backend dockerCommand = %q; the image entrypoint and DB_* env are enough", svc.DockerCommand)
+			t.Errorf("namakdan-backend dockerCommand = %q; the image entrypoint and DB_* env are enough", svc.DockerCommand)
 		}
 		env := map[string]string{}
 		for _, v := range svc.EnvVars {
@@ -1367,16 +1367,16 @@ func TestRenderBlueprintPinsReleaseImagesAndReadsDatabaseFromEnv(t *testing.T) {
 			"DB_NAME": "database", "DB_PASSWORD": "password",
 		} {
 			if env[key] != "fromDatabase:"+property {
-				t.Errorf("payverge-backend %s = %q, want fromDatabase %s", key, env[key], property)
+				t.Errorf("namakdan-backend %s = %q, want fromDatabase %s", key, env[key], property)
 			}
 		}
 		if env["APP_ENV"] != "production" {
-			t.Errorf("payverge-backend APP_ENV = %q; without --production it is what turns production mode on", env["APP_ENV"])
+			t.Errorf("namakdan-backend APP_ENV = %q; without --production it is what turns production mode on", env["APP_ENV"])
 		}
 	}
 	for name, image := range map[string]string{
-		"payverge-backend":  "ghcr.io/stdevmac/payverge-backend:" + want,
-		"payverge-frontend": "ghcr.io/stdevmac/payverge-frontend:" + want,
+		"namakdan-backend":  "ghcr.io/nekzad/namakdan-backend:" + want,
+		"namakdan-frontend": "ghcr.io/nekzad/namakdan-frontend:" + want,
 	} {
 		if images[name] != image {
 			t.Errorf("%s image = %q, want %q (the release-please manifest version)", name, images[name], image)

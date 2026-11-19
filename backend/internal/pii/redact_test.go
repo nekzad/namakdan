@@ -38,7 +38,7 @@ func TestRedact(t *testing.T) {
 
 		// --- MUST redact (emails) ---
 		{"plain email", "reach me at jane.doe@example.com please", "reach me at [redacted-email] please"},
-		{"email plus tag", "ops+alerts@payverge.io bounced", "[redacted-email] bounced"},
+		{"email plus tag", "ops+alerts@example.test bounced", "[redacted-email] bounced"},
 
 		// --- mixed: email redacted, date untouched ---
 		{"email and date", "on 2026-06-06 email a@b.co", "on 2026-06-06 email [redacted-email]"},
@@ -58,7 +58,7 @@ func TestRedact(t *testing.T) {
 
 func BenchmarkRedact(b *testing.B) {
 	const para = "On 2026-06-06 we sold 1,234,567 units ($1,234.50 each, up 12%); " +
-		"call +1 (555) 123-4567 or email ops+alerts@payverge.io, ref Order #100234567, " +
+		"call +1 (555) 123-4567 or email ops+alerts@example.test, ref Order #100234567, " +
 		"teléfono 11 5555 1234, processed 12 345 678 records this week."
 	b.ReportAllocs()
 	b.ResetTimer()

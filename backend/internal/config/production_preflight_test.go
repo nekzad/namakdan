@@ -29,29 +29,29 @@ func validProductionInputs() ProductionInputs {
 
 		EmailProvider:           "resend",
 		EmailAPIKey:             "re_test_server_token_not_a_real_secret",
-		FromEmail:               "noreply@payverge.io",
-		FromEmailUpdates:        "updates@payverge.io",
-		EmailAllowedFromDomains: "payverge.io",
+		FromEmail:               "noreply@example.test",
+		FromEmailUpdates:        "updates@example.test",
+		EmailAllowedFromDomains: "example.test",
 		EmailWebhookSecret:      "whsec_" + base64.StdEncoding.EncodeToString([]byte("unit-resend-webhook-secret")),
-		EmailSPFDomain:          "send.payverge.io",
-		EmailDKIMDomain:         "payverge.io",
-		EmailReturnPathDomain:   "send.payverge.io",
+		EmailSPFDomain:          "send.example.test",
+		EmailDKIMDomain:         "example.test",
+		EmailReturnPathDomain:   "send.example.test",
 		EmailDMARCPolicy:        "quarantine",
 
 		StorageDriver:   "s3",
-		S3Bucket:        "payverge-public",
+		S3Bucket:        "namakdan-public",
 		AWSAccessKey:    "AKIAEXAMPLE",
 		AWSSecretKey:    "secret-example-not-real",
 		S3Endpoint:      "https://s3.example.com",
 		S3PublicBaseURL: "https://images.example.com",
 
-		S3ProtectedBucket:     "payverge-protected",
+		S3ProtectedBucket:     "namakdan-protected",
 		AWSProtectedAccessKey: "AKIAEXAMPLEPROT",
 		AWSProtectedSecretKey: "secret-protected-not-real",
 		S3ProtectedEndpoint:   "https://s3-protected.example.com",
 
-		AllowedOrigins: "https://payverge.io,https://www.payverge.io",
-		CookieDomain:   "api.payverge.io",
+		AllowedOrigins: "https://example.test,https://www.example.test",
+		CookieDomain:   "api.example.test",
 
 		// Wave 2: Caddy terminates Cloudflare; Gin trusts only private Caddy CIDR.
 		Edge:            "cloudflare",
@@ -136,7 +136,7 @@ func TestProductionPreflight_OneFieldAtATime(t *testing.T) {
 		{
 			name: "database password rejects repository default",
 			mutate: func(in *ProductionInputs) {
-				in.DBPassword = "payverge_password"
+				in.DBPassword = "namakdan_password"
 			},
 			wantCode: "database.password.unsafe",
 		},
@@ -199,7 +199,7 @@ func TestProductionPreflight_OneFieldAtATime(t *testing.T) {
 		{
 			name: "jwt secret unsafe local default",
 			mutate: func(in *ProductionInputs) {
-				in.JWTSecretKey = "payverge_local_dev_jwt_secret_2026"
+				in.JWTSecretKey = "namakdan_local_dev_jwt_secret_2026"
 			},
 			wantCode: "jwt.secret.unsafe",
 		},
@@ -422,9 +422,9 @@ func TestProductionPreflight_OneFieldAtATime(t *testing.T) {
 			mutate: func(in *ProductionInputs) {
 				in.EmailProvider = "resend"
 				in.EmailAPIKey = "re_valid_shape"
-				in.EmailAllowedFromDomains = "mail.payverge.io"
-				in.FromEmail = "noreply@payverge.io"
-				in.FromEmailUpdates = "updates@payverge.io"
+				in.EmailAllowedFromDomains = "mail.example.test"
+				in.FromEmail = "noreply@example.test"
+				in.FromEmailUpdates = "updates@example.test"
 			},
 			wantCode: "email.from_domain.unapproved",
 		},
@@ -433,9 +433,9 @@ func TestProductionPreflight_OneFieldAtATime(t *testing.T) {
 			mutate: func(in *ProductionInputs) {
 				in.EmailProvider = "resend"
 				in.EmailAPIKey = "re_valid_shape"
-				in.EmailAllowedFromDomains = "payverge.io"
-				in.FromEmail = "Payverge <noreply@payverge.io>"
-				in.FromEmailUpdates = "updates@payverge.io"
+				in.EmailAllowedFromDomains = "example.test"
+				in.FromEmail = "Namakdan <noreply@example.test>"
+				in.FromEmailUpdates = "updates@example.test"
 			},
 			wantOK: true,
 		},
@@ -622,14 +622,14 @@ func TestProductionPreflight_OneFieldAtATime(t *testing.T) {
 		{
 			name: "plugin secret rejects the retired development fallback seed",
 			mutate: func(in *ProductionInputs) {
-				in.PluginSecretKey = "payverge-local-plugin-secret-key"
+				in.PluginSecretKey = "namakdan-local-plugin-secret-key"
 			},
 			wantCode: "plugin_secret.unsafe",
 		},
 		{
 			name: "jwt secret rejects the compose min32 default",
 			mutate: func(in *ProductionInputs) {
-				in.JWTSecretKey = "payverge_local_dev_jwt_secret_2026_min32"
+				in.JWTSecretKey = "namakdan_local_dev_jwt_secret_2026_min32"
 			},
 			wantCode: "jwt.secret.unsafe",
 		},
@@ -643,14 +643,14 @@ func TestProductionPreflight_OneFieldAtATime(t *testing.T) {
 		{
 			name: "cookie domain leading-dot parent rejected",
 			mutate: func(in *ProductionInputs) {
-				in.CookieDomain = ".payverge.io"
+				in.CookieDomain = ".example.test"
 			},
 			wantCode: "cookie_domain.parent_scope",
 		},
 		{
 			name: "cookie domain bare parent rejected",
 			mutate: func(in *ProductionInputs) {
-				in.CookieDomain = "payverge.io"
+				in.CookieDomain = "example.test"
 			},
 			wantCode: "cookie_domain.parent_scope",
 		},
@@ -1005,13 +1005,13 @@ func TestProductionPreflight_AllowedOrigins(t *testing.T) {
 		origins string
 		wantBad bool
 	}{
-		{name: "http scheme", origins: "http://payverge.io", wantBad: true},
+		{name: "http scheme", origins: "http://example.test", wantBad: true},
 		{name: "null literal", origins: "null", wantBad: true},
 		{name: "wildcard", origins: "*", wantBad: true},
-		{name: "path", origins: "https://payverge.io/path", wantBad: true},
-		{name: "trailing slash", origins: "https://payverge.io/", wantBad: true},
-		{name: "userinfo", origins: "https://user@payverge.io", wantBad: true},
-		{name: "https origins", origins: "https://payverge.io,https://www.payverge.io", wantBad: false},
+		{name: "path", origins: "https://example.test/path", wantBad: true},
+		{name: "trailing slash", origins: "https://example.test/", wantBad: true},
+		{name: "userinfo", origins: "https://user@example.test", wantBad: true},
+		{name: "https origins", origins: "https://example.test,https://www.example.test", wantBad: false},
 		{name: "http non-loopback", origins: "http://example.com", wantBad: true},
 		{name: "ftp loopback", origins: "ftp://localhost:3000", wantBad: true},
 		// CI e2e (.github/e2e/ci.env.fixture) boots production mode on

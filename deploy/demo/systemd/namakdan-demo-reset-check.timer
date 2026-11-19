@@ -1,0 +1,12 @@
+# Namakdan public demo: run the reset watchdog every hour.
+[Unit]
+Description=Namakdan public demo reset watchdog, hourly
+
+[Timer]
+OnCalendar=hourly
+RandomizedDelaySec=5min
+Persistent=true
+Unit=namakdan-demo-reset-check.service
+
+[Install]
+WantedBy=timers.target

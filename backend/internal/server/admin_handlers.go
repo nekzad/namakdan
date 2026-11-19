@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"github.com/gin-gonic/gin"
 )
@@ -49,7 +49,7 @@ type AdminStats struct {
 	FailedWebhooksCount int                    `json:"failed_webhooks_count"`
 
 	// Merchandise volume (restaurant guest takings processed through the
-	// platform — NOT Payverge revenue). Formerly mislabeled total_revenue.
+	// platform — NOT Namakdan revenue). Formerly mislabeled total_revenue.
 	GrossMerchandiseVolume float64         `json:"gross_merchandise_volume"`
 	RevenueGrowth          []MonthlyGrowth `json:"revenue_growth"`
 }
@@ -212,7 +212,7 @@ func getPaymentMetrics(stats *AdminStats) error {
 
 	totalVolumeCents := netRevenueCents + netTipCents
 	// Gross merchandise volume = restaurant net recognized takings (ex-tips).
-	// This is GMV processed by Payverge, not platform subscription revenue.
+	// This is GMV processed by Namakdan, not platform subscription revenue.
 	stats.GrossMerchandiseVolume = float64(netRevenueCents) / 100.0
 	stats.TotalPaymentVolume = float64(totalVolumeCents) / 100.0
 

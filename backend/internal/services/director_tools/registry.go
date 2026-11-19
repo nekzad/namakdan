@@ -5,7 +5,7 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 // Registry holds the set of tools wired into the Director Console.

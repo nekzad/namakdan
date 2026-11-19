@@ -38,7 +38,7 @@ var alternativePaymentRequestOutcomeValues = []AlternativePaymentRequestOutcome{
 
 var alternativePaymentRequestOutcomes = prometheus.NewCounterVec(
 	prometheus.CounterOpts{
-		Name: "payverge_alternative_payment_request_outcomes_total",
+		Name: "namakdan_alternative_payment_request_outcomes_total",
 		Help: "Alternative-payment request lifecycle outcomes using a closed, low-cardinality vocabulary.",
 	},
 	[]string{"outcome"},
@@ -46,7 +46,7 @@ var alternativePaymentRequestOutcomes = prometheus.NewCounterVec(
 
 var AlternativePaymentRequestOldestPendingSeconds = prometheus.NewGauge(
 	prometheus.GaugeOpts{
-		Name: "payverge_alternative_payment_request_oldest_pending_seconds",
+		Name: "namakdan_alternative_payment_request_oldest_pending_seconds",
 		Help: "Age in seconds of the oldest alternative-payment request still marked pending.",
 	},
 )

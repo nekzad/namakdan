@@ -46,7 +46,7 @@ async function handleLine(line, { tools, output, log }) {
     const response = await handleJsonRpcMessage(message, { tools });
     if (response) writeMessage(output, response);
   } catch (err) {
-    log.write(`payverge-admin-mcp internal error: ${err?.stack ?? err}\n`);
+    log.write(`namakdan-admin-mcp internal error: ${err?.stack ?? err}\n`);
   }
 }
 

@@ -12,8 +12,9 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/fiscal"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/fiscal"
 )
 
 func (s *Service) generateDays(ctx context.Context, tx *gorm.DB, instance *database.DemoInstance, start, end time.Time) error {
@@ -653,7 +654,7 @@ func (s *Service) createFiscalAndPrint(ctx context.Context, tx *gorm.DB, busines
 	}
 	receiptNumber := fmt.Sprintf("DEMO-%d", bill.ID)
 	auth := fmt.Sprintf("AUTH-%d", bill.ID)
-	qr := fmt.Sprintf("https://payverge.local/fiscal/%d", bill.ID)
+	qr := fmt.Sprintf("%s/fiscal/%d", config.PublicURL(), bill.ID)
 	// Cash/card bills carry no Payment row (the alt-payment rail settled them),
 	// so the receipt and job reference a nil PaymentID — the fiscal chain still
 	// issues, exactly like a real cash factura.

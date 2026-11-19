@@ -16,7 +16,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/credentials"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/google/uuid"
-	storage "github.com/stdevmac/payverge/backend/internal/s3"
+	storage "github.com/nekzad/namakdan/backend/internal/s3"
 )
 
 // boundedHTTPClient mirrors internal/s3.boundedS3HTTPClient: the SDK sets no
@@ -250,5 +250,5 @@ func (s *s3ObjectStore) Delete(ctx context.Context, key string) error {
 // probePayload is the content written and verified for a probe. It embeds the
 // key and a timestamp so a stray object is self-describing.
 func probePayload(key string, now time.Time) []byte {
-	return []byte(fmt.Sprintf("payverge s3 synthetic probe\nkey=%s\nutc=%s\n", key, now.UTC().Format(time.RFC3339)))
+	return []byte(fmt.Sprintf("namakdan s3 synthetic probe\nkey=%s\nutc=%s\n", key, now.UTC().Format(time.RFC3339)))
 }

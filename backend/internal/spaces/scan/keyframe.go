@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/stdevmac/payverge/backend/internal/spaces"
-	"github.com/stdevmac/payverge/backend/internal/spaces/geometry"
+	"github.com/nekzad/namakdan/backend/internal/spaces"
+	"github.com/nekzad/namakdan/backend/internal/spaces/geometry"
 )
 
 // KeyframeProcessor builds a draft layout from keyframe poses and user/CV

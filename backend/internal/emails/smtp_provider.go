@@ -418,7 +418,7 @@ func buildSMTPMessage(msg EmailMessage, from *mail.Address, to []*mail.Address, 
 	writeHeader("Message-ID", messageID)
 	writeHeader("MIME-Version", "1.0")
 	if key := sanitizeHeaderValue(msg.IdempotencyKey); key != "" {
-		writeHeader("X-Payverge-Idempotency-Key", key)
+		writeHeader("x-namakdan-Idempotency-Key", key)
 	}
 	names := make([]string, 0, len(msg.Headers))
 	for name := range msg.Headers {

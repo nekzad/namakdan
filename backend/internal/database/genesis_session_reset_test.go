@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/schema/genesis"
+	"github.com/nekzad/namakdan/backend/schema/genesis"
 )
 
 // TestGenesisSessionResetSQL covers the session GUCs the embedded pg_dump

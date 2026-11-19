@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/logger"
 
 	"github.com/sirupsen/logrus"
 )

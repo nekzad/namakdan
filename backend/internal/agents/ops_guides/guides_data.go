@@ -111,7 +111,7 @@ func englishGuidePresentations() map[string]guidePresentation {
 		"fiscal-setup":           presentation("Configure fiscal receipts", "How do I configure official fiscal receipts?", "Open Fiscal"),
 		"plugins-connect":        presentation("Connect a plugin", "How do I connect and test a plugin?", "Open Plugins"),
 		"settings-update":        presentation("Update business settings", "How do I update business settings?", "Open Settings"),
-		"support-contact":        presentation("Contact Payverge support", "How do I contact Payverge support?", "Open Overview"),
+		"support-contact":        presentation("Contact Namakdan support", "How do I contact Namakdan support?", "Open Overview"),
 	}
 }
 
@@ -142,7 +142,7 @@ func spanishGuidePresentations() map[string]guidePresentation {
 		"fiscal-setup":           presentation("Configurar comprobantes fiscales", "¿Cómo configuro la emisión de comprobantes fiscales?", "Abrir Facturas"),
 		"plugins-connect":        presentation("Conectar un plugin", "¿Cómo conecto y pruebo un plugin?", "Abrir Plugins"),
 		"settings-update":        presentation("Actualizar la configuración", "¿Cómo actualizo la configuración del negocio?", "Abrir Configuración"),
-		"support-contact":        presentation("Contactar con soporte", "¿Cómo contacto con el soporte de Payverge?", "Abrir Resumen"),
+		"support-contact":        presentation("Contactar con soporte", "¿Cómo contacto con el soporte de Namakdan?", "Abrir Resumen"),
 	}
 }
 
@@ -278,8 +278,8 @@ func enGuides() []Guide {
 				[]string{"Open Settings", "Edit the section you need", "Save changes"}))
 		case "support-contact":
 			out = append(out, withCopy(g,
-				[]string{"support", "contact support", "connect me with support", "human help", "conectame con soporte", "soporte", "help from payverge"},
-				"I can create a support request for the Payverge team. Tell me you want support and I will escalate — I will not change restaurant data.",
+				[]string{"support", "contact support", "connect me with support", "human help", "conectame con soporte", "soporte", "help from namakdan"},
+				"I can create a support request for the Namakdan team. Tell me you want support and I will escalate — I will not change restaurant data.",
 				[]string{"Say that you want to contact support", "Confirm the escalation when asked", "Watch for the confirmation that the request was filed"}))
 		default:
 			out = append(out, g)
@@ -421,7 +421,7 @@ func esGuides() []Guide {
 		case "support-contact":
 			out = append(out, withCopy(g,
 				[]string{"soporte", "contactar soporte", "conéctame con soporte", "ayuda humana", "hablar con alguien"},
-				"Puedo crear una solicitud de soporte para el equipo de Payverge. Dime que quieres soporte y la escalaré; no cambiaré datos del restaurante.",
+				"Puedo crear una solicitud de soporte para el equipo de Namakdan. Dime que quieres soporte y la escalaré; no cambiaré datos del restaurante.",
 				[]string{"Indica que quieres contactar con soporte", "Confirma la escalación cuando se te pida", "Espera la confirmación de que se registró la solicitud"}))
 		}
 	}
@@ -506,7 +506,7 @@ func esARGuides() []Guide {
 			g.Steps = []string{"Abrí Configuración", "Editá la sección que necesitás", "Guardá los cambios"}
 		case "support-contact":
 			g.Phrases = []string{"soporte", "contactar soporte", "conectame con soporte", "ayuda humana", "hablar con alguien"}
-			g.Answer = "Puedo crear una solicitud de soporte para el equipo de Payverge. Decime que querés soporte y la escalo; no voy a cambiar datos del restaurante."
+			g.Answer = "Puedo crear una solicitud de soporte para el equipo de Namakdan. Decime que querés soporte y la escalo; no voy a cambiar datos del restaurante."
 			g.Steps = []string{"Indicá que querés contactar con soporte", "Confirmá la escalación cuando te lo pida", "Esperá la confirmación de que se registró la solicitud"}
 		}
 		out = append(out, g)

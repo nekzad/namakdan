@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/analytics"
+	"github.com/nekzad/namakdan/backend/internal/analytics"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

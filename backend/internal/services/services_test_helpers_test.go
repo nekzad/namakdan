@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/emails"
 
 	"github.com/stretchr/testify/require"
 	"gorm.io/driver/sqlite"
@@ -23,7 +23,7 @@ import (
 // installs it as the database package's global handle.
 func setupTestDB(t *testing.T) *gorm.DB {
 	t.Setenv("PLUGIN_SECRET_KEY", "0123456789abcdef0123456789abcdef")
-	t.Setenv("ALLOWED_REDIRECT_DOMAINS", "payverge.io,www.payverge.io")
+	t.Setenv("ALLOWED_REDIRECT_DOMAINS", "example.test,www.example.test")
 	dsn := fmt.Sprintf("file:%s?mode=memory&cache=shared", t.Name())
 	db, err := gorm.Open(sqlite.Open(dsn), &gorm.Config{})
 	if err != nil {
@@ -62,7 +62,7 @@ type captureEmailProvider struct {
 func (p *captureEmailProvider) Send(_ context.Context, msg emails.EmailMessage) error {
 	p.sent = append(p.sent, msg)
 	if p.fail {
-		return errors.New("not authorized to send emails from notifications@payverge.io")
+		return errors.New("not authorized to send emails from notifications@example.test")
 	}
 	return nil
 }
@@ -82,7 +82,7 @@ func installCaptureEmailServer(t *testing.T) *captureEmailProvider {
 	t.Helper()
 	provider := &captureEmailProvider{}
 	orig := emails.EmailServerInstance
-	_, err := emails.NewEmailServer(provider, "notifications@payverge.io", "updates@payverge.io", servicesTemplatesRoot(t))
+	_, err := emails.NewEmailServer(provider, "notifications@example.test", "updates@example.test", servicesTemplatesRoot(t))
 	require.NoError(t, err)
 	t.Cleanup(func() { emails.EmailServerInstance = orig })
 	return provider

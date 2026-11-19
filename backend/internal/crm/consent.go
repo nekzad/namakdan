@@ -3,7 +3,7 @@ package crm
 import (
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // preloadCustomerConsent is the shared preload for the consent flag. It selects

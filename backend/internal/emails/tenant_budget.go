@@ -15,14 +15,14 @@ import (
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/logger"
 )
 
 // Tenant outbound mail budget (open-source hardening, H-tenant-mail / H-relay).
 //
 // Any tenant — including a fresh self-serve signup or a public demo business —
-// can make Payverge send mail to an address somebody else typed: a guest
+// can make Namakdan send mail to an address somebody else typed: a guest
 // reservation confirmation, a "send me my receipt" request, a staff invite.
 // Without a budget the platform's sending domain is a free relay for whoever
 // signs up. This file is the ONE choke point that bounds it.

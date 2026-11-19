@@ -8,7 +8,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // shippedBrandSecondaries mirrors frontend/src/lib/contrast.ts SHIPPED_BRAND_PRESETS

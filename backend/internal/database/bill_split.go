@@ -16,7 +16,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 
-	"github.com/stdevmac/payverge/backend/internal/guestsession"
+	"github.com/nekzad/namakdan/backend/internal/guestsession"
 )
 
 type BillSplitMode string

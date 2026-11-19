@@ -22,14 +22,14 @@ func TestResolveSafeFrontendRedirect_AllowsApprovedRelativePath(t *testing.T) {
 		redirect string
 		expect   string
 	}{
-		{name: "dashboard", redirect: "/dashboard", expect: "https://app.payverge.test/dashboard"},
-		{name: "business", redirect: "/business/12/dashboard", expect: "https://app.payverge.test/business/12/dashboard"},
-		{name: "staff", redirect: "/staff/7/orders", expect: "https://app.payverge.test/staff/7/orders"},
+		{name: "dashboard", redirect: "/dashboard", expect: "https://app.example.test/dashboard"},
+		{name: "business", redirect: "/business/12/dashboard", expect: "https://app.example.test/business/12/dashboard"},
+		{name: "staff", redirect: "/staff/7/orders", expect: "https://app.example.test/staff/7/orders"},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Setenv("PUBLIC_URL", "https://app.payverge.test")
+			t.Setenv("PUBLIC_URL", "https://app.example.test")
 			ctx := newRedirectContext("/api/v1/auth/google/callback?redirect=" + tt.redirect)
 
 			redirect := resolveSafeFrontendRedirect(ctx, "/dashboard")
@@ -41,21 +41,21 @@ func TestResolveSafeFrontendRedirect_AllowsApprovedRelativePath(t *testing.T) {
 }
 
 func TestResolveSafeFrontendRedirect_RejectsExternalOrigin(t *testing.T) {
-	t.Setenv("PUBLIC_URL", "https://app.payverge.test")
+	t.Setenv("PUBLIC_URL", "https://app.example.test")
 	ctx := newRedirectContext("/api/v1/auth/google/callback?redirect=https://evil.tld/pwn")
 
 	redirect := resolveSafeFrontendRedirect(ctx, "/dashboard")
 
-	assert.Equal(t, "https://app.payverge.test/dashboard", redirect)
+	assert.Equal(t, "https://app.example.test/dashboard", redirect)
 }
 
 func TestGetFrontendBaseURL_ReadsPublicURLOnly(t *testing.T) {
 	t.Setenv("PUBLIC_URL", "")
-	t.Setenv("NEXT_PUBLIC_BASE_URL", "https://retired.payverge.test")
+	t.Setenv("NEXT_PUBLIC_BASE_URL", "https://retired.example.test")
 	assert.Equal(t, "http://localhost:3000", getFrontendBaseURL())
 
-	t.Setenv("PUBLIC_URL", "https://app.payverge.test/")
-	assert.Equal(t, "https://app.payverge.test", getFrontendBaseURL())
+	t.Setenv("PUBLIC_URL", "https://app.example.test/")
+	assert.Equal(t, "https://app.example.test", getFrontendBaseURL())
 }
 
 func TestIsAllowedRedirectPath_RejectsPathTraversal(t *testing.T) {

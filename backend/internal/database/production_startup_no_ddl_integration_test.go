@@ -13,7 +13,7 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/testperf"
+	"github.com/nekzad/namakdan/backend/internal/testperf"
 )
 
 // TestProductionStartup_WorksWithoutDDLPrivileges proves a second production
@@ -45,7 +45,7 @@ func TestProductionStartup_WorksWithoutDDLPrivileges(t *testing.T) {
 	require.NoError(t, err, "SchemaFingerprintSHA before production tail")
 	require.NotEmpty(t, sha1)
 
-	const startupUser = "payverge_startup_noddl"
+	const startupUser = "namakdan_startup_noddl"
 	const startupPassword = "test-only-password"
 	require.NoError(t, ownerDB.Exec(fmt.Sprintf(`CREATE ROLE %s LOGIN PASSWORD '%s'`, startupUser, startupPassword)).Error)
 	// Roles are cluster-wide; drop it before the isolated database goes away so

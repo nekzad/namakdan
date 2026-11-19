@@ -14,10 +14,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	appconfig "github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/plugins/stripe"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	appconfig "github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/plugins/stripe"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 func TestStripeOAuthStartReturnsAuthorizationURL(t *testing.T) {
@@ -27,7 +27,7 @@ func TestStripeOAuthStartReturnsAuthorizationURL(t *testing.T) {
 	client := &stripe.OAuthClient{
 		ClientID:     "ca_test_client_id",
 		ClientSecret: "sk_test_platform",
-		RedirectURI:  "https://api.payverge.io/api/v1/stripe/oauth/callback",
+		RedirectURI:  "https://api.example.test/api/v1/stripe/oauth/callback",
 		BaseAuthURL:  "https://connect.stripe.com",
 		BaseTokenURL: "https://connect.stripe.com",
 	}
@@ -82,10 +82,10 @@ func TestStripeOAuthCallbackRejectsForgedState(t *testing.T) {
 
 	client := &stripe.OAuthClient{
 		ClientID: "ca_id", ClientSecret: "sk_secret",
-		RedirectURI: "https://api.payverge.io/api/v1/stripe/oauth/callback",
+		RedirectURI: "https://api.example.test/api/v1/stripe/oauth/callback",
 	}
 	h := NewStripeOAuthHandlers(nil, client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 
 	w := httptest.NewRecorder()
 	c, _ := gin.CreateTestContext(w)
@@ -103,7 +103,7 @@ func TestStripeOAuthCallbackRejectsForgedState(t *testing.T) {
 func TestStripeOAuthCallbackRejectsMissingCode(t *testing.T) {
 	client := &stripe.OAuthClient{ClientID: "ca", ClientSecret: "sk"}
 	h := NewStripeOAuthHandlers(nil, client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 
 	w := httptest.NewRecorder()
 	c, _ := gin.CreateTestContext(w)
@@ -149,12 +149,12 @@ func TestStripeOAuthCallbackHappyPath(t *testing.T) {
 	client := &stripe.OAuthClient{
 		ClientID:     "ca_id",
 		ClientSecret: "sk_platform",
-		RedirectURI:  "https://api.payverge.io/api/v1/stripe/oauth/callback",
+		RedirectURI:  "https://api.example.test/api/v1/stripe/oauth/callback",
 		BaseTokenURL: tokenServer.URL,
 		HTTPClient:   tokenServer.Client(),
 	}
 	h := NewStripeOAuthHandlers(services.NewPluginService(database.GetDBWrapper()), client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 
 	state := "state-happy-1"
 	h.stateStore.Put(state, stripeOAuthState{
@@ -222,7 +222,7 @@ func TestStripeOAuthCallback_MergesExistingConfig(t *testing.T) {
 		BaseTokenURL: tokenServer.URL, HTTPClient: tokenServer.Client(),
 	}
 	h := NewStripeOAuthHandlers(services.NewPluginService(database.GetDBWrapper()), client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 	state := "state-merge"
 	h.stateStore.Put(state, stripeOAuthState{
 		businessID: business.ID, expiresAt: time.Now().Add(time.Minute),
@@ -277,7 +277,7 @@ func TestStripeOAuthCallback_RejectsSandboxInProduction(t *testing.T) {
 		BaseTokenURL: tokenServer.URL, HTTPClient: tokenServer.Client(),
 	}
 	h := NewStripeOAuthHandlers(services.NewPluginService(database.GetDBWrapper()), client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 	state := "state-sandbox"
 	h.stateStore.Put(state, stripeOAuthState{
 		businessID: business.ID, expiresAt: time.Now().Add(time.Minute),
@@ -299,7 +299,7 @@ func TestStripeOAuthCallback_RejectsSandboxInProduction(t *testing.T) {
 func TestStripeOAuthCallback_ExpiredState(t *testing.T) {
 	client := &stripe.OAuthClient{ClientID: "ca", ClientSecret: "sk"}
 	h := NewStripeOAuthHandlers(nil, client)
-	h.frontendBase = func() string { return "https://app.payverge.io" }
+	h.frontendBase = func() string { return "https://app.example.test" }
 	state := "expired-state"
 	h.stateStore.Put(state, stripeOAuthState{
 		businessID: 1, expiresAt: time.Now().Add(-time.Minute),

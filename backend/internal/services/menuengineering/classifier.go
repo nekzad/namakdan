@@ -9,7 +9,7 @@ import (
 	"math"
 	"sort"
 
-	"github.com/stdevmac/payverge/backend/internal/services/foodcost"
+	"github.com/nekzad/namakdan/backend/internal/services/foodcost"
 )
 
 type Quadrant string

@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -189,7 +189,7 @@ func createGuestPublicTable(t testing.TB, businessID uint, tableCode string) *da
 		TableCode:  tableCode,
 		Capacity:   4,
 		IsActive:   true,
-		QRCode:     fmt.Sprintf("https://payverge.io/t/%s", tableCode),
+		QRCode:     fmt.Sprintf("https://example.test/t/%s", tableCode),
 	}
 	require.NoError(t, database.GetDB().Create(table).Error)
 	return table

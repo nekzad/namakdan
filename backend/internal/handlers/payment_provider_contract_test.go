@@ -6,8 +6,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/paymentcontract"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/paymentcontract"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
 )
 
 type providerContractAdapter struct {

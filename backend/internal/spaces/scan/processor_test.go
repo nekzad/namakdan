@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/spaces/geometry"
+	"github.com/nekzad/namakdan/backend/internal/spaces/geometry"
 )
 
 func TestRoomPlanProcessor_Basic(t *testing.T) {

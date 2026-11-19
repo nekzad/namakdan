@@ -15,10 +15,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	"github.com/stdevmac/payverge/backend/internal/plugins/mercadopago"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/plugins/mercadopago"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 func setupMercadoPagoPointHandlerTest(t *testing.T, apiHandler http.HandlerFunc) (
@@ -273,7 +273,7 @@ func TestChargeMercadoPagoPoint_CreatesOrderAndTracker(t *testing.T) {
 	assert.Equal(t, "point", createBody["type"])
 	assert.Equal(t, fmt.Sprintf("bill_%d_business_%d", bill.ID, business.ID), createBody["external_reference"])
 	assert.Equal(t, "PT30M", createBody["expiration_time"])
-	assert.Equal(t, fmt.Sprintf("Payverge bill #%d", bill.ID), createBody["description"])
+	assert.Equal(t, fmt.Sprintf("Namakdan bill #%d", bill.ID), createBody["description"])
 	tx := createBody["transactions"].(map[string]interface{})
 	payments := tx["payments"].([]interface{})
 	assert.Equal(t, "1500.00", payments[0].(map[string]interface{})["amount"])

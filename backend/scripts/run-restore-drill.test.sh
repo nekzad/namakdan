@@ -46,7 +46,7 @@ make_sandbox() {
   : > "${PGISREADY_LOG}"
 
   # Tiny real gzip fixture: a few SQL comments (enough for gunzip | psql happy path).
-  printf -- '-- mock dump\nSELECT 1;\n' | gzip -c > "${FIXTURES}/payverge_mock.sql.gz"
+  printf -- '-- mock dump\nSELECT 1;\n' | gzip -c > "${FIXTURES}/namakdan_mock.sql.gz"
   printf 'not-a-gzip-payload' > "${FIXTURES}/corrupt.sql.gz"
 
   # Mock aws: list / download switchable via MOCK_AWS_EMPTY, MOCK_GZIP_CORRUPT
@@ -58,7 +58,7 @@ if echo "\$*" | grep -q 's3 ls'; then
     exit 0
   fi
   # aws s3 ls line: DATE TIME SIZE KEY
-  echo "2026-04-21 12:00:00    1024 payverge_mock.sql.gz"
+  echo "2026-04-21 12:00:00    1024 namakdan_mock.sql.gz"
   exit 0
 fi
 if echo "\$*" | grep -q 's3 cp'; then
@@ -68,7 +68,7 @@ if echo "\$*" | grep -q 's3 cp'; then
   if [ "\${MOCK_GZIP_CORRUPT:-0}" = "1" ]; then
     cp "${FIXTURES}/corrupt.sql.gz" "\$dest"
   else
-    cp "${FIXTURES}/payverge_mock.sql.gz" "\$dest"
+    cp "${FIXTURES}/namakdan_mock.sql.gz" "\$dest"
   fi
   exit 0
 fi
@@ -282,10 +282,10 @@ run_drill() {
     CONTAINER_NAME="${FIXED_CONTAINER}" \
     MIN_TABLES=100 \
     PG_IMAGE=postgres:18-alpine \
-    BACKEND_IMAGE="ghcr.io/payverge/backend@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" \
+    BACKEND_IMAGE="ghcr.io/namakdan/backend@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" \
     SOURCE_SHA="$(git rev-parse HEAD)" \
     PROOF_WORKFLOW_RUN_ID=30693253679 \
-    PROOF_WORKFLOW_RUN_URL=https://github.com/example-org/payverge/actions/runs/30693253679 \
+    PROOF_WORKFLOW_RUN_URL=https://github.com/example-org/namakdan/actions/runs/30693253679 \
     PROOF_EXECUTION_ENVIRONMENT=github_hosted \
     PROOF_RUNNER_LABEL=ubuntu-latest \
     BACKEND_WAIT_SECONDS=1 \
@@ -591,7 +591,7 @@ rm -rf "${SANDBOX}"
 
 echo "=== Test 12: mutable backend image is refused before restore ==="
 make_sandbox
-run_drill BACKEND_IMAGE=ghcr.io/payverge/backend:latest
+run_drill BACKEND_IMAGE=ghcr.io/namakdan/backend:latest
 RC=$?
 assert "exits nonzero" "$([ ${RC} -ne 0 ] && echo 0 || echo 1)"
 if grep -q 's3 ls' "${AWS_LOG}" 2>/dev/null; then
@@ -644,7 +644,7 @@ rm -rf "${SANDBOX}"
 # ---------------------------------------------------------------------------
 echo "=== Test 15: proof URL must name the same Actions run ==="
 make_sandbox
-run_drill PROOF_WORKFLOW_RUN_URL=https://github.com/example-org/payverge/actions/runs/1
+run_drill PROOF_WORKFLOW_RUN_URL=https://github.com/example-org/namakdan/actions/runs/1
 RC=$?
 assert "exits nonzero" "$([ ${RC} -ne 0 ] && echo 0 || echo 1)"
 if grep -q 's3 ls' "${AWS_LOG}" 2>/dev/null; then

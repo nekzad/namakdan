@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // staffLoginPerClientMaxFailures is how many wrong login codes one client

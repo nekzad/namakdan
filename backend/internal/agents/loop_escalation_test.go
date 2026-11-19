@@ -5,7 +5,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 // escTool is a stub escalation tool named like a real one so the loop's

@@ -10,8 +10,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 // TestRefundPaymentRejectsRejectedStatus locks M2: a MercadoPago refund reported
@@ -57,8 +57,8 @@ func TestCreateBillPaymentZeroDecimalCurrency(t *testing.T) {
 	// CLP 333.33 is impossible; a split can still store 33333 cents. It must be
 	// sent as whole CLP 333, never 333.33 (which MercadoPago rejects for CLP).
 	_, err := plugin.CreateBillPayment(42, 99, 33333, "CLP", map[string]interface{}{
-		"return_url": "https://payverge.test/return",
-		"cancel_url": "https://payverge.test/cancel",
+		"return_url": "https://example.test/return",
+		"cancel_url": "https://example.test/cancel",
 	})
 	require.NoError(t, err)
 

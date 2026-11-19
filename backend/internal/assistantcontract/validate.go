@@ -45,7 +45,7 @@ var supportedActionTypes = map[string]struct{}{
 var allowedActionTargetKinds = map[string]map[string]struct{}{
 	"navigate": {
 		"dashboard_area": {},
-		"payverge_page":  {},
+		"namakdan_page":  {},
 	},
 	"external_link": {
 		"external_url": {},
@@ -66,7 +66,7 @@ var allowedActionTargetKinds = map[string]map[string]struct{}{
 }
 
 var supportedSourceTypes = map[string]struct{}{
-	"payverge_page":    {},
+	"namakdan_page":    {},
 	"product_registry": {},
 	"pricing_registry": {},
 	"knowledge_entry":  {},
@@ -526,7 +526,7 @@ func actionTargetKinds() []string {
 }
 
 func sourceTypes() []string {
-	return []string{"payverge_page", "product_registry", "pricing_registry", "knowledge_entry", "dashboard_guide", "business_state", "menu_item", "bundle", "offer", "order_state", "support_record"}
+	return []string{"namakdan_page", "product_registry", "pricing_registry", "knowledge_entry", "dashboard_guide", "business_state", "menu_item", "bundle", "offer", "order_state", "support_record"}
 }
 
 func entityTypes() []string {

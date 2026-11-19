@@ -20,8 +20,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/circuitbreaker"
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/circuitbreaker"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 const defaultBaseURL = "https://openrouter.ai/api/v1"

@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/paymentcontract"
+	"github.com/nekzad/namakdan/backend/internal/paymentcontract"
 )
 
 func main() {

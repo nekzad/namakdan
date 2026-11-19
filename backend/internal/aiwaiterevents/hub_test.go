@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/assistantcontract"
+	"github.com/nekzad/namakdan/backend/internal/assistantcontract"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

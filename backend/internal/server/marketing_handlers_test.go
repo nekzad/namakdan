@@ -18,12 +18,12 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/guardrails"
-	"github.com/stdevmac/payverge/backend/internal/llm"
-	"github.com/stdevmac/payverge/backend/internal/services"
-	"github.com/stdevmac/payverge/backend/internal/services/marketing"
-	"github.com/stdevmac/payverge/backend/internal/services/menuengineering"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/guardrails"
+	"github.com/nekzad/namakdan/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/services/marketing"
+	"github.com/nekzad/namakdan/backend/internal/services/menuengineering"
 )
 
 type marketingHandlerCaptionProvider struct {
@@ -1039,12 +1039,12 @@ func TestMarketingImageDedupKeyVariesByReservedBand(t *testing.T) {
 
 func TestNormalizeMarketingCleanupRequest(t *testing.T) {
 	ok, err := normalizeMarketingCleanupRequest(marketingCleanupRequest{
-		ImageURL: " https://images.payverge.io/a.png ", Name: " Milanesa ", AspectRatio: " 9:16 ",
+		ImageURL: " https://images.example.test/a.png ", Name: " Milanesa ", AspectRatio: " 9:16 ",
 	})
 	if err != nil {
 		t.Fatalf("valid request rejected: %v", err)
 	}
-	if ok.ImageURL != "https://images.payverge.io/a.png" || ok.Name != "Milanesa" || ok.AspectRatio != "9:16" {
+	if ok.ImageURL != "https://images.example.test/a.png" || ok.Name != "Milanesa" || ok.AspectRatio != "9:16" {
 		t.Fatalf("request not normalized: %+v", ok)
 	}
 
@@ -1052,12 +1052,12 @@ func TestNormalizeMarketingCleanupRequest(t *testing.T) {
 		t.Fatal("a request with no image_url must be rejected")
 	}
 	if _, err := normalizeMarketingCleanupRequest(marketingCleanupRequest{
-		ImageURL: "https://images.payverge.io/a.png", Name: "Milanesa", AspectRatio: "3:2",
+		ImageURL: "https://images.example.test/a.png", Name: "Milanesa", AspectRatio: "3:2",
 	}); err == nil {
 		t.Fatal("an unknown aspect_ratio must be rejected")
 	}
 	if _, err := normalizeMarketingCleanupRequest(marketingCleanupRequest{
-		ImageURL: "https://images.payverge.io/a.png", Name: strings.Repeat("x", maxMarketingImageNameRunes+1),
+		ImageURL: "https://images.example.test/a.png", Name: strings.Repeat("x", maxMarketingImageNameRunes+1),
 	}); err == nil {
 		t.Fatal("an over-long name must be rejected")
 	}
@@ -1199,7 +1199,7 @@ func TestGenerateMarketingCaption_RefusesEightySixedSteakHero(t *testing.T) {
 	require.Equal(t, 1, provider.calls)
 }
 
-func TestGenerateMarketingCaption_OmitsDemoVenueAndPayvergeHashtags(t *testing.T) {
+func TestGenerateMarketingCaption_OmitsDemoVenueAndNamakdanHashtags(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	globalMarketingCaptionCache.clear()
 	previousDB := database.GetDB()
@@ -1216,7 +1216,7 @@ func TestGenerateMarketingCaption_OmitsDemoVenueAndPayvergeHashtags(t *testing.T
 	database.SetTestDB(gormDB)
 	business := database.Business{
 		BusinessId:   "caption-demo-venue",
-		Name:         "Payverge AI Pro Demo Lounge",
+		Name:         "Namakdan AI Pro Demo Lounge",
 		IsDemo:       true,
 		IsActive:     true,
 		BusinessType: "restaurant",
@@ -1232,12 +1232,12 @@ func TestGenerateMarketingCaption_OmitsDemoVenueAndPayvergeHashtags(t *testing.T
 		{
 			language: "en",
 			body:     `{"item_name":"Harvest Bowl","play":"featured_dish","tone":"warm","language":"en"}`,
-			model:    "Enjoy our Date Night for Two combo at Payverge AI Pro Demo Lounge. #PayvergeAIDemoLounge #DateNight",
+			model:    "Enjoy our Date Night for Two combo at Namakdan AI Pro Demo Lounge. #NamakdanAIDemoLounge #DateNight",
 		},
 		{
 			language: "es",
 			body:     `{"item_name":"Harvest Bowl","play":"featured_dish","tone":"warm","language":"es"}`,
-			model:    "Esta noche en Payverge AI Pro Demo Lounge. #Payverge #Bowl",
+			model:    "Esta noche en Namakdan AI Pro Demo Lounge. #Namakdan #Bowl",
 		},
 	}
 	for _, tc := range cases {
@@ -1254,10 +1254,10 @@ func TestGenerateMarketingCaption_OmitsDemoVenueAndPayvergeHashtags(t *testing.T
 			require.NoError(t, json.Unmarshal(w.Body.Bytes(), &resp))
 			caption, _ := resp["caption"].(string)
 			require.NotEmpty(t, caption)
-			require.NotContains(t, caption, "Payverge")
-			require.NotContains(t, strings.ToLower(caption), "#payverge")
-			require.NotContains(t, provider.last.Messages[0].Text, `"business_name":"Payverge AI Pro Demo Lounge"`)
-			require.Contains(t, provider.last.System, "Never mention Payverge")
+			require.NotContains(t, caption, "Namakdan")
+			require.NotContains(t, strings.ToLower(caption), "#namakdan")
+			require.NotContains(t, provider.last.Messages[0].Text, `"business_name":"Namakdan AI Pro Demo Lounge"`)
+			require.Contains(t, provider.last.System, "Never mention Namakdan")
 		})
 	}
 }

@@ -7,8 +7,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/emails"
 )
 
 func TestGuestFeedbackSchedulerSendGuestFeedbackEmail_SkipsWhenEmailServerUnavailable(t *testing.T) {
@@ -89,7 +89,7 @@ func TestGuestFeedbackSchedulerCatchUpAfterDowntime(t *testing.T) {
 	require.NotNil(t, b.FeedbackEmailSentAt)
 }
 
-// Demo seed data uses special-use addresses (demo+...@payverge.local) that the
+// Demo seed data uses special-use addresses (demo+...@example.test) that the
 // mailer drops. The scheduler must neither count nor log those as sent, and
 // must settle the bill so it is not retried every tick.
 func TestGuestFeedbackSchedulerSkipsSpecialUseRecipients(t *testing.T) {
@@ -100,7 +100,7 @@ func TestGuestFeedbackSchedulerSkipsSpecialUseRecipients(t *testing.T) {
 	emails.EmailServerInstance = nil
 	defer func() { emails.EmailServerInstance = originalEmailServer }()
 
-	cust := &database.Customer{Email: "demo+guest1@payverge.local", Name: "Demo Guest"}
+	cust := &database.Customer{Email: "demo+guest1@example.test", Name: "Demo Guest"}
 	require.NoError(t, db.Create(cust).Error)
 	require.NoError(t, db.Create(&database.CustomerBusiness{
 		CustomerID: cust.ID, BusinessID: biz.ID, OptInEmail: true,

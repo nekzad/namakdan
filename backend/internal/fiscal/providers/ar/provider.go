@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/fiscal"
+	"github.com/nekzad/namakdan/backend/internal/fiscal"
 )
 
 var _ fiscal.Provider = (*Provider)(nil)

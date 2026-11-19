@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Inventory of the environment variables Payverge reads at runtime, taken
+// Inventory of the environment variables Namakdan reads at runtime, taken
 // from the code rather than from memory. docs/self-hosting/configuration.md
 // must document every name this prints (scripts/docs/env-inventory.test.mjs).
 //

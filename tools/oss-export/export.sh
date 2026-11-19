@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build the public single-commit Payverge tree from a ref of the private repo.
+# Build the public single-commit Namakdan tree from a ref of the private repo.
 #
 #   tools/oss-export/export.sh [<ref>] <outdir> --author-email <email> [options]
 #

@@ -9,10 +9,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	printsvc "github.com/stdevmac/payverge/backend/internal/services/print"
-	"github.com/stdevmac/payverge/backend/internal/utils"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	printsvc "github.com/nekzad/namakdan/backend/internal/services/print"
+	"github.com/nekzad/namakdan/backend/internal/utils"
 )
 
 // PrinterHandlers exposes CRUD endpoints for printers scoped to a business.
@@ -236,7 +236,7 @@ const testPrintHTMLTemplate = `<!doctype html>
   html, body { width: %dmm; margin: 0; }
   body { box-sizing: border-box; font-family: ui-monospace, monospace; font-size: 14px; text-align: center; padding: 6mm 4mm; }
 </style></head><body>
-<h1>Payverge</h1>
+<h1>Namakdan</h1>
 <p>%s</p>
 <p style="font-size:10px;color:#444">%s</p>
 </body></html>`

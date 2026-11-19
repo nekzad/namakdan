@@ -6,8 +6,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/runtimecontrol"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/runtimecontrol"
 )
 
 func TestEnqueueIssueJobInTx_FiscalRuntimeControlDisabledSkips(t *testing.T) {

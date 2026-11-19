@@ -10,8 +10,8 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/events"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/events"
 )
 
 var (
@@ -724,7 +724,7 @@ func (s *Service) CreatePaymentWebhookReviewAlert(ctx context.Context, businessI
 		ResourceID:   webhookEventID,
 		Priority:     database.OperationalAlertPriorityHigh,
 		Title:        "Provider refund or dispute needs manual reconciliation",
-		Body:         "A payment provider reported a refund, dispute or reversal for a payment Payverge never recorded. Check it against the provider dashboard and reconcile the ledger by hand.",
+		Body:         "A payment provider reported a refund, dispute or reversal for a payment Namakdan never recorded. Check it against the provider dashboard and reconcile the ledger by hand.",
 		Metadata:     metadata,
 	})
 	return err

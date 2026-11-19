@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 	"gorm.io/gorm"
 )
 
@@ -14,7 +14,7 @@ import (
 // with no password and no sign-in method of its own. Only the one-click demo
 // sign-in (POST /api/v1/auth/demo/login, DEMO_MODE only) issues it a session.
 // The .invalid TLD (RFC 2606) can never receive mail.
-const ShowroomOwnerEmail = "owner@demo.payverge.invalid"
+const ShowroomOwnerEmail = "owner@demo.namakdan.invalid"
 
 // SessionProvider is the user_sessions.provider of a demo owner session. It
 // is valid only while DEMO_MODE is on (verifyPersistedOperatorSession).

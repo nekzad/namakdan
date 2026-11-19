@@ -26,8 +26,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/logger"
 
 	"gorm.io/gorm"
 )
@@ -196,7 +196,7 @@ func isHelpArg(arg string) bool {
 }
 
 func printCLIUsage(w io.Writer, group string) {
-	fmt.Fprintln(w, "Payverge maintenance commands (no HTTP server is started):")
+	fmt.Fprintln(w, "Namakdan maintenance commands (no HTTP server is started):")
 	for _, cmd := range cliCommands() {
 		if group != "" && cmd.group != group {
 			continue
@@ -288,8 +288,8 @@ func resolveCLIDBConfig(env *cliEnv, flags cliDBConfig) cliDBConfig {
 	return cliDBConfig{
 		Host:     pick(flags.Host, "DB_HOST", "db-host", "localhost"),
 		Port:     pick(flags.Port, "DB_PORT", "db-port", "5432"),
-		User:     pick(flags.User, "DB_USER", "db-user", "payverge"),
-		Name:     pick(flags.Name, "DB_NAME", "db-name", "payverge"),
+		User:     pick(flags.User, "DB_USER", "db-user", "namakdan"),
+		Name:     pick(flags.Name, "DB_NAME", "db-name", "namakdan"),
 		SSLMode:  pick(flags.SSLMode, "DB_SSLMODE", "db-sslmode", "require"),
 		Password: strings.TrimSpace(env.getenv("DB_PASSWORD")),
 	}

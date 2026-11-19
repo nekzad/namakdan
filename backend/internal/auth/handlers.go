@@ -13,19 +13,19 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/auththrottle"
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/emails"
-	"github.com/stdevmac/payverge/backend/internal/locales"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/metrics"
-	"github.com/stdevmac/payverge/backend/internal/middleware"
-	"github.com/stdevmac/payverge/backend/internal/runtimecontrol"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/session"
-	"github.com/stdevmac/payverge/backend/internal/utils"
-	"github.com/stdevmac/payverge/backend/internal/verification"
+	"github.com/nekzad/namakdan/backend/internal/auththrottle"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/emails"
+	"github.com/nekzad/namakdan/backend/internal/locales"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/metrics"
+	"github.com/nekzad/namakdan/backend/internal/middleware"
+	"github.com/nekzad/namakdan/backend/internal/runtimecontrol"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/utils"
+	"github.com/nekzad/namakdan/backend/internal/verification"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/oauth2"
@@ -250,7 +250,7 @@ func sessionUserIDFromCookie(c *gin.Context) uint {
 }
 
 // googleCallbackLinkIntent decides whether a Google callback may attach a new
-// Google identity to an existing Payverge user (SEC-1).
+// Google identity to an existing Namakdan user (SEC-1).
 //
 // Linking requires ALL of:
 //  1. link-mode encoded into the consumed OAuth state at start time (authenticated

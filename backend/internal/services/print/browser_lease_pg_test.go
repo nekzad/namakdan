@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/testperf"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/testperf"
 )
 
 // TestQueue_ClaimBrowserJob_PostgresRace proves SKIP LOCKED yields exactly one

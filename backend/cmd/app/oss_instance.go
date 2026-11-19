@@ -3,9 +3,9 @@ package main
 import (
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/server"
 )
 
 // runInstanceStartupChecks validates the instance identity env (PUBLIC_URL,

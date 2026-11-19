@@ -5,7 +5,7 @@ import (
 	"html/template"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/config"
 )
 
 // Language constants
@@ -280,8 +280,8 @@ func (e *EmailServer) SendOperationalUpdatesEmail(to []string, recipientName, up
 	return e.SendTransactionalEmail(to, "operational_update", templateBody, language)
 }
 
-// SendPayvergeUpdateEmail sends platform updates to users
-func (e *EmailServer) SendPayvergeUpdateEmail(to []string, recipientName, updateTitle, updateIntro, updateBody, dashboardURL, language string) error {
+// SendNamakdanUpdateEmail sends platform updates to users
+func (e *EmailServer) SendNamakdanUpdateEmail(to []string, recipientName, updateTitle, updateIntro, updateBody, dashboardURL, language string) error {
 	templateBody := map[string]interface{}{
 		"recipient_name": recipientName,
 		"update_title":   updateTitle,
@@ -289,7 +289,7 @@ func (e *EmailServer) SendPayvergeUpdateEmail(to []string, recipientName, update
 		"update_body":    updateBody,
 		"dashboard_url":  dashboardURL,
 	}
-	return e.SendUpdatesEmail(to, "payverge_update", templateBody, language)
+	return e.SendUpdatesEmail(to, "namakdan_update", templateBody, language)
 }
 
 // Guest Email Senders (Privacy-First)

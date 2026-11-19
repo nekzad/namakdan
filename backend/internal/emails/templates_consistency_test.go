@@ -75,7 +75,7 @@ func TestRenderedEmailHasSingleTitleInHead(t *testing.T) {
 		for filename := range listTemplateFiles(t, filepath.Join(root, lang)) {
 			name := strings.TrimSuffix(filename, ".html")
 			body, err := tm.Render(lang, name, map[string]interface{}{
-				"unsubscribe_url": "https://payverge.io/account",
+				"unsubscribe_url": "https://example.test/account",
 			})
 			if err != nil {
 				t.Fatalf("render %s/%s: %v", lang, name, err)
@@ -127,7 +127,7 @@ func TestFooterVariantClassifier(t *testing.T) {
 	}
 
 	// Broadcast wins regardless of template.
-	if got := footerVariant("payverge_update", MessageTypeBroadcast); got != "broadcast" {
+	if got := footerVariant("namakdan_update", MessageTypeBroadcast); got != "broadcast" {
 		t.Errorf("broadcast footer = %q, want broadcast", got)
 	}
 	if got := footerVariant("payment_receipt", MessageTypeBroadcast); got != "broadcast" {
@@ -174,7 +174,7 @@ func TestLayoutPaletteAndBrand(t *testing.T) {
 		if !strings.Contains(content, `src="{{ .instance_logo_url }}"`) {
 			t.Errorf("layout %s must load the logo from the instance (instance_logo_url)", fam)
 		}
-		if strings.Contains(content, "payverge.io") {
+		if strings.Contains(content, "example.test") {
 			t.Errorf("layout %s hard-codes the upstream domain", fam)
 		}
 		if !strings.Contains(content, `{{ template "subject" . }}`) {
@@ -188,12 +188,12 @@ func renderFooter(t *testing.T, tm *TemplateManager, lang, name, variant string)
 	body, err := tm.Render(lang, name, map[string]interface{}{
 		"footer_variant":  variant,
 		"business_name":   "Cafe Test",
-		"company_name":    "Payverge",
+		"company_name":    "Namakdan",
 		"company_address": "123 Test St, Dubai, UAE",
-		"unsubscribe_url": "https://payverge.io/account",
+		"unsubscribe_url": "https://example.test/account",
 		"update_title":    "Update",
 		"recipient_name":  "Sam",
-		"dashboard_url":   "https://payverge.io/business/1/dashboard",
+		"dashboard_url":   "https://example.test/business/1/dashboard",
 	})
 	if err != nil {
 		t.Fatalf("render %s/%s (%s): %v", lang, name, variant, err)
@@ -226,7 +226,7 @@ func TestFooterContentByVariant(t *testing.T) {
 	}
 
 	// Broadcast: must carry unsubscribe URL + physical address (CAN-SPAM).
-	b := renderFooter(t, tm, "en", "payverge_update", "broadcast")
+	b := renderFooter(t, tm, "en", "namakdan_update", "broadcast")
 	if !strings.Contains(b, "/account") {
 		t.Error("broadcast footer missing unsubscribe link")
 	}

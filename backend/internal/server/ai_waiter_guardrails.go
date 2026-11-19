@@ -1,6 +1,6 @@
 package server
 
-import "github.com/stdevmac/payverge/backend/internal/guardrails"
+import "github.com/nekzad/namakdan/backend/internal/guardrails"
 
 var aiWaiterClassifier guardrails.InputClassifier = guardrails.AllowAll{}
 

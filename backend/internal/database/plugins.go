@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/security"
+	"github.com/nekzad/namakdan/backend/internal/security"
 
 	"gorm.io/gorm"
 )

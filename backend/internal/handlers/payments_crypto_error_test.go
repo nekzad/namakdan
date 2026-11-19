@@ -8,7 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/stdevmac/payverge/backend/internal/blockchain"
+	"github.com/nekzad/namakdan/backend/internal/blockchain"
 )
 
 func TestRespondCryptoVerifyError_UnavailableIs425WithRetryCode(t *testing.T) {

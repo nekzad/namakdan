@@ -1,7 +1,7 @@
 // Given the page origin the operator is on, derive the backend API base.
-// Payverge serves the frontend and backend on different origins:
+// Namakdan serves the frontend and backend on different origins:
 //   dev:  localhost:3000 (app)  -> localhost:8080 (api)
-//   prod: payverge.io   (app)  -> api.payverge.io (api)
+//   prod: example.test   (app)  -> api.example.test (api)
 // Callers can override this entirely via `defaults.apiBase` in shots.js.
 export function deriveApiBase(pageOrigin) {
   const { protocol, hostname } = new URL(pageOrigin);

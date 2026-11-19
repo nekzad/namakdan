@@ -36,7 +36,7 @@ func unsubscribeSecret() []byte {
 		return []byte(s)
 	}
 	if s := strings.TrimSpace(os.Getenv("JWT_SECRET_KEY")); s != "" {
-		sum := sha256.Sum256([]byte("payverge-unsubscribe-v1|" + s))
+		sum := sha256.Sum256([]byte("namakdan-unsubscribe-v1|" + s))
 		return sum[:]
 	}
 	return nil

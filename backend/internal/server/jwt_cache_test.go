@@ -3,7 +3,7 @@ package server
 import (
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/session"
+	"github.com/nekzad/namakdan/backend/internal/session"
 )
 
 func TestVerifyTokenCacheReturnsIndependentCopies(t *testing.T) {

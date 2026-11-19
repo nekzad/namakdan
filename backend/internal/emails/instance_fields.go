@@ -4,19 +4,19 @@ import (
 	"os"
 	"strings"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/config"
 )
 
-// defaultEmailLogoPath is the wordmark the frontend serves from public/;
+// defaultEmailLogoPath is the brand mark the frontend serves from public/;
 // emails load it from the instance's own PUBLIC_URL unless LOGO_URL is set.
-const defaultEmailLogoPath = "/images/PayvergeLogo.png"
+const defaultEmailLogoPath = "/images/namakdan-icon-512.png"
 
 // addInstanceTemplateFields injects the instance identity every layout and
 // content template may reference. Values come from the instance env
 // (PRODUCT_NAME, COMPANY_NAME, COMPANY_ADDRESS, PUBLIC_URL, LOGO_URL);
 // nothing points at the upstream deployment.
 //
-//	product_name       PRODUCT_NAME (default Payverge)
+//	product_name       PRODUCT_NAME (default Namakdan)
 //	company_name       COMPANY_NAME, else product_name
 //	company_address    COMPANY_ADDRESS (postal address for CAN-SPAM footers;
 //	                   omitted from the footer when empty)

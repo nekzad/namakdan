@@ -34,7 +34,7 @@
 #   - TRUSTED_PROXY_CIDRS must be space-separated IPs/CIDRs no broader than /8 (IPv4) or /16 (IPv6);
 #   - a localhost trial publishes Caddy on 127.0.0.1 only, --http-port and
 #     --https-port take ADDR:PORT, and COMPOSE_PROJECT_NAME is kept in .env;
-#   - an in-place install with no --version pins PAYVERGE_VERSION to the
+#   - an in-place install with no --version pins NAMAKDAN_VERSION to the
 #     newest release (the curl stub's v9.8.7), never latest; --build pins
 #     local and does not call releases/latest. With no published release,
 #     a clone is told to use --build or --version (not to clone again), and
@@ -42,7 +42,7 @@
 #   - the public check probes the frontend (/) through Caddy as well as
 #     /api/v1/health/live. A failing frontend probe still prints the summary
 #     and the admin password under a "not answering yet" heading (never
-#     "Payverge is running"), then exits non-zero. Probes that pass leave the
+#     "Namakdan is running"), then exits non-zero. Probes that pass leave the
 #     fresh-install cases at exit 0;
 #   - a trial or internal-CA name withdraws HSTS (HSTS_POLICY=max-age=0); a
 #     public domain keeps the compose default;
@@ -55,7 +55,7 @@
 set -Eeuo pipefail
 
 REPO=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)
-WORK=$(mktemp -d "${TMPDIR:-/tmp}/payverge-install-test.XXXXXX")
+WORK=$(mktemp -d "${TMPDIR:-/tmp}/namakdan-install-test.XXXXXX")
 trap 'rm -rf "$WORK"' EXIT
 
 failures=0
@@ -81,7 +81,7 @@ case "$1 $2" in
 	exit 0
 	;;
 "version "*) echo "27.0.0"; exit 0 ;;
-"volume ls") [[ ${STUB_DB_VOLUME:-0} == 1 ]] && echo "payverge_db"; exit 0 ;;
+"volume ls") [[ ${STUB_DB_VOLUME:-0} == 1 ]] && echo "namakdan_db"; exit 0 ;;
 "ps "*) exit 0 ;;
 # STUB_OLD_IMAGES=1: the installed version's images are in the local cache.
 "image inspect") [[ ${STUB_OLD_IMAGES:-0} == 1 ]]; exit ;;
@@ -96,7 +96,7 @@ case "$*" in
 	exit "${STUB_UP_STATUS:-0}"
 	;;
 "up -d backend") exit 0 ;;
-"run --rm --no-deps -T --entrypoint /bin/sh postgres /payverge/pg18-guard.sh check")
+"run --rm --no-deps -T --entrypoint /bin/sh postgres /namakdan/pg18-guard.sh check")
 	# STUB_PG15=1: the db volume still holds PostgreSQL 15 data, pgdata none.
 	# STUB_GUARD_STATUS: any other exit (4 = stale pgdata after a rollback).
 	[[ -n ${STUB_GUARD_STATUS:-} ]] && { echo "stub guard: status $STUB_GUARD_STATUS" >&2; exit "$STUB_GUARD_STATUS"; }
@@ -104,7 +104,7 @@ case "$*" in
 	exit 0
 	;;
 "up -d --force-recreate --no-deps caddy") exit "${STUB_CADDY_STATUS:-0}" ;;
-"ps -a") echo "NAME STATE"; echo "payverge-caddy-1 created"; exit 0 ;;
+"ps -a") echo "NAME STATE"; echo "namakdan-caddy-1 created"; exit 0 ;;
 "ps -a --format {{.State}} backend") echo "running"; exit 0 ;;
 "logs --tail 20") echo "stub: recent logs"; exit 0 ;;
 "logs --tail 40 backend") echo "stub: backend logs"; exit 0 ;;
@@ -112,7 +112,7 @@ case "$*" in
 "exec -T caddy wget "*) exit 0 ;;
 "run --rm -T backup once")
 	# Records the version the backup set would be stamped with.
-	echo "backup-version=$(sed -n 's/^PAYVERGE_VERSION=//p' .env | tail -n 1)" >>"$STUB_LOG"
+	echo "backup-version=$(sed -n 's/^NAMAKDAN_VERSION=//p' .env | tail -n 1)" >>"$STUB_LOG"
 	# What backup.sh logs; STUB_BACKUP_LOG=quiet leaves the set name out.
 	if [[ ${STUB_BACKUP_LOG:-} != quiet && ${STUB_BACKUP_STATUS:-0} == 0 ]]; then
 		echo "2026-10-03T09:15:00Z backup: set complete: daily/20261003T091500Z (12K)"
@@ -142,9 +142,9 @@ for arg in "$@"; do
 	*url_effective*)
 		# STUB_NO_RELEASE=1: /releases/latest lands on /releases (none published).
 		if [ "${STUB_NO_RELEASE:-0}" = 1 ]; then
-			printf '%s\n' "https://github.com/stdevMac/payverge/releases"
+			printf '%s\n' "https://github.com/nekzad/namakdan/releases"
 		else
-			printf '%s\n' "https://github.com/stdevMac/payverge/releases/tag/v9.8.7"
+			printf '%s\n' "https://github.com/nekzad/namakdan/releases/tag/v9.8.7"
 		fi
 		;;
 	http://* | https://*) url=$arg ;;
@@ -208,23 +208,23 @@ path_without_cosign() {
 	printf '%s' "$tail"
 }
 
-# release_fixture VERSION DEST: payverge-deploy-<v>.tar.gz (prefix
-# payverge-deploy-<v>/), a matching SHA256SUMS and a bundle file.
+# release_fixture VERSION DEST: namakdan-deploy-<v>.tar.gz (prefix
+# namakdan-deploy-<v>/), a matching SHA256SUMS and a bundle file.
 release_fixture() {
 	local v=$1 dest=$2 stage hash
 	stage=$WORK/stage-$v
 	rm -rf "$stage"
-	mkdir -p "$stage/payverge-deploy-$v" "$dest"
-	cp -R "$REPO/deploy"/. "$stage/payverge-deploy-$v/"
-	rm -f "$stage/payverge-deploy-$v/.env"
-	rm -rf "$stage/payverge-deploy-$v/backups"
-	COPYFILE_DISABLE=1 tar -czf "$dest/payverge-deploy-$v.tar.gz" -C "$stage" "payverge-deploy-$v"
+	mkdir -p "$stage/namakdan-deploy-$v" "$dest"
+	cp -R "$REPO/deploy"/. "$stage/namakdan-deploy-$v/"
+	rm -f "$stage/namakdan-deploy-$v/.env"
+	rm -rf "$stage/namakdan-deploy-$v/backups"
+	COPYFILE_DISABLE=1 tar -czf "$dest/namakdan-deploy-$v.tar.gz" -C "$stage" "namakdan-deploy-$v"
 	if command -v sha256sum >/dev/null 2>&1; then
-		hash=$(sha256sum "$dest/payverge-deploy-$v.tar.gz" | awk 'NR==1 { print $1 }')
+		hash=$(sha256sum "$dest/namakdan-deploy-$v.tar.gz" | awk 'NR==1 { print $1 }')
 	else
-		hash=$(shasum -a 256 "$dest/payverge-deploy-$v.tar.gz" | awk 'NR==1 { print $1 }')
+		hash=$(shasum -a 256 "$dest/namakdan-deploy-$v.tar.gz" | awk 'NR==1 { print $1 }')
 	fi
-	printf '%s  %s\n' "$hash" "payverge-deploy-$v.tar.gz" >"$dest/SHA256SUMS"
+	printf '%s  %s\n' "$hash" "namakdan-deploy-$v.tar.gz" >"$dest/SHA256SUMS"
 	printf '%s\n' '{"mediaType":"application/vnd.dev.sigstore.bundle+json"}' >"$dest/SHA256SUMS.sigstore.json"
 }
 
@@ -237,7 +237,7 @@ install() {
 	status=0
 	# STUB_PATH_TAIL replaces the inherited PATH after the stubs (used to hide
 	# a real cosign). Unset, this is the same PATH="$STUBS:$PATH" as before.
-	out=$(env PATH="$STUBS:${STUB_PATH_TAIL:-$PATH}" STUB_LOG="$WORK/calls" PAYVERGE_READY_TIMEOUT=30 \
+	out=$(env PATH="$STUBS:${STUB_PATH_TAIL:-$PATH}" STUB_LOG="$WORK/calls" NAMAKDAN_READY_TIMEOUT=30 \
 		bash "$dir/install.sh" "$@" 2>&1 </dev/null) || status=$?
 	calls=$(cat "$WORK/calls")
 }
@@ -264,8 +264,8 @@ STUB_UP_STATUS=1 install "$dir" "${FRESH[@]}"
 [[ $status -ne 0 ]] && pass "up failure: non-zero exit ($status)" || fail "up failure: exit status 0"
 expect_contains "up failure: reason" "$out" "docker compose up -d failed (exit 1)"
 expect_contains "up failure: compose error shown" "$out" "port is already allocated"
-expect_contains "up failure: service state shown" "$out" "payverge-caddy-1 created"
-expect_absent "up failure: no success banner" "$out" "Payverge is running"
+expect_contains "up failure: service state shown" "$out" "namakdan-caddy-1 created"
+expect_absent "up failure: no success banner" "$out" "Namakdan is running"
 expect_contains "unresolvable domain: only a warning" "$out" "pos.example.invalid does not resolve yet"
 export STUB_UP_STATUS=0
 
@@ -351,13 +351,13 @@ expect_contains "upgrade: backup stamped with the installed version" "$calls" "b
 first_backup=$(grep -n 'backup once' <<<"$calls" | head -n 1 | cut -d: -f1)
 first_up=$(grep -n '^compose up' <<<"$calls" | head -n 1 | cut -d: -f1)
 ((first_backup < first_up)) && pass "upgrade: backup before up" || fail "upgrade: backup after up"
-[[ $(env_value PAYVERGE_VERSION "$dir/.env") == 1.1.0 ]] && pass "upgrade: version set" || fail "upgrade: version not set"
+[[ $(env_value NAMAKDAN_VERSION "$dir/.env") == 1.1.0 ]] && pass "upgrade: version set" || fail "upgrade: version not set"
 if [[ $(id -u) -ne 0 ]]; then
 	[[ $(env_value BACKUP_UID "$dir/.env") == "$(id -u)" ]] && pass "upgrade: BACKUP_UID added to an old .env" || fail "upgrade: BACKUP_UID not added"
 fi
 expect_contains "upgrade: rollback names the pre-upgrade set" "$out" "pre-upgrade backup set: daily/20261003T091500Z (version 1.0.0)"
 expect_contains "upgrade: rollback restores that exact set" "$out" "docker compose --profile restore run --rm restore daily/20261003T091500Z --yes"
-expect_contains "upgrade: rollback pins the previous version" "$out" "set PAYVERGE_VERSION=1.0.0 in .env"
+expect_contains "upgrade: rollback pins the previous version" "$out" "set NAMAKDAN_VERSION=1.0.0 in .env"
 expect_absent "upgrade: no 'newest set' advice" "$out" "restore the newest set"
 expect_contains "upgrade: caddy recreated for the new Caddyfile" "$calls" "compose up -d --force-recreate --no-deps caddy"
 recreate=$(grep -n 'force-recreate --no-deps caddy' <<<"$calls" | head -n 1 | cut -d: -f1 || true)
@@ -378,7 +378,7 @@ upgrade_checkout backup-fails
 STUB_DB_VOLUME=1 STUB_BACKUP_STATUS=1 install "$dir" --yes --version 1.1.0
 [[ $status -ne 0 ]] && pass "failed backup: non-zero exit" || fail "failed backup: exit 0"
 expect_contains "failed backup: explained" "$out" "the backup before the upgrade failed, so nothing was changed"
-[[ $(env_value PAYVERGE_VERSION "$dir/.env") == 1.0.0 ]] && pass "failed backup: version unchanged" || fail "failed backup: version changed"
+[[ $(env_value NAMAKDAN_VERSION "$dir/.env") == 1.0.0 ]] && pass "failed backup: version unchanged" || fail "failed backup: version changed"
 expect_absent "failed backup: nothing started" "$calls" "compose up"
 expect_absent "failed backup: no ERR-trap noise" "$out" "install.sh stopped at line"
 
@@ -435,7 +435,7 @@ sed -i.bak 's/pg18-guard\.sh/pg-entrypoint.sh/g' "$dir/docker-compose.yml" && rm
 STUB_DB_VOLUME=1 install "$dir" --yes --version 1.1.0
 expect_contains "pre-PostgreSQL-18 files: backup still taken" "$calls" "compose run --rm -T backup once"
 expect_contains "pre-PostgreSQL-18 files: names the set" "$out" "pre-upgrade backup set: daily/20261003T091500Z (version 1.0.0)"
-expect_contains "pre-PostgreSQL-18 files: rollback puts the old files back" "$out" "put back the deploy files you upgraded from, with PAYVERGE_VERSION=1.0.0 in .env"
+expect_contains "pre-PostgreSQL-18 files: rollback puts the old files back" "$out" "put back the deploy files you upgraded from, with NAMAKDAN_VERSION=1.0.0 in .env"
 expect_contains "pre-PostgreSQL-18 files: points at the docs" "$out" "docs/self-hosting/upgrades.md"
 expect_absent "pre-PostgreSQL-18 files: no restore recipe" "$out" "docker compose --profile restore run --rm restore daily/"
 expect_contains "pre-PostgreSQL-18 files: warns when the images cannot be kept" "$out" "could not keep this install's images"
@@ -445,9 +445,9 @@ expect_contains "pre-PostgreSQL-18 files: warns when the images cannot be kept" 
 upgrade_checkout pre-pg18-images
 sed -i.bak 's/pg18-guard\.sh/pg-entrypoint.sh/g' "$dir/docker-compose.yml" && rm -f "$dir/docker-compose.yml.bak"
 STUB_DB_VOLUME=1 STUB_OLD_IMAGES=1 install "$dir" --yes --version 1.1.0
-expect_contains "pre-PostgreSQL-18 images: backend kept" "$calls" "image tag ghcr.io/stdevmac/payverge-backend:1.0.0 ghcr.io/stdevmac/payverge-backend:1.0.0-pg15"
-expect_contains "pre-PostgreSQL-18 images: frontend kept" "$calls" "image tag ghcr.io/stdevmac/payverge-frontend:1.0.0 ghcr.io/stdevmac/payverge-frontend:1.0.0-pg15"
-expect_contains "pre-PostgreSQL-18 images: rollback uses the kept tag" "$out" "with PAYVERGE_VERSION=1.0.0-pg15 in .env"
+expect_contains "pre-PostgreSQL-18 images: backend kept" "$calls" "image tag ghcr.io/nekzad/namakdan-backend:1.0.0 ghcr.io/nekzad/namakdan-backend:1.0.0-pg15"
+expect_contains "pre-PostgreSQL-18 images: frontend kept" "$calls" "image tag ghcr.io/nekzad/namakdan-frontend:1.0.0 ghcr.io/nekzad/namakdan-frontend:1.0.0-pg15"
+expect_contains "pre-PostgreSQL-18 images: rollback uses the kept tag" "$out" "with NAMAKDAN_VERSION=1.0.0-pg15 in .env"
 expect_absent "pre-PostgreSQL-18 images: no warning" "$out" "could not keep this install's images"
 
 # A pre-release install pinned to the very version being installed (1.0.0 ->
@@ -458,7 +458,7 @@ sed -i.bak 's/pg18-guard\.sh/pg-entrypoint.sh/g' "$dir/docker-compose.yml" && rm
 STUB_DB_VOLUME=1 STUB_OLD_IMAGES=1 install "$dir" --yes --version 1.0.0
 expect_contains "pre-PostgreSQL-18 same tag: backup taken" "$calls" "compose run --rm -T backup once"
 expect_contains "pre-PostgreSQL-18 same tag: says why" "$out" "files from before PostgreSQL 18 -> 1.0.0"
-expect_contains "pre-PostgreSQL-18 same tag: images kept" "$calls" "image tag ghcr.io/stdevmac/payverge-backend:1.0.0 ghcr.io/stdevmac/payverge-backend:1.0.0-pg15"
+expect_contains "pre-PostgreSQL-18 same tag: images kept" "$calls" "image tag ghcr.io/nekzad/namakdan-backend:1.0.0 ghcr.io/nekzad/namakdan-backend:1.0.0-pg15"
 
 # --no-backup skips the backup set, not the image keep: the pull would still
 # replace the pre-release images, so they are tagged and the rollback named.
@@ -466,11 +466,11 @@ upgrade_checkout pre-pg18-no-backup
 sed -i.bak 's/pg18-guard\.sh/pg-entrypoint.sh/g' "$dir/docker-compose.yml" && rm -f "$dir/docker-compose.yml.bak"
 STUB_DB_VOLUME=1 STUB_OLD_IMAGES=1 install "$dir" --yes --version 1.0.0 --no-backup
 expect_absent "pre-PostgreSQL-18 --no-backup: no backup" "$calls" "backup once"
-expect_contains "pre-PostgreSQL-18 --no-backup: backend kept" "$calls" "image tag ghcr.io/stdevmac/payverge-backend:1.0.0 ghcr.io/stdevmac/payverge-backend:1.0.0-pg15"
-expect_contains "pre-PostgreSQL-18 --no-backup: frontend kept" "$calls" "image tag ghcr.io/stdevmac/payverge-frontend:1.0.0 ghcr.io/stdevmac/payverge-frontend:1.0.0-pg15"
-expect_contains "pre-PostgreSQL-18 --no-backup: rollback uses the kept tag" "$out" "with PAYVERGE_VERSION=1.0.0-pg15 in .env"
+expect_contains "pre-PostgreSQL-18 --no-backup: backend kept" "$calls" "image tag ghcr.io/nekzad/namakdan-backend:1.0.0 ghcr.io/nekzad/namakdan-backend:1.0.0-pg15"
+expect_contains "pre-PostgreSQL-18 --no-backup: frontend kept" "$calls" "image tag ghcr.io/nekzad/namakdan-frontend:1.0.0 ghcr.io/nekzad/namakdan-frontend:1.0.0-pg15"
+expect_contains "pre-PostgreSQL-18 --no-backup: rollback uses the kept tag" "$out" "with NAMAKDAN_VERSION=1.0.0-pg15 in .env"
 expect_absent "pre-PostgreSQL-18 --no-backup: no backup set named" "$out" "restore daily/"
-tag_line=$(grep -n 'image tag ghcr.io/stdevmac/payverge-backend' <<<"$calls" | head -n 1 | cut -d: -f1)
+tag_line=$(grep -n 'image tag ghcr.io/nekzad/namakdan-backend' <<<"$calls" | head -n 1 | cut -d: -f1)
 pull_line=$(grep -n '^compose pull' <<<"$calls" | head -n 1 | cut -d: -f1 || true)
 ((tag_line < ${pull_line:-999999})) && pass "pre-PostgreSQL-18 --no-backup: kept before the pull" || fail "pre-PostgreSQL-18 --no-backup: pull before the keep"
 
@@ -478,8 +478,8 @@ pull_line=$(grep -n '^compose pull' <<<"$calls" | head -n 1 | cut -d: -f1 || tru
 upgrade_checkout pre-pg18-unnamed-set
 sed -i.bak 's/pg18-guard\.sh/pg-entrypoint.sh/g' "$dir/docker-compose.yml" && rm -f "$dir/docker-compose.yml.bak"
 STUB_DB_VOLUME=1 STUB_OLD_IMAGES=1 STUB_BACKUP_LOG=quiet install "$dir" --yes --version 1.0.0
-expect_contains "pre-PostgreSQL-18 unnamed set: images kept" "$calls" "image tag ghcr.io/stdevmac/payverge-backend:1.0.0 ghcr.io/stdevmac/payverge-backend:1.0.0-pg15"
-expect_contains "pre-PostgreSQL-18 unnamed set: rollback uses the kept tag" "$out" "with PAYVERGE_VERSION=1.0.0-pg15 in .env"
+expect_contains "pre-PostgreSQL-18 unnamed set: images kept" "$calls" "image tag ghcr.io/nekzad/namakdan-backend:1.0.0 ghcr.io/nekzad/namakdan-backend:1.0.0-pg15"
+expect_contains "pre-PostgreSQL-18 unnamed set: rollback uses the kept tag" "$out" "with NAMAKDAN_VERSION=1.0.0-pg15 in .env"
 
 # --- 4. TLS_TERMINATION=proxy ---------------------------------------------------
 
@@ -545,7 +545,7 @@ expect_contains "dry run without admin email: says why" "$out" "no admin email"
 
 dir=$(new_checkout dry-hung-docker)
 started=$SECONDS
-STUB_DOCKER_HANG=1 PAYVERGE_DOCKER_TIMEOUT=2 install "$dir" --yes --dry-run --domain localhost --admin-email owner@example.com
+STUB_DOCKER_HANG=1 NAMAKDAN_DOCKER_TIMEOUT=2 install "$dir" --yes --dry-run --domain localhost --admin-email owner@example.com
 elapsed=$((SECONDS - started))
 [[ $status -eq 0 ]] && pass "dry run, hung daemon: exit 0" || { fail "dry run, hung daemon: exit $status"; printf '%s\n' "$out" >&2; }
 ((elapsed < 30)) && pass "dry run, hung daemon: gave up after the timeout (${elapsed}s)" || fail "dry run, hung daemon: blocked ${elapsed}s"
@@ -614,13 +614,13 @@ expect_contains "ERR trap: command shown" "$out" 'mkdir -p'
 dir=$(new_checkout in-place-latest)
 STUB_BACKEND_LOG=/dev/null install "$dir" "${FRESH[@]}"
 [[ $status -eq 0 ]] && pass "in-place, no --version: exit 0" || { fail "in-place, no --version: exit $status"; printf '%s\n' "$out" >&2; }
-[[ $(env_value PAYVERGE_VERSION "$dir/.env") == 9.8.7 ]] && pass "in-place, no --version: PAYVERGE_VERSION=9.8.7" || fail "in-place, no --version: PAYVERGE_VERSION=$(env_value PAYVERGE_VERSION "$dir/.env")"
+[[ $(env_value NAMAKDAN_VERSION "$dir/.env") == 9.8.7 ]] && pass "in-place, no --version: NAMAKDAN_VERSION=9.8.7" || fail "in-place, no --version: NAMAKDAN_VERSION=$(env_value NAMAKDAN_VERSION "$dir/.env")"
 expect_contains "in-place, no --version: looked up the newest release" "$calls" "releases/latest"
 
 dir=$(new_checkout in-place-build)
 STUB_BACKEND_LOG=/dev/null install "$dir" "${FRESH[@]}" --build
 [[ $status -eq 0 ]] && pass "in-place --build: exit 0" || { fail "in-place --build: exit $status"; printf '%s\n' "$out" >&2; }
-[[ $(env_value PAYVERGE_VERSION "$dir/.env") == local ]] && pass "in-place --build: PAYVERGE_VERSION=local" || fail "in-place --build: PAYVERGE_VERSION=$(env_value PAYVERGE_VERSION "$dir/.env")"
+[[ $(env_value NAMAKDAN_VERSION "$dir/.env") == local ]] && pass "in-place --build: NAMAKDAN_VERSION=local" || fail "in-place --build: NAMAKDAN_VERSION=$(env_value NAMAKDAN_VERSION "$dir/.env")"
 expect_absent "in-place --build: no releases/latest curl" "$calls" "releases/latest"
 
 # No published release yet: a clone is pointed at --build or --version, never
@@ -646,22 +646,22 @@ dir=$(new_checkout release-dry)
 install "$dir" "${FRESH[@]}" --dry-run
 expect_contains "dry run: shows the release a real run would install" "$out" "newest release: 9.8.7"
 
-# A leftover PAYVERGE_VERSION=local is not a pin once the images are not built.
+# A leftover NAMAKDAN_VERSION=local is not a pin once the images are not built.
 dir=$(new_checkout local-not-building)
 STUB_BACKEND_LOG=/dev/null install "$dir" "${FRESH[@]}" --version 1.4.0 >/dev/null
-sed -i.bak 's/^PAYVERGE_VERSION=.*/PAYVERGE_VERSION=local/' "$dir/.env" && rm -f "$dir/.env.bak"
+sed -i.bak 's/^NAMAKDAN_VERSION=.*/NAMAKDAN_VERSION=local/' "$dir/.env" && rm -f "$dir/.env.bak"
 STUB_DB_VOLUME=1 STUB_BACKEND_LOG=/dev/null install "$dir" --yes
-[[ $(env_value PAYVERGE_VERSION "$dir/.env") == 9.8.7 ]] && pass "local without a build: resolved to the newest release" || fail "local without a build: PAYVERGE_VERSION=$(env_value PAYVERGE_VERSION "$dir/.env")"
+[[ $(env_value NAMAKDAN_VERSION "$dir/.env") == 9.8.7 ]] && pass "local without a build: resolved to the newest release" || fail "local without a build: NAMAKDAN_VERSION=$(env_value NAMAKDAN_VERSION "$dir/.env")"
 
 # --- 7. public probe ----------------------------------------------------------------
 
 dir=$(new_checkout probe-frontend)
 printf '%s\n' "$(log_line info 'Bootstrap admin o***@example.com created (user id 1)')" >"$WORK/probe-frontend.log"
 # The root URL fails; /api/v1/health/live does not. One try, no 2-minute wait.
-PAYVERGE_PROBE_ATTEMPTS=1 STUB_BACKEND_LOG="$WORK/probe-frontend.log" STUB_CURL_FAIL='https://pos.example.invalid:443/' install "$dir" "${FRESH[@]}"
+NAMAKDAN_PROBE_ATTEMPTS=1 STUB_BACKEND_LOG="$WORK/probe-frontend.log" STUB_CURL_FAIL='https://pos.example.invalid:443/' install "$dir" "${FRESH[@]}"
 [[ $status -ne 0 ]] && pass "frontend probe: non-zero exit ($status)" || fail "frontend probe: exit 0"
 expect_contains "frontend probe: summary still printed" "$out" "is not answering yet"
-expect_absent "frontend probe: no success banner" "$out" "Payverge is running"
+expect_absent "frontend probe: no success banner" "$out" "Namakdan is running"
 pw=$(sed -n 's/^  Password     \([A-Za-z0-9-]*\)$/\1/p' <<<"$out")
 [[ $pw =~ ^[A-Za-z0-9]{5}(-[A-Za-z0-9]{5}){3}$ ]] && pass "frontend probe: admin password shown" || fail "frontend probe: admin password not shown"
 expect_contains "frontend probe: names the frontend" "$out" "frontend /"
@@ -683,7 +683,7 @@ dir=$(new_installed sig-ok)
 STUB_CURL_DIR=$release_files STUB_COSIGN_STATUS=0 STUB_BACKEND_LOG=/dev/null install "$dir" "${FRESH[@]}" --version 9.8.7
 [[ $status -eq 0 ]] && pass "signature ok: exit 0" || { fail "signature ok: exit $status"; printf '%s\n' "$out" >&2; }
 expect_contains "signature ok: verify-blob" "$calls" "verify-blob"
-expect_contains "signature ok: certificate identity" "$calls" "--certificate-identity https://github.com/stdevMac/payverge/.github/workflows/release.yml@refs/heads/main"
+expect_contains "signature ok: certificate identity" "$calls" "--certificate-identity https://github.com/nekzad/namakdan/.github/workflows/release.yml@refs/heads/main"
 expect_contains "signature ok: bundle" "$calls" "--bundle SHA256SUMS.sigstore.json"
 expect_contains "signature ok: stack started" "$calls" "up -d"
 expect_contains "signature ok: noted" "$out" "signature verified (cosign)"

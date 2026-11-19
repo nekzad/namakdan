@@ -33,7 +33,7 @@ func TestSandboxIntegrationTestsRequireProviderBuildTag(t *testing.T) {
 			if err != nil {
 				t.Fatalf("read %s: %v", path, err)
 			}
-			if strings.Contains(string(body), "payverge.io") {
+			if strings.Contains(string(body), "example.test") {
 				t.Errorf("%s: sandbox redirect URLs must point at localhost, not a production domain", path)
 			}
 		}

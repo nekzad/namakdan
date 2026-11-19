@@ -12,11 +12,11 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
-func TestCreateBillPaymentUsesPayvergeTrackerMetadata(t *testing.T) {
+func TestCreateBillPaymentUsesNamakdanTrackerMetadata(t *testing.T) {
 	var preferenceBody map[string]interface{}
 	var idempotencyKey string
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -34,8 +34,8 @@ func TestCreateBillPaymentUsesPayvergeTrackerMetadata(t *testing.T) {
 	plugin := NewMercadoPagoPlugin(services.NewPluginService(database.GetDBWrapper()))
 
 	response, err := plugin.CreateBillPayment(42, 99, 1234, "USD", map[string]interface{}{
-		"return_url":     "https://payverge.test/return",
-		"cancel_url":     "https://payverge.test/cancel",
+		"return_url":     "https://example.test/return",
+		"cancel_url":     "https://example.test/cancel",
 		"split_share_id": float64(7),
 	})
 
@@ -47,12 +47,12 @@ func TestCreateBillPaymentUsesPayvergeTrackerMetadata(t *testing.T) {
 	require.NotEmpty(t, idempotencyKey)
 
 	metadata, ok := preferenceBody["metadata"].(map[string]interface{})
-	require.True(t, ok, "MercadoPago preference must carry Payverge metadata")
-	require.Equal(t, response.PaymentID, metadata["payverge_tracker_id"])
+	require.True(t, ok, "MercadoPago preference must carry Namakdan metadata")
+	require.Equal(t, response.PaymentID, metadata["namakdan_tracker_id"])
 	require.Equal(t, float64(7), metadata["split_share_id"])
 }
 
-func TestHandleWebhookCarriesPayvergeTrackerMetadata(t *testing.T) {
+func TestHandleWebhookCarriesNamakdanTrackerMetadata(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		require.Equal(t, "/v1/payments/987654", r.URL.Path)
 		require.Equal(t, http.MethodGet, r.Method)
@@ -63,7 +63,7 @@ func TestHandleWebhookCarriesPayvergeTrackerMetadata(t *testing.T) {
 			"transaction_amount":12.34,
 			"external_reference":"bill_99_business_42",
 			"metadata":{
-				"payverge_tracker_id":"mp_tracker_abc",
+				"namakdan_tracker_id":"mp_tracker_abc",
 				"split_share_id":7
 			}
 		}`))
@@ -78,7 +78,7 @@ func TestHandleWebhookCarriesPayvergeTrackerMetadata(t *testing.T) {
 	require.NoError(t, err)
 	require.True(t, response.Success)
 	require.Equal(t, "987654", response.PaymentID)
-	require.Equal(t, "mp_tracker_abc", response.Metadata["payverge_tracker_id"])
+	require.Equal(t, "mp_tracker_abc", response.Metadata["namakdan_tracker_id"])
 	require.Equal(t, float64(7), response.Metadata["split_share_id"])
 }
 
@@ -217,8 +217,8 @@ func TestCreateBillPaymentHonorsInstallmentsAndAutoReturn(t *testing.T) {
 	plugin := NewMercadoPagoPlugin(services.NewPluginService(database.GetDBWrapper()))
 
 	_, err := plugin.CreateBillPayment(42, 99, 1234, "USD", map[string]interface{}{
-		"return_url": "https://payverge.test/return",
-		"cancel_url": "https://payverge.test/cancel",
+		"return_url": "https://example.test/return",
+		"cancel_url": "https://example.test/cancel",
 	})
 	require.NoError(t, err)
 	require.Equal(t, "all", preferenceBody["auto_return"])
@@ -245,8 +245,8 @@ func TestCreateBillPayment_COPMetadataMatchesPreference(t *testing.T) {
 
 	// Whole COP 1500.00 stored as 150000 cents — representable and unchanged.
 	resp, err := plugin.CreateBillPayment(42, 7, 150000, "COP", map[string]interface{}{
-		"return_url": "https://payverge.test/return",
-		"cancel_url": "https://payverge.test/cancel",
+		"return_url": "https://example.test/return",
+		"cancel_url": "https://example.test/cancel",
 	})
 	require.NoError(t, err)
 	require.Equal(t, int64(150000), resp.Metadata["amount_cents"])
@@ -298,7 +298,7 @@ func TestCapturePaymentReturnApproved(t *testing.T) {
 			"currency_id":"USD",
 			"transaction_amount":12.34,
 			"external_reference":"bill_99_business_42",
-			"metadata":{"payverge_tracker_id":"mp_tracker_abc"}
+			"metadata":{"namakdan_tracker_id":"mp_tracker_abc"}
 		}`))
 	}))
 	defer server.Close()

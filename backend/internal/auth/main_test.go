@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/config"
 )
 
 // TestMain pins EMAIL_VERIFICATION=required for the package. With no email

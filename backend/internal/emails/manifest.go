@@ -21,7 +21,7 @@ func managedTemplateNames() []string {
 		"operational_update",
 		"payment_receipt",
 		"password_reset",
-		"payverge_update",
+		"namakdan_update",
 		// Operator-facing (intentionally NOT in guestTemplateNames below):
 		// "you have an unactioned reservation request" nudge.
 		"reservation_approval_reminder",
@@ -51,7 +51,7 @@ func managedTemplateNames() []string {
 }
 
 // guestTemplateNames are templates sent to restaurant guests who have NO
-// Payverge account. They get the guest footer (no account-settings link, no
+// Namakdan account. They get the guest footer (no account-settings link, no
 // unsubscribe). Keyed on template name only — language-agnostic. Anything not
 // listed defaults to the operator footer (fail-safe).
 var guestTemplateNames = map[string]struct{}{
@@ -83,7 +83,7 @@ func isGuestTemplate(name string) bool {
 var marketingTemplateNames = map[string]struct{}{
 	"milestone_first_order":       {},
 	"milestone_revenue_threshold": {},
-	"payverge_update":             {},
+	"namakdan_update":             {},
 }
 
 func isMarketingToned(templateName string, msgType MessageType) bool {

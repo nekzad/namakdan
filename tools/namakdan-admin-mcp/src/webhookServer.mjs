@@ -10,7 +10,7 @@ export async function startWebhookServer({
   diagnoseIssue,
   log = console,
 } = {}) {
-  if (!secret) throw new Error("PAYVERGE_MCP_WEBHOOK_SECRET is required for webhook receiver");
+  if (!secret) throw new Error("NAMAKDAN_MCP_WEBHOOK_SECRET is required for webhook receiver");
   if (typeof diagnoseIssue !== "function") throw new Error("diagnoseIssue callback is required");
 
   const server = http.createServer(async (req, res) => {
@@ -33,7 +33,7 @@ export async function startWebhookServer({
     } catch (err) {
       const status = err?.statusCode ?? 500;
       if (status >= 500) {
-        log.error?.(`payverge-admin-webhooks error: ${err?.stack ?? err}`);
+        log.error?.(`namakdan-admin-webhooks error: ${err?.stack ?? err}`);
       }
       return json(res, status, { error: err?.message ?? "internal error" });
     }
@@ -65,7 +65,7 @@ function normalizeWebhookPayload(payload = {}) {
 }
 
 function authorized(req, secret) {
-  const headerSecret = req.headers["x-payverge-mcp-secret"];
+  const headerSecret = req.headers["x-namakdan-mcp-secret"];
   if (typeof headerSecret === "string" && secretsEqual(headerSecret, secret)) return true;
 
   const auth = req.headers.authorization;

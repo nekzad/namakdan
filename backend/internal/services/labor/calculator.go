@@ -9,8 +9,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/analytics"
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/analytics"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 // ErrUnsupportedPeriod marks an invalid period (client error → 400).

@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/config"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/config"
+	"github.com/nekzad/namakdan/backend/internal/services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -69,8 +69,8 @@ func TestInstanceInfoDefaults(t *testing.T) {
 	}
 
 	want := map[string]any{
-		"product_name":       "Payverge",
-		"company_name":       "Payverge",
+		"product_name":       "Namakdan",
+		"company_name":       "Namakdan",
 		"legal_entity":       "",
 		"logo_url":           "",
 		"brand_color":        "#1a6b6a",
@@ -223,7 +223,7 @@ func TestInstanceInfoNeverExposesSecrets(t *testing.T) {
 		"JWT_SECRET_KEY":       "SECRETjwt",
 		"PLUGIN_SECRET_KEY":    "SECRETplugin-key-000000000000000",
 		"STRIPE_SECRET_KEY":    "sk_live_SECRETstripe",
-		"DATABASE_URL":         "postgres://u:SECRETpw@db:5432/payverge",
+		"DATABASE_URL":         "postgres://u:SECRETpw@db:5432/namakdan",
 		"DB_PASSWORD":          "SECRETdbpw",
 		"METRICS_TOKEN":        "SECRETmetrics",
 	}

@@ -13,11 +13,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/paymentcontract"
-	"github.com/stdevmac/payverge/backend/internal/plugins"
-	"github.com/stdevmac/payverge/backend/internal/plugins/paypal"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/paymentcontract"
+	"github.com/nekzad/namakdan/backend/internal/plugins"
+	"github.com/nekzad/namakdan/backend/internal/plugins/paypal"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 func payPalContractAdapter() paymentcontract.Adapter {
@@ -66,7 +66,7 @@ func newPayPalContractWebhookDriver(t *testing.T) providerContractWebhookDriver 
 	t.Cleanup(verificationServer.Close)
 	businessID := prepareProviderContractDatabase(t, "paypal", map[string]interface{}{
 		"client_id": "client-id-contract-12345678901234567890", "client_secret": "client-secret-contract-12345678901234567890",
-		"environment": "sandbox", "webhook_id": "WHCONTRACT", "base_url": "https://api.payverge.test", "api_base_url": verificationServer.URL,
+		"environment": "sandbox", "webhook_id": "WHCONTRACT", "base_url": "https://api.example.test", "api_base_url": verificationServer.URL,
 	})
 	plugins.GlobalRegistry.RegisterPlugin(paypal.NewPayPalPlugin(services.NewPluginService(database.GetDBWrapper())))
 	t.Cleanup(func() { plugins.GlobalRegistry.UnregisterPlugin("paypal") })

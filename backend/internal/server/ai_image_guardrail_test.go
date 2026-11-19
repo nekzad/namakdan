@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/guardrails"
+	"github.com/nekzad/namakdan/backend/internal/guardrails"
 
 	"github.com/stretchr/testify/assert"
 )

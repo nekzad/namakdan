@@ -10,7 +10,7 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 )
 
 func setupTelegramConnectionTestDB(t *testing.T) *database.Business {
@@ -44,7 +44,7 @@ func TestGenerateTelegramConnectionToken_PersistsHashOnly(t *testing.T) {
 	business := setupTelegramConnectionTestDB(t)
 	now := time.Date(2026, 5, 11, 12, 0, 0, 0, time.UTC)
 	service := TelegramConnectionService{
-		BotUsername: "CustomPayvergeBot",
+		BotUsername: "CustomNamakdanBot",
 		TokenTTL:    15 * time.Minute,
 		Now:         func() time.Time { return now },
 	}
@@ -55,7 +55,7 @@ func TestGenerateTelegramConnectionToken_PersistsHashOnly(t *testing.T) {
 	require.NotNil(t, result)
 	assert.True(t, strings.HasPrefix(result.Token, "pv_tg_"))
 	assert.Equal(t, now.Add(15*time.Minute), result.ExpiresAt)
-	assert.Equal(t, "https://t.me/CustomPayvergeBot?start="+result.Token, result.URL)
+	assert.Equal(t, "https://t.me/CustomNamakdanBot?start="+result.Token, result.URL)
 
 	var stored database.TelegramConnectionToken
 	require.NoError(t, database.GetDB().First(&stored).Error)
@@ -70,7 +70,7 @@ func TestGenerateTelegramConnectionToken_RevokesPreviousPendingToken(t *testing.
 	business := setupTelegramConnectionTestDB(t)
 	now := time.Date(2026, 5, 11, 12, 0, 0, 0, time.UTC)
 	service := TelegramConnectionService{
-		BotUsername: "CustomPayvergeBot",
+		BotUsername: "CustomNamakdanBot",
 		TokenTTL:    15 * time.Minute,
 		Now:         func() time.Time { return now },
 	}
@@ -95,7 +95,7 @@ func TestGenerateTelegramConnectionToken_RateLimitsRepeatedGeneration(t *testing
 	business := setupTelegramConnectionTestDB(t)
 	now := time.Date(2026, 5, 11, 12, 0, 0, 0, time.UTC)
 	service := TelegramConnectionService{
-		BotUsername: "CustomPayvergeBot",
+		BotUsername: "CustomNamakdanBot",
 		TokenTTL:    15 * time.Minute,
 		Now:         func() time.Time { return now },
 	}
@@ -122,11 +122,11 @@ func TestHashTelegramConnectionToken_IsStableAndDoesNotExposeRawToken(t *testing
 }
 
 func TestBuildTelegramConnectionURLUsesConfiguredBotUsername(t *testing.T) {
-	t.Setenv("TELEGRAM_BOT_USERNAME", "@CustomPayvergeBot")
+	t.Setenv("TELEGRAM_BOT_USERNAME", "@CustomNamakdanBot")
 
 	url := DefaultTelegramConnectionService().BuildTelegramConnectionURL("abc123")
 
-	assert.Equal(t, "https://t.me/CustomPayvergeBot?start=abc123", url)
+	assert.Equal(t, "https://t.me/CustomNamakdanBot?start=abc123", url)
 }
 
 // No TELEGRAM_BOT_USERNAME means no link at all — never a hard-coded default

@@ -1,6 +1,6 @@
 package fiscal
 
-import "github.com/stdevmac/payverge/backend/internal/fiscal/display"
+import "github.com/nekzad/namakdan/backend/internal/fiscal/display"
 
 // DefaultArgentinaVATRate is the standard IVA rate used in Argentina (21%).
 const DefaultArgentinaVATRate = display.DefaultArgentinaVATRate

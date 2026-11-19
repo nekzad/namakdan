@@ -221,7 +221,7 @@ func (m *MercadoPagoPlugin) setTerminalMode(businessID uint, terminalID, mode st
 	return nil
 }
 
-// mercadoPagoOrderStatus maps Mercado Pago order status strings to Payverge
+// mercadoPagoOrderStatus maps Mercado Pago order status strings to Namakdan
 // payment statuses used by the plugin settlement path.
 //
 //	processed        → completed
@@ -362,7 +362,7 @@ func (m *MercadoPagoPlugin) SetTerminalMode(businessID uint, terminalID, mode st
 	return m.setTerminalMode(businessID, terminalID, mode)
 }
 
-// OrderStatus maps Mercado Pago order status strings to Payverge payment statuses.
+// OrderStatus maps Mercado Pago order status strings to Namakdan payment statuses.
 func OrderStatus(s string) string {
 	return mercadoPagoOrderStatus(s)
 }

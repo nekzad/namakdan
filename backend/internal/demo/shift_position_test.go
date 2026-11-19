@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/database"
 
 	"github.com/stretchr/testify/require"
 )
@@ -47,8 +47,8 @@ func TestDemoShiftsCarryEachStaffMembersOwnPosition(t *testing.T) {
 	require.NotZero(t, assigned, "expected at least one assigned demo shift")
 }
 
-// The Director Console greets with the owner's first name; "Payverge Demo"
-// produced "Good evening, Payverge." on the front door. The demo owner must
+// The Director Console greets with the owner's first name; "Namakdan Demo"
+// produced "Good evening, Namakdan." on the front door. The demo owner must
 // read as a person, not the brand.
 func TestDemoOwnerNameIsAHumanName(t *testing.T) {
 	db := newDemoServiceTestDB(t)
@@ -64,7 +64,7 @@ func TestDemoOwnerNameIsAHumanName(t *testing.T) {
 	for _, business := range businesses {
 		first := strings.Fields(business.OwnerName)
 		require.NotEmpty(t, first, "demo business %d has no owner name", business.BusinessId)
-		require.NotEqual(t, "payverge", strings.ToLower(first[0]),
+		require.NotEqual(t, "namakdan", strings.ToLower(first[0]),
 			"demo owner name %q greets as the brand, not a person", business.OwnerName)
 	}
 }

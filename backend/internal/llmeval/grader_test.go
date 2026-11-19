@@ -3,7 +3,7 @@ package llmeval
 import (
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 func resp(text string) *llm.Response { return &llm.Response{Text: text} }

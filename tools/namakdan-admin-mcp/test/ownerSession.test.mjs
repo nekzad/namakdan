@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { PayvergeAdminClient } from "../src/backendClient.mjs";
+import { NamakdanAdminClient } from "../src/backendClient.mjs";
 import { createOwnerSession, decodeJwtExpiry, redactEmail } from "../src/ownerSession.mjs";
 import { API_BASE, fakeJwt, loginRoute, mockBackend, reply, sequence } from "./mockBackend.mjs";
 
@@ -103,7 +103,7 @@ test("an unreachable backend is reported with a base-URL hint", async () => {
   });
   await assert.rejects(owner.getToken(), (err) => {
     assert.equal(err.code, "owner_login_unreachable");
-    assert.match(err.hint, /PAYVERGE_API_BASE_URL/);
+    assert.match(err.hint, /NAMAKDAN_API_BASE_URL/);
     return true;
   });
 });
@@ -118,7 +118,7 @@ test("the API client re-logs in once on 401 and retries the request", async () =
     },
   });
   const owner = session(backend);
-  const client = new PayvergeAdminClient({ baseUrl: API_BASE, tokenProvider: owner, fetchImpl: backend.fetch });
+  const client = new NamakdanAdminClient({ baseUrl: API_BASE, tokenProvider: owner, fetchImpl: backend.fetch });
 
   assert.deepEqual(await client.get("/inside/businesses"), [{ id: 1 }]);
   assert.deepEqual(backend.calls(), ["POST /auth/login", "GET /inside/businesses", "POST /auth/login", "GET /inside/businesses"]);
@@ -130,7 +130,7 @@ test("a 401 that survives a fresh login is returned, not looped", async () => {
     "POST /auth/login": loginRoute(),
     "GET /inside/businesses": reply(401, { error: "nope" }),
   });
-  const client = new PayvergeAdminClient({ baseUrl: API_BASE, tokenProvider: session(backend), fetchImpl: backend.fetch });
+  const client = new NamakdanAdminClient({ baseUrl: API_BASE, tokenProvider: session(backend), fetchImpl: backend.fetch });
   await assert.rejects(client.get("/inside/businesses"), { status: 401 });
   assert.equal(backend.calls().filter((call) => call === "GET /inside/businesses").length, 2);
 });
@@ -168,5 +168,5 @@ test("helpers", () => {
   assert.equal(decodeJwtExpiry("not-a-jwt"), undefined);
   assert.equal(redactEmail("maria@resto.example"), "m***@resto.example");
   assert.equal(redactEmail("nope"), "***");
-  assert.throws(() => createOwnerSession({ baseUrl: API_BASE, email: EMAIL }), /PAYVERGE_OWNER_PASSWORD/);
+  assert.throws(() => createOwnerSession({ baseUrl: API_BASE, email: EMAIL }), /NAMAKDAN_OWNER_PASSWORD/);
 });

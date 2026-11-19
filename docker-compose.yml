@@ -1,4 +1,4 @@
-# Payverge development stack: builds the backend and frontend from this
+# Namakdan development stack: builds the backend and frontend from this
 # checkout and runs them in development mode.
 #
 #   cp .env.example .env
@@ -12,23 +12,23 @@
 # email is written to the backend log, uploads stay in the backend_storage
 # volume, and AI stays off until an LLM key is set.
 #
-# This file is for working on Payverge. To run Payverge for a restaurant use
+# This file is for working on Namakdan. To run Namakdan for a restaurant use
 # deploy/ instead (published images, Caddy with automatic HTTPS, backups):
 # see deploy/README.md.
 #
 # Production-mode rehearsal (the CI end-to-end stack): set ENV=production or
 # APP_ENV=production plus every value the production preflight requires, as
 # .github/e2e/ci.env.fixture does.
-name: payverge-dev
+name: namakdan-dev
 
 services:
   postgres:
     image: postgres:18.6-alpine@sha256:77f585114c32fbca283dc835b0596f4e52b51b4c6662d7810b2f4084f60a1873
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${DB_NAME:-payverge}
-      POSTGRES_USER: ${DB_USER:-payverge}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-payverge_password}
+      POSTGRES_DB: ${DB_NAME:-namakdan}
+      POSTGRES_USER: ${DB_USER:-namakdan}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-namakdan_password}
     volumes:
       # PostgreSQL 18 layout (PGDATA /var/lib/postgresql/18/docker). A
       # postgres_data volume from before PostgreSQL 18 holds 15 data at its
@@ -75,9 +75,9 @@ services:
       - --db-port
       - ${DB_PORT:-5432}
       - --db-user
-      - ${DB_USER:-payverge}
+      - ${DB_USER:-namakdan}
       - --db-name
-      - ${DB_NAME:-payverge}
+      - ${DB_NAME:-namakdan}
       - --db-sslmode
       - ${DB_SSLMODE:-disable}
       - --aws-region
@@ -99,8 +99,8 @@ services:
       - PUBLIC_URL=${PUBLIC_URL:-http://localhost:3000}
       - APP_BASE_URL=${APP_BASE_URL:-http://localhost:8080}
       - APP_DOMAIN=${APP_DOMAIN:-localhost}
-      - DB_PASSWORD=${DB_PASSWORD:-payverge_password}
-      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-payverge_local_dev_jwt_secret_2026}
+      - DB_PASSWORD=${DB_PASSWORD:-namakdan_password}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-namakdan_local_dev_jwt_secret_2026}
       # Plugin-config secret encryption at rest. Empty outside production = a
       # per-instance key generated under /app/data on first boot.
       - PLUGIN_SECRET_KEY=${PLUGIN_SECRET_KEY:-}
@@ -108,8 +108,8 @@ services:
       # read the database location from these.
       - DB_HOST=${DB_HOST:-postgres}
       - DB_PORT=${DB_PORT:-5432}
-      - DB_USER=${DB_USER:-payverge}
-      - DB_NAME=${DB_NAME:-payverge}
+      - DB_USER=${DB_USER:-namakdan}
+      - DB_NAME=${DB_NAME:-namakdan}
       - DB_SSLMODE=${DB_SSLMODE:-disable}
 
       # --- First admin, signups, demo data -----------------------------------
@@ -311,9 +311,9 @@ services:
 
       # --- Admin MCP server (agentic configuration; docs/ai/) ---------------
       # Prefer the SHA-256 form. Empty = the admin MCP endpoints are disabled.
-      - PAYVERGE_ADMIN_MCP_TOKEN_SHA256=${PAYVERGE_ADMIN_MCP_TOKEN_SHA256:-}
-      - PAYVERGE_ADMIN_MCP_TOKEN=${PAYVERGE_ADMIN_MCP_TOKEN:-}
-      - PAYVERGE_ADMIN_MCP_ALLOWED_IPS=${PAYVERGE_ADMIN_MCP_ALLOWED_IPS:-}
+      - NAMAKDAN_ADMIN_MCP_TOKEN_SHA256=${NAMAKDAN_ADMIN_MCP_TOKEN_SHA256:-}
+      - NAMAKDAN_ADMIN_MCP_TOKEN=${NAMAKDAN_ADMIN_MCP_TOKEN:-}
+      - NAMAKDAN_ADMIN_MCP_ALLOWED_IPS=${NAMAKDAN_ADMIN_MCP_ALLOWED_IPS:-}
 
       # --- Rate limits (empty = built-in defaults) ---------------------------
       - GLOBAL_RATE_LIMIT_REQUESTS_PER_MINUTE=${GLOBAL_RATE_LIMIT_REQUESTS_PER_MINUTE:-}
@@ -438,7 +438,7 @@ services:
       - ./backend:/app
       - showcase_seed_gocache:/go
     environment:
-      - DATABASE_URL=postgres://${DB_USER:-payverge}:${DB_PASSWORD:-payverge_password}@postgres:5432/${DB_NAME:-payverge}?sslmode=disable
+      - DATABASE_URL=postgres://${DB_USER:-namakdan}:${DB_PASSWORD:-namakdan_password}@postgres:5432/${DB_NAME:-namakdan}?sslmode=disable
       - GOCACHE=/go/build-cache
     entrypoint: ["go", "run", "./perf/seed/showcase"]
     command: []

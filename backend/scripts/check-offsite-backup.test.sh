@@ -28,7 +28,7 @@ make_sandbox() {
 echo "\$*" >>"${AWS_LOG}"
 if echo "\$*" | grep -q 's3api list-objects-v2'; then
   if [ "\${MOCK_EMPTY:-0}" = 1 ]; then exit 0; fi
-  printf 'db/payverge_latest.sql.gz\t%s\t4096\t"mock-etag"\n' "\${MOCK_LAST_MODIFIED}"
+  printf 'db/namakdan_latest.sql.gz\t%s\t4096\t"mock-etag"\n' "\${MOCK_LAST_MODIFIED}"
   exit 0
 fi
 if echo "\$*" | grep -q 's3api head-object'; then
@@ -64,7 +64,7 @@ run_check MOCK_LAST_MODIFIED=2026-08-01T00:00:00Z
 RC=$?
 assert "exits nonzero" "$([ "$RC" -ne 0 ] && echo 0 || echo 1)"
 assert "reports stale age and threshold" "$(grep -Eqi 'stale|age|14400' "${SANDBOX}/stderr" && echo 0 || echo 1)"
-assert "freshness metric is zero" "$(grep -q '^payverge_offsite_backup_fresh 0$' "${METRICS_FILE}" && echo 0 || echo 1)"
+assert "freshness metric is zero" "$(grep -q '^namakdan_offsite_backup_fresh 0$' "${METRICS_FILE}" && echo 0 || echo 1)"
 rm -rf "${SANDBOX}"
 
 echo "=== Test 3: fresh object passes and exports object identity ==="
@@ -73,10 +73,10 @@ make_sandbox
 run_check MOCK_LAST_MODIFIED=2026-08-01T10:00:00Z
 RC=$?
 assert "exits zero" "$([ "$RC" -eq 0 ] && echo 0 || echo 1)"
-assert "head-object verifies newest key" "$(grep -q 'head-object.*--key db/payverge_latest.sql.gz' "${AWS_LOG}" && echo 0 || echo 1)"
-assert "evidence exports object key" "$(grep -q 'db/payverge_latest.sql.gz' "${EVIDENCE_FILE}" && echo 0 || echo 1)"
+assert "head-object verifies newest key" "$(grep -q 'head-object.*--key db/namakdan_latest.sql.gz' "${AWS_LOG}" && echo 0 || echo 1)"
+assert "evidence exports object key" "$(grep -q 'db/namakdan_latest.sql.gz' "${EVIDENCE_FILE}" && echo 0 || echo 1)"
 assert "evidence exports ETag" "$(grep -q 'mock-etag' "${EVIDENCE_FILE}" && echo 0 || echo 1)"
-assert "freshness metric is one" "$(grep -q '^payverge_offsite_backup_fresh 1$' "${METRICS_FILE}" && echo 0 || echo 1)"
+assert "freshness metric is one" "$(grep -q '^namakdan_offsite_backup_fresh 1$' "${METRICS_FILE}" && echo 0 || echo 1)"
 rm -rf "${SANDBOX}"
 
 echo "=== Test 4: head-object failure fails closed ==="
@@ -84,7 +84,7 @@ make_sandbox
 run_check MOCK_LAST_MODIFIED=2026-08-01T10:00:00Z MOCK_HEAD_FAIL=1
 RC=$?
 assert "exits nonzero" "$([ "$RC" -ne 0 ] && echo 0 || echo 1)"
-assert "freshness metric is zero" "$(grep -q '^payverge_offsite_backup_fresh 0$' "${METRICS_FILE}" && echo 0 || echo 1)"
+assert "freshness metric is zero" "$(grep -q '^namakdan_offsite_backup_fresh 0$' "${METRICS_FILE}" && echo 0 || echo 1)"
 rm -rf "${SANDBOX}"
 
 echo

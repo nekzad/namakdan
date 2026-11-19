@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/stdevmac/payverge/backend/internal/adminruntime"
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/health"
+	"github.com/nekzad/namakdan/backend/internal/adminruntime"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/health"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"

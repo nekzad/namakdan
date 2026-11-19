@@ -15,9 +15,9 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/logger"
-	"github.com/stdevmac/payverge/backend/internal/s3"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/logger"
+	"github.com/nekzad/namakdan/backend/internal/s3"
 )
 
 const (
@@ -27,7 +27,7 @@ const (
 	DefaultSeedVersion = "admin-demo-v11"
 	defaultTimezone    = "America/Argentina/Buenos_Aires"
 	defaultBaseline    = 30
-	defaultEmailDomain = "payverge.local"
+	defaultEmailDomain = "example.test"
 
 	VerificationPassed = "passed"
 	VerificationFailed = "failed"

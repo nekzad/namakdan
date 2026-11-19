@@ -1,5 +1,5 @@
 // A screen is "still loading" while either of these holds:
-//   BOOT_GATE_SELECTOR — Payverge's boot/tab gates and every dashboard
+//   BOOT_GATE_SELECTOR — Namakdan's boot/tab gates and every dashboard
 //     skeleton set `aria-busy="true"` (DashboardLayout's auth gate,
 //     DashboardTabLoadingSkeleton, per-tab *Skeleton components).
 //   SKELETON_PULSE_SELECTOR + area threshold — inner-card placeholders that

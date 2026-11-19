@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stdevmac/payverge/backend/internal/llm"
+	"github.com/nekzad/namakdan/backend/internal/llm"
 )
 
 // countingProvider records how many times Generate is called and returns queued
@@ -106,8 +106,8 @@ func TestToolFreeMalformedFallsBackToSchemaCall(t *testing.T) {
 // it must take the schema-repair path so action metadata never reaches chat.
 func TestToolFreeYAMLLikeMetadataFallsBackToSchemaCall(t *testing.T) {
 	p := &countingProvider{steps: []*llm.Response{
-		{Text: "Payverge ofrece dos planes principales.\n\nactions:\n\nkind: navigate\nlabel: Ver precios path: /pricing follow_ups:\n\n¿Qué incluye el plan Operaciones?"},
-		{Text: `{"answer":"Payverge ofrece dos planes principales.","steps":[],"actions":[{"label":"Ver precios","href":"/pricing","kind":"navigate"}],"follow_ups":["¿Qué incluye el plan Operaciones?"]}`},
+		{Text: "Namakdan ofrece dos planes principales.\n\nactions:\n\nkind: navigate\nlabel: Ver precios path: /pricing follow_ups:\n\n¿Qué incluye el plan Operaciones?"},
+		{Text: `{"answer":"Namakdan ofrece dos planes principales.","steps":[],"actions":[{"label":"Ver precios","href":"/pricing","kind":"navigate"}],"follow_ups":["¿Qué incluye el plan Operaciones?"]}`},
 	}}
 	res := runToolFreeLoop(t, p)
 	if p.calls != 2 {

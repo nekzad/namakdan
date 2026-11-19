@@ -11,9 +11,9 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	operationalalerts "github.com/stdevmac/payverge/backend/internal/services/operational_alerts"
-	printsvc "github.com/stdevmac/payverge/backend/internal/services/print"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	operationalalerts "github.com/nekzad/namakdan/backend/internal/services/operational_alerts"
+	printsvc "github.com/nekzad/namakdan/backend/internal/services/print"
 )
 
 type State string

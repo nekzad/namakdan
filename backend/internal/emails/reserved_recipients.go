@@ -4,7 +4,7 @@ import "strings"
 
 // reservedRecipientTLDs are special-use suffixes no public mail exchanger
 // serves (RFC 6761/6762 and common private-network names). Demo showrooms and
-// local fixtures use them (demo+...@payverge.local), so a send to one is
+// local fixtures use them (demo+...@example.test), so a send to one is
 // never a real delivery: handing it to Resend/Postmark/SMTP only burns quota
 // and bounce reputation. ".test" is deliberately absent: test fixtures send
 // through stub providers with it and must keep observing those sends.

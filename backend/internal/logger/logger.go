@@ -4,7 +4,7 @@ import (
 	"os"
 	"time"
 
-	appconfig "github.com/stdevmac/payverge/backend/internal/config"
+	appconfig "github.com/nekzad/namakdan/backend/internal/config"
 
 	"github.com/sirupsen/logrus"
 )

@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	appconfig "github.com/stdevmac/payverge/backend/internal/config"
+	appconfig "github.com/nekzad/namakdan/backend/internal/config"
 )
 
 func TestTemplateManagerDebugUsesProductionOverride(t *testing.T) {

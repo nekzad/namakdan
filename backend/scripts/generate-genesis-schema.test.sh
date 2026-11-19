@@ -65,7 +65,7 @@ wait_for_target_db() {
   local container_name="$1"
   local ready=0
   for _ in $(seq 1 60); do
-    if docker exec "${container_name}" psql -U payverge -d payverge -v ON_ERROR_STOP=1 -c 'SELECT 1' >/dev/null 2>&1; then
+    if docker exec "${container_name}" psql -U namakdan -d namakdan -v ON_ERROR_STOP=1 -c 'SELECT 1' >/dev/null 2>&1; then
       ready=1
       break
     fi
@@ -107,15 +107,15 @@ rm -f "${OUT_DIR}/.determinism_run1.sql" "${OUT_DIR}/.determinism_run2.sql"
 
 # Extra: same container, two dumps through the same normalization pipeline.
 PORT="$(pick_free_port)"
-DET_NAME="${GENESIS_CONTAINER_PREFIX:-payverge-genesis}-det-$$-${PORT}"
-DSN="postgres://payverge:genesis@127.0.0.1:${PORT}/payverge?sslmode=disable"
+DET_NAME="${GENESIS_CONTAINER_PREFIX:-namakdan-genesis}-det-$$-${PORT}"
+DSN="postgres://namakdan:genesis@127.0.0.1:${PORT}/namakdan?sslmode=disable"
 cleanup_det() { docker rm -f "${DET_NAME}" >/dev/null 2>&1 || true; }
 trap cleanup_det EXIT
 
 docker run -d --name "${DET_NAME}" \
-  -e POSTGRES_USER=payverge \
+  -e POSTGRES_USER=namakdan \
   -e POSTGRES_PASSWORD=genesis \
-  -e POSTGRES_DB=payverge \
+  -e POSTGRES_DB=namakdan \
   -p "127.0.0.1:${PORT}:5432" \
   postgres:18-alpine >/dev/null
 
@@ -128,8 +128,8 @@ wait_for_target_db "${DET_NAME}"
 
 D1="$(mktemp)"
 D2="$(mktemp)"
-docker exec "${DET_NAME}" pg_dump --schema-only --no-owner --no-privileges -U payverge payverge | normalize_dump > "${D1}"
-docker exec "${DET_NAME}" pg_dump --schema-only --no-owner --no-privileges -U payverge payverge | normalize_dump > "${D2}"
+docker exec "${DET_NAME}" pg_dump --schema-only --no-owner --no-privileges -U namakdan namakdan | normalize_dump > "${D1}"
+docker exec "${DET_NAME}" pg_dump --schema-only --no-owner --no-privileges -U namakdan namakdan | normalize_dump > "${D2}"
 if cmp -s "${D1}" "${D2}"; then
   assert "same-container double dump+normalize is byte-identical" 0
 else
@@ -152,22 +152,22 @@ printf '%s\n' "${MARKER}" > "${SCHEMA_OUT}"
 printf '%s\n' '{"migration_head":0,"schema_sha256":"deadbeef","postgres_major":18,"generator":"test"}' > "${VERSION_OUT}"
 
 PORT_D="$(pick_free_port)"
-DIRTY_NAME="payverge-genesis-dirty-$$-${PORT_D}"
-DSN_D="postgres://payverge:genesis@127.0.0.1:${PORT_D}/payverge?sslmode=disable"
+DIRTY_NAME="namakdan-genesis-dirty-$$-${PORT_D}"
+DSN_D="postgres://namakdan:genesis@127.0.0.1:${PORT_D}/namakdan?sslmode=disable"
 cleanup_dirty() { docker rm -f "${DIRTY_NAME}" >/dev/null 2>&1 || true; }
 trap cleanup_dirty EXIT
 
 docker run -d --name "${DIRTY_NAME}" \
-  -e POSTGRES_USER=payverge \
+  -e POSTGRES_USER=namakdan \
   -e POSTGRES_PASSWORD=genesis \
-  -e POSTGRES_DB=payverge \
+  -e POSTGRES_DB=namakdan \
   -p "127.0.0.1:${PORT_D}:5432" \
   postgres:18-alpine >/dev/null
 
 wait_for_target_db "${DIRTY_NAME}"
 
 # Pre-seed a dirty schema_migrations row so RunMigrations / genesisgen fail.
-docker exec "${DIRTY_NAME}" psql -U payverge -d payverge -v ON_ERROR_STOP=1 -c \
+docker exec "${DIRTY_NAME}" psql -U namakdan -d namakdan -v ON_ERROR_STOP=1 -c \
   "CREATE TABLE schema_migrations (version bigint NOT NULL PRIMARY KEY, dirty boolean NOT NULL);
    INSERT INTO schema_migrations (version, dirty) VALUES (135, true);"
 

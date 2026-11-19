@@ -11,8 +11,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/services"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/services"
 )
 
 func setupPublicBusinessHandlerTestDB(t *testing.T) {
@@ -62,11 +62,11 @@ func TestGetBusinessByCustomURL_DemoStorefrontStill200(t *testing.T) {
 	setupPublicBusinessHandlerTestDB(t)
 	services.DisablePricingCacheForTest(t)
 
-	business := createPublicBusinessRouteTestBusiness(t, "payverge-core-demo-kitchen", true, true)
+	business := createPublicBusinessRouteTestBusiness(t, "namakdan-core-demo-kitchen", true, true)
 	require.NoError(t, database.GetDB().Model(business).Updates(map[string]interface{}{
 		"is_demo":     true,
 		"kind":        database.BusinessKindDemo,
-		"description": "A Payverge showcase restaurant with realistic operational demo data.",
+		"description": "A Namakdan showcase restaurant with realistic operational demo data.",
 	}).Error)
 
 	w := httptest.NewRecorder()
@@ -87,7 +87,7 @@ func TestListPublishedStorefronts_IncludesPublishedDemosOmitsTestKind(t *testing
 	setupPublicBusinessHandlerTestDB(t)
 
 	real := createPublicBusinessRouteTestBusiness(t, "real-bistro", true, true)
-	demo := createPublicBusinessRouteTestBusiness(t, "payverge-core-demo-kitchen", true, true)
+	demo := createPublicBusinessRouteTestBusiness(t, "namakdan-core-demo-kitchen", true, true)
 	require.NoError(t, database.GetDB().Model(demo).Updates(map[string]interface{}{
 		"is_demo": true,
 		"kind":    database.BusinessKindDemo,

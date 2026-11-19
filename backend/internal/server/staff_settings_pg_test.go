@@ -19,9 +19,9 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	"github.com/stdevmac/payverge/backend/internal/database"
-	"github.com/stdevmac/payverge/backend/internal/server"
-	"github.com/stdevmac/payverge/backend/internal/structs"
+	"github.com/nekzad/namakdan/backend/internal/database"
+	"github.com/nekzad/namakdan/backend/internal/server"
+	"github.com/nekzad/namakdan/backend/internal/structs"
 )
 
 // TestManagerUpdatesOperatingHours_PostgresIntegration verifies the full chain
@@ -68,7 +68,7 @@ func TestManagerUpdatesOperatingHours_PostgresIntegration(t *testing.T) {
 	mgr := &database.Staff{
 		BusinessID: biz.ID,
 		Name:       "Manager",
-		Email:      fmt.Sprintf("mgr-%d@payverge.test", bizID),
+		Email:      fmt.Sprintf("mgr-%d@example.test", bizID),
 		Role:       database.StaffRoleManager,
 		IsActive:   true,
 	}
@@ -175,7 +175,7 @@ func TestUpdateBusiness_StripsWalletForStaff_PostgresIntegration(t *testing.T) {
 	mgr := &database.Staff{
 		BusinessID: biz.ID,
 		Name:       "Mgr",
-		Email:      fmt.Sprintf("strip-mgr-%d@payverge.test", bizID),
+		Email:      fmt.Sprintf("strip-mgr-%d@example.test", bizID),
 		Role:       database.StaffRoleManager,
 		IsActive:   true,
 	}

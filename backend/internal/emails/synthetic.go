@@ -28,10 +28,10 @@ func BuildSyntheticMessage(from, to string) (EmailMessage, error) {
 	return EmailMessage{
 		From:        fromValue,
 		To:          []string{toAddress.Address},
-		Subject:     "Payverge email delivery health check",
-		TextBody:    "This monitored transactional email confirms Payverge delivery.",
-		HTMLBody:    "<p>This monitored transactional email confirms Payverge delivery.</p>",
-		Tag:         "payverge_email_healthcheck",
+		Subject:     "Namakdan email delivery health check",
+		TextBody:    "This monitored transactional email confirms Namakdan delivery.",
+		HTMLBody:    "<p>This monitored transactional email confirms Namakdan delivery.</p>",
+		Tag:         "namakdan_email_healthcheck",
 		MessageType: MessageTypeTransactional,
 	}, nil
 }

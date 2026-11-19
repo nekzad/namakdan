@@ -11,7 +11,7 @@ unset GOOGLE_TRANSLATE_API_KEY GEMINI_API_KEY OPENROUTER_API_KEY FIRECRAWL_API_K
 unset NANOBANANA_API_KEY PUBLIC_URL STORAGE_DRIVER EMAIL_PROVIDER REGISTRATION_MODE LLM_BASE_URL LLM_API_KEY
 # Encryption tests must not inherit a developer or production key. Use an
 # obvious, deterministic 32-byte test-only value after scrubbing the shell.
-export PLUGIN_SECRET_KEY=payverge-hermetic-test-key-00000
+export PLUGIN_SECRET_KEY=namakdan-hermetic-test-key-00000
 export GO_ENV=test
 
 cd "$repo_root/backend"
