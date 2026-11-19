@@ -104,14 +104,14 @@ describe("BusinessPageClient — server seeding (PERF-1)", () => {
   it("refetches a live venue after SSR unavailable instead of sticking on the outage (#685)", async () => {
     (getBusinessByCustomUrl as jest.Mock).mockResolvedValue({
       id: 86,
-      name: "Payverge AI Pro Demo Lounge",
-      custom_url: "payverge-ai-pro-demo-lounge",
+      name: "Namakdan AI Pro Demo Lounge",
+      custom_url: "namakdan-ai-pro-demo-lounge",
       page_enabled: true,
       is_active: true,
     });
     render(
       <BusinessPageClient
-        customUrl="payverge-ai-pro-demo-lounge"
+        customUrl="namakdan-ai-pro-demo-lounge"
         initialBusiness={null}
         initialReason="unavailable"
       />,
@@ -121,11 +121,11 @@ describe("BusinessPageClient — server seeding (PERF-1)", () => {
     ).not.toBeInTheDocument();
     await waitFor(() =>
       expect(screen.getByTestId("landing")).toHaveTextContent(
-        "Payverge AI Pro Demo Lounge",
+        "Namakdan AI Pro Demo Lounge",
       ),
     );
     expect(getBusinessByCustomUrl).toHaveBeenCalledWith(
-      "payverge-ai-pro-demo-lounge",
+      "namakdan-ai-pro-demo-lounge",
       expect.anything(),
     );
   });

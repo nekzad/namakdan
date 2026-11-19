@@ -29,7 +29,7 @@ describe("isReservedPublicSlug", () => {
     },
   );
 
-  it.each(["payverge-core-demo-kitchen", "my-restaurant", "aurora", "demoed", "cab"])(
+  it.each(["namakdan-core-demo-kitchen", "my-restaurant", "aurora", "demoed", "cab"])(
     "allows non-reserved slug %s",
     (slug) => {
       expect(isReservedPublicSlug(slug)).toBe(false);
@@ -43,14 +43,14 @@ describe("CustomURLInput live-page zone", () => {
       <CustomURLInput value="my-cafe" onChange={() => {}} businessId={1} savedUrl="my-cafe" />,
     );
     const link = screen.getByRole("link", { name: /open live page/i });
-    expect(link).toHaveAttribute("href", "https://payverge.io/b/my-cafe");
+    expect(link).toHaveAttribute("href", "https://example.test/b/my-cafe");
     expect(link).toHaveAttribute("target", "_blank");
   });
 
   it("builds the live link and URL prefix from the runtime PUBLIC_URL", () => {
-    const w = window as unknown as { __PAYVERGE_ENV__?: Record<string, string> };
-    const previous = w.__PAYVERGE_ENV__;
-    w.__PAYVERGE_ENV__ = { PUBLIC_URL: "https://pos.example.test" };
+    const w = window as unknown as { __NAMAKDAN_ENV__?: Record<string, string> };
+    const previous = w.__NAMAKDAN_ENV__;
+    w.__NAMAKDAN_ENV__ = { PUBLIC_URL: "https://pos.example.test" };
     try {
       render(
         <CustomURLInput value="my-cafe" onChange={() => {}} businessId={1} savedUrl="my-cafe" />,
@@ -60,9 +60,9 @@ describe("CustomURLInput live-page zone", () => {
         "https://pos.example.test/b/my-cafe",
       );
       expect(screen.getByText("pos.example.test/b/")).toBeInTheDocument();
-      expect(document.body.textContent).not.toContain("payverge.io");
+      expect(document.body.textContent).not.toContain("example.test");
     } finally {
-      w.__PAYVERGE_ENV__ = previous;
+      w.__NAMAKDAN_ENV__ = previous;
     }
   });
 

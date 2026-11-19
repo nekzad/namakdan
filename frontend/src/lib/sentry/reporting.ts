@@ -6,7 +6,7 @@ import {
 
 export type AuthSource = "staff" | "user" | "web3" | "customer";
 
-export interface PayvergeSentryIdentity {
+export interface NamakdanSentryIdentity {
   authSource: AuthSource;
   userId?: number | string;
   staffId?: number | string;
@@ -24,8 +24,8 @@ export interface CaptureClientErrorInput {
 }
 
 const PRIMARY_AUTH_SOURCES: AuthSource[] = ["staff", "user", "web3"];
-const identityBySource: Partial<Record<AuthSource, PayvergeSentryIdentity>> = {};
-let appliedIdentity: PayvergeSentryIdentity | null = null;
+const identityBySource: Partial<Record<AuthSource, NamakdanSentryIdentity>> = {};
+let appliedIdentity: NamakdanSentryIdentity | null = null;
 
 function isEnabled(): boolean {
   return getFrontendSentryRuntimeConfig().enabled;
@@ -55,14 +55,14 @@ export function captureClientError({
     }
 
     if (additionalInfo) {
-      scope.setContext("payverge", sanitizeObject(additionalInfo));
+      scope.setContext("namakdan", sanitizeObject(additionalInfo));
     }
 
     Sentry.captureException(toError(error));
   });
 }
 
-export function setSentryIdentity(identity: PayvergeSentryIdentity): void {
+export function setSentryIdentity(identity: NamakdanSentryIdentity): void {
   if (!isEnabled()) {
     return;
   }
@@ -120,7 +120,7 @@ function applyHighestPriorityIdentity(): void {
     Sentry.setTag("business_id", undefined);
   }
 
-  Sentry.setContext("payverge_identity", buildIdentityContext(nextIdentity));
+  Sentry.setContext("namakdan_identity", buildIdentityContext(nextIdentity));
 }
 
 function clearAppliedIdentity(): void {
@@ -128,10 +128,10 @@ function clearAppliedIdentity(): void {
   Sentry.setUser(null);
   Sentry.setTag("auth_source", undefined);
   Sentry.setTag("business_id", undefined);
-  Sentry.setContext("payverge_identity", null);
+  Sentry.setContext("namakdan_identity", null);
 }
 
-function isGenericCustomerDowngrade(identity: PayvergeSentryIdentity): boolean {
+function isGenericCustomerDowngrade(identity: NamakdanSentryIdentity): boolean {
   const storedCustomerIdentity = identityBySource.customer;
 
   return (
@@ -153,7 +153,7 @@ function clearStoredIdentities(): void {
   }
 }
 
-function getHighestPriorityIdentity(): PayvergeSentryIdentity | null {
+function getHighestPriorityIdentity(): NamakdanSentryIdentity | null {
   for (const source of PRIMARY_AUTH_SOURCES) {
     if (identityBySource[source]) {
       return identityBySource[source] ?? null;
@@ -164,8 +164,8 @@ function getHighestPriorityIdentity(): PayvergeSentryIdentity | null {
 }
 
 function identityKeysMatch(
-  left: PayvergeSentryIdentity | null,
-  right: PayvergeSentryIdentity,
+  left: NamakdanSentryIdentity | null,
+  right: NamakdanSentryIdentity,
 ): boolean {
   return left
     ? identityId(left) === identityId(right) &&
@@ -174,7 +174,7 @@ function identityKeysMatch(
     : false;
 }
 
-function identityId(identity: PayvergeSentryIdentity): string {
+function identityId(identity: NamakdanSentryIdentity): string {
   if (identity.staffId !== undefined) {
     return `staff:${identity.staffId}`;
   }
@@ -215,7 +215,7 @@ function fingerprintString(value: string): string {
 }
 
 function buildIdentityContext(
-  identity: PayvergeSentryIdentity,
+  identity: NamakdanSentryIdentity,
 ): Record<string, number | string> {
   const context: Record<string, number | string> = {
     auth_source: identity.authSource,

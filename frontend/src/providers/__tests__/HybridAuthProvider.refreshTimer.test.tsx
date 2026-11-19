@@ -13,7 +13,7 @@ const mockSetUser = jest.fn();
 const mockClearUser = jest.fn();
 
 jest.mock("@/utils/refreshAuth", () => ({
-  SESSION_HINT_KEY: "payverge_had_session",
+  SESSION_HINT_KEY: "namakdan_had_session",
   refreshAuthSession: (...args: unknown[]) => mockRefreshAuthSession(...args),
 }));
 

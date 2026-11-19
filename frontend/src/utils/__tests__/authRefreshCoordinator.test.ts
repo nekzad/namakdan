@@ -227,8 +227,8 @@ describe("auth refresh coordinator", () => {
 
     await coordinator.runExclusive(async () => "customer-session");
 
-    expect(lockNames).toEqual(["payverge:customer-auth-refresh"]);
-    expect(channelNames).toEqual(["payverge:customer-auth-refresh"]);
+    expect(lockNames).toEqual(["namakdan:customer-auth-refresh"]);
+    expect(channelNames).toEqual(["namakdan:customer-auth-refresh"]);
     expect(storage.getItem(CUSTOMER_AUTH_REFRESH_GENERATION_KEY)).not.toBeNull();
     expect(storage.getItem(CUSTOMER_AUTH_REFRESH_LEASE_KEY)).toBeNull();
     expect(storage.getItem(AUTH_REFRESH_GENERATION_KEY)).toBeNull();

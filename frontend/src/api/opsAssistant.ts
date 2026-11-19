@@ -235,7 +235,7 @@ export async function submitOpsFeedback(
 
 /** Stable tab-scoped session key for resumable Ops conversations. */
 function opsSessionKey(businessId: number) {
-  return `payverge_ops_session_${businessId}`;
+  return `namakdan_ops_session_${businessId}`;
 }
 
 export function readOpsSession(
@@ -270,7 +270,7 @@ export function newClientRequestId(): string {
 }
 
 function directorHandoffKey(businessId: number) {
-  return `payverge_director_handoff_${businessId}`;
+  return `namakdan_director_handoff_${businessId}`;
 }
 
 export function writeDirectorHandoff(businessId: number, prompt: string) {

@@ -17,23 +17,23 @@
   },
   "notFound": {
     "title": "Página no encontrada",
-    "metaTitle": "Página no encontrada — Payverge",
+    "metaTitle": "Página no encontrada — Namakdan",
     "body": "La página que buscás no existe o se ha movido.",
     "backToHome": "Volver al inicio",
     "contactSupport": "Contactar soporte"
   },
   "pwa": {
     "card": {
-      "title": "Abrí Payverge como una app",
+      "title": "Abrí Namakdan como una app",
       "body": "Accedé más rápido desde la pantalla de inicio. No necesitás una tienda de aplicaciones."
     },
     "actions": {
-      "install": "Instalá Payverge",
+      "install": "Instalá Namakdan",
       "dismiss": "Ahora no",
       "close": "Cerrar"
     },
     "manual": {
-      "title": "Agregá Payverge a la pantalla de inicio",
+      "title": "Agregá Namakdan a la pantalla de inicio",
       "stepShare": "En Safari, tocá Compartir.",
       "stepAdd": "Elegí Agregar a pantalla de inicio.",
       "stepConfirm": "Tocá Agregar para confirmar.",
@@ -41,14 +41,14 @@
     },
     "unsupported": {
       "title": "La instalación no está disponible",
-      "body": "Abrí Payverge en Safari desde un iPhone o en un navegador compatible desde otro dispositivo."
+      "body": "Abrí Namakdan en Safari desde un iPhone o en un navegador compatible desde otro dispositivo."
     },
     "account": {
-      "label": "Instalar Payverge",
-      "hint": "Agregá Payverge a este dispositivo"
+      "label": "Instalar Namakdan",
+      "hint": "Agregá Namakdan a este dispositivo"
     },
     "launch": {
-      "opening": "Abriendo Payverge"
+      "opening": "Abriendo Namakdan"
     }
   },
   "authModal": {

@@ -57,7 +57,7 @@ describe("BusinessOverviewList stats-failure honesty (issue 832)", () => {
     const onRetryStats = jest.fn();
     render(
       <BusinessOverviewList
-        businesses={[biz(1, "Payverge Core Demo Kitchen")]}
+        businesses={[biz(1, "Namakdan Core Demo Kitchen")]}
         stats={{}}
         statsLoading={false}
         statsError="dashboard.stats.loadError"
@@ -79,7 +79,7 @@ describe("BusinessOverviewList stats-failure honesty (issue 832)", () => {
   it("shows no failure banner when stats simply have not failed", () => {
     render(
       <BusinessOverviewList
-        businesses={[biz(1, "Payverge Core Demo Kitchen")]}
+        businesses={[biz(1, "Namakdan Core Demo Kitchen")]}
         stats={{}}
         statsLoading
         statsError={null}

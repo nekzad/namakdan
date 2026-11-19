@@ -16,7 +16,7 @@ if (
 // fetches: getServerApiUrl only hairpins through PUBLIC_URL in production.
 // Pinned unconditionally, and the other runtime config names cleared, so a
 // shell that exports a deployment's env cannot change test outcomes.
-process.env.PUBLIC_URL = "https://payverge.io";
+process.env.PUBLIC_URL = "https://example.test";
 for (const name of [
   "API_URL",
   "BACKEND_INTERNAL_URL",

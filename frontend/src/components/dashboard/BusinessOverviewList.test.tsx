@@ -256,10 +256,10 @@ describe("BusinessOverviewList — portfolio master/detail", () => {
 
   it("distinguishes same-name venues in visible copy and accessible names", () => {
     const twins: Business[] = [
-      biz(8, "Payverge Core Demo Kitchen", "USD", true, {
+      biz(8, "Namakdan Core Demo Kitchen", "USD", true, {
         custom_url: "demo-admin-8-core",
       }),
-      biz(1, "Payverge Core Demo Kitchen", "USD", true, {
+      biz(1, "Namakdan Core Demo Kitchen", "USD", true, {
         custom_url: "demo-admin-1-core",
       }),
     ];
@@ -301,22 +301,22 @@ describe("BusinessOverviewList — portfolio master/detail", () => {
     ]);
     expect(
       screen.getByRole("button", {
-        name: /viewMetrics.*Payverge Core Demo Kitchen \(demo-admin-8-core\)/i,
+        name: /viewMetrics.*Namakdan Core Demo Kitchen \(demo-admin-8-core\)/i,
       }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("button", {
-        name: /viewMetrics.*Payverge Core Demo Kitchen \(demo-admin-1-core\)/i,
+        name: /viewMetrics.*Namakdan Core Demo Kitchen \(demo-admin-1-core\)/i,
       }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("button", {
-        name: /openBusiness.*Payverge Core Demo Kitchen \(demo-admin-8-core\)/i,
+        name: /openBusiness.*Namakdan Core Demo Kitchen \(demo-admin-8-core\)/i,
       }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("button", {
-        name: /openBusiness.*Payverge Core Demo Kitchen \(demo-admin-1-core\)/i,
+        name: /openBusiness.*Namakdan Core Demo Kitchen \(demo-admin-1-core\)/i,
       }),
     ).toBeInTheDocument();
 
@@ -330,7 +330,7 @@ describe("BusinessOverviewList — portfolio master/detail", () => {
     );
     expect(
       screen.getAllByRole("button", {
-        name: /openBusiness.*Payverge Core Demo Kitchen \(demo-admin-1-core\)/i,
+        name: /openBusiness.*Namakdan Core Demo Kitchen \(demo-admin-1-core\)/i,
       }).length,
     ).toBeGreaterThanOrEqual(2);
   });

@@ -3,7 +3,7 @@
  *
  * Components that remove the default focus ring with
  * `focus:outline-none` or `focus-visible:outline-none` MUST supply a
- * replacement focus indicator. The approved pattern across the Payverge
+ * replacement focus indicator. The approved pattern across the Namakdan
  * frontend is a `focus-visible:ring-*` class in the same className string.
  *
  * This test reads the source of each tracked component, isolates every

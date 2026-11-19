@@ -3,46 +3,46 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Payverge: open-source restaurant operating system with AI built in</title>
-<meta name="description" content="Payverge is an open-source, self-hostable restaurant operating system with AI built in: QR ordering, an AI waiter, kitchen display, split bills and payments, reservations and delivery. Apache-2.0." data-gate="feature-claims licence-files">
+<title>Namakdan: open-source restaurant operating system with AI built in</title>
+<meta name="description" content="Namakdan is an open-source, self-hostable restaurant operating system with AI built in: QR ordering, an AI waiter, kitchen display, split bills and payments, reservations and delivery. Apache-2.0." data-gate="feature-claims licence-files">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'sha256-fkXjNwi72BN5dJGdthUI89+FkkF6es3bZX9AtbdgEVc='; base-uri 'none'; form-action 'none'">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#faf9f6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0f1413" media="(prefers-color-scheme: dark)">
-<link rel="canonical" href="https://payverge.io/">
+<link rel="canonical" href="https://namakdan.example/">
 <link rel="icon" href="assets/favicon.ico" sizes="32x32">
-<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="icon" href="assets/namakdan-icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preload" href="assets/fonts/dm-serif-display-regular-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Payverge">
-<meta property="og:url" content="https://payverge.io/">
-<meta property="og:title" content="Payverge: the open-source restaurant operating system">
+<meta property="og:site_name" content="Namakdan">
+<meta property="og:url" content="https://namakdan.example/">
+<meta property="og:title" content="Namakdan: the open-source restaurant operating system">
 <meta property="og:description" content="Self-host QR ordering, an AI waiter in 21 guest languages, a kitchen display, split bills and payments on your own server. Apache-2.0." data-gate="feature-claims licence-files">
-<meta property="og:image" content="https://payverge.io/assets/og-image.png">
+<meta property="og:image" content="https://namakdan.example/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Payverge: the open-source restaurant operating system with AI built in.">
+<meta property="og:image:alt" content="Namakdan: the open-source restaurant operating system with AI built in.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Payverge: the open-source restaurant operating system">
+<meta name="twitter:title" content="Namakdan: the open-source restaurant operating system">
 <meta name="twitter:description" content="Self-host QR ordering, an AI waiter in 21 guest languages, a kitchen display, split bills and payments on your own server. Apache-2.0." data-gate="feature-claims licence-files">
-<meta name="twitter:image" content="https://payverge.io/assets/og-image.png">
-<meta name="twitter:image:alt" content="Payverge: the open-source restaurant operating system with AI built in.">
+<meta name="twitter:image" content="https://namakdan.example/assets/og-image.png">
+<meta name="twitter:image:alt" content="Namakdan: the open-source restaurant operating system with AI built in.">
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "SoftwareSourceCode",
-  "name": "Payverge",
+  "name": "Namakdan",
   "description": "An open-source, self-hostable restaurant operating system with AI built in.",
-  "url": "https://payverge.io/",
-  "codeRepository": "https://github.com/stdevMac/payverge",
+  "url": "https://namakdan.example/",
+  "codeRepository": "https://github.com/nekzad/namakdan",
   "license": "https://www.apache.org/licenses/LICENSE-2.0",
   "programmingLanguage": ["Go", "TypeScript"],
   "runtimePlatform": "Docker",
-  "author": { "@type": "Person", "name": "Marcos Maceo", "url": "https://github.com/stdevMac" }
+  "author": { "@type": "Organization", "name": "Namakdan contributors", "url": "https://github.com/nekzad/namakdan" }
 }
 </script>
 
@@ -81,8 +81,7 @@
   line-gap-override: 0%;
 }
 
-/* Palette: the warm-neutral scale and brand teal of the original payverge.io
-   (Tailwind warm-50..950, brand-50..950), with a considered dark palette. */
+/* Palette: warm-neutral and deep teal, with a considered dark palette. */
 :root {
   --font-sans: "DM Sans", "DM Sans Fallback", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-serif: "DM Serif Display", "DM Serif Display Fallback", Georgia, "Times New Roman", serif;
@@ -676,9 +675,9 @@ h3 { font-size: 1rem; line-height: 1.35; font-weight: 700; letter-spacing: -0.00
 </svg>
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="./" aria-label="Payverge home">
-      <img src="assets/logo.svg" width="32" height="32" alt="">
-      <span>Payverge</span>
+    <a class="brand" href="./" aria-label="Namakdan home">
+      <img src="assets/namakdan-mark.svg" width="32" height="32" alt="">
+      <span>Namakdan</span>
     </a>
     <nav aria-label="Primary">
       <ul class="nav-links">
@@ -690,10 +689,9 @@ h3 { font-size: 1rem; line-height: 1.35; font-weight: 700; letter-spacing: -0.00
       </ul>
     </nav>
     <div class="nav-actions">
-      <a class="nav-gh" href="https://github.com/stdevMac/payverge" aria-label="Payverge on GitHub">
+      <a class="nav-gh" href="https://github.com/nekzad/namakdan" aria-label="Namakdan on GitHub">
         <svg aria-hidden="true" focusable="false"><use href="#i-github"/></svg><span>GitHub</span>
       </a>
-      <a class="btn btn-primary btn-sm" href="https://demo.payverge.io/" data-gate="live-demo">Live demo</a>
     </div>
   </div>
 </header>
@@ -704,13 +702,13 @@ h3 { font-size: 1rem; line-height: 1.35; font-weight: 700; letter-spacing: -0.00
       <div>
         <p class="badge" data-gate="licence-files"><span class="dot" aria-hidden="true"></span>Open source &middot; Apache-2.0 &middot; Self-hosted</p>
         <h1 id="hero-title">Run your restaurant on software <span class="accent">you own.</span></h1>
-        <p class="lead" data-gate="feature-claims">Payverge is an open-source, self-hostable restaurant operating system with AI built in. QR ordering, a kitchen display, bills and payments, reservations and delivery, on your own server, with no platform fees.</p>
+        <p class="lead" data-gate="feature-claims">Namakdan is an open-source, self-hostable restaurant operating system with AI built in. QR ordering, a kitchen display, bills and payments, reservations and delivery, on your own server, with no platform fees.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="https://demo.payverge.io/" data-gate="live-demo">
-            Try the live demo
+          <a class="btn btn-primary" href="https://github.com/nekzad/namakdan">
+            Explore the source
             <svg class="go" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>
           </a>
-          <a class="btn btn-ghost" href="https://github.com/stdevMac/payverge">
+          <a class="btn btn-ghost" href="https://github.com/nekzad/namakdan">
             <svg aria-hidden="true" focusable="false"><use href="#i-github"/></svg>
             View on GitHub
           </a>
@@ -785,7 +783,7 @@ h3 { font-size: 1rem; line-height: 1.35; font-weight: 700; letter-spacing: -0.00
           <div class="ico"><svg aria-hidden="true" focusable="false"><use href="#i-card"/></svg></div>
           <div>
             <h3>Payments on your own accounts</h3>
-            <p>Your own Stripe, Mercado Pago or PayPal account, USDC on Base verified on-chain, or cash at the counter. Payverge adds no fee of its own.</p>
+            <p>Your own Stripe, Mercado Pago or PayPal account, USDC on Base verified on-chain, or cash at the counter. Namakdan adds no fee of its own.</p>
           </div>
         </li>
         <li class="tile tile-teal wide reveal">
@@ -957,7 +955,7 @@ h3 { font-size: 1rem; line-height: 1.35; font-weight: 700; letter-spacing: -0.00
             <div class="rail"><span class="node"><svg aria-hidden="true" focusable="false"><use href="#i-power"/></svg></span></div>
             <div class="moment-body">
               <h3>Deploy</h3>
-              <p>Run the installer on a Linux server with Docker. Payverge comes up with PostgreSQL, automatic HTTPS and your admin account.</p>
+              <p>Run the installer on a Linux server with Docker. Namakdan comes up with PostgreSQL, automatic HTTPS and your admin account.</p>
               <span class="chip">About 5 minutes on a fresh server</span>
             </div>
           </li>
@@ -1033,8 +1031,8 @@ h3 { font-size: 1rem; line-height: 1.35; font-weight: 700; letter-spacing: -0.00
                 <svg aria-hidden="true" focusable="false"><use href="#i-copy"/></svg><span>Copy</span>
               </button>
             </div>
-            <pre><code id="install-cmd">curl -fsSL https://github.com/stdevMac/payverge/releases/latest/download/install.sh | bash</code></pre>
-            <div class="terminal-foot">Prefer to read it first? Download <code>install.sh</code> from the <a href="https://github.com/stdevMac/payverge/releases/latest">latest release</a>, read it, then run <code>bash install.sh</code>.</div>
+            <pre><code id="install-cmd">curl -fsSL https://github.com/nekzad/namakdan/releases/latest/download/install.sh | bash</code></pre>
+            <div class="terminal-foot">Prefer to read it first? Download <code>install.sh</code> from the <a href="https://github.com/nekzad/namakdan/releases/latest">latest release</a>, read it, then run <code>bash install.sh</code>.</div>
           </div>
           <ul class="checklist" role="list">
             <li data-gate="install"><svg aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span><strong>PostgreSQL, API, web app and Caddy</strong> from public container images, with HTTPS certificates issued automatically.</span></li>
@@ -1047,14 +1045,14 @@ h3 { font-size: 1rem; line-height: 1.35; font-weight: 700; letter-spacing: -0.00
           <p>On any machine with Docker and Git, the demo flag loads two fictional restaurants with menus, tables, bookings and orders. Sign in with the admin email you pass and the password the script prints.</p>
           <div class="terminal" data-gate="install">
             <div class="terminal-bar"><span class="lights" aria-hidden="true"><i></i><i></i><i></i><span>bash</span></span></div>
-            <pre class="cmds"><code><span class="p" aria-hidden="true">$ </span>git clone https://github.com/stdevMac/payverge.git
-<span class="p" aria-hidden="true">$ </span>cd payverge
+            <pre class="cmds"><code><span class="p" aria-hidden="true">$ </span>git clone https://github.com/nekzad/namakdan.git
+<span class="p" aria-hidden="true">$ </span>cd namakdan
 <span class="p" aria-hidden="true">$ </span>./deploy/install.sh --domain localhost --admin-email you@example.com --demo</code></pre>
-            <div class="terminal-foot">Then open <code>https://localhost</code>. Your browser will ask you to trust the local certificate; the <a href="https://github.com/stdevMac/payverge/blob/main/deploy/README.md#local-trial">local trial guide</a> explains how.</div>
+            <div class="terminal-foot">Then open <code>https://localhost</code>. Your browser will ask you to trust the local certificate; the <a href="https://github.com/nekzad/namakdan/blob/main/deploy/README.md#local-trial">local trial guide</a> explains how.</div>
           </div>
           <ul class="deploy-links" role="list">
-            <li><a class="link-arrow" href="https://github.com/stdevMac/payverge/tree/main/docs/self-hosting">Self-hosting guide<svg aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a></li>
-            <li><a class="link-arrow" href="https://github.com/stdevMac/payverge#readme">Run from source with Docker Compose<svg aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a></li>
+            <li><a class="link-arrow" href="https://github.com/nekzad/namakdan/tree/main/docs/self-hosting">Self-hosting guide<svg aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a></li>
+            <li><a class="link-arrow" href="https://github.com/nekzad/namakdan#readme">Run from source with Docker Compose<svg aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a></li>
           </ul>
           <p class="sr-only" role="status" aria-live="polite" id="copy-status"></p>
         </div>
@@ -1082,30 +1080,26 @@ h3 { font-size: 1rem; line-height: 1.35; font-weight: 700; letter-spacing: -0.00
           <summary>Does the AI cost money?<svg aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></summary>
           <p>Only if you turn it on. Until you connect a model there is no AI cost. When you do, a ledger records what every call costs and daily dollar caps keep the spend where you set it.</p>
         </details>
-        <details data-gate="live-demo">
-          <summary>Can I try it before installing?<svg aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></summary>
-          <p>Yes. The live demo at <a href="https://demo.payverge.io/">demo.payverge.io</a> runs the same software with fictional restaurants. No AI model is connected, so the AI waiter answers as a menu helper, and online payments (cards and USDC) are off: guests pay at the counter and no money moves. Anything you change is reset every night at 03:00 UTC.</p>
-        </details>
         <details>
           <summary>What happens to my data?<svg aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></summary>
-          <p>It stays in the PostgreSQL database on your server. Nothing is sent to the Payverge project. Back it up, export it or move it to another server whenever you want.</p>
+          <p>It stays in the PostgreSQL database on your server. Nothing is sent to the Namakdan project. Back it up, export it or move it to another server whenever you want.</p>
         </details>
       </div>
-      <p class="faq-more"><a class="link-arrow" href="https://github.com/stdevMac/payverge/tree/main/docs/self-hosting">Read the self-hosting docs<svg aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a></p>
+      <p class="faq-more"><a class="link-arrow" href="https://github.com/nekzad/namakdan/tree/main/docs/self-hosting">Read the self-hosting docs<svg aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a></p>
     </div>
   </section>
 
   <section class="section cta-wrap" aria-labelledby="cta-title">
     <div class="container">
       <div class="cta reveal">
-        <h2 id="cta-title" data-gate="live-demo">Your restaurant, your server, your code. <span class="tone">Start with the live demo.</span></h2>
+        <h2 id="cta-title">Your restaurant, your server, your code. <span class="tone">Explore the source.</span></h2>
         <p class="lead">Read the source, run it, change it. Issues and pull requests are welcome.</p>
         <div class="hero-actions">
-          <a class="btn btn-light" href="https://demo.payverge.io/" data-gate="live-demo">
-            Try the live demo
+          <a class="btn btn-light" href="https://github.com/nekzad/namakdan">
+            Explore the source
             <svg class="go" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>
           </a>
-          <a class="btn btn-glass" href="https://github.com/stdevMac/payverge">
+          <a class="btn btn-glass" href="https://github.com/nekzad/namakdan">
             <svg aria-hidden="true" focusable="false"><use href="#i-github"/></svg>
             View on GitHub
           </a>
@@ -1127,9 +1121,9 @@ h3 { font-size: 1rem; line-height: 1.35; font-weight: 700; letter-spacing: -0.00
   <div class="container">
     <div class="foot-grid">
       <div>
-        <a class="brand" href="./" aria-label="Payverge home">
-          <img src="assets/logo.svg" width="32" height="32" alt="">
-          <span>Payverge</span>
+        <a class="brand" href="./" aria-label="Namakdan home">
+          <img src="assets/namakdan-mark.svg" width="32" height="32" alt="">
+          <span>Namakdan</span>
         </a>
         <p class="foot-about">The open-source restaurant operating system, from QR order to final payout.</p>
         <p class="foot-small">This page sets no cookies and runs no analytics.</p>
@@ -1147,21 +1141,17 @@ h3 { font-size: 1rem; line-height: 1.35; font-weight: 700; letter-spacing: -0.00
       <nav aria-labelledby="foot-project">
         <h2 id="foot-project">Project</h2>
         <ul class="foot-links" role="list">
-          <li><a href="https://github.com/stdevMac/payverge">GitHub</a></li>
-          <li><a href="https://github.com/stdevMac/payverge/tree/main/docs/self-hosting">Self-hosting docs</a></li>
-          <li><a href="https://github.com/stdevMac/payverge/releases">Releases</a></li>
-          <li><a href="https://github.com/stdevMac/payverge/blob/main/LICENSE">License</a></li>
+          <li><a href="https://github.com/nekzad/namakdan">GitHub</a></li>
+          <li><a href="https://github.com/nekzad/namakdan/tree/main/docs/self-hosting">Self-hosting docs</a></li>
+          <li><a href="https://github.com/nekzad/namakdan/releases">Releases</a></li>
+          <li><a href="https://github.com/nekzad/namakdan/blob/main/LICENSE">License</a></li>
         </ul>
       </nav>
     </div>
     <div class="foot-bottom">
       <div>
-        <p data-gate="licence-files">Open source under the <a href="https://github.com/stdevMac/payverge/blob/main/LICENSE">Apache License 2.0</a>. &copy; 2025&ndash;2026 Marcos Maceo.</p>
-        <p data-gate="licence-files">The Payverge name and logo are not covered by the code license; see <a href="https://github.com/stdevMac/payverge/blob/main/TRADEMARKS.md">TRADEMARKS.md</a>.</p>
-      </div>
-      <div class="byline" data-gate="provenance">
-        <p><strong>Designed and built by Marcos Maceo.</strong> Payverge ran in production from 2025 and is now developed in the open.</p>
-        <p><a href="https://github.com/stdevMac">github.com/stdevMac</a></p>
+        <p data-gate="licence-files">Open source under the <a href="https://github.com/nekzad/namakdan/blob/main/LICENSE">Apache License 2.0</a>. &copy; 2025&ndash;2026 Marcos Maceo.</p>
+        <p data-gate="licence-files">Namakdan is an independent fork and is not affiliated with the original project authors; see <a href="https://github.com/nekzad/namakdan/blob/main/NOTICE">NOTICE</a> for attribution.</p>
       </div>
     </div>
   </div>

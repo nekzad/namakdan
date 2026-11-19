@@ -2,7 +2,7 @@
 // and the axios 401 interceptor must go through this so concurrent callers
 // share one in-flight POST. Refresh tokens are one-time-use (CAS rotation);
 // two parallel POSTs make the loser get AUTH_REFRESH_ROTATED even though the
-// session is still alive — and clearing payverge_had_session on that 401 used
+// session is still alive — and clearing namakdan_had_session on that 401 used
 // to permanently kill proactive refresh ~15 minutes after login.
 
 import {
@@ -10,7 +10,7 @@ import {
   type AuthRefreshCoordinator,
 } from "./authRefreshCoordinator";
 
-export const SESSION_HINT_KEY = "payverge_had_session";
+export const SESSION_HINT_KEY = "namakdan_had_session";
 
 export type RefreshAuthResult =
   | { ok: true }

@@ -425,7 +425,7 @@ export default function PaymentSection({
           // tip data stay server-side to limit XSS exfiltration surface.
           if (response.payment_id) {
             sessionStorage.setItem(
-              "payverge_payment",
+              "namakdan_payment",
               JSON.stringify({
                 paymentId: response.payment_id,
                 method: selectedMethod,

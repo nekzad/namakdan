@@ -57,7 +57,7 @@ const SERVICEABLE_ADDRESS = {
 const GUEST = {
   name: "Journey Two Guest",
   phone: "+1 555-000-0002",
-  email: "journey-two@payverge.test",
+  email: "journey-two@example.test",
 };
 
 test.describe("Delivery journey with operator acceptance", () => {

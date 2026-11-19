@@ -574,14 +574,14 @@ describe("AiWaiter shared rich UI", () => {
                 name: "Old Dish",
                 price: 10,
                 is_available: true,
-                image: "https://payverge.io/media/old.jpg",
+                image: "https://example.test/media/old.jpg",
               },
               {
                 id: "new",
                 name: "New Dish",
                 price: 11,
                 is_available: true,
-                image: "https://payverge.io/media/new.jpg",
+                image: "https://example.test/media/new.jpg",
               },
             ],
           },
@@ -599,8 +599,8 @@ describe("AiWaiter shared rich UI", () => {
     // latest turn would leave the history with no dish cards at all.
     const images = screen.getAllByTestId("rich-entity-image");
     expect(images.map((image) => image.getAttribute("src"))).toEqual([
-      "https://payverge.io/media/old.jpg",
-      "https://payverge.io/media/new.jpg",
+      "https://example.test/media/old.jpg",
+      "https://example.test/media/new.jpg",
     ]);
   });
 

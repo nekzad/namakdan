@@ -326,7 +326,7 @@ export default function ScheduleBuilder({
   // input; the debounced value drives the preview query so typing doesn't refetch
   // on every keystroke. Persisted per business — a weekly estimate rarely changes,
   // so re-typing it every visit was pure friction.
-  const salesTargetStorageKey = `payverge.salesTarget.${businessId}`;
+  const salesTargetStorageKey = `namakdan.salesTarget.${businessId}`;
   const [salesTarget, setSalesTarget] = useState<number | undefined>(() => {
     if (typeof window === "undefined") return undefined;
     const stored = Number(window.localStorage.getItem(salesTargetStorageKey));

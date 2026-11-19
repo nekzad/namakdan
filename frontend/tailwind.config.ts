@@ -185,7 +185,7 @@ const config: Config = {
     // `data-slot="wrapper"`.
     // Note: a `scrollBehavior="outside"` modal would lose wrapper scrollbar
     // dragging under pointer-events:none; all 34 current usages are "inside".
-    function payvergeModalOverlayRootB({
+    function namakdanModalOverlayRootB({
       addBase,
     }: {
       addBase: (styles: Record<string, Record<string, string>>) => void;

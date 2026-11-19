@@ -27,7 +27,7 @@ import {
 } from "./types";
 
 const renderOptions: RenderPlannedMenuOptions = {
-  origin: "https://payverge.test",
+  origin: "https://example.test",
   qrCaption: "Scan for the live menu",
 };
 
@@ -266,7 +266,7 @@ describe("renderPlannedMenuHtml", () => {
       { itemId: "harvest-bowl", url: "harvest.jpg", role: "full-width" },
       {
         itemId: "lemon-trout",
-        url: "https://images.payverge.test/lemon-trout-1800x1200.jpg",
+        url: "https://images.example.test/lemon-trout-1800x1200.jpg",
         role: "editorial-crop",
       },
     ] as const;
@@ -319,7 +319,7 @@ describe("renderPlannedMenuHtml", () => {
       );
       expect(html).toContain(`data-family="${familyId}"`);
       expect(count(html, 'class="print-page"')).toBe(document.pages.length);
-      expect(html).not.toMatch(/payverge/i);
+      expect(html).not.toMatch(/namakdan/i);
       expect(html).not.toContain("data-print-hidden");
     },
   );

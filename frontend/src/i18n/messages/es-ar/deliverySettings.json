@@ -24,7 +24,7 @@
   },
   "dispatch": {
     "loadError": "No se pudieron cargar las entregas. Comprobá tu conexión e intentá de nuevo.",
-    "cancelPaidWarning": "Este pedido puede haber sido pagado en línea. Cancelarlo queda registrado, pero cualquier compensación al cliente es responsabilidad tuya — Payverge no gestiona reembolsos.",
+    "cancelPaidWarning": "Este pedido puede haber sido pagado en línea. Cancelarlo queda registrado, pero cualquier compensación al cliente es responsabilidad tuya — Namakdan no gestiona reembolsos.",
     "columns": {
       "awaiting_payment": "Esperando pago",
       "out_for_delivery": "En camino"

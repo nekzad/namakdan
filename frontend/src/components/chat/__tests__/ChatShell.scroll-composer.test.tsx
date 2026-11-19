@@ -315,7 +315,7 @@ describe("ChatShell shared conversation primitives", () => {
           {
             role: "assistant",
             content:
-              "Payverge offers **Operations** at **USD 99/mes** with a **14-day free trial**.",
+              "Namakdan offers **Operations** at **USD 99/mes** with a **14-day free trial**.",
           },
         ]}
       />,
@@ -354,7 +354,7 @@ describe("ChatShell shared conversation primitives", () => {
           type: "navigate",
           label: "Abrir precios",
           target: {
-            kind: "payverge_page",
+            kind: "namakdan_page",
             id: "pricing",
             href: "/privacy-policy",
           },
@@ -503,7 +503,7 @@ describe("ChatShell shared conversation primitives", () => {
       type: "navigate" as const,
       label: "Abrir precios",
       target: {
-        kind: "payverge_page" as const,
+        kind: "namakdan_page" as const,
         id: "pricing",
         href: "/privacy-policy",
       },
@@ -646,7 +646,7 @@ describe("ChatShell shared conversation primitives", () => {
       type: "navigate" as const,
       label: "Confirmar precios",
       target: {
-        kind: "payverge_page" as const,
+        kind: "namakdan_page" as const,
         id: "pricing",
         href: "/privacy-policy",
       },

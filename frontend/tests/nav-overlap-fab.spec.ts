@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 const BASE = "http://localhost:3000";
 const TABLE_CODE = "AI-T01";
-const OUT_DIR = "/tmp/payverge-screenshots";
+const OUT_DIR = "/tmp/namakdan-screenshots";
 const MOBILE = { width: 390, height: 844 };
 
 // Seed the menu cart via localStorage before navigating, so the FAB cart pill
@@ -30,7 +30,7 @@ test("menu — FAB cart vs last content at scroll bottom", async ({ page }) => {
     ([key, value]) => {
       localStorage.setItem(key, value);
     },
-    [`payverge_cart_${TABLE_CODE}`, seededCart],
+    [`namakdan_cart_${TABLE_CODE}`, seededCart],
   );
 
   await page.goto(`${BASE}/t/${TABLE_CODE}/menu`, {

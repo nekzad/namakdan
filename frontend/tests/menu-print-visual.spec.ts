@@ -33,7 +33,7 @@ import type {
   PrintMenuModel,
 } from "../src/lib/menuPrint/types";
 
-const ASSET_ORIGIN = "https://assets.payverge.test";
+const ASSET_ORIGIN = "https://assets.example.test";
 const FONT_TEST_WEIGHT: Record<PrintFontFamilyName, number> = {
   "DM Serif Display": 400,
   "DM Sans": 400,
@@ -208,7 +208,7 @@ async function installAssetRoutes(page: Page): Promise<void> {
       body: deterministicImageSvg(requestUrl.pathname),
     });
   });
-  await page.route("https://images.payverge.test/**", async (route) => {
+  await page.route("https://images.example.test/**", async (route) => {
     await route.fulfill({
       status: 200,
       contentType: "image/svg+xml",
@@ -590,7 +590,7 @@ async function expectHealthyPrintLayout(
   expect(inspection.semanticOverlaps).toEqual([]);
   expect(inspection.miscenteredFoldedIdentities).toEqual([]);
   expect(inspection.foldedCompositionIssues).toEqual([]);
-  expect(inspection.visibleText).not.toMatch(/payverge/i);
+  expect(inspection.visibleText).not.toMatch(/namakdan/i);
   expect(inspection.documentWidth).toBeLessThanOrEqual(
     inspection.viewportWidth,
   );

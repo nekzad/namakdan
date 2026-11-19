@@ -1,6 +1,6 @@
 import type OperationalAlertType from "@/api/operationalAlerts";
 
-const STORAGE_KEY = "payverge_operational_alert_sound_overrides";
+const STORAGE_KEY = "namakdan_operational_alert_sound_overrides";
 
 export interface LocalAlertSoundOverrides {
   muted: boolean;

@@ -30,7 +30,7 @@ describe("robots — allow /b/ for all crawlers (SEO-1)", () => {
   });
 
   it("still references the sitemap", () => {
-    expect(cfg.sitemap).toBe("https://payverge.io/sitemap.xml");
+    expect(cfg.sitemap).toBe("https://example.test/sitemap.xml");
   });
 
   it("still blocks auth-only surfaces", () => {

@@ -163,7 +163,7 @@ describe("PaymentSection", () => {
     jest.clearAllMocks();
     window.history.replaceState({}, "", "/t/T1/bill?payment=success&method=paypal");
     sessionStorage.setItem(
-      "payverge_payment",
+      "namakdan_payment",
       JSON.stringify({
         billId: 1,
         billToken: "B42-opaque",
@@ -339,7 +339,7 @@ describe("PaymentSection", () => {
     fireEvent.click(screen.getByRole("button", { name: /bill\.payNow/i }));
 
     await waitFor(() => {
-      expect(JSON.parse(sessionStorage.getItem("payverge_payment") || "{}")).toEqual(
+      expect(JSON.parse(sessionStorage.getItem("namakdan_payment") || "{}")).toEqual(
         expect.objectContaining({
           paymentId: "pay_split_redirect",
           method: "paypal",

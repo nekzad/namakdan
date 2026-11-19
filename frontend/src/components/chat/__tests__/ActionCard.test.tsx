@@ -44,9 +44,9 @@ describe("ActionCard", () => {
   });
 
   it("renders an external action as an anchor with safe rel + target", () => {
-    render(<ActionCard action={nav({ kind: "external", href: "https://payverge.io/docs", label: "Docs" })} />);
+    render(<ActionCard action={nav({ kind: "external", href: "https://example.test/docs", label: "Docs" })} />);
     const link = screen.getByRole("link", { name: /Docs/ });
-    expect(link).toHaveAttribute("href", "https://payverge.io/docs");
+    expect(link).toHaveAttribute("href", "https://example.test/docs");
     expect(link).toHaveAttribute("target", "_blank");
     expect(link).toHaveAttribute("rel", "noopener noreferrer");
   });

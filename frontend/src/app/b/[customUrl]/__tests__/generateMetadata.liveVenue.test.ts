@@ -32,8 +32,8 @@ import {
   fetchStorefrontBusiness,
 } from "@/lib/storefront/serverData";
 
-const SLUG = "payverge-ai-pro-demo-lounge";
-const LOUNGE = "Payverge AI Pro Demo Lounge";
+const SLUG = "namakdan-ai-pro-demo-lounge";
+const LOUNGE = "Namakdan AI Pro Demo Lounge";
 const mockedClient = BusinessPageClient as unknown as jest.Mock;
 
 const realFetch = global.fetch;

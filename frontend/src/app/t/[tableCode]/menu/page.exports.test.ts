@@ -74,7 +74,7 @@ describe("guest menu page route contract", () => {
     ["an ambient declaration", "export declare const helper: string;"],
     ["a CommonJS export assignment", "export = GuestMenuPage;"],
     ["a default export assignment", "export default GuestMenuPage;"],
-    ["a namespace export", "export as namespace Payverge;"],
+    ["a namespace export", "export as namespace Namakdan;"],
     [
       "a different default declaration",
       "export default function OtherPage() {}",

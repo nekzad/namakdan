@@ -25,7 +25,7 @@ export async function generateMetadata({
   const lookup = await lookupGuestTable(tableCode, "business");
   const businessName = lookup.kind === "found" ? lookup.businessName : null;
   const headerStore = await headers();
-  const raw = headerStore.get("x-payverge-locale") ?? defaultLocale;
+  const raw = headerStore.get("x-namakdan-locale") ?? defaultLocale;
   const locale: StorefrontLocale = isGuestLocale(raw) ? raw : defaultLocale;
   return guestTablePageMetadata({
     tableCode,

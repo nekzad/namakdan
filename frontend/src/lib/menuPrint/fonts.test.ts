@@ -219,12 +219,12 @@ describe("getPrintScriptFontFallback", () => {
     expect(fallback).not.toBeNull();
     const css = buildFontFaceCss(
       [...(fallback?.families ?? [])],
-      "https://payverge.io",
+      "https://example.test",
     );
     expect(css).toContain('font-family: "Noto Serif CJK JP";');
     expect(css).toContain('font-family: "Noto Sans CJK JP";');
     expect(css).toContain(
-      'url("https://payverge.io/fonts/print/noto-serif-cjk-jp/NotoSerifCJKjp-Variable.woff2")',
+      'url("https://example.test/fonts/print/noto-serif-cjk-jp/NotoSerifCJKjp-Variable.woff2")',
     );
   });
 });
@@ -266,9 +266,9 @@ describe("buildFontFaceCss", () => {
   });
 
   it("composes absolute URLs from origin + path", () => {
-    const css = buildFontFaceCss(["Oswald"], "https://payverge.io");
+    const css = buildFontFaceCss(["Oswald"], "https://example.test");
     expect(css).toContain(
-      'src: url("https://payverge.io/fonts/print/oswald/Oswald-SemiBold.woff2") format("woff2");',
+      'src: url("https://example.test/fonts/print/oswald/Oswald-SemiBold.woff2") format("woff2");',
     );
   });
 

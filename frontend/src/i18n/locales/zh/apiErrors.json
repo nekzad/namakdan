@@ -5,7 +5,7 @@
   "AUTH_REFRESH_ROTATED": "会话已在另一请求中续期。请重试。",
   "AUTH_SESSION_UNKNOWN": "此会话已失效。请重新登录。",
   "AUTH_FORBIDDEN": "您无权执行此操作。",
-  "DEMO_MODE_FORBIDDEN": "此操作在公开演示中已停用。请安装您自己的 Payverge 以使用该功能；演示每晚都会重置。",
+  "DEMO_MODE_FORBIDDEN": "此操作在公开演示中已停用。请安装您自己的 Namakdan 以使用该功能；演示每晚都会重置。",
   "AUTH_NOT_ADMIN": "需要管理员权限。",
   "AUTH_INSUFFICIENT_ROLE": "您的角色不允许此操作。",
   "AUTH_INVALID_CREDENTIALS": "邮箱或密码无效。",

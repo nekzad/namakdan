@@ -1693,14 +1693,14 @@ describe("cleanupPhoto", () => {
 
   it("cleans up the current photo and keeps it as the operator's own", async () => {
     (api.cleanupMarketingImage as jest.Mock).mockResolvedValue({
-      url: "https://images.payverge.io/clean.png",
+      url: "https://images.example.test/clean.png",
     });
     const { result } = renderHook(() =>
       usePostComposer({
         business,
         suggestion: {
           ...sugg,
-          image_url: "https://images.payverge.io/raw.png",
+          image_url: "https://images.example.test/raw.png",
         },
         t,
       }),
@@ -1709,12 +1709,12 @@ describe("cleanupPhoto", () => {
     expect(api.cleanupMarketingImage).toHaveBeenCalledWith(
       42,
       expect.objectContaining({
-        image_url: "https://images.payverge.io/raw.png",
+        image_url: "https://images.example.test/raw.png",
         aspect_ratio: "4:5",
       }),
     );
     expect(result.current.photoUrl).toBe(
-      "https://images.payverge.io/clean.png",
+      "https://images.example.test/clean.png",
     );
     // The result is still the operator's dish, so the provenance tag must NOT
     // flip to "generated" — that label is what tells them it is not their food.
@@ -1729,14 +1729,14 @@ describe("cleanupPhoto", () => {
     "coerces cleanup aspect for non-native format %s → %s (intentional re-crop)",
     async (format, expectedAspect) => {
       (api.cleanupMarketingImage as jest.Mock).mockResolvedValue({
-        url: "https://images.payverge.io/clean.png",
+        url: "https://images.example.test/clean.png",
       });
       const { result } = renderHook(() =>
         usePostComposer({
           business,
           suggestion: {
             ...sugg,
-            image_url: "https://images.payverge.io/raw.png",
+            image_url: "https://images.example.test/raw.png",
           },
           t,
         }),
@@ -1759,7 +1759,7 @@ describe("cleanupPhoto", () => {
         business,
         suggestion: {
           ...sugg,
-          image_url: "https://images.payverge.io/raw.png",
+          image_url: "https://images.example.test/raw.png",
         },
         t,
       }),
@@ -1769,7 +1769,7 @@ describe("cleanupPhoto", () => {
       dailyLimit: 500,
       resetsInSeconds: 7200,
     });
-    expect(result.current.photoUrl).toBe("https://images.payverge.io/raw.png");
+    expect(result.current.photoUrl).toBe("https://images.example.test/raw.png");
   });
 
   it("does nothing without a photo", async () => {

@@ -205,24 +205,24 @@ describe("marketing api", () => {
   it("posts the photo the operator already has for cleanup", async () => {
     mockPost.mockResolvedValue({
       data: {
-        url: "https://images.payverge.io/clean.png",
+        url: "https://images.example.test/clean.png",
         credit: "Enhanced by AI",
       },
     });
     const result = await cleanupMarketingImage(42, {
-      image_url: "https://images.payverge.io/raw.png",
+      image_url: "https://images.example.test/raw.png",
       name: "Milanesa",
       aspect_ratio: "4:5",
     });
     expect(mockPost).toHaveBeenCalledWith(
       "/inside/businesses/42/marketing/image/cleanup",
       {
-        image_url: "https://images.payverge.io/raw.png",
+        image_url: "https://images.example.test/raw.png",
         name: "Milanesa",
         aspect_ratio: "4:5",
       },
     );
-    expect(result.url).toBe("https://images.payverge.io/clean.png");
+    expect(result.url).toBe("https://images.example.test/clean.png");
   });
 
   it("raises ImageDailyLimitError on cleanup image_daily_limit_reached", async () => {
@@ -238,7 +238,7 @@ describe("marketing api", () => {
     });
     await expect(
       cleanupMarketingImage(42, {
-        image_url: "https://images.payverge.io/raw.png",
+        image_url: "https://images.example.test/raw.png",
         name: "Milanesa",
       }),
     ).rejects.toEqual(
@@ -257,7 +257,7 @@ describe("marketing api", () => {
     mockPost.mockRejectedValue(bare429);
     await expect(
       cleanupMarketingImage(42, {
-        image_url: "https://images.payverge.io/raw.png",
+        image_url: "https://images.example.test/raw.png",
         name: "Milanesa",
       }),
     ).rejects.toBe(bare429);
@@ -381,7 +381,7 @@ describe("marketing api", () => {
       source: "menu",
       copy_angle: "celebrate",
       rank: 90,
-      guest_url: "https://payverge.io/b/cafe?tab=menu",
+      guest_url: "https://example.test/b/cafe?tab=menu",
       guest_url_kind: "menu",
     };
     expect(s.why_factors).toHaveLength(2);

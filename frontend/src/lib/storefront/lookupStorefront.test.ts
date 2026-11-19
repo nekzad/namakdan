@@ -22,8 +22,8 @@ describe("matchStorefrontRoute", () => {
     expect(matchStorefrontRoute("/b/demo-75-ai-pro")).toEqual({
       slug: "demo-75-ai-pro",
     });
-    expect(matchStorefrontRoute("/es/b/payverge-ai-pro-demo-lounge")).toEqual({
-      slug: "payverge-ai-pro-demo-lounge",
+    expect(matchStorefrontRoute("/es/b/namakdan-ai-pro-demo-lounge")).toEqual({
+      slug: "namakdan-ai-pro-demo-lounge",
     });
     expect(matchStorefrontRoute("/es-ar/b/aurora")).toEqual({ slug: "aurora" });
   });

@@ -117,7 +117,7 @@ describe("DashboardSidebar — collapse toggle", () => {
         name: /businessDashboard\.sidebar\.collapse/i,
       }),
     );
-    expect(window.localStorage.getItem("payverge_sidebar_collapsed:42")).toBe(
+    expect(window.localStorage.getItem("namakdan_sidebar_collapsed:42")).toBe(
       "true",
     );
   });

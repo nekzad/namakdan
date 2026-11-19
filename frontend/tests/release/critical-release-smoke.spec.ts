@@ -44,8 +44,8 @@ const COMPOSE_FILE = path.resolve(
   "..",
   "docker-compose.yml",
 );
-const POSTGRES_USER = "payverge";
-const POSTGRES_DB = "payverge";
+const POSTGRES_USER = "namakdan";
+const POSTGRES_DB = "namakdan";
 
 interface LocalAPIProxy {
   server: string;
@@ -132,7 +132,7 @@ function markEmailVerified(email: string): void {
     const dbHost = process.env.PLAYWRIGHT_DB_HOST || "localhost";
     const dbPort = process.env.PLAYWRIGHT_DB_PORT || "5432";
     const dbPassword =
-      process.env.PLAYWRIGHT_DB_PASSWORD || "payverge_password";
+      process.env.PLAYWRIGHT_DB_PASSWORD || "namakdan_password";
     execFileSync(
       "psql",
       [
@@ -225,7 +225,7 @@ function attachStrictObservers(page: Page): {
 
     const isApi =
       url.includes("/api/v1/") ||
-      url.includes("api.payverge.io") ||
+      url.includes("api.example.test") ||
       (process.env.PLAYWRIGHT_API_BASE != null &&
         url.startsWith(process.env.PLAYWRIGHT_API_BASE));
 
@@ -318,7 +318,7 @@ test.describe("Critical release smoke", () => {
   }) => {
     test.setTimeout(180_000);
     const stamp = Date.now();
-    const email = `release-smoke-${stamp}@payverge.test`;
+    const email = `release-smoke-${stamp}@example.test`;
     const password = "E2e!Release-Smoke-42";
     const ownerName = "Release Smoke Owner";
     const customUrl = `rsmoke-${stamp}`;
@@ -648,7 +648,7 @@ test.describe("Critical release smoke", () => {
       const appOrigin = new URL(
         process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000",
       ).origin;
-      const providerOrigin = "https://provider.payverge.test";
+      const providerOrigin = "https://provider.example.test";
       const providerHandoff = `${providerOrigin}/provider-handoff`;
       let capturedCancelURL = "";
 
@@ -710,7 +710,7 @@ test.describe("Critical release smoke", () => {
         await route.fulfill({
           status: 200,
           contentType: "text/html; charset=utf-8",
-          body: `<!doctype html><html lang="en"><body><h1>Provider handoff</h1><a href="${returnHref}">Return to Payverge</a></body></html>`,
+          body: `<!doctype html><html lang="en"><body><h1>Provider handoff</h1><a href="${returnHref}">Return to Namakdan</a></body></html>`,
         });
       });
 
@@ -728,7 +728,7 @@ test.describe("Critical release smoke", () => {
       await expect(
         page.getByRole("heading", { name: "Provider handoff" }),
       ).toBeVisible();
-      await page.getByRole("link", { name: "Return to Payverge" }).click();
+      await page.getByRole("link", { name: "Return to Namakdan" }).click();
       await expect(page).toHaveURL(new RegExp(`/t/${tableCode}/bill$`), {
         timeout: 30_000,
       });
@@ -736,7 +736,7 @@ test.describe("Critical release smoke", () => {
         page.getByText(/PayPal payment was cancelled/i),
       ).toBeVisible();
       expect(
-        await page.evaluate(() => sessionStorage.getItem("payverge_payment")),
+        await page.evaluate(() => sessionStorage.getItem("namakdan_payment")),
       ).toBeNull();
 
       // ── 8. Arabic RTL is present before hydration and remains stable ──

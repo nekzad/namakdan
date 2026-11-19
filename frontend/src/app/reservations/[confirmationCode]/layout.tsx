@@ -13,7 +13,7 @@ export async function generateMetadata(
   _props: ReservationLayoutProps,
 ): Promise<Metadata> {
   return {
-    title: "Reservation | Payverge",
+    title: "Reservation | Namakdan",
     description: "View or manage your restaurant reservation.",
     robots: { index: false, follow: false },
   };

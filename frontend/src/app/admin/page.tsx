@@ -229,7 +229,7 @@ const AdminDashboard = () => {
           value={stats.gross_merchandise_volume}
           format={(n) => formatVolume(n, 0, true)}
           exact={formatVolume(stats.gross_merchandise_volume, 0)}
-          sublabel={`Lifetime · includes demo · restaurant takings processed — not Payverge revenue${volumeNote}`}
+          sublabel={`Lifetime · includes demo · restaurant takings processed — not Namakdan revenue${volumeNote}`}
           icon={DollarSign}
         />
         <StatCard

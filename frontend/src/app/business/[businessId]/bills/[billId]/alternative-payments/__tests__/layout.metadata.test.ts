@@ -2,7 +2,7 @@ import { metadata } from "../layout";
 
 describe("alternative-payments route metadata (#377)", () => {
   it("uses an operator document title, not the marketing root title", () => {
-    expect(metadata.title).toBe("Alternative payments — Payverge");
+    expect(metadata.title).toBe("Alternative payments — Namakdan");
     expect(String(metadata.title)).not.toMatch(
       /AI-Powered Restaurant Management/i,
     );

@@ -42,7 +42,7 @@ function createMockPrintWindow(
       }),
       close: jest.fn(() => {
         jobId =
-          written.match(/name="payverge-print-job" content="([^"]+)"/)?.[1] ??
+          written.match(/name="namakdan-print-job" content="([^"]+)"/)?.[1] ??
           "";
       }),
       createElement: jest.fn((tagName: string) =>
@@ -67,7 +67,7 @@ function createMockPrintWindow(
         origin: window.location.origin,
         source: child as unknown as Window,
         data: {
-          source: "payverge-menu-print",
+          source: "namakdan-menu-print",
           jobId,
           type,
           ...overrides,
@@ -111,7 +111,7 @@ it("opens a dedicated named same-origin print window synchronously", async () =>
 
   expect(open).toHaveBeenCalledWith(
     "",
-    "payverge-menu-print",
+    "namakdan-menu-print",
     "popup,width=1200,height=900",
   );
   await expect(promise).resolves.toEqual({ status: "complete" });
@@ -319,7 +319,7 @@ it("ignores duplicate, stale, forged, and unsupported lifecycle messages", async
 
   const promise = result.current.print(HTML);
   const validData = {
-    source: "payverge-menu-print",
+    source: "namakdan-menu-print",
     jobId: child.jobId,
     type: "ready",
   };
@@ -414,7 +414,7 @@ it.each([
     child.written.toLowerCase().indexOf("<body"),
   );
   expect(
-    child.written.match(/name="payverge-print-job" content="[^"]+"/g),
+    child.written.match(/name="namakdan-print-job" content="[^"]+"/g),
   ).toHaveLength(1);
   expect(child.written).toContain("document.fonts");
   expect(child.written).toContain("document.images");
@@ -422,7 +422,7 @@ it.each([
   expect(child.written).toContain("Promise.race");
   expect(child.written).toContain('addEventListener("afterprint"');
   expect(child.written).toContain('addEventListener("pagehide"');
-  expect(child.written.indexOf("payverge-print-lifecycle")).toBeLessThan(
+  expect(child.written.indexOf("namakdan-print-lifecycle")).toBeLessThan(
     child.written.toLowerCase().lastIndexOf("</body>"),
   );
 });
@@ -446,11 +446,11 @@ it("replaces a caller-supplied job marker and does not execute injected job data
   const { result } = renderHook(() => useMenuPrintWindow());
 
   await result.current.print(
-    '<html><head><meta name="payverge-print-job" content="forged"></head><body>Menu</body></html>',
+    '<html><head><meta name="namakdan-print-job" content="forged"></head><body>Menu</body></html>',
   );
 
   expect(child.written).not.toContain('content="forged"');
-  expect(child.written.match(/name="payverge-print-job"/g)).toHaveLength(1);
+  expect(child.written.match(/name="namakdan-print-job"/g)).toHaveLength(1);
   expect(child.written).not.toContain("</script><script>");
 });
 
@@ -548,9 +548,9 @@ it("constructs lifecycle nodes structurally despite raw-text closing-tag strings
   jest.spyOn(window, "focus").mockImplementation(() => {});
   const { result } = renderHook(() => useMenuPrintWindow());
   const hostileHtml = `<!doctype html><html><head>
-    <meta name="payverge-print-job" content="forged">
+    <meta name="namakdan-print-job" content="forged">
     <style>body::after { content: "</head></body>"; }</style>
-    <script id="payverge-print-lifecycle">window.__forged = true;</script>
+    <script id="namakdan-print-lifecycle">window.__forged = true;</script>
   </head><body>
     <script>window.__untrusted = "</body>";</script>
     <main>Restaurant menu</main>
@@ -561,9 +561,9 @@ it("constructs lifecycle nodes structurally despite raw-text closing-tag strings
   });
 
   const parsed = new DOMParser().parseFromString(child.written, "text/html");
-  const lifecycle = parsed.querySelector("#payverge-print-lifecycle");
+  const lifecycle = parsed.querySelector("#namakdan-print-lifecycle");
   expect(
-    parsed.querySelectorAll('meta[name="payverge-print-job"]'),
+    parsed.querySelectorAll('meta[name="namakdan-print-job"]'),
   ).toHaveLength(1);
   expect(parsed.querySelectorAll("script")).toHaveLength(1);
   expect(lifecycle?.parentElement).toBe(parsed.body);
@@ -609,7 +609,7 @@ it("removes active-content bypass vectors before injecting the lifecycle", async
   expect(child.written.toLowerCase()).not.toContain("formaction");
   expect(child.written.toLowerCase()).not.toContain("xlink:href");
   expect(parsed.querySelectorAll("script")).toHaveLength(1);
-  expect(parsed.querySelector("#payverge-print-lifecycle")?.parentElement).toBe(
+  expect(parsed.querySelector("#namakdan-print-lifecycle")?.parentElement).toBe(
     parsed.body,
   );
 });

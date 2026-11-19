@@ -71,7 +71,7 @@ export async function downloadAccountExport(): Promise<AccountExportPayload> {
     const stamp = new Date().toISOString().replace(/[:.]/g, "-");
     const a = document.createElement("a");
     a.href = url;
-    a.download = `payverge-account-export-${stamp}.json`;
+    a.download = `namakdan-account-export-${stamp}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

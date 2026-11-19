@@ -136,7 +136,7 @@ describe("PrintLookPicker", () => {
     expect(screen.getAllByTitle("print.look.previewTitle")).toHaveLength(
       SHORTLIST_SIZE,
     );
-    expect(container.textContent).not.toMatch(/payverge/i);
+    expect(container.textContent).not.toMatch(/namakdan/i);
 
     // Every visible card explains itself with the recommendation's own reason.
     const shortlisted = props.recommendations.slice(0, SHORTLIST_SIZE);
@@ -386,7 +386,7 @@ describe("PrintLookPicker", () => {
 
   it("skips failed and low-resolution candidates when choosing preview photography", () => {
     const firstUsableUrl =
-      "https://images.payverge.test/harvest-bowl-detail-1000x1250.jpg";
+      "https://images.example.test/harvest-bowl-detail-1000x1250.jpg";
     const audit = makeAudit(model, {
       photoCoverage: 0.8,
       measurements: {
@@ -399,7 +399,7 @@ describe("PrintLookPicker", () => {
         },
       },
       lowResolutionUrls: ["harvest.jpg"],
-      failedUrls: ["https://images.payverge.test/harvest-bowl-1600x1200.jpg"],
+      failedUrls: ["https://images.example.test/harvest-bowl-1600x1200.jpg"],
     });
 
     render(<PrintLookPicker {...makeProps({ audit })} />);
@@ -521,7 +521,7 @@ describe("PrintLookPicker", () => {
     // with half the menu omitted.
     const user = userEvent.setup();
     const imageUrl = (index: number) =>
-      `https://images.payverge.test/dish-${index}.jpg`;
+      `https://images.example.test/dish-${index}.jpg`;
     const fullerModel: PrintMenuModel = {
       ...model,
       sections: [0, 1, 2].map((sectionIndex) => ({

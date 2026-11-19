@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-const STATION_EVENT = "payverge:print-station-changed";
+const STATION_EVENT = "namakdan:print-station-changed";
 const stationKey = (businessId: number) =>
-  `payverge_print_station:${businessId}`;
+  `namakdan_print_station:${businessId}`;
 
 const readStation = (businessId: number): number | null => {
   if (businessId <= 0 || typeof window === "undefined") return null;

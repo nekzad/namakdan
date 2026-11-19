@@ -14,8 +14,8 @@ const COMPOSE_FILE = path.resolve(
   "..",
   "docker-compose.yml",
 );
-const POSTGRES_USER = "payverge";
-const POSTGRES_DB = "payverge";
+const POSTGRES_USER = "namakdan";
+const POSTGRES_DB = "namakdan";
 
 export const API_BASE =
   process.env.PLAYWRIGHT_API_BASE || "http://localhost:8080/api/v1";
@@ -23,13 +23,13 @@ export const BUSINESS_SLUG =
   process.env.PLAYWRIGHT_DEMO_SLUG || "demo-core-kitchen";
 /**
  * Table code minted by backend/scripts/demo_seed.sql for table `n` of a seeded
- * profile: upper(substr(md5('payverge-fixture-<profile>-table-' || n), 1, 10)).
+ * profile: upper(substr(md5('namakdan-fixture-<profile>-table-' || n), 1, 10)).
  * Codes are high-entropy on purpose (#293); legacy enumerable codes such as
  * CORE-T01 or demo-2-ai-pro-table-02 are never seeded and 404 by design.
  */
 export function seededTableCode(profile: "core" | "ai-pro", n: number): string {
   return createHash("md5")
-    .update(`payverge-fixture-${profile}-table-${n}`)
+    .update(`namakdan-fixture-${profile}-table-${n}`)
     .digest("hex")
     .slice(0, 10)
     .toUpperCase();
@@ -44,12 +44,12 @@ export const TABLE_CODE =
  * later journeys can log in as a different seeded staff role.
  */
 export const MANAGER_EMAIL =
-  process.env.PLAYWRIGHT_MANAGER_EMAIL || "manager@core-demo.payverge.example";
+  process.env.PLAYWRIGHT_MANAGER_EMAIL || "manager@core-demo.example.com";
 export const MARKETING_BUSINESS_SLUG =
   process.env.PLAYWRIGHT_MARKETING_DEMO_SLUG || "demo-ai-lounge";
 export const MARKETING_MANAGER_EMAIL =
   process.env.PLAYWRIGHT_MARKETING_MANAGER_EMAIL ||
-  "gm@ai-demo.payverge.example";
+  "gm@ai-demo.example.com";
 
 export const journeysEnabled = !!process.env.PLAYWRIGHT_RUN_JOURNEYS_E2E;
 
@@ -191,7 +191,7 @@ function runJourneyFixtureSQL(sql: string): string {
         encoding: "utf8",
         env: {
           ...process.env,
-          PGPASSWORD: process.env.PLAYWRIGHT_DB_PASSWORD || "payverge_password",
+          PGPASSWORD: process.env.PLAYWRIGHT_DB_PASSWORD || "namakdan_password",
         },
       },
     );

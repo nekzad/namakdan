@@ -47,7 +47,7 @@ describe("legal pages render the labelled generic template", () => {
     const text = container.textContent ?? "";
     expect(text).toContain("Trattoria Hospitality SRL");
     expect(text).toContain("help@trattoria.example");
-    expect(text).not.toMatch(/payverge\.io/i);
+    expect(text).not.toMatch(/namakdan\.io/i);
   });
 
   it("says the contact is not configured instead of inventing one", () => {

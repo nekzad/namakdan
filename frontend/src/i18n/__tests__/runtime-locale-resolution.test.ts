@@ -2,7 +2,7 @@ import { resolveRuntimeLocale } from "../SimpleTranslationProvider";
 import { getRequestLocale } from "@/utils/requestLocale";
 
 // The operator SSR locale contract: middleware computes getRequestLocale(path)
-// → x-payverge-locale → layout.tsx seeds SimpleTranslationProvider's
+// → x-namakdan-locale → layout.tsx seeds SimpleTranslationProvider's
 // initialLocale; on the client resolveRuntimeLocale re-derives from the path +
 // saved cookie. Both must route /es-ar/* to es-AR (not fall back to en/es).
 describe("es-AR runtime/SSR locale resolution", () => {

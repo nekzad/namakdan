@@ -29,13 +29,13 @@ describe("fetchStorefrontBusiness", () => {
         status: 200,
         json: async () => ({
           id: 86,
-          name: "Payverge AI Pro Demo Lounge",
-          custom_url: "payverge-ai-pro-demo-lounge",
+          name: "Namakdan AI Pro Demo Lounge",
+          custom_url: "namakdan-ai-pro-demo-lounge",
         }),
       }) as unknown as typeof fetch;
 
-    const result = await fetchStorefrontBusiness("payverge-ai-pro-demo-lounge");
-    expect(result.business?.name).toBe("Payverge AI Pro Demo Lounge");
+    const result = await fetchStorefrontBusiness("namakdan-ai-pro-demo-lounge");
+    expect(result.business?.name).toBe("Namakdan AI Pro Demo Lounge");
     expect(global.fetch).toHaveBeenCalledTimes(2);
   });
 
@@ -49,8 +49,8 @@ describe("fetchStorefrontBusiness", () => {
         }),
     ) as unknown as typeof fetch;
 
-    const first = fetchStorefrontBusiness("payverge-ai-pro-demo-lounge");
-    const second = fetchStorefrontBusiness("payverge-ai-pro-demo-lounge");
+    const first = fetchStorefrontBusiness("namakdan-ai-pro-demo-lounge");
+    const second = fetchStorefrontBusiness("namakdan-ai-pro-demo-lounge");
     expect(global.fetch).toHaveBeenCalledTimes(1);
 
     resolveFetch?.({
@@ -58,14 +58,14 @@ describe("fetchStorefrontBusiness", () => {
       status: 200,
       json: async () => ({
         id: 86,
-        name: "Payverge AI Pro Demo Lounge",
-        custom_url: "payverge-ai-pro-demo-lounge",
+        name: "Namakdan AI Pro Demo Lounge",
+        custom_url: "namakdan-ai-pro-demo-lounge",
       }),
     });
 
     const [a, b] = await Promise.all([first, second]);
-    expect(a.business?.name).toBe("Payverge AI Pro Demo Lounge");
-    expect(b.business?.name).toBe("Payverge AI Pro Demo Lounge");
+    expect(a.business?.name).toBe("Namakdan AI Pro Demo Lounge");
+    expect(b.business?.name).toBe("Namakdan AI Pro Demo Lounge");
     expect(global.fetch).toHaveBeenCalledTimes(1);
   });
 
@@ -78,8 +78,8 @@ describe("fetchStorefrontBusiness", () => {
         status: 200,
         json: async () => ({
           id: 86,
-          name: "Payverge AI Pro Demo Lounge",
-          custom_url: "payverge-ai-pro-demo-lounge",
+          name: "Namakdan AI Pro Demo Lounge",
+          custom_url: "namakdan-ai-pro-demo-lounge",
         }),
       })
       .mockResolvedValue({
@@ -88,11 +88,11 @@ describe("fetchStorefrontBusiness", () => {
         json: async () => ({}),
       }) as unknown as typeof fetch;
 
-    const first = await fetchStorefrontBusiness("payverge-ai-pro-demo-lounge");
-    expect(first.business?.name).toBe("Payverge AI Pro Demo Lounge");
+    const first = await fetchStorefrontBusiness("namakdan-ai-pro-demo-lounge");
+    expect(first.business?.name).toBe("Namakdan AI Pro Demo Lounge");
 
-    const later = await fetchStorefrontBusiness("payverge-ai-pro-demo-lounge");
-    expect(later.business?.name).toBe("Payverge AI Pro Demo Lounge");
+    const later = await fetchStorefrontBusiness("namakdan-ai-pro-demo-lounge");
+    expect(later.business?.name).toBe("Namakdan AI Pro Demo Lounge");
     expect("reason" in later ? later.reason : undefined).toBeUndefined();
   });
 
@@ -105,8 +105,8 @@ describe("fetchStorefrontBusiness", () => {
         status: 200,
         json: async () => ({
           id: 86,
-          name: "Payverge AI Pro Demo Lounge",
-          custom_url: "payverge-ai-pro-demo-lounge",
+          name: "Namakdan AI Pro Demo Lounge",
+          custom_url: "namakdan-ai-pro-demo-lounge",
         }),
       })
       .mockResolvedValue({
@@ -115,10 +115,10 @@ describe("fetchStorefrontBusiness", () => {
         json: async () => ({}),
       }) as unknown as typeof fetch;
 
-    const first = await fetchStorefrontBusiness("payverge-ai-pro-demo-lounge");
-    expect(first.business?.name).toBe("Payverge AI Pro Demo Lounge");
+    const first = await fetchStorefrontBusiness("namakdan-ai-pro-demo-lounge");
+    expect(first.business?.name).toBe("Namakdan AI Pro Demo Lounge");
 
-    const missing = await fetchStorefrontBusiness("payverge-ai-pro-demo-lounge");
+    const missing = await fetchStorefrontBusiness("namakdan-ai-pro-demo-lounge");
     expect(missing.business).toBeNull();
     expect("reason" in missing ? missing.reason : undefined).toBe("not_found");
   });

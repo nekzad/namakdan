@@ -9,12 +9,12 @@
     "invalidToken": "Token de sesión inválido.",
     "loadingUserData": "Cargando datos de usuario...",
     "error": "Error",
-    "unreachable": "No pudimos contactar a Payverge. Revisa tu conexión y vuelve a intentarlo."
+    "unreachable": "No pudimos contactar a Namakdan. Revisa tu conexión y vuelve a intentarlo."
   },
   "authentication": {
     "title": "Autenticación Requerida",
-    "subtitle": "Inicia sesión con Google o tu correo electrónico para abrir tu panel de Payverge.",
-    "subtitleEmail": "Inicia sesión con tu correo electrónico para abrir tu panel de Payverge.",
+    "subtitle": "Inicia sesión con Google o tu correo electrónico para abrir tu panel de Namakdan.",
+    "subtitleEmail": "Inicia sesión con tu correo electrónico para abrir tu panel de Namakdan.",
     "welcomeBack": "Bienvenido de nuevo, {email}",
     "signInSignUp": "Iniciar Sesión / Registrarse",
     "signInOnly": "Iniciar Sesión",
@@ -41,7 +41,7 @@
           "description": "Los clientes pagan por los medios que conectes; no hay intermediarios."
         }
       ],
-      "imageAlt": "Panel de analítica de Payverge con ventas, propinas y mix de pagos"
+      "imageAlt": "Panel de analítica de Namakdan con ventas, propinas y mix de pagos"
     }
   },
   "businesses": {

@@ -269,7 +269,7 @@ describe("runLocaleValidation", () => {
     writeSourceFile(
       repoRoot,
       "frontend/src/components/business-page/Footer.tsx",
-      "export function Footer() { return <span>Payverge</span>; }\n",
+      "export function Footer() { return <span>Namakdan</span>; }\n",
     );
 
     const result = runLocaleValidation({ repoRoot });

@@ -89,7 +89,7 @@ describe("useCampaignKitExport", () => {
         formats: ["4:5", "9:16", "1:1"],
         caption: "Milanesa night",
         targetName: "Milanesa",
-        origin: "https://payverge.io",
+        origin: "https://example.test",
         lang: "en",
       });
     });
@@ -349,7 +349,7 @@ describe("useCampaignKitExport — print shop pack (S3-Reach)", () => {
         presetId: "table_tent_5x7",
         caption: "Tonight",
         targetName: "Milanesa",
-        origin: "https://payverge.io",
+        origin: "https://example.test",
         lang: "en",
       });
     });

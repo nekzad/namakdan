@@ -19,7 +19,7 @@
   },
   "emailPrefs": {
     "sectionTitle": "Preferencias de correo",
-    "sectionDescription": "Elige qué correos te envía Payverge. Se aplican a toda tu cuenta.",
+    "sectionDescription": "Elige qué correos te envía Namakdan. Se aplican a toda tu cuenta.",
     "loadingLabel": "Cargando tus preferencias…",
     "errorMessage": "No pudimos cargar tus preferencias de correo. Actualiza la página o vuelve a intentarlo en un momento.",
     "savedToast": "Preferencias guardadas",
@@ -46,7 +46,7 @@
   },
   "privacy": {
     "sectionTitle": "Privacidad",
-    "sectionDescription": "Descarga una copia de los datos de tu cuenta Payverge o solicita su eliminación.",
+    "sectionDescription": "Descarga una copia de los datos de tu cuenta Namakdan o solicita su eliminación.",
     "exportTitle": "Descargar mis datos",
     "exportDescription": "Prepararemos un archivo JSON con tu perfil y los negocios de tu propiedad.",
     "exportButton": "Descargar exportación",
@@ -56,7 +56,7 @@
     "deleteTitle": "Eliminar mi cuenta",
     "deleteDescription": "Desactiva tu cuenta e inicia un período de revisión de 30 días. Puede ser necesario conservar algunos registros tributarios, fiscales, de facturación, fraude, seguridad o legales.",
     "deleteButton": "Solicitar eliminación de cuenta",
-    "modalTitle": "¿Eliminar tu cuenta de Payverge?",
+    "modalTitle": "¿Eliminar tu cuenta de Namakdan?",
     "modalIntro": "Esto desactiva tu cuenta y fija una fecha de revisión de eliminación dentro de 30 días. La eliminación final se revisa porque puede ser necesario conservar algunos registros. Escribe el valor de abajo para confirmar.",
     "modalConfirmLabel": "Escribe tu correo electrónico para confirmar",
     "modalReasonLabel": "Motivo (opcional)",

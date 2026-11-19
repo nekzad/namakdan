@@ -18,7 +18,7 @@ describe("chatSoundPrefs", () => {
   });
 
   test("corrupted storage falls back to defaults", () => {
-    localStorage.setItem("payverge_chat_sound_prefs", "{nope");
+    localStorage.setItem("namakdan_chat_sound_prefs", "{nope");
     expect(getChatSoundPrefs()).toEqual({
       announcementSound: true,
       messageSound: false,

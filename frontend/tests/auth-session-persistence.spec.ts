@@ -14,7 +14,7 @@ import { API_BASE, MANAGER_EMAIL } from "./helpers/journeys";
 import { loginStaff } from "./helpers/staff-login";
 
 const AUTH_E2E_ENABLED = process.env.PLAYWRIGHT_RUN_AUTH_E2E === "1";
-const SESSION_HINT_KEY = "payverge_had_session";
+const SESSION_HINT_KEY = "namakdan_had_session";
 const ACCESS_COOKIE_NAMES = /^(session_token|staff_token|customer_token)$/;
 const INITIAL_PROBE_TIMEOUT_MS = 10_000;
 const SESSION_INFO_ENDPOINT = apiEndpoint("auth/session-info");

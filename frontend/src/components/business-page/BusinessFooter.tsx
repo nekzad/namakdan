@@ -151,7 +151,7 @@ function parseBusinessDateDow(businessDate?: string): number | null {
 /**
  * Business footer (plan 3.4): NAP block + hours + socials/directions, so the
  * page reads as the restaurant's own site rather than a hosted profile. The
- * Payverge strip stays subtle at the bottom. Columns with no data are hidden;
+ * Namakdan strip stays subtle at the bottom. Columns with no data are hidden;
  * when there is no business content at all, only the slim strip renders.
  */
 export default function BusinessFooter({
@@ -209,7 +209,7 @@ export default function BusinessFooter({
     ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`
     : null;
 
-  const payvergeStrip = (
+  const namakdanStrip = (
     <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-ink-500">
       <div className="flex items-center gap-2">
         <div
@@ -221,7 +221,7 @@ export default function BusinessFooter({
           <Zap className="w-3 h-3 text-white" />
         </div>
         <span className="font-semibold text-ink-800 tracking-wide">
-          Payverge
+          Namakdan
         </span>
       </div>
       <span className="text-ink-700 sm:text-right">
@@ -233,7 +233,7 @@ export default function BusinessFooter({
   if (!hasBusinessContent) {
     return (
       <footer className="bg-warm-100 border-t border-warm-200 py-8">
-        <div className="max-w-6xl mx-auto px-6">{payvergeStrip}</div>
+        <div className="max-w-6xl mx-auto px-6">{namakdanStrip}</div>
       </footer>
     );
   }
@@ -374,7 +374,7 @@ export default function BusinessFooter({
         </div>
       </div>
       <div className="border-t border-warm-200 py-5">
-        <div className="max-w-6xl mx-auto px-6">{payvergeStrip}</div>
+        <div className="max-w-6xl mx-auto px-6">{namakdanStrip}</div>
       </div>
     </footer>
   );

@@ -11,7 +11,7 @@ import type { Page } from "@playwright/test";
  */
 export async function installPrintDialogStub(page: Page): Promise<() => Promise<boolean>> {
   await page.addInitScript(() => {
-    (window as unknown as { __payvergePrintCalls?: number }).__payvergePrintCalls = 0;
+    (window as unknown as { __namakdanPrintCalls?: number }).__namakdanPrintCalls = 0;
     const origCreate = document.createElement.bind(document);
     document.createElement = ((tag: string, opts?: ElementCreationOptions) => {
       const el = origCreate(tag, opts);
@@ -21,8 +21,8 @@ export async function installPrintDialogStub(page: Page): Promise<() => Promise<
             const cw = (el as HTMLIFrameElement).contentWindow;
             if (cw) {
               cw.print = () => {
-                const w = window as unknown as { __payvergePrintCalls?: number };
-                w.__payvergePrintCalls = (w.__payvergePrintCalls ?? 0) + 1;
+                const w = window as unknown as { __namakdanPrintCalls?: number };
+                w.__namakdanPrintCalls = (w.__namakdanPrintCalls ?? 0) + 1;
               };
             }
           } catch {
@@ -36,8 +36,8 @@ export async function installPrintDialogStub(page: Page): Promise<() => Promise<
 
   return async () => {
     return page.evaluate(() => {
-      const w = window as unknown as { __payvergePrintCalls?: number };
-      return (w.__payvergePrintCalls ?? 0) > 0;
+      const w = window as unknown as { __namakdanPrintCalls?: number };
+      return (w.__namakdanPrintCalls ?? 0) > 0;
     });
   };
 }
@@ -56,9 +56,9 @@ export async function installMenuPrintWindowStub(
 ): Promise<() => Promise<number>> {
   await page.addInitScript((requestedCompletion) => {
     const parent = window as unknown as {
-      __payvergeMenuPrintCalls?: number;
+      __namakdanMenuPrintCalls?: number;
     };
-    parent.__payvergeMenuPrintCalls = 0;
+    parent.__namakdanMenuPrintCalls = 0;
     const originalOpen = window.open.bind(window);
 
     window.open = ((url?: string | URL, target?: string, features?: string) => {
@@ -76,8 +76,8 @@ export async function installMenuPrintWindowStub(
       if (!isSameOrigin) return child;
 
       child.print = () => {
-        parent.__payvergeMenuPrintCalls =
-          (parent.__payvergeMenuPrintCalls ?? 0) + 1;
+        parent.__namakdanMenuPrintCalls =
+          (parent.__namakdanMenuPrintCalls ?? 0) + 1;
         if (requestedCompletion === "cancel") {
           child.dispatchEvent(new Event("afterprint"));
         } else if (requestedCompletion === "complete") {
@@ -91,8 +91,8 @@ export async function installMenuPrintWindowStub(
   return async () =>
     page.evaluate(() => {
       const current = window as unknown as {
-        __payvergeMenuPrintCalls?: number;
+        __namakdanMenuPrintCalls?: number;
       };
-      return current.__payvergeMenuPrintCalls ?? 0;
+      return current.__namakdanMenuPrintCalls ?? 0;
     });
 }

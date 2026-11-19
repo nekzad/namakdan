@@ -1,6 +1,6 @@
 import { useLayoutEffect, useState } from "react";
 
-const EVENT = "payverge:operator-access-error";
+const EVENT = "namakdan:operator-access-error";
 
 function readOperatorAccessError(): boolean {
   return (

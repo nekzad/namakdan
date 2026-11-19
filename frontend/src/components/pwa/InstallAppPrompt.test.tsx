@@ -5,9 +5,9 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import InstallAppPrompt from "./InstallAppPrompt";
 
 const defaultProps = {
-  title: "Open Payverge like an app",
+  title: "Open Namakdan like an app",
   body: "Faster access from your home screen. No app store needed.",
-  installLabel: "Install Payverge",
+  installLabel: "Install Namakdan",
   dismissLabel: "Not now",
   staffBottomOffset: true,
   isPending: false,
@@ -23,7 +23,7 @@ test("stays bottom-centered through tablet widths and moves bottom-right on desk
   render(<InstallAppPrompt {...defaultProps} />);
 
   const region = screen.getByRole("region", {
-    name: "Open Payverge like an app",
+    name: "Open Namakdan like an app",
   });
   expect(region).toHaveClass(
     "z-50",
@@ -57,7 +57,7 @@ test("provides labeled touch targets and routes both actions", () => {
   render(<InstallAppPrompt {...defaultProps} />);
 
   const dismiss = screen.getByRole("button", { name: "Not now" });
-  const install = screen.getByRole("button", { name: "Install Payverge" });
+  const install = screen.getByRole("button", { name: "Install Namakdan" });
 
   expect(dismiss).toHaveClass("h-11", "w-11", "focus-visible:ring-2");
   expect(install).toHaveClass("min-h-11", "focus-visible:ring-2");
@@ -74,7 +74,7 @@ test("marks the invitation busy and disables both actions while installing", () 
 
   const region = screen.getByRole("region", { name: defaultProps.title });
   const dismiss = screen.getByRole("button", { name: "Not now" });
-  const install = screen.getByRole("button", { name: "Install Payverge" });
+  const install = screen.getByRole("button", { name: "Install Namakdan" });
 
   expect(region).toHaveAttribute("aria-busy", "true");
   expect(install).toHaveAttribute("aria-busy", "true");

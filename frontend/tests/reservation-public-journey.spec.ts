@@ -67,7 +67,7 @@ test.describe("Public reservation journey", () => {
           data: {
             customer_name: customerName,
             customer_phone: "+1 555-000-0042",
-            customer_email: "e2e-reservation@payverge.test",
+            customer_email: "e2e-reservation@example.test",
             party_size: 2,
             reservation_time: slotTime,
             language: "en",

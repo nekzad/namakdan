@@ -12,10 +12,10 @@ export interface ResolvedGuestLocale {
 
 /**
  * Cross-surface guest locale preference cookie (PG-12 / PG-21).
- * Distinct from the operator `payverge_locale` cookie so dashboard language
+ * Distinct from the operator `namakdan_locale` cookie so dashboard language
  * never leaks into diner SSR chrome.
  */
-export const GUEST_LOCALE_COOKIE = "payverge_guest_locale";
+export const GUEST_LOCALE_COOKIE = "namakdan_guest_locale";
 
 /**
  * Path prefixes `/es` and `/es-ar` are explicit diner locale, same as `?lang=`.
@@ -55,7 +55,7 @@ export function resolveGuestLocale(
 /**
  * Full guest request locale for middleware + SSR storefront bootstrap (PG-21).
  * Priority: explicit `?lang=` → guest cookie (user pick) → Accept-Language → en.
- * Never reads the operator `payverge_locale` cookie.
+ * Never reads the operator `namakdan_locale` cookie.
  *
  * `isExplicit` is true when the locale came from `?lang=` or the guest cookie
  * so server-seeded messages/html lang match hydration and client effects do

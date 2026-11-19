@@ -49,10 +49,10 @@ export default async function TablePage({ params, searchParams }: TablePageProps
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
-    name: businessName || "Payverge Partner Restaurant",
+    name: businessName || "Namakdan Partner Restaurant",
     makesOffer: {
       "@type": "Offer",
-      name: "Interactive Digital Menu & AI Waiter Ordering via Payverge",
+      name: "Interactive Digital Menu & AI Waiter Ordering via Namakdan",
     },
   };
 

@@ -58,7 +58,7 @@ jest.mock("@nextui-org/react", () => {
 
 // jsQR mock: decodes any frame to a payload with a table-code URL.
 const mockJsqr = jest.fn((..._args: unknown[]) => ({
-  data: "https://payverge.io/t/abc123",
+  data: "https://example.test/t/abc123",
 }));
 jest.mock("jsqr", () => ({
   __esModule: true,
@@ -67,8 +67,8 @@ jest.mock("jsqr", () => ({
 
 describe("extractTableCode", () => {
   it("extracts and upper-cases a code from a /t/ URL (case-insensitive)", () => {
-    expect(extractTableCode("https://payverge.io/t/abc123")).toBe("ABC123");
-    expect(extractTableCode("https://payverge.io/T/AbC123")).toBe("ABC123");
+    expect(extractTableCode("https://example.test/t/abc123")).toBe("ABC123");
+    expect(extractTableCode("https://example.test/T/AbC123")).toBe("ABC123");
   });
 
   it("extracts a bare alphanumeric code", () => {
@@ -76,7 +76,7 @@ describe("extractTableCode", () => {
   });
 
   it("extracts demo slug codes with hyphens from /t/ URLs", () => {
-    expect(extractTableCode("https://payverge.io/t/demo-50-core-table-01")).toBe(
+    expect(extractTableCode("https://example.test/t/demo-50-core-table-01")).toBe(
       "DEMO-50-CORE-TABLE-01",
     );
   });

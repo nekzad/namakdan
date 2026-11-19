@@ -214,7 +214,7 @@ describe("GuestBillPage", () => {
 
   it("ignores stale stored payment state for a different bill token", async () => {
     sessionStorage.setItem(
-      "payverge_payment",
+      "namakdan_payment",
       JSON.stringify({
         billId: 99,
         billToken: "OTHER-BILL",
@@ -243,7 +243,7 @@ describe("GuestBillPage", () => {
 
   it("keeps the live bill open after a split-share plugin return is confirmed", async () => {
     sessionStorage.setItem(
-      "payverge_payment",
+      "namakdan_payment",
       JSON.stringify({
         billToken: "B42-opaque",
         paymentId: "pay_split",
@@ -284,12 +284,12 @@ describe("GuestBillPage", () => {
     );
     expect(screen.queryByText("bill.thankYouTitle")).toBeNull();
     expect(getBillByNumber).not.toHaveBeenCalled();
-    expect(sessionStorage.getItem("payverge_payment")).toBeNull();
+    expect(sessionStorage.getItem("namakdan_payment")).toBeNull();
   });
 
   it("releases a held split share when a redirect plugin payment is cancelled", async () => {
     sessionStorage.setItem(
-      "payverge_payment",
+      "namakdan_payment",
       JSON.stringify({
         billToken: "B42-opaque",
         paymentId: "pay_split_cancelled",
@@ -308,7 +308,7 @@ describe("GuestBillPage", () => {
     await waitFor(() => {
       expect(SplittingAPI.releaseHeldShare).toHaveBeenCalledWith("B42-opaque", 42);
     });
-    expect(sessionStorage.getItem("payverge_payment")).toBeNull();
+    expect(sessionStorage.getItem("namakdan_payment")).toBeNull();
   });
 
   it("resumes payment status check using legacy bill_number query as one-release fallback", async () => {

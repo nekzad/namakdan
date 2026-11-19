@@ -103,7 +103,7 @@ type MenuItem = {
 /**
  * Derive avatar initials from a business name.
  *
- * One word: first letter ("Payverge" -> "P").
+ * One word: first letter ("Namakdan" -> "P").
  * Two+ words: first letter of first + first letter of last
  * ("Mara AI Lounge" -> "ML"). This avoids generic middle-word initials
  * (e.g. "MA") and matches the common avatar convention used elsewhere on
@@ -150,7 +150,7 @@ export default function DashboardSidebar({
   // persistence. The boolean is a no-op on mobile because every
   // collapse-effect class below is `lg:`-prefixed.
   const [collapsed, setCollapsed] = useLocalStorageState<boolean>(
-    business?.id ? `payverge_sidebar_collapsed:${business.id}` : null,
+    business?.id ? `namakdan_sidebar_collapsed:${business.id}` : null,
     false,
   );
   const isMobileNav = useMediaQuery("(max-width: 1023px)");
@@ -187,7 +187,7 @@ export default function DashboardSidebar({
   // Clean up any legacy stale keys written before the null-key guard was added.
   React.useEffect(() => {
     try {
-      ["payverge_sidebar_more:none", "payverge_sidebar_more:pending"].forEach(
+      ["namakdan_sidebar_more:none", "namakdan_sidebar_more:pending"].forEach(
         (k) => {
           window.localStorage.removeItem(k);
         },

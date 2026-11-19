@@ -123,9 +123,9 @@ describe("DashboardSidebar — business avatar", () => {
     renderSidebar({
       business: {
         id: 2,
-        name: "Payverge",
+        name: "Namakdan",
         logo: "",
-        custom_url: "payverge",
+        custom_url: "namakdan",
       } as any,
     });
 
@@ -153,14 +153,14 @@ describe("DashboardSidebar — business avatar", () => {
     renderSidebar({
       business: {
         id: 4,
-        name: "Payverge Core Demo Kitchen",
+        name: "Namakdan Core Demo Kitchen",
         logo: "",
-        custom_url: "payverge-core-demo-kitchen",
+        custom_url: "namakdan-core-demo-kitchen",
       } as any,
     });
 
     const heading = screen.getByRole("heading", {
-      name: "Payverge Core Demo Kitchen",
+      name: "Namakdan Core Demo Kitchen",
     });
     expect(heading.className).toContain("line-clamp-2");
     expect(heading.className).not.toContain("truncate");

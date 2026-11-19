@@ -111,7 +111,7 @@ const RULES: ClaimRule[] = [
   {
     claimClass: "pci",
     patterns: [
-      /\bPayverge\b.{0,35}\b(?:is|es|est[aá])\b.{0,20}\bPCI(?:[- ]DSS)?\b.{0,20}\b(?:certified|compliant|certificado|cumple)\b/i,
+      /\bNamakdan\b.{0,35}\b(?:is|es|est[aá])\b.{0,20}\bPCI(?:[- ]DSS)?\b.{0,20}\b(?:certified|compliant|certificado|cumple)\b/i,
       /\bour payment processing is PCI(?:[- ]DSS)? compliant\b/i,
       /\bnuestro procesamiento de pagos cumple con PCI(?:[- ]DSS)?\b/i,
     ],

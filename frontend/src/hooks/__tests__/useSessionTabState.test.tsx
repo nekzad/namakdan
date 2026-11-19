@@ -11,7 +11,7 @@
 import { renderHook, act } from "@testing-library/react";
 import { useSessionTabState } from "../useSessionTabState";
 
-const KEY = "payverge_test_session:7";
+const KEY = "namakdan_test_session:7";
 
 beforeEach(() => {
   window.sessionStorage.clear();
@@ -74,10 +74,10 @@ describe("useSessionTabState", () => {
   });
 
   it("re-keys when the business scope changes", () => {
-    window.sessionStorage.setItem("payverge_test_session:8", JSON.stringify("kds"));
+    window.sessionStorage.setItem("namakdan_test_session:8", JSON.stringify("kds"));
     const { result, rerender } = renderHook(
       ({ biz }: { biz: number }) =>
-        useSessionTabState(`payverge_test_session:${biz}`, "list"),
+        useSessionTabState(`namakdan_test_session:${biz}`, "list"),
       { initialProps: { biz: 7 } },
     );
     expect(result.current[0]).toBe("list");

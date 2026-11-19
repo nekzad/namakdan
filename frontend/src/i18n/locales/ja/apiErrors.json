@@ -5,7 +5,7 @@
   "AUTH_REFRESH_ROTATED": "別のリクエストでセッションが更新されました。もう一度お試しください。",
   "AUTH_SESSION_UNKNOWN": "このセッションはもう有効ではありません。もう一度サインインしてください。",
   "AUTH_FORBIDDEN": "この操作へのアクセス権がありません。",
-  "DEMO_MODE_FORBIDDEN": "この操作は公開デモでは無効になっています。ご利用になるにはご自身の Payverge をインストールしてください。デモは毎晩リセットされます。",
+  "DEMO_MODE_FORBIDDEN": "この操作は公開デモでは無効になっています。ご利用になるにはご自身の Namakdan をインストールしてください。デモは毎晩リセットされます。",
   "AUTH_NOT_ADMIN": "管理者アクセスが必要です。",
   "AUTH_INSUFFICIENT_ROLE": "あなたの役割ではこの操作は許可されていません。",
   "AUTH_INVALID_CREDENTIALS": "メールアドレスまたはパスワードが無効です。",

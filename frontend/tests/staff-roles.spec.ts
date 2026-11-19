@@ -7,10 +7,10 @@ import {
 } from "./helpers/journeys";
 
 const STAFF_EMAILS = {
-  manager: "manager@core-demo.payverge.example",
-  server: "server1@core-demo.payverge.example",
-  host: "host@core-demo.payverge.example",
-  kitchen: "kitchen@core-demo.payverge.example",
+  manager: "manager@core-demo.example.com",
+  server: "server1@core-demo.example.com",
+  host: "host@core-demo.example.com",
+  kitchen: "kitchen@core-demo.example.com",
 } as const;
 
 const ROLES: Array<{ email: string; role: string; allowedTabs: string[] }> = [

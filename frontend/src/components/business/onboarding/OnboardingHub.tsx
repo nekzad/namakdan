@@ -56,12 +56,12 @@ const CELEBRATION_WINDOW_MS = 24 * 60 * 60 * 1000;
 const MAX_AUTOMATIC_RETRIES = 2;
 const RETRY_BASE_DELAY_MS = 500;
 
-const hiddenKey = (id: number) => `payverge_hub_hidden_until_${id}`;
-const forceShowKey = (id: number) => `payverge_hub_force_show_${id}`;
-const statusCacheKey = (id: number) => `payverge_hub_status_${id}`;
+const hiddenKey = (id: number) => `namakdan_hub_hidden_until_${id}`;
+const forceShowKey = (id: number) => `namakdan_hub_force_show_${id}`;
+const statusCacheKey = (id: number) => `namakdan_hub_status_${id}`;
 // Permanent (no TTL) opt-out of the celebration card. Once set, the card never
 // re-enters "celebration" mode for that business.
-const dismissedKey = (id: number) => `payverge_hub_celebration_dismissed_${id}`;
+const dismissedKey = (id: number) => `namakdan_hub_celebration_dismissed_${id}`;
 
 type LoadState = "loading" | "ready" | "refreshing" | "error";
 type CompletionState = "idle" | "saving" | "error";
@@ -404,7 +404,7 @@ function renderCelebration({
     // the print-all sheet once tables have loaded (P2-16).
     if (typeof window !== "undefined") {
       window.sessionStorage.setItem(
-        `payverge_print_qr_on_open_${businessId}`,
+        `namakdan_print_qr_on_open_${businessId}`,
         "1",
       );
     }

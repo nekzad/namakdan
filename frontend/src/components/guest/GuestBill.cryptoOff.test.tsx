@@ -120,7 +120,7 @@ function renderBill() {
 function withInstance(crypto: boolean, demoMode: boolean) {
   setInstanceForTests(
     parseInstanceInfo({
-      product_name: "Payverge",
+      product_name: "Namakdan",
       registration_mode: "invite",
       features: { crypto },
       demo: { enabled: demoMode, mode: demoMode },

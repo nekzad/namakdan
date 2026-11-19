@@ -5,7 +5,7 @@ const spanishSeed = {
   id: 1,
   name: "Demo Kitchen",
   default_language: "en",
-  description: "Un restaurante modelo de Payverge.",
+  description: "Un restaurante modelo de Namakdan.",
   welcome_message: "Bienvenidos.",
   about_story: "Un entorno de demostración realista.",
   special_features: [{ title: "Terraza", description: "Al aire libre", is_active: true }],
@@ -14,9 +14,9 @@ const spanishSeed = {
 
 const englishLive = {
   ...spanishSeed,
-  description: "A Payverge model restaurant with realistic demo data.",
+  description: "A Namakdan model restaurant with realistic demo data.",
   welcome_message: "Welcome. The demo team is ready.",
-  about_story: "A realistic Payverge demo environment.",
+  about_story: "A realistic Namakdan demo environment.",
   special_features: [{ title: "Patio", description: "Outdoor seating", is_active: true }],
   gallery_images: [{ caption: "Demo gallery 1" }],
 } as unknown as PublicBusiness;
@@ -30,7 +30,7 @@ describe("resolveStorefrontDisplayBusiness (#400)", () => {
         currentLanguage: "es",
         seedLanguage: "es",
       }).description,
-    ).toBe("Un restaurante modelo de Payverge.");
+    ).toBe("Un restaurante modelo de Namakdan.");
   });
 
   it("does not reuse Spanish authored fields after a switch to English", () => {
@@ -56,6 +56,6 @@ describe("resolveStorefrontDisplayBusiness (#400)", () => {
         currentLanguage: "en",
         seedLanguage: "es",
       }).description,
-    ).toBe("A Payverge model restaurant with realistic demo data.");
+    ).toBe("A Namakdan model restaurant with realistic demo data.");
   });
 });

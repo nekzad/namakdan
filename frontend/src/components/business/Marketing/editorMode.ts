@@ -7,7 +7,7 @@
 
 export type EditorMode = "simple" | "craft";
 
-const STORAGE_PREFIX = "payverge:marketing:editorMode:";
+const STORAGE_PREFIX = "namakdan:marketing:editorMode:";
 
 export function editorModeStorageKey(businessId: string | number): string {
   return `${STORAGE_PREFIX}${businessId}`;

@@ -79,7 +79,7 @@ describe("routeAliasRedirects", () => {
     for (const prefix of ["", "/es", "/es-ar"]) {
       expect(find(`${prefix}/docs`)).toEqual(
         expect.objectContaining({
-          destination: "https://github.com/stdevMac/payverge/tree/main/docs",
+          destination: "https://github.com/nekzad/namakdan/tree/main/docs",
           permanent: false,
         }),
       );

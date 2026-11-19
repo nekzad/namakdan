@@ -91,7 +91,7 @@ describe("VerifyEmailBanner", () => {
     const { container } = render(<VerifyEmailBanner />);
     fireEvent.click(screen.getByLabelText("verifyBannerDismiss"));
     expect(container).toBeEmptyDOMElement();
-    expect(sessionStorage.getItem("payverge_verify_banner_dismissed")).toBe(
+    expect(sessionStorage.getItem("namakdan_verify_banner_dismissed")).toBe(
       "1",
     );
   });

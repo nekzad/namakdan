@@ -28,7 +28,7 @@ describe("MenuLayout SSR catalog", () => {
       ok: true,
       status: 200,
       json: async () => ({
-        business: { name: "Payverge AI Pro Demo Lounge" },
+        business: { name: "Namakdan AI Pro Demo Lounge" },
         categories: [
           {
             name: "Mains",

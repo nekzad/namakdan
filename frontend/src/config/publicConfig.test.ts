@@ -362,16 +362,16 @@ describe("browser serialization", () => {
     process.env.PUBLIC_URL = "https://pos.example.test";
 
     const script = serializePublicEnvScript();
-    expect(script.startsWith("window.__PAYVERGE_ENV__=Object.freeze(")).toBe(
+    expect(script.startsWith("window.__NAMAKDAN_ENV__=Object.freeze(")).toBe(
       true,
     );
     expect(script).not.toContain("do-not-leak");
 
     const readySuffix =
-      ');if(window.dispatchEvent)window.dispatchEvent(new Event("payverge:public-env"));';
+      ');if(window.dispatchEvent)window.dispatchEvent(new Event("namakdan:public-env"));';
     expect(script.endsWith(readySuffix)).toBe(true);
     const json = script.slice(
-      "window.__PAYVERGE_ENV__=Object.freeze(".length,
+      "window.__NAMAKDAN_ENV__=Object.freeze(".length,
       -readySuffix.length,
     );
     const parsed = JSON.parse(json) as Record<string, string>;
@@ -382,7 +382,7 @@ describe("browser serialization", () => {
   it("publishes PUBLIC_URL blank when it is unset or invalid", () => {
     const published = () => {
       const script = serializePublicEnvScript();
-      const start = "window.__PAYVERGE_ENV__=Object.freeze(".length;
+      const start = "window.__NAMAKDAN_ENV__=Object.freeze(".length;
       const end = script.indexOf(");if(window.dispatchEvent)");
       return (JSON.parse(script.slice(start, end)) as Record<string, string>)
         .PUBLIC_URL;
@@ -408,11 +408,11 @@ describe("browser serialization", () => {
     expect(script).not.toContain("\u2028");
     expect(script).not.toContain("\u2029");
     // Still valid JS that round-trips the exact value.
-    const sandbox: { window: { __PAYVERGE_ENV__?: Record<string, string> } } = {
+    const sandbox: { window: { __NAMAKDAN_ENV__?: Record<string, string> } } = {
       window: {},
     };
     vm.runInNewContext(script, sandbox);
-    expect(sandbox.window.__PAYVERGE_ENV__?.VAPID_PUBLIC_KEY).toBe(
+    expect(sandbox.window.__NAMAKDAN_ENV__?.VAPID_PUBLIC_KEY).toBe(
       "</script><script>alert(1)</script>&\u2028\u2029",
     );
   });
@@ -421,7 +421,7 @@ describe("browser serialization", () => {
     const seen: Array<{ type: string; key: string | undefined }> = [];
     const sandbox: {
       window: {
-        __PAYVERGE_ENV__?: Record<string, string>;
+        __NAMAKDAN_ENV__?: Record<string, string>;
         dispatchEvent?: (event: { type: string }) => boolean;
       };
       Event: typeof Event;
@@ -434,7 +434,7 @@ describe("browser serialization", () => {
     sandbox.window.dispatchEvent = (event) => {
       seen.push({
         type: event.type,
-        key: sandbox.window.__PAYVERGE_ENV__?.PUBLIC_URL,
+        key: sandbox.window.__NAMAKDAN_ENV__?.PUBLIC_URL,
       });
       return true;
     };
@@ -451,7 +451,7 @@ describe("browser serialization", () => {
       sandbox,
     );
     expect(seen).toEqual([
-      { type: "payverge:public-env", key: "https://pos.example.test" },
+      { type: "namakdan:public-env", key: "https://pos.example.test" },
     ]);
   });
 

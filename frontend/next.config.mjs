@@ -255,7 +255,7 @@ const sentryBuildOptions = {
   // build output so they're never shipped in the public bundle.
   sourcemaps: { deleteSourcemapsAfterUpload: true },
   org: process.env.SENTRY_ORG || "",
-  project: process.env.SENTRY_FRONTEND_PROJECT || "payverge-frontend",
+  project: process.env.SENTRY_FRONTEND_PROJECT || "namakdan-frontend",
   // authToken is only threaded when BOTH the org and the token are present.
   // withSentryConfig attempts a source-map upload whenever authToken is set;
   // with an empty org that upload fails and can break the build. Requiring a

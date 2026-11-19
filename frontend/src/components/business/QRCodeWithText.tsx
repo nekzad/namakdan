@@ -131,7 +131,7 @@ export default function QRCodeWithText({
             ctx.fillText(text, canvas.width / 2, 28);
           }
 
-          // Draw "Powered by Payverge" at bottom, also in the foreground color
+          // Draw "Powered by Namakdan" at bottom, also in the foreground color
           // so it doesn't disappear on non-white backgrounds.
           ctx.fillStyle = foregroundColor;
           ctx.textAlign = "center";

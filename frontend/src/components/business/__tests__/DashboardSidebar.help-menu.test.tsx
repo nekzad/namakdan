@@ -128,13 +128,13 @@ describe("DashboardSidebar — Help menu footer (#61)", () => {
     const requestHelp = await screen.findByText("Request Help");
     expect(requestHelp.closest("a")).toHaveAttribute(
       "href",
-      "https://github.com/stdevMac/payverge/issues",
+      "https://github.com/nekzad/namakdan/issues",
     );
     // A stock install ships no phone, chat handle or booking calendar.
     expect(screen.queryByText("Urgent Support")).not.toBeInTheDocument();
     expect(screen.queryByText("Book a Call")).not.toBeInTheDocument();
     expect(document.body.innerHTML).not.toMatch(
-      /wa\.me|calendar\.app\.google|t\.me\/payverge_io/,
+      /wa\.me|calendar\.app\.google|t\.me\/namakdan_io/,
     );
   });
 

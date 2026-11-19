@@ -59,7 +59,7 @@ describe("QRCodeWithText first-value callback", () => {
       <QRCodeWithText
         tableCode="TABLE-01"
         tableName="Table 1"
-        poweredByText="Powered by Payverge"
+        poweredByText="Powered by Namakdan"
         onRendered={onRendered}
       />,
     );
@@ -87,7 +87,7 @@ describe("QRCodeWithText first-value callback", () => {
       <QRCodeWithText
         tableCode="TABLE-01"
         tableName="Table 1"
-        poweredByText="Powered by Payverge"
+        poweredByText="Powered by Namakdan"
         onRendered={onRendered}
       />,
     );

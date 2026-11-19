@@ -20,7 +20,7 @@ describe("QR branding contract (Root D / L3-29)", () => {
     expect(src).not.toMatch(/poweredByText\?:\s*string/);
     // No English literal default on the destructured prop
     expect(src).not.toMatch(
-      /poweredByText\s*=\s*["']Powered by Payverge["']/,
+      /poweredByText\s*=\s*["']Powered by Namakdan["']/,
     );
   });
 

@@ -3,7 +3,7 @@
   "errors": {
     "signIn": "Por favor iniciá sesión para continuar.",
     "connectWallet": "Por favor iniciá sesión para continuar.",
-    "unreachable": "No pudimos contactar a Payverge. Revisá tu conexión y volvé a intentar."
+    "unreachable": "No pudimos contactar a Namakdan. Revisá tu conexión y volvé a intentar."
   },
   "authentication": {
     "connectMessage": "Iniciá sesión con Google o tu correo electrónico para acceder al panel de negocios.",

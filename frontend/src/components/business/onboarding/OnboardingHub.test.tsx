@@ -182,7 +182,7 @@ it("hydrates the last-known-good checklist while a new request is pending", asyn
 
 it("keeps a hide preference after an error and successful recovery", async () => {
   localStorage.setItem(
-    "payverge_hub_hidden_until_42",
+    "namakdan_hub_hidden_until_42",
     String(Date.now() + 60 * 60 * 1000),
   );
   (getSetupStatus as jest.Mock)
@@ -376,7 +376,7 @@ it("renders done chips as static (not buttons)", async () => {
 it("renders null when hidden_until is in the future", async () => {
   (getSetupStatus as jest.Mock).mockResolvedValueOnce(incompleteStatus);
   localStorage.setItem(
-    "payverge_hub_hidden_until_42",
+    "namakdan_hub_hidden_until_42",
     String(Date.now() + 60 * 60 * 1000),
   );
   const { container } = render(<OnboardingHub {...baseProps} />);
@@ -391,7 +391,7 @@ it("renders null when hidden_until is in the future", async () => {
 it("renders State A when hidden_until has expired", async () => {
   (getSetupStatus as jest.Mock).mockResolvedValueOnce(incompleteStatus);
   localStorage.setItem(
-    "payverge_hub_hidden_until_42",
+    "namakdan_hub_hidden_until_42",
     String(Date.now() - 60 * 60 * 1000),
   );
   render(<OnboardingHub {...baseProps} />);
@@ -406,7 +406,7 @@ it("writes hidden_until ≈ now+24h when Hide for today is clicked", async () =>
   });
   const before = Date.now();
   fireEvent.click(hideBtn);
-  const written = Number(localStorage.getItem("payverge_hub_hidden_until_42"));
+  const written = Number(localStorage.getItem("namakdan_hub_hidden_until_42"));
   expect(written).toBeGreaterThanOrEqual(before + 24 * 60 * 60 * 1000 - 5_000);
   expect(written).toBeLessThanOrEqual(before + 24 * 60 * 60 * 1000 + 5_000);
   await waitFor(() => expect(container.firstChild).toBeNull());
@@ -415,25 +415,25 @@ it("writes hidden_until ≈ now+24h when Hide for today is clicked", async () =>
 it("renders State A even when hidden if force_show flag is set", async () => {
   (getSetupStatus as jest.Mock).mockResolvedValueOnce(incompleteStatus);
   localStorage.setItem(
-    "payverge_hub_hidden_until_42",
+    "namakdan_hub_hidden_until_42",
     String(Date.now() + 60 * 60 * 1000),
   );
-  sessionStorage.setItem("payverge_hub_force_show_42", "1");
+  sessionStorage.setItem("namakdan_hub_force_show_42", "1");
   render(<OnboardingHub {...baseProps} />);
   await screen.findByText(/setupProgress\.incomplete\.welcomeSubtitle/);
 });
 
 it("consumes the force_show flag on mount so it is a one-shot override", async () => {
   (getSetupStatus as jest.Mock).mockResolvedValueOnce(incompleteStatus);
-  sessionStorage.setItem("payverge_hub_force_show_42", "1");
+  sessionStorage.setItem("namakdan_hub_force_show_42", "1");
   render(<OnboardingHub {...baseProps} />);
   await screen.findByText(/setupProgress\.incomplete\.welcomeSubtitle/);
-  expect(sessionStorage.getItem("payverge_hub_force_show_42")).toBeNull();
+  expect(sessionStorage.getItem("namakdan_hub_force_show_42")).toBeNull();
 });
 
 it("Hide for today hides the hub even when it was force-shown via Reopen setup", async () => {
   (getSetupStatus as jest.Mock).mockResolvedValueOnce(incompleteStatus);
-  sessionStorage.setItem("payverge_hub_force_show_42", "1");
+  sessionStorage.setItem("namakdan_hub_force_show_42", "1");
   const { container } = render(<OnboardingHub {...baseProps} />);
   const hideBtn = await screen.findByRole("button", {
     name: /setupProgress\.incomplete\.hideForToday/,
@@ -444,7 +444,7 @@ it("Hide for today hides the hub even when it was force-shown via Reopen setup",
 
 it("ignores a corrupt (non-numeric) hidden_until and renders State A", async () => {
   (getSetupStatus as jest.Mock).mockResolvedValueOnce(incompleteStatus);
-  localStorage.setItem("payverge_hub_hidden_until_42", "not-a-number");
+  localStorage.setItem("namakdan_hub_hidden_until_42", "not-a-number");
   render(<OnboardingHub {...baseProps} />);
   await screen.findByText(/setupProgress\.incomplete\.welcomeSubtitle/);
 });
@@ -716,7 +716,7 @@ it("celebration: print CTA sets the one-shot flag and navigates to Tables", asyn
     name: /setupProgress\.celebration\.printCta/,
   });
   fireEvent.click(printCta);
-  expect(window.sessionStorage.getItem("payverge_print_qr_on_open_42")).toBe(
+  expect(window.sessionStorage.getItem("namakdan_print_qr_on_open_42")).toBe(
     "1",
   );
   expect(baseProps.onNavigateToTab).toHaveBeenCalledWith("tables");
@@ -761,7 +761,7 @@ it("dismissing the celebration hides the card and writes the dismissed flag", as
     name: /setupProgress\.celebration\.dismiss/,
   });
   fireEvent.click(dismiss);
-  expect(localStorage.getItem("payverge_hub_celebration_dismissed_42")).toBe(
+  expect(localStorage.getItem("namakdan_hub_celebration_dismissed_42")).toBe(
     "1",
   );
   await waitFor(() => expect(container.firstChild).toBeNull());
@@ -769,7 +769,7 @@ it("dismissing the celebration hides the card and writes the dismissed flag", as
 
 it("does not show the celebration when the dismissed flag is already set", async () => {
   (getSetupStatus as jest.Mock).mockResolvedValueOnce(completeStatus);
-  localStorage.setItem("payverge_hub_celebration_dismissed_42", "1");
+  localStorage.setItem("namakdan_hub_celebration_dismissed_42", "1");
   const { container } = render(
     <OnboardingHub
       {...baseProps}
@@ -804,7 +804,7 @@ it("reports onVisibilityChange(false) after the celebration is dismissed", async
 
 it("celebration dismissal does not affect the incomplete-checklist mode", async () => {
   (getSetupStatus as jest.Mock).mockResolvedValueOnce(incompleteStatus);
-  localStorage.setItem("payverge_hub_celebration_dismissed_42", "1");
+  localStorage.setItem("namakdan_hub_celebration_dismissed_42", "1");
   render(<OnboardingHub {...baseProps} />);
   await screen.findByText(/setupProgress\.incomplete\.welcomeSubtitle/);
 });

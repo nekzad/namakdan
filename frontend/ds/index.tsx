@@ -1,8 +1,8 @@
 /**
- * Payverge design-system barrel.
+ * Namakdan design-system barrel.
  *
  * This file exists for ONE purpose: to give the /design-sync converter a single
- * entry point over the components that make up Payverge's reusable UI layer.
+ * entry point over the components that make up Namakdan's reusable UI layer.
  * The app itself does not import from here — every export below is a re-export
  * of the real shipped component in `src/`, so the bundle uploaded to
  * claude.ai/design is the same code that runs in production.

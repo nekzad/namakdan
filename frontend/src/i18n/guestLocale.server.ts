@@ -15,9 +15,9 @@ export async function resolveGuestLocaleFromRequest(
   const cookieStore = await cookies();
   const headerStore = await headers();
   return resolveGuestRequestLocale({
-    // Path-locale /es/b/{slug} arrives as x-payverge-locale from middleware
+    // Path-locale /es/b/{slug} arrives as x-namakdan-locale from middleware
     // (#644). Prefer ?lang=, then that header, then cookie / Accept-Language.
-    langParam: langParam || headerStore.get("x-payverge-locale"),
+    langParam: langParam || headerStore.get("x-namakdan-locale"),
     guestCookie: cookieStore.get(GUEST_LOCALE_COOKIE)?.value ?? null,
     acceptLanguage: headerStore.get("accept-language"),
   });

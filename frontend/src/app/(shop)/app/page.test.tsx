@@ -62,7 +62,7 @@ let mockLocale = "en";
 jest.mock("@/i18n/SimpleTranslationProvider", () => ({
   useSimpleLocale: () => ({ locale: mockLocale }),
   getTranslation: (_key: string, locale: string) =>
-    locale === "es" ? "Abriendo Payverge" : "Opening Payverge",
+    locale === "es" ? "Abriendo Namakdan" : "Opening Namakdan",
 }));
 
 jest.mock("@nextui-org/react", () => ({
@@ -123,9 +123,9 @@ describe("/app", () => {
     expect(mockTrackEvent).not.toHaveBeenCalled();
     expect(screen.getByRole("status")).toHaveAttribute("aria-live", "polite");
     expect(
-      screen.getByRole("progressbar", { name: "Abriendo Payverge" }),
+      screen.getByRole("progressbar", { name: "Abriendo Namakdan" }),
     ).toBeInTheDocument();
-    expect(screen.getByText("Abriendo Payverge")).toBeInTheDocument();
+    expect(screen.getByText("Abriendo Namakdan")).toBeInTheDocument();
   });
 
   it("validates once and opens the remembered owner business", async () => {

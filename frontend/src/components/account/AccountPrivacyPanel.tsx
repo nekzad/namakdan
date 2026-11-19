@@ -69,7 +69,7 @@ export interface AccountPrivacyCopy {
 const DEFAULT_COPY: AccountPrivacyCopy = {
   sectionTitle: "Privacy",
   sectionDescription:
-    "Download a copy of your Payverge account data or request that we delete it.",
+    "Download a copy of your Namakdan account data or request that we delete it.",
   exportTitle: "Download my data",
   exportDescription:
     "We will assemble a JSON snapshot of your profile and the businesses you own.",
@@ -83,7 +83,7 @@ const DEFAULT_COPY: AccountPrivacyCopy = {
   deleteDescription:
     "Disables your account and starts a 30-day review window. Some tax, fiscal, billing, fraud, security, or legal records may need to be retained.",
   deleteButton: "Request account deletion",
-  modalTitle: "Delete your Payverge account?",
+  modalTitle: "Delete your Namakdan account?",
   modalIntro:
     "This disables your account and sets a deletion-review date 30 days from now. Final deletion is reviewed because some records may need to be retained. Type the value below to confirm.",
   modalConfirmLabel: "Type your account email to confirm",

@@ -1,18 +1,18 @@
 {
-  "serviceUnavailable": "La facturación electrónica está desactivada en el servidor en este momento, así que no se envió nada a ARCA. Pedile a tu contacto de Payverge que la vuelva a activar.",
+  "serviceUnavailable": "La facturación electrónica está desactivada en el servidor en este momento, así que no se envió nada a ARCA. Pedile a tu contacto de Namakdan que la vuelva a activar.",
   "summary": {
     "sandboxBanner": "Las facturas emitidas acá son simuladas — no son válidas legalmente. Cambiá a Producción desde Editar configuración después de validar las credenciales AFIP/ARCA.",
     "demoBanner": "Estas facturas son solo de práctica — no son facturas fiscales válidas. Cambiar el Entorno a Producción acá no las hace oficiales."
   },
   "setup": {
     "description": "Actualizá país, perfil fiscal o modo de emisión. Los cambios aplican a nuevas cuentas pagadas.",
-    "emptyDescription": "Configurálo una vez para que Payverge pueda encolar facturas oficiales por cada cuenta pagada.",
+    "emptyDescription": "Configurálo una vez para que Namakdan pueda encolar facturas oficiales por cada cuenta pagada.",
     "fields": {
       "taxConditionPlaceholder": "Seleccioná la condición fiscal"
     }
   },
   "credentials": {
-    "description": "Subí el certificado digital y la clave privada emitidos por AFIP/ARCA para que Payverge pueda solicitar autorizaciones de CAE en tu nombre.",
+    "description": "Subí el certificado digital y la clave privada emitidos por AFIP/ARCA para que Namakdan pueda solicitar autorizaciones de CAE en tu nombre.",
     "certHint": "El certificado X.509 que descargaste de AFIP.",
     "keyHint": "Tu clave privada se cifra en reposo y no se vuelve a mostrar.",
     "missingFiles": "Seleccioná el certificado y la clave privada antes de subir.",
@@ -30,7 +30,7 @@
   },
   "history": {
     "emptyDescriptionManual": "Ingresá el ID de una cuenta pagada abajo para emitir tu primera factura.",
-    "emptyDescriptionOff": "La emisión de facturas está apagada. Cambiá a Manual o Automático desde Editar configuración para que Payverge encole facturas por cada cuenta pagada.",
+    "emptyDescriptionOff": "La emisión de facturas está apagada. Cambiá a Manual o Automático desde Editar configuración para que Namakdan encole facturas por cada cuenta pagada.",
     "issue": {
       "hint": "Usá el número de cuenta de la pestaña Cuentas. La cuenta debe estar pagada.",
       "billNotFound": "No encontramos una cuenta pagada con ese ID. Revisá la pestaña Cuentas para confirmar el número.",

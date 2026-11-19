@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { absoluteSiteUrl } from "@/config/publicConfig";
 import { pageOpenGraphFromCanonical } from "@/lib/seo/openGraphImages";
 
-const TITLE = "Unsubscribe — Payverge";
+const TITLE = "Unsubscribe — Namakdan";
 const DESCRIPTION =
-  "Stop Payverge marketing emails. Billing and account-critical messages still send.";
+  "Stop Namakdan marketing emails. Billing and account-critical messages still send.";
 // Module scope is evaluated in the server process at runtime (the root layout
 // is dynamic), so this follows the deployment's PUBLIC_URL.
 const CANONICAL = absoluteSiteUrl("/unsubscribe");

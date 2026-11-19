@@ -139,7 +139,7 @@ describe("PropertiesPanel table edit", () => {
         onUpdateTable={onUpdateTable}
         onUpdateElement={jest.fn()}
         onUpdateRegion={jest.fn()}
-        tableQrLinks={{ 42: "https://payverge.io/t/abc" }}
+        tableQrLinks={{ 42: "https://example.test/t/abc" }}
       />,
     );
 

@@ -59,7 +59,7 @@ test.describe("QA pipeline — guest order journey", () => {
       // Consent banner out of the way.
       await page.addInitScript(() => {
         window.localStorage.setItem(
-          "payverge_cookie_consent",
+          "namakdan_cookie_consent",
           JSON.stringify({
             version: 1,
             analytics: false,

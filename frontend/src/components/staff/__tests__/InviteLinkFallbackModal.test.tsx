@@ -11,7 +11,7 @@ import { toast } from "react-hot-toast";
 
 const tString = (key: string) => key;
 const URL_UNDER_TEST =
-  "https://payverge.io/staff/accept-invitation?token=abc123";
+  "https://example.test/staff/accept-invitation?token=abc123";
 
 describe("InviteLinkFallbackModal (P2-21)", () => {
   it("shows the invitation link read-only and copies it", async () => {

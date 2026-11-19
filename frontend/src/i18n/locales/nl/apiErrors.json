@@ -5,7 +5,7 @@
   "AUTH_REFRESH_ROTATED": "Je sessie is in een andere aanvraag vernieuwd. Probeer het opnieuw.",
   "AUTH_SESSION_UNKNOWN": "Deze sessie is niet meer actief. Meld je opnieuw aan.",
   "AUTH_FORBIDDEN": "Je hebt geen toegang tot deze actie.",
-  "DEMO_MODE_FORBIDDEN": "Deze actie is uitgeschakeld in de openbare demo. Installeer je eigen Payverge om deze te gebruiken; de demo wordt elke nacht teruggezet.",
+  "DEMO_MODE_FORBIDDEN": "Deze actie is uitgeschakeld in de openbare demo. Installeer je eigen Namakdan om deze te gebruiken; de demo wordt elke nacht teruggezet.",
   "AUTH_NOT_ADMIN": "Beheerderstoegang is vereist.",
   "AUTH_INSUFFICIENT_ROLE": "Je rol staat deze actie niet toe.",
   "AUTH_INVALID_CREDENTIALS": "Ongeldig e-mailadres of wachtwoord.",

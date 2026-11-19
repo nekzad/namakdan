@@ -12,11 +12,11 @@ import {
 
 // Per-business share card: banner backdrop + logo tile + name + rating, so a
 // /b/<slug> link preview looks like the restaurant instead of a raw photo or
-// the generic Payverge image. Served by the file convention — generateMetadata
+// the generic Namakdan image. Served by the file convention — generateMetadata
 // deliberately does NOT set openGraph.images so this takes over.
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-export const alt = "Restaurant storefront on Payverge";
+export const alt = "Restaurant storefront on Namakdan";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -235,7 +235,7 @@ export default async function StorefrontOgImage({
               letterSpacing: 1,
             }}
           >
-            Payverge
+            Namakdan
           </div>
         </div>
       </div>

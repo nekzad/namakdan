@@ -194,7 +194,7 @@ const AUTH_REFRESH_SKIP_PATHS = [
 
 function isCustomerAPIPath(requestPath: string): boolean {
   try {
-    const pathname = new URL(requestPath, "http://payverge.local").pathname;
+    const pathname = new URL(requestPath, "http://example.test").pathname;
     return pathname === "/customer" || pathname.startsWith("/customer/");
   } catch {
     return requestPath === "/customer" || requestPath.startsWith("/customer/");
@@ -291,7 +291,7 @@ export async function refreshAuthSession(apiUrl: string): Promise<boolean> {
 }
 
 // No baseURL here: reading getPublicConfig() at module evaluation can run
-// before the root layout's runtime config script (window.__PAYVERGE_ENV__)
+// before the root layout's runtime config script (window.__NAMAKDAN_ENV__)
 // and would freeze the build-time fallback for the page's lifetime. The
 // request interceptor below resolves it per request instead.
 export const axiosInstance = axios.create({

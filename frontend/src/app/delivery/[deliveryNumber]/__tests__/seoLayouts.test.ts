@@ -12,13 +12,13 @@ describe("guest delivery route metadata — noindex (SEO-0.5)", () => {
       expect.objectContaining({ index: false, follow: false }),
     );
     expect(trackMetadata.referrer).toBe("no-referrer");
-    expect(trackMetadata.title).toBe("Track your delivery | Payverge");
+    expect(trackMetadata.title).toBe("Track your delivery | Namakdan");
   });
 
   it("pay layout: noindex with a generic title", () => {
     expect(payMetadata.robots).toEqual(
       expect.objectContaining({ index: false, follow: false }),
     );
-    expect(payMetadata.title).toBe("Delivery payment | Payverge");
+    expect(payMetadata.title).toBe("Delivery payment | Namakdan");
   });
 });

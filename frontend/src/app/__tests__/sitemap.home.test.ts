@@ -18,7 +18,7 @@ const realFetch = global.fetch;
 const prevApiUrl = process.env.API_URL;
 
 beforeEach(() => {
-  process.env.API_URL = "https://api.payverge.io/api/v1";
+  process.env.API_URL = "https://api.example.test/api/v1";
   global.fetch = jest.fn().mockResolvedValue({
     ok: true,
     json: async () => ({
@@ -54,14 +54,14 @@ describe("sitemap instance root", () => {
     const entries = await loadEntries();
     const urls = entries.map((e) => e.url);
 
-    const root = entries.find((e) => e.url === "https://payverge.io/");
+    const root = entries.find((e) => e.url === "https://example.test/");
     expect(root?.priority).toBe(1);
     expect(root?.alternates?.languages).toMatchObject({
-      "x-default": "https://payverge.io/",
-      es: "https://payverge.io/es",
+      "x-default": "https://example.test/",
+      es: "https://example.test/es",
     });
-    expect(urls).not.toContain("https://payverge.io/b/alpha");
-    expect(urls).toContain("https://payverge.io/b/beta");
+    expect(urls).not.toContain("https://example.test/b/alpha");
+    expect(urls).toContain("https://example.test/b/beta");
   });
 
   it("lists / for a venue directory and keeps every /b/<slug>", async () => {
@@ -72,9 +72,9 @@ describe("sitemap instance root", () => {
     };
     const urls = (await loadEntries()).map((e) => e.url);
 
-    expect(urls).toContain("https://payverge.io/");
-    expect(urls).toContain("https://payverge.io/b/alpha");
-    expect(urls).toContain("https://payverge.io/b/beta");
+    expect(urls).toContain("https://example.test/");
+    expect(urls).toContain("https://example.test/b/alpha");
+    expect(urls).toContain("https://example.test/b/beta");
   });
 
   it.each([
@@ -83,6 +83,6 @@ describe("sitemap instance root", () => {
   ])("omits / when the home is %s", async (_label, home) => {
     mockHome = home;
     const urls = (await loadEntries()).map((e) => e.url);
-    expect(urls).not.toContain("https://payverge.io/");
+    expect(urls).not.toContain("https://example.test/");
   });
 });

@@ -25,7 +25,7 @@ function mockFetchOnce(
 // Production reality: behind Caddy/Cloudflare, Next builds `request.url` from
 // the container's internal bind address, NOT the public origin. Encoding that
 // here is the whole point — the previous suite used a synthetic public origin
-// (https://app.payverge.test) and therefore asserted an absolute Location that
+// (https://app.example.test) and therefore asserted an absolute Location that
 // was only ever correct inside the test. Production shipped
 // `Location: https://0.0.0.0:3000/b/<slug>`, an unreachable host.
 const INTERNAL_ORIGIN = "https://0.0.0.0:3000";
@@ -86,10 +86,10 @@ describe("/business/<slug> route handler (PG-1)", () => {
     });
     expect(res.status).toBe(404);
     const html = await res.text();
-    expect(html).toMatch(/We couldn't find that page — Payverge/);
+    expect(html).toMatch(/We couldn't find that page — Namakdan/);
     expect(html).toMatch(/noindex/);
     expect(html).not.toMatch(/AI-Powered Restaurant Management System/);
-    // The "Back to Payverge" link was built from url.origin and shipped
+    // The "Back to Namakdan" link was built from url.origin and shipped
     // href="https://0.0.0.0:3000/" to production.
     expect(html).not.toContain(INTERNAL_ORIGIN);
     expect(html).toContain('href="/"');

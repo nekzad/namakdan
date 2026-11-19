@@ -95,7 +95,7 @@ describe("frontend sentry config", () => {
   it("reads public Sentry environment configuration", () => {
     process.env.NEXT_PUBLIC_SENTRY_DSN = " https://public@example.ingest.sentry.io/1 ";
     process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT = " staging ";
-    process.env.NEXT_PUBLIC_SENTRY_RELEASE = " payverge-web@1.2.3 ";
+    process.env.NEXT_PUBLIC_SENTRY_RELEASE = " namakdan-web@1.2.3 ";
     process.env.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE = "0.2";
     process.env.NEXT_PUBLIC_SENTRY_REPLAYS_SESSION_SAMPLE_RATE = "0.3";
     process.env.NEXT_PUBLIC_SENTRY_REPLAYS_ON_ERROR_SAMPLE_RATE = "0.4";
@@ -104,7 +104,7 @@ describe("frontend sentry config", () => {
       dsn: "https://public@example.ingest.sentry.io/1",
       enabled: true,
       environment: "staging",
-      release: "payverge-web@1.2.3",
+      release: "namakdan-web@1.2.3",
       tracesSampleRate: 0.2,
       replaysSessionSampleRate: 0.3,
       replaysOnErrorSampleRate: 0.4,
@@ -112,8 +112,8 @@ describe("frontend sentry config", () => {
   });
 
   it("strips query strings and fragments from URLs", () => {
-    expect(sanitizeUrl("https://payverge.io/dashboard?token=secret#frag")).toBe(
-      "https://payverge.io/dashboard",
+    expect(sanitizeUrl("https://example.test/dashboard?token=secret#frag")).toBe(
+      "https://example.test/dashboard",
     );
     expect(sanitizeUrl("/business/42/orders?email=a@example.com")).toBe(
       "/business/42/orders",
@@ -123,9 +123,9 @@ describe("frontend sentry config", () => {
   it("filters wallet addresses from URL paths while stripping query strings and fragments", () => {
     expect(
       sanitizeUrl(
-        "https://payverge.io/participants/0x1111111111111111111111111111111111111111?token=secret#frag",
+        "https://example.test/participants/0x1111111111111111111111111111111111111111?token=secret#frag",
       ),
-    ).toBe("https://payverge.io/participants/[Filtered]");
+    ).toBe("https://example.test/participants/[Filtered]");
     expect(
       sanitizeUrl(
         "/business/42/participants/0x2222222222222222222222222222222222222222/orders?email=a@example.com",
@@ -141,11 +141,11 @@ describe("frontend sentry config", () => {
       "/t/[Filtered]/bill",
     );
     expect(
-      sanitizeUrl("https://payverge.io/reservations/RES-CONF-abc123/confirm"),
-    ).toBe("https://payverge.io/reservations/[Filtered]/confirm");
+      sanitizeUrl("https://example.test/reservations/RES-CONF-abc123/confirm"),
+    ).toBe("https://example.test/reservations/[Filtered]/confirm");
     expect(
-      sanitizeUrl("https://payverge.io/delivery/DEL-guest-abc123/track?x=y"),
-    ).toBe("https://payverge.io/delivery/[Filtered]/track");
+      sanitizeUrl("https://example.test/delivery/DEL-guest-abc123/track?x=y"),
+    ).toBe("https://example.test/delivery/[Filtered]/track");
   });
 
   it("filters guest route access tokens from path-like event fields", () => {
@@ -191,7 +191,7 @@ describe("frontend sentry config", () => {
         ip_address: "203.0.113.1",
       },
       request: {
-        url: "https://payverge.io/checkout?token=abc",
+        url: "https://example.test/checkout?token=abc",
         headers: {
           Authorization: "Bearer secret",
           "X-Request-Id": "req-1",
@@ -205,7 +205,7 @@ describe("frontend sentry config", () => {
         business_id: 42,
       },
       contexts: {
-        payverge: {
+        namakdan: {
           customer_email: "guest@example.com",
           business_id: 42,
         },
@@ -213,7 +213,7 @@ describe("frontend sentry config", () => {
     } satisfies ErrorEvent);
 
     expect(event?.user).toEqual({ id: "user-42" });
-    expect(event?.request?.url).toBe("https://payverge.io/checkout");
+    expect(event?.request?.url).toBe("https://example.test/checkout");
     expect(event?.request?.headers).toEqual({
       Authorization: "[Filtered]",
       "X-Request-Id": "req-1",
@@ -223,8 +223,8 @@ describe("frontend sentry config", () => {
     expect(event?.request?.query_string).toBeUndefined();
     expect(event?.extra?.payment_token).toBe("[Filtered]");
     expect(event?.extra?.business_id).toBe(42);
-    expect(event?.contexts?.payverge?.customer_email).toBe("[Filtered]");
-    expect(event?.contexts?.payverge?.business_id).toBe(42);
+    expect(event?.contexts?.namakdan?.customer_email).toBe("[Filtered]");
+    expect(event?.contexts?.namakdan?.business_id).toBe(42);
   });
 
   it("scrubs common PII keys from arbitrary frontend context", () => {
@@ -314,7 +314,7 @@ describe("frontend sentry config", () => {
             data: {
               logger: "console",
               arguments: [
-                "https://payverge.io/t/TABLE-guest-abc123/bill?token=secret",
+                "https://example.test/t/TABLE-guest-abc123/bill?token=secret",
                 { name: "Jane Guest" },
               ],
             },
@@ -358,7 +358,7 @@ describe("frontend sentry config", () => {
     });
   });
 
-  it("scrubs Payverge customer, delivery, wallet, and IP fields", () => {
+  it("scrubs Namakdan customer, delivery, wallet, and IP fields", () => {
     const event = scrubSentryEvent({
       type: undefined,
       extra: {

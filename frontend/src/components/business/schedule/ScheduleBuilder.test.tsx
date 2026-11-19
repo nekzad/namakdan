@@ -570,13 +570,13 @@ describe("ScheduleBuilder", () => {
   });
 
   it("persists the sales target per business and rehydrates it", async () => {
-    window.localStorage.setItem("payverge.salesTarget.42", "5000");
+    window.localStorage.setItem("namakdan.salesTarget.42", "5000");
     renderBuilder();
     await waitFor(() => expect(screen.getByText("Dana")).toBeInTheDocument());
     await waitFor(() =>
       expect(mockedSchedule.laborPreview).toHaveBeenCalledWith("42", 5, 5000),
     );
-    window.localStorage.removeItem("payverge.salesTarget.42");
+    window.localStorage.removeItem("namakdan.salesTarget.42");
   });
 
   it("speaks posted-late in the future tense while the week is a draft", async () => {

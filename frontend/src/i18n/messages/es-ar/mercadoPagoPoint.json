@@ -14,7 +14,7 @@
   "noTerminals": "No se encontraron terminales Point en esta cuenta de Mercado Pago.",
   "terminalsError": "No se pudieron cargar las terminales. Revisá la conexión con Mercado Pago e intentá de nuevo.",
   "pdvCalloutTitle": "Se requiere modo integración",
-  "pdvCalloutBody": "Esta terminal no está en modo PDV (integración). Activalo para que Payverge pueda enviar cobros. La terminal se reiniciará brevemente.",
+  "pdvCalloutBody": "Esta terminal no está en modo PDV (integración). Activalo para que Namakdan pueda enviar cobros. La terminal se reiniciará brevemente.",
   "pdvActivate": "Activar modo integración (PDV)",
   "pdvActivating": "Cambiando modo…",
   "pdvActivated": "Modo PDV activado. Espera a que la terminal se reinicie y vuelve a cobrar.",

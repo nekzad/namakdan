@@ -20,9 +20,9 @@
 // (src/lib/security/csp.ts) already adds the configured POSTHOG_HOST to
 // connect-src, so no CSP change is required for the PostHog hookup.
 
-export const CONSENT_STORAGE_KEY = "payverge_cookie_consent";
+export const CONSENT_STORAGE_KEY = "namakdan_cookie_consent";
 
-export const CONSENT_CHANGE_EVENT = "payverge:consent-change";
+export const CONSENT_CHANGE_EVENT = "namakdan:consent-change";
 
 export interface CookieConsent {
   version: 1;

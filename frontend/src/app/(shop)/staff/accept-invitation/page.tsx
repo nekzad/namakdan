@@ -4,12 +4,12 @@ import AcceptInvitationClient from "./AcceptInvitationClient";
 import { getTranslation } from "@/i18n/getTranslation";
 import { resolveOperatorLocale } from "@/i18n/htmlLangDir";
 
-// #881: the tab title stayed "Accept invitation — Payverge" for a Spanish
+// #881: the tab title stayed "Accept invitation — Namakdan" for a Spanish
 // staffer even though the page body was translated. Same operator-locale
 // header the sibling /staff/login page reads.
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
-  const locale = resolveOperatorLocale(requestHeaders.get("x-payverge-locale"));
+  const locale = resolveOperatorLocale(requestHeaders.get("x-namakdan-locale"));
   return {
     title: getTranslation("staffInvitation.metaTitle", locale) as string,
     description: getTranslation(

@@ -8,7 +8,7 @@ describe("aiImageOrigins", () => {
   const menu = [
     {
       items: [
-        { name: "Burger", image: "https://cdn.payverge.io/biz/1/burger.jpg" },
+        { name: "Burger", image: "https://cdn.example.test/biz/1/burger.jpg" },
         {
           name: "Fries",
           images: ["https://media-bucket.s3.amazonaws.com/x.png", "not-a-url"],
@@ -20,7 +20,7 @@ describe("aiImageOrigins", () => {
 
   it("derives the set of hosts from menu image fields", () => {
     const hosts = computeAllowedImageHosts(menu);
-    expect(hosts.has("cdn.payverge.io")).toBe(true);
+    expect(hosts.has("cdn.example.test")).toBe(true);
     expect(hosts.has("media-bucket.s3.amazonaws.com")).toBe(true);
   });
 
@@ -31,16 +31,16 @@ describe("aiImageOrigins", () => {
   it("merges NEXT_PUBLIC_MEDIA_ORIGINS fallback hosts", () => {
     const hosts = computeAllowedImageHosts(
       [],
-      "https://assets.payverge.io, https://img.example.com",
+      "https://assets.example.test, https://img.example.com",
     );
-    expect(hosts.has("assets.payverge.io")).toBe(true);
+    expect(hosts.has("assets.example.test")).toBe(true);
     expect(hosts.has("img.example.com")).toBe(true);
   });
 
   it("allows a URL whose host is in the allowlist", () => {
     const hosts = computeAllowedImageHosts(menu);
     expect(
-      isAllowedImageUrl("https://cdn.payverge.io/biz/1/promo.jpg", hosts),
+      isAllowedImageUrl("https://cdn.example.test/biz/1/promo.jpg", hosts),
     ).toBe(true);
   });
 
@@ -75,10 +75,10 @@ describe("aiImageOrigins", () => {
   });
 
   it("trusts this deployment's own /media uploads, relative or absolute", () => {
-    // jest.setup.js pins PUBLIC_URL to https://payverge.io.
+    // jest.setup.js pins PUBLIC_URL to https://example.test.
     expect(isTrustedEntityImageUrl("/media/business/1/burger.webp")).toBe(true);
     expect(
-      isTrustedEntityImageUrl("https://payverge.io/media/business/1/burger.webp"),
+      isTrustedEntityImageUrl("https://example.test/media/business/1/burger.webp"),
     ).toBe(true);
   });
 
@@ -87,9 +87,9 @@ describe("aiImageOrigins", () => {
     "/media/%2e%2e/api/v1/admin",
     "/media/",
     "/api/v1/media/x.png",
-    "https://payverge.io.evil.example/media/x.png",
+    "https://example.test.evil.example/media/x.png",
     "https://evil.example/media/x.png",
-    "http://payverge.io/media/x.png",
+    "http://example.test/media/x.png",
   ])("does not treat %s as a same-origin upload", (url) => {
     expect(isTrustedEntityImageUrl(url)).toBe(false);
   });

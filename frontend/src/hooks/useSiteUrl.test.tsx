@@ -51,12 +51,12 @@ describe("useSiteUrl", () => {
 
   afterEach(() => {
     consoleError.mockRestore();
-    delete window.__PAYVERGE_ENV__;
+    delete window.__NAMAKDAN_ENV__;
   });
 
   it("hydrates from the server value, then shows the page origin when PUBLIC_URL is unset", () => {
     // What serializePublicEnvScript publishes for an unset PUBLIC_URL.
-    window.__PAYVERGE_ENV__ = { PUBLIC_URL: "", API_URL: "/api/v1" };
+    window.__NAMAKDAN_ENV__ = { PUBLIC_URL: "", API_URL: "/api/v1" };
     expect(window.location.origin).not.toBe("http://localhost:3000");
 
     const run = serverThenHydrate(<HookProbe />);
@@ -73,7 +73,7 @@ describe("useSiteUrl", () => {
   });
 
   it("is the published PUBLIC_URL on both sides when one is configured", () => {
-    window.__PAYVERGE_ENV__ = { PUBLIC_URL: "https://pos.example.test" };
+    window.__NAMAKDAN_ENV__ = { PUBLIC_URL: "https://pos.example.test" };
 
     const run = serverThenHydrate(<HookProbe />);
     try {
@@ -88,7 +88,7 @@ describe("useSiteUrl", () => {
   });
 
   it("guards a real mismatch: getSiteUrl() during render diverges from the server HTML", () => {
-    window.__PAYVERGE_ENV__ = { PUBLIC_URL: "", API_URL: "/api/v1" };
+    window.__NAMAKDAN_ENV__ = { PUBLIC_URL: "", API_URL: "/api/v1" };
     // A real server renders the dev default; under jsdom renderToString runs
     // with a window, so hand-build the server HTML instead.
     const container = document.createElement("div");

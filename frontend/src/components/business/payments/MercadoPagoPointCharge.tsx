@@ -34,7 +34,7 @@ import {
 } from "@/types/alternativePayments";
 import { asDollars, dollarsToCents } from "@/types/money";
 
-const TERMINAL_STORAGE_PREFIX = "payverge_mp_terminal_";
+const TERMINAL_STORAGE_PREFIX = "namakdan_mp_terminal_";
 
 const TERMINAL_ORDER_STATUSES = new Set([
   "completed",

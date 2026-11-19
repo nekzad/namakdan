@@ -126,15 +126,26 @@ export function TopMenuShell({
                     data-testid="instance-logo"
                   />
                 ) : (
-                  <Image
-                    src="/images/PayvergeLogo.png"
-                    alt={productName}
-                    fill
-                    sizes="(max-width: 640px) 112px, (max-width: 768px) 128px, 144px"
-                    className="object-contain"
-                    priority
-                    quality={50}
-                  />
+                  <>
+                    <Image
+                      src="/images/namakdan-logo-light.svg"
+                      alt={productName}
+                      fill
+                      sizes="(max-width: 640px) 112px, (max-width: 768px) 128px, 144px"
+                      className="object-contain dark:hidden"
+                      priority
+                      unoptimized
+                    />
+                    <Image
+                      src="/images/namakdan-logo-dark.svg"
+                      alt={productName}
+                      fill
+                      sizes="(max-width: 640px) 112px, (max-width: 768px) 128px, 144px"
+                      className="hidden object-contain dark:block"
+                      priority
+                      unoptimized
+                    />
+                  </>
                 )}
               </div>
             </Link>
@@ -182,7 +193,7 @@ export function TopMenuShell({
 /**
  * Instant chrome for SSR / chunk-load — real links, no auth deps.
  * Labels resolve from the operator locale (seeded by SimpleTranslationProvider
- * from x-payverge-locale) so a lang=es first paint never flashes English nav.
+ * from x-namakdan-locale) so a lang=es first paint never flashes English nav.
  *
  * On operator dashboard routes, never paint Sign in / Staff Login / public
  * center links — a mid-shift skeleton must stay neutral until session resolves.

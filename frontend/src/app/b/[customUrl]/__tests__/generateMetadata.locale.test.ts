@@ -6,7 +6,7 @@ jest.mock("next/headers", () => ({
   cookies: async () => ({ get: () => undefined }),
   headers: async () => ({
     get: (name: string) =>
-      name === "x-payverge-locale" ? mockLocaleHeader : null,
+      name === "x-namakdan-locale" ? mockLocaleHeader : null,
   }),
 }));
 
@@ -88,14 +88,14 @@ describe("generateMetadata — per-language localization (I18N-3)", () => {
       ok: true,
       json: async () => ({
         id: 1,
-        name: "Payverge AI Pro Demo Lounge",
+        name: "Namakdan AI Pro Demo Lounge",
         description: "مطعم نموذجي في قلب المدينة",
         supported_languages: [{ code: "en" }, { code: "ar" }],
         default_language: "en",
       }),
     }) as unknown as typeof fetch;
     const meta = await generateMetadata({
-      params: Promise.resolve({ customUrl: "payverge-ai-pro-demo-lounge" }),
+      params: Promise.resolve({ customUrl: "namakdan-ai-pro-demo-lounge" }),
       searchParams: Promise.resolve({ lang: "en" }),
     });
     expect(meta.description).not.toMatch(/[\u0600-\u06FF]/);
@@ -113,21 +113,21 @@ describe("generateMetadata — per-language localization (I18N-3)", () => {
       ok: true,
       json: async () => ({
         id: 1,
-        name: "Payverge AI Pro Demo Lounge",
+        name: "Namakdan AI Pro Demo Lounge",
         description: "示范餐厅，提供现代菜单",
         supported_languages: [{ code: "zh" }, { code: "ar" }],
         default_language: "en",
       }),
     }) as unknown as typeof fetch;
     const meta = await generateMetadata({
-      params: Promise.resolve({ customUrl: "payverge-ai-pro-demo-lounge" }),
+      params: Promise.resolve({ customUrl: "namakdan-ai-pro-demo-lounge" }),
       searchParams: Promise.resolve({ lang: "zh" }),
     });
     expect(meta.description).not.toMatch(/[\u0600-\u06FF]/);
     expect(meta.description).toContain("示范");
   });
 
-  it("threads path-locale /es/b/{slug} via x-payverge-locale (#644)", async () => {
+  it("threads path-locale /es/b/{slug} via x-namakdan-locale (#644)", async () => {
     mockLocaleHeader = "es";
     const fetchMock = mockTranslatedBusiness();
     global.fetch = fetchMock;

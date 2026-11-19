@@ -17,7 +17,7 @@ test("becomes leader when the lock is granted", async () => {
   const { result } = renderHook(() => useSoundLeadership(42));
   await waitFor(() => expect(result.current.current).toBe(true));
   expect(request).toHaveBeenCalledWith(
-    "payverge-alert-sound-42",
+    "namakdan-alert-sound-42",
     expect.any(Function),
   );
 });

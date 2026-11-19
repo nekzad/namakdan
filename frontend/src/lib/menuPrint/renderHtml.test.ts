@@ -167,6 +167,6 @@ describe("renderMenuPrintHtml", () => {
     expect(html).toContain("@font-face");
     expect(html).toContain(`${ORIGIN}/fonts/`);
     expect(html).toContain("family-gallery");
-    expect(html).not.toMatch(/payverge/i);
+    expect(html).not.toMatch(/namakdan/i);
   });
 });

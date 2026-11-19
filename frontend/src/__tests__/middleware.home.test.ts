@@ -73,7 +73,7 @@ describe("middleware instance root", () => {
       new NextRequest("https://pos.restaurant.example/"),
     );
     expect(response.headers.get("location")).toBeNull();
-    expect(response.headers.get("x-middleware-request-x-payverge-locale")).toBe("es");
+    expect(response.headers.get("x-middleware-request-x-namakdan-locale")).toBe("es");
     expect(response.headers.get("Content-Security-Policy")).toBeTruthy();
   });
 
@@ -82,7 +82,7 @@ describe("middleware instance root", () => {
     const response = await middleware(
       new NextRequest("https://pos.restaurant.example/?lang=fr"),
     );
-    expect(response.headers.get("x-middleware-request-x-payverge-locale")).toBe("fr");
+    expect(response.headers.get("x-middleware-request-x-namakdan-locale")).toBe("fr");
   });
 
   it("renders the directory in place for several venues", async () => {
@@ -104,7 +104,7 @@ describe("middleware instance root", () => {
     expect(response.headers.get("x-middleware-rewrite")).toBe(
       "https://pos.restaurant.example/?lang=es",
     );
-    expect(response.headers.get("x-middleware-request-x-payverge-locale")).toBe("es");
+    expect(response.headers.get("x-middleware-request-x-namakdan-locale")).toBe("es");
   });
 
   it("rewrites /es-ar with lang=es-ar and keeps an explicit ?lang=", async () => {

@@ -26,7 +26,7 @@ export interface FulfillmentContext {
 }
 
 const getStorageKey = (businessId: number) =>
-  `payverge_delivery_context_${businessId}`;
+  `namakdan_delivery_context_${businessId}`;
 
 const isDeliveryContext = (value: unknown): value is FulfillmentContext => {
   if (!value || typeof value !== "object") {

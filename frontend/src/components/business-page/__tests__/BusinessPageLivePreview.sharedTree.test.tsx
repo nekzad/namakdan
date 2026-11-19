@@ -155,7 +155,7 @@ const baseModel: BusinessPageLivePreviewModel = {
   name: "Core Kitchen",
   description: "Fire-cooked plates.",
   phone: "+54 11 5555 0101",
-  customUrl: "payverge-core-demo-kitchen",
+  customUrl: "namakdan-core-demo-kitchen",
   address: {
     street: "42 Harbor Ave",
     city: "Buenos Aires",
@@ -298,7 +298,7 @@ describe("BusinessPageLivePreview — renders the shared storefront tree (#591)"
     const [businessId, customUrl, language] =
       useBusinessPageDataMock.mock.calls[0];
     expect(businessId).toBe(85);
-    expect(customUrl).toBe("payverge-core-demo-kitchen");
+    expect(customUrl).toBe("namakdan-core-demo-kitchen");
     expect(language).toBe("en");
   });
 

@@ -3,7 +3,7 @@
  *
  * Merchants paste bare handles, @handles, host/path, or full URLs into
  * ContactEditor. Without a single normalizer, BusinessContactTab concatenates
- * `base + value` and produces `facebook.com/https://facebook.com/payverge`.
+ * `base + value` and produces `facebook.com/https://facebook.com/example`.
  *
  * Storage and display both use the bare handle (no scheme, host, leading @,
  * or trailing slash). Profile URLs are rebuilt from the network + handle.

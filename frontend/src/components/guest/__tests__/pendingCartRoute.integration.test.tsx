@@ -440,7 +440,7 @@ describe("table landing to localized menu pending-cart route", () => {
       ),
     ).toBe("rejected");
     expect(
-      sessionStorage.getItem("payverge_pending_cart_v1:MESA-7"),
+      sessionStorage.getItem("namakdan_pending_cart_v1:MESA-7"),
     ).toBeNull();
 
     sessionStorage.clear();

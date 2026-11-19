@@ -1,5 +1,5 @@
 {
-  "serviceUnavailable": "Electronic invoicing is switched off on the server right now, so nothing was sent to the tax authority. Ask your Payverge contact to turn it back on.",
+  "serviceUnavailable": "Electronic invoicing is switched off on the server right now, so nothing was sent to the tax authority. Ask your Namakdan contact to turn it back on.",
   "dashboard": {
     "title": "Invoices",
     "description": "Official invoices and tax documents for paid bills.",
@@ -27,7 +27,7 @@
   "setup": {
     "title": "Invoice setup",
     "description": "Update country, tax profile, or issuance mode. Changes apply to new paid bills.",
-    "emptyDescription": "Set this up once so Payverge can queue official invoices for paid bills.",
+    "emptyDescription": "Set this up once so Namakdan can queue official invoices for paid bills.",
     "compareModes": "Compare modes",
     "currentMode": "Current",
     "comingSoon": "Coming soon",
@@ -74,7 +74,7 @@
   },
   "credentials": {
     "title": "AFIP credentials",
-    "description": "Upload the digital certificate and private key issued by AFIP/ARCA so Payverge can request CAE authorizations on your behalf.",
+    "description": "Upload the digital certificate and private key issued by AFIP/ARCA so Namakdan can request CAE authorizations on your behalf.",
     "certLabel": "Certificate (.crt or .pem)",
     "certHint": "The X.509 certificate downloaded from AFIP.",
     "keyLabel": "Private key (.key)",
@@ -103,14 +103,14 @@
       "credentials_set": "Pending validation",
       "credentialsSetHint": "Validate the uploaded credentials against AFIP to finish setup.",
       "ready": "Ready",
-      "readyHint": "Credentials are valid. Payverge can request CAE authorizations.",
+      "readyHint": "Credentials are valid. Namakdan can request CAE authorizations.",
       "validated": "Validated"
     }
   },
   "region": {
     "title": "E-invoicing",
     "unavailableTitle": "E-invoicing isn't available in your region yet",
-    "unavailableDescription": "Payverge currently issues official electronic invoices for Argentina (AFIP/ARCA). E-invoicing is not available in {country} yet.",
+    "unavailableDescription": "Namakdan currently issues official electronic invoices for Argentina (AFIP/ARCA). E-invoicing is not available in {country} yet.",
     "unavailablePathToLive": "Path to live: when your country is supported, you'll upload provider credentials and switch Environment to Production from Edit setup.",
     "demoTitle": "Demo fiscal environment",
     "demoDescription": "This business issues simulated DEMO invoices only. They are not legally valid tax documents, and no real certificate upload is required.",
@@ -119,7 +119,7 @@
   "modes": {
     "off": {
       "title": "Off",
-      "description": "Payverge will not issue invoices and the manual button is disabled."
+      "description": "Namakdan will not issue invoices and the manual button is disabled."
     },
     "manual": {
       "title": "Manual",
@@ -134,7 +134,7 @@
     "title": "Invoice history",
     "description": "Invoices queued for paid bills — including pending, authorized, and failed.",
     "emptyTitle": "No invoices yet",
-    "emptyDescription": "Paid bills will appear here as soon as Payverge issues an invoice for them.",
+    "emptyDescription": "Paid bills will appear here as soon as Namakdan issues an invoice for them.",
     "emptyDescriptionManual": "Enter a paid bill’s ID below to issue your first invoice.",
     "emptyDescriptionOff": "Invoice issuance is off. Switch to Manual or Automatic from Edit setup to start queuing invoices for paid bills.",
     "noMatch": "No invoices match this filter.",

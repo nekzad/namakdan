@@ -56,18 +56,18 @@ describe("generateMetadata for /t/[tableCode]", () => {
     const meta = await generateMetadata({
       params: Promise.resolve({ tableCode: "AI-T01" }),
     });
-    expect(meta.title).toBe("Mara AI Lounge – Table | Payverge");
+    expect(meta.title).toBe("Mara AI Lounge – Table | Namakdan");
     expect(String(meta.title)).not.toMatch(/AI-Powered Restaurant Management/i);
     expectNoIndexNoFollow(meta);
   });
 
-  it("falls back to a generic table title on non-OK response (not bare Payverge)", async () => {
+  it("falls back to a generic table title on non-OK response (not bare Namakdan)", async () => {
     mockFetchOnce({}, { ok: false, status: 404 });
     const meta = await generateMetadata({
       params: Promise.resolve({ tableCode: "MISSING" }),
     });
-    expect(meta.title).toBe("Table | Payverge");
-    expect(meta.title).not.toBe("Payverge");
+    expect(meta.title).toBe("Table | Namakdan");
+    expect(meta.title).not.toBe("Namakdan");
     expectNoIndexNoFollow(meta);
   });
 

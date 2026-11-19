@@ -31,14 +31,14 @@
       "photo_weak": "Esta foto necesita una nueva toma — arreglala antes de publicar.",
       "needs_caption": "Agregá un texto antes de compartir o descargar."
     },
-    "localExportHint": "Exportar y compartir quedan en este dispositivo — Payverge no publica por vos."
+    "localExportHint": "Exportar y compartir quedan en este dispositivo — Namakdan no publica por vos."
   },
   "outcome": {
     "title": "¿Se publicó este post?",
     "shared": "Tu dispositivo completó el envío para compartir. Confirmá solo si el post realmente se publicó.",
     "downloaded": "Se descargaron los archivos del post. Confirmá solo después de publicarlos en una red social.",
     "copied": "Se copió el texto. Confirmá solo después de publicar el post completo.",
-    "downloadedWithDestination": "Descargado — ahora publicalo en {destination} cuando quieras. Payverge no publica por vos.",
+    "downloadedWithDestination": "Descargado — ahora publicalo en {destination} cuando quieras. Namakdan no publica por vos.",
     "sharedWithDestination": "Compartido a tu dispositivo — terminá de publicar en {destination} vos. Confirmá solo cuando esté en vivo.",
     "copiedWithDestination": "Texto copiado — pegalo al publicar en {destination}. Confirmá solo cuando el post completo esté publicado.",
     "notYet": "Todavía no",
@@ -94,7 +94,7 @@
     "subtitle": "Archivos listos para una imprenta externa: HTML con marcas de corte o PNG de alta resolución.",
     "presets": {
       "flyer_half_letter": {
-        "instructions": "Instrucciones de imprenta — flyer (base media carta apaisada)\n=============================================================\n\nArchivo: PNG ancho de alta resolución (2× 1920×1080 = 3840 × 2160 px).\nEscalá a media carta (5.5 × 8.5 in) o A5; márgenes ≥ 5 mm.\nSangrado: agregá 3 mm en la imprenta si necesitás sangre total (este PNG es seguro al corte).\n\nProporción: 16:9 ancha. Recortá con cuidado si la media carta es vertical.\nColor: PNG sRGB.\n\nNo es un ticket térmico.\nDistribuí los flyers cuando quieras — Payverge no fija un horario de publicación.\n"
+        "instructions": "Instrucciones de imprenta — flyer (base media carta apaisada)\n=============================================================\n\nArchivo: PNG ancho de alta resolución (2× 1920×1080 = 3840 × 2160 px).\nEscalá a media carta (5.5 × 8.5 in) o A5; márgenes ≥ 5 mm.\nSangrado: agregá 3 mm en la imprenta si necesitás sangre total (este PNG es seguro al corte).\n\nProporción: 16:9 ancha. Recortá con cuidado si la media carta es vertical.\nColor: PNG sRGB.\n\nNo es un ticket térmico.\nDistribuí los flyers cuando quieras — Namakdan no fija un horario de publicación.\n"
       }
     }
   },
@@ -232,29 +232,29 @@
   },
   "automation": {
     "button": "Ajustes creativos",
-    "subtitle": "Elegí qué ideas crea Payverge para vos.",
+    "subtitle": "Elegí qué ideas crea Namakdan para vos.",
     "saveError": "No se pudieron guardar los ajustes. Intentá de nuevo."
   },
   "settings": {
     "title": "Ajustes creativos",
-    "subtitle": "Orientá las ideas, los textos y las imágenes que Payverge prepara para que apruebes.",
+    "subtitle": "Orientá las ideas, los textos y las imágenes que Namakdan prepara para que apruebes.",
     "close": "Listo",
     "automatic": "Automático",
     "readOnly": "Podés consultar estos ajustes, pero tu rol no permite modificarlos.",
     "autonomy": {
       "title": "Autonomía",
-      "body": "Elegí qué ideas puede preparar Payverge. Nada se publica sin tu aprobación.",
+      "body": "Elegí qué ideas puede preparar Namakdan. Nada se publica sin tu aprobación.",
       "master": "Preparar sugerencias",
       "masterHint": "Pausá todas las sugerencias nuevas sin perder tu perfil creativo.",
       "plays": "Tipos de sugerencia"
     },
     "brandVoice": {
       "title": "Voz de marca",
-      "body": "Contá a quién te dirigís y cómo tiene que sonar tu restaurante. Dejá los campos vacíos para que Payverge elija."
+      "body": "Contá a quién te dirigís y cómo tiene que sonar tu restaurante. Dejá los campos vacíos para que Namakdan elija."
     },
     "visualDirection": {
       "title": "Dirección visual",
-      "body": "Definí el clima habitual de las imágenes generadas o dejá que Payverge elija según cada idea."
+      "body": "Definí el clima habitual de las imágenes generadas o dejá que Namakdan elija según cada idea."
     },
     "copyDefaults": {
       "title": "Preferencias de texto",
@@ -292,7 +292,7 @@
       },
       "language": {
         "label": "Idioma predeterminado",
-        "helper": "El primer idioma que usa Payverge al escribir un texto."
+        "helper": "El primer idioma que usa Namakdan al escribir un texto."
       },
       "tone": {
         "label": "Tono predeterminado",

@@ -8,9 +8,9 @@ import {
 } from "@/i18n/guestLocaleResolver";
 
 const SPACE_SCAN_TITLES: Record<string, string> = {
-  en: "Space scan — Payverge",
-  es: "Escaneo de espacio — Payverge",
-  "es-AR": "Escaneo de espacio — Payverge",
+  en: "Space scan — Namakdan",
+  es: "Escaneo de espacio — Namakdan",
+  "es-AR": "Escaneo de espacio — Namakdan",
 };
 
 export async function generateMetadata(): Promise<Metadata> {

@@ -40,7 +40,7 @@ describe("TopMenuInstantChrome", () => {
 
   it("renders logo and public nav links immediately", () => {
     renderChrome("en");
-    expect(screen.getByAltText("Payverge")).toBeInTheDocument();
+    expect(screen.getByAltText("Namakdan")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /home/i })).toHaveAttribute("href", "/");
     // The marketing site is gone: no sales links in the header.
     for (const name of [/features/i, /^ai$/i, /pricing/i, /contact/i, /blog/i]) {
@@ -112,6 +112,6 @@ describe("TopMenuInstantChrome", () => {
     expect(screen.queryByRole("link", { name: /staff login/i })).toBeNull();
     expect(screen.queryByRole("link", { name: /features/i })).toBeNull();
     expect(screen.queryByRole("link", { name: /pricing/i })).toBeNull();
-    expect(screen.getByAltText("Payverge")).toBeInTheDocument();
+    expect(screen.getByAltText("Namakdan")).toBeInTheDocument();
   });
 });

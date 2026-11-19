@@ -56,20 +56,20 @@ describe("generateMetadata for /t/[tableCode]/menu", () => {
     const meta = await generateMetadata({
       params: Promise.resolve({ tableCode: "AI-T01" }),
     });
-    expect(meta.title).toBe("Mara AI Lounge – Menu | Payverge");
+    expect(meta.title).toBe("Mara AI Lounge – Menu | Namakdan");
     expect(String(meta.openGraph?.url)).toContain("/t/AI-T01/menu");
     expect(meta.openGraph?.title).toContain("Mara AI Lounge");
-    expect(String(meta.openGraph?.url)).not.toBe("https://payverge.io");
+    expect(String(meta.openGraph?.url)).not.toBe("https://example.test");
     expectNoIndexNoFollow(meta);
   });
 
-  it("marks an unresolved menu page noindex, nofollow (not bare Payverge)", async () => {
+  it("marks an unresolved menu page noindex, nofollow (not bare Namakdan)", async () => {
     mockFetchOnce({}, { ok: false, status: 404 });
     const meta = await generateMetadata({
       params: Promise.resolve({ tableCode: "MISSING" }),
     });
-    expect(meta.title).toBe("Menu | Payverge");
-    expect(meta.title).not.toBe("Payverge");
+    expect(meta.title).toBe("Menu | Namakdan");
+    expect(meta.title).not.toBe("Namakdan");
     expectNoIndexNoFollow(meta);
   });
 });

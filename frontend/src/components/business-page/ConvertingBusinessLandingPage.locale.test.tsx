@@ -98,9 +98,9 @@ const spanishSeed = {
   name: "Demo Kitchen",
   custom_url: "demo-kitchen",
   default_language: "en",
-  description: "Un restaurante modelo de Payverge con datos de demostración.",
+  description: "Un restaurante modelo de Namakdan con datos de demostración.",
   welcome_message: "Bienvenidos. El equipo de demostración está listo.",
-  about_story: "Un entorno de demostración realista de Payverge.",
+  about_story: "Un entorno de demostración realista de Namakdan.",
   special_features: [],
   gallery_images: [{ caption: "Galería de demostración 1" }],
   business_languages: [
@@ -114,9 +114,9 @@ const spanishSeed = {
 
 const englishLive = {
   ...spanishSeed,
-  description: "A Payverge model restaurant with realistic demo data.",
+  description: "A Namakdan model restaurant with realistic demo data.",
   welcome_message: "Welcome. The demo team is ready to serve you.",
-  about_story: "A realistic Payverge demo environment.",
+  about_story: "A realistic Namakdan demo environment.",
   gallery_images: [{ caption: "Demo gallery 1" }],
 } as unknown as PublicBusiness;
 
@@ -159,7 +159,7 @@ describe("ConvertingBusinessLandingPage locale switch (#400)", () => {
 
     expect(
       screen.getByText(
-        "Un restaurante modelo de Payverge con datos de demostración.",
+        "Un restaurante modelo de Namakdan con datos de demostración.",
       ),
     ).toBeInTheDocument();
 
@@ -174,17 +174,17 @@ describe("ConvertingBusinessLandingPage locale switch (#400)", () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          "A Payverge model restaurant with realistic demo data.",
+          "A Namakdan model restaurant with realistic demo data.",
         ),
       ).toBeInTheDocument();
     });
     expect(
       screen.queryByText(
-        "Un restaurante modelo de Payverge con datos de demostración.",
+        "Un restaurante modelo de Namakdan con datos de demostración.",
       ),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText("Un entorno de demostración realista de Payverge."),
+      screen.queryByText("Un entorno de demostración realista de Namakdan."),
     ).not.toBeInTheDocument();
   });
 });

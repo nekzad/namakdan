@@ -70,7 +70,7 @@ type FormStep = "business" | "auth";
 
 const STORAGE_KEY = REGISTRATION_DRAFT_STORAGE_KEY;
 const WORKSPACE_IDEMPOTENCY_STORAGE_KEY =
-  "payverge_workspace_creation_idempotency";
+  "namakdan_workspace_creation_idempotency";
 
 function workspaceIdempotencyKeyForPayload(payload: CreateBusinessRequest): string {
   const canonicalPayload = JSON.stringify(payload);

@@ -38,7 +38,7 @@ function tentHtml(): string {
     measure,
   });
   return renderScenePrintHtml(scene, format, {
-    origin: "https://payverge.io",
+    origin: "https://example.test",
     title: "Milanesa napolitana",
     lang: "en",
   });

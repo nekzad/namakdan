@@ -118,10 +118,10 @@ describe("TableManager — print-all + no-orders banner", () => {
   });
 
   it("consumes the celebration one-shot flag and auto-opens the print sheet once", async () => {
-    window.sessionStorage.setItem("payverge_print_qr_on_open_1", "1");
+    window.sessionStorage.setItem("namakdan_print_qr_on_open_1", "1");
     render(<TableManager businessId={1} />);
     await screen.findByText("Main Room 1");
     await waitFor(() => expect(mockPrintAll).toHaveBeenCalledTimes(1));
-    expect(window.sessionStorage.getItem("payverge_print_qr_on_open_1")).toBeNull();
+    expect(window.sessionStorage.getItem("namakdan_print_qr_on_open_1")).toBeNull();
   });
 });

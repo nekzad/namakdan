@@ -4,7 +4,7 @@ import {
   localizedPublicHref,
 } from '../publicPageRoutes';
 
-const SITE = 'https://payverge.io';
+const SITE = 'https://example.test';
 
 describe('public page hreflang cluster', () => {
   test('builds a reciprocal en/es/es-AR cluster with x-default at the English base', () => {

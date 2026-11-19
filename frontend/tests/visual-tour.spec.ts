@@ -2,7 +2,7 @@ import { test } from "@playwright/test";
 
 const BASE = "http://localhost:3000";
 const TABLE_CODE = "AI-T01";
-const OUT_DIR = "/tmp/payverge-screenshots";
+const OUT_DIR = "/tmp/namakdan-screenshots";
 
 const MOBILE = { width: 390, height: 844 };
 const DESKTOP = { width: 1280, height: 900 };

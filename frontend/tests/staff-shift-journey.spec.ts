@@ -10,7 +10,7 @@
  * route, timeclock:manage — not used here.)
  *
  * SEED: backend/scripts/demo_seed.sql — staff of demo-core-kitchen are
- * @core-demo.payverge.example (server1/server2/host/kitchen/manager). Every
+ * @core-demo.example.com (server1/server2/host/kitchen/manager). Every
  * staff role carries timeclock:punch (internal/server/rbac.go), and punching
  * does not require an active scheduled shift (shift_id is optional on
  * clock-in) — but the spec still probes /me/timesheet first and skips with a
@@ -28,7 +28,7 @@ import { journeysEnabled, API_BASE, resolveBusinessId } from "./helpers/journeys
 
 /** Seeded core-demo server (demo_seed.sql, business demo-core-kitchen). */
 const STAFF_EMAIL =
-  process.env.PLAYWRIGHT_STAFF_EMAIL || "server1@core-demo.payverge.example";
+  process.env.PLAYWRIGHT_STAFF_EMAIL || "server1@core-demo.example.com";
 
 test.describe("Staff shift journey", () => {
   test.skip(!journeysEnabled, "Set PLAYWRIGHT_RUN_JOURNEYS_E2E=1 (requires full stack + demo seed)");
@@ -45,9 +45,9 @@ test.describe("Staff shift journey", () => {
       const auth = { Authorization: `Bearer ${token}` };
       await context.addCookies((await apiRequest.storageState()).cookies);
       await context.addInitScript(() => {
-        window.localStorage.setItem("payverge_had_session", "1");
+        window.localStorage.setItem("namakdan_had_session", "1");
         window.localStorage.setItem(
-          "payverge_cookie_consent",
+          "namakdan_cookie_consent",
           JSON.stringify({
             version: 1,
             analytics: false,

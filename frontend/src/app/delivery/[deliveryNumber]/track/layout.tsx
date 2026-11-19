@@ -7,7 +7,7 @@ import type { ReactNode } from "react";
 // sub-resource could leak that token to a third party via the Referer header.
 // SEO-0.5: guest delivery pages are token URLs — never indexable.
 export const metadata: Metadata = {
-  title: "Track your delivery | Payverge",
+  title: "Track your delivery | Namakdan",
   referrer: "no-referrer",
   robots: { index: false, follow: false },
 };

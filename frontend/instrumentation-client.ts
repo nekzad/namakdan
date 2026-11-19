@@ -14,7 +14,7 @@ import {
 } from "./src/lib/sentry/config";
 
 // Next evaluates this module from its async main chunk, which can run before
-// the parser reaches the root layout's window.__PAYVERGE_ENV__ script. The
+// the parser reaches the root layout's window.__NAMAKDAN_ENV__ script. The
 // DSN and sample rates are runtime config, so init waits for that script.
 onPublicEnvReady(initSentry);
 
@@ -23,12 +23,12 @@ function buildReplayIntegration() {
     maskAllText: true,
     maskAllInputs: true,
     blockAllMedia: true,
-    mask: [".sentry-mask", "[data-sentry-mask]", "[data-payverge-sensitive]"],
-    block: [".sentry-block", "[data-sentry-block]", "[data-payverge-block]"],
+    mask: [".sentry-mask", "[data-sentry-mask]", "[data-namakdan-sensitive]"],
+    block: [".sentry-block", "[data-sentry-block]", "[data-namakdan-block]"],
     ignore: [
       ".sentry-ignore",
       "[data-sentry-ignore]",
-      "[data-payverge-ignore]",
+      "[data-namakdan-ignore]",
     ],
     beforeAddRecordingEvent: scrubSentryReplayRecordingEvent,
   });

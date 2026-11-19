@@ -98,6 +98,6 @@ describe("PublicMenuDisplay — cart persistence", () => {
     fireEvent.click(screen.getByTestId("add-to-cart-btn"));
     fireEvent.click(screen.getByTestId("open-cart-btn"));
     fireEvent.click(screen.getByText("menu.clearCart"));
-    expect(window.sessionStorage.getItem("payverge_public_cart_1")).toBeNull();
+    expect(window.sessionStorage.getItem("namakdan_public_cart_1")).toBeNull();
   });
 });

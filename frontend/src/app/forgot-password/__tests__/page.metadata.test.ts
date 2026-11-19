@@ -15,7 +15,7 @@ describe("forgot-password generateMetadata (#404)", () => {
   async function loadMetadata(localeHeader: string | null) {
     mockHeaders.mockResolvedValue({
       get: (name: string) =>
-        name === "x-payverge-locale" ? localeHeader : null,
+        name === "x-namakdan-locale" ? localeHeader : null,
     });
     const mod = await import("../page");
     return mod.generateMetadata();
@@ -23,16 +23,16 @@ describe("forgot-password generateMetadata (#404)", () => {
 
   it("uses the English document title by default", async () => {
     const meta = await loadMetadata(null);
-    expect(meta.title).toBe("Forgot password — Payverge");
+    expect(meta.title).toBe("Forgot password — Namakdan");
   });
 
   it("uses Spanish document title when locale is es", async () => {
     const meta = await loadMetadata("es");
-    expect(meta.title).toBe("Olvidaste tu contraseña — Payverge");
+    expect(meta.title).toBe("Olvidaste tu contraseña — Namakdan");
   });
 
   it("uses Argentine Spanish document title when locale is es-AR", async () => {
     const meta = await loadMetadata("es-AR");
-    expect(meta.title).toBe("Olvidaste tu contraseña — Payverge");
+    expect(meta.title).toBe("Olvidaste tu contraseña — Namakdan");
   });
 });

@@ -33,7 +33,7 @@ describe("buildGuestLink", () => {
       name: "featured dish → menu",
       input: { customUrl: "bistro", pageEnabled: true, play: "featured_dish" },
       want: {
-        url: "https://payverge.io/b/bistro?tab=menu",
+        url: "https://example.test/b/bistro?tab=menu",
         kind: "menu" as const,
       },
     },
@@ -41,7 +41,7 @@ describe("buildGuestLink", () => {
       name: "win_back → reservations",
       input: { customUrl: "bistro", pageEnabled: true, play: "win_back" },
       want: {
-        url: "https://payverge.io/b/bistro?tab=reservations",
+        url: "https://example.test/b/bistro?tab=reservations",
         kind: "reservations" as const,
       },
     },
@@ -65,7 +65,7 @@ describe("buildGuestLink", () => {
 
 describe("isPublicGuestUrl", () => {
   it("accepts public storefront URLs", () => {
-    expect(isPublicGuestUrl("https://payverge.io/b/bistro?tab=menu")).toBe(true);
+    expect(isPublicGuestUrl("https://example.test/b/bistro?tab=menu")).toBe(true);
   });
 
   it("rejects empty and private-looking URLs", () => {
@@ -77,7 +77,7 @@ describe("isPublicGuestUrl", () => {
       ),
     ).toBe(false);
     expect(isPublicGuestUrl("javascript:alert(1)")).toBe(false);
-    expect(isPublicGuestUrl("https://payverge.io/inside/secret")).toBe(false);
+    expect(isPublicGuestUrl("https://example.test/inside/secret")).toBe(false);
   });
 });
 
@@ -85,14 +85,14 @@ describe("resolveGuestLink", () => {
   it("prefers server guest_url when public", () => {
     expect(
       resolveGuestLink({
-        guestUrl: "https://payverge.io/b/from-server?tab=menu",
+        guestUrl: "https://example.test/b/from-server?tab=menu",
         guestUrlKind: "menu",
         customUrl: "ignored",
         pageEnabled: true,
         play: "offer",
       }),
     ).toEqual({
-      url: "https://payverge.io/b/from-server?tab=menu",
+      url: "https://example.test/b/from-server?tab=menu",
       kind: "menu",
     });
   });
@@ -105,7 +105,7 @@ describe("resolveGuestLink", () => {
         play: "featured_dish",
       }),
     ).toEqual({
-      url: "https://payverge.io/b/bistro?tab=menu",
+      url: "https://example.test/b/bistro?tab=menu",
       kind: "menu",
     });
   });
@@ -119,7 +119,7 @@ describe("resolveGuestLink", () => {
         play: "offer",
       }),
     ).toEqual({
-      url: "https://payverge.io/b/bistro?tab=menu",
+      url: "https://example.test/b/bistro?tab=menu",
       kind: "menu",
     });
   });
@@ -133,7 +133,7 @@ describe("guestUrlToQrDataUrl", () => {
 
   it("returns a data URL for a public guest link", async () => {
     const data = await guestUrlToQrDataUrl(
-      "https://payverge.io/b/bistro?tab=menu",
+      "https://example.test/b/bistro?tab=menu",
     );
     expect(data).toMatch(/^data:image\/png;base64,/);
   });

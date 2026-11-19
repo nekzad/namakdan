@@ -21,7 +21,7 @@ export default function GlobalError({
       scope.setTag("function", "render");
 
       if (error.digest) {
-        scope.setContext("payverge", { digest: error.digest });
+        scope.setContext("namakdan", { digest: error.digest });
       }
 
       Sentry.captureException(error);

@@ -95,7 +95,7 @@ describe("BusinessOverview — storefront quick action", () => {
     // it also keeps the instance probe off the network.
     setInstanceForTests(
       parseInstanceInfo({
-        product_name: "Payverge",
+        product_name: "Namakdan",
         registration_mode: "open",
         features: {},
         demo: { enabled: false },
@@ -140,7 +140,7 @@ describe("BusinessOverview — storefront quick action", () => {
     );
     expect(
       screen.getByText(
-        "Your public page at payverge.io/b/… — preview it and put the link everywhere.",
+        "Your public page at example.test/b/… — preview it and put the link everywhere.",
       ),
     ).toBeInTheDocument();
     expect(
@@ -149,9 +149,9 @@ describe("BusinessOverview — storefront quick action", () => {
   });
 
   it("names the deployment's own host in the storefront quick action", async () => {
-    const w = window as unknown as { __PAYVERGE_ENV__?: Record<string, string> };
-    const previous = w.__PAYVERGE_ENV__;
-    w.__PAYVERGE_ENV__ = { PUBLIC_URL: "https://pos.example.test" };
+    const w = window as unknown as { __NAMAKDAN_ENV__?: Record<string, string> };
+    const previous = w.__NAMAKDAN_ENV__;
+    w.__NAMAKDAN_ENV__ = { PUBLIC_URL: "https://pos.example.test" };
     try {
       renderWithQuery(<BusinessOverview business={business} />);
       await waitFor(() =>
@@ -162,7 +162,7 @@ describe("BusinessOverview — storefront quick action", () => {
         ).toBeInTheDocument(),
       );
     } finally {
-      w.__PAYVERGE_ENV__ = previous;
+      w.__NAMAKDAN_ENV__ = previous;
     }
   });
 
@@ -213,7 +213,7 @@ describe("BusinessOverview — storefront quick action", () => {
     // to a processor setup they cannot complete.
     setInstanceForTests(
       parseInstanceInfo({
-        product_name: "Payverge",
+        product_name: "Namakdan",
         registration_mode: "closed",
         features: {},
         demo: { enabled: true, mode: true, reset_utc: "03:00" },

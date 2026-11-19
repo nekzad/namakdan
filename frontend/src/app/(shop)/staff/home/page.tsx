@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import StaffHomeClient from "./StaffHomeClient";
 
 export const metadata: Metadata = {
-  title: "Staff — Payverge",
+  title: "Staff — Namakdan",
   robots: { index: false, follow: false },
 };
 

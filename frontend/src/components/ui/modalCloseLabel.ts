@@ -12,7 +12,7 @@ import {
   type Locale,
 } from "@/i18n/localeRegistry";
 
-/** Map Payverge operator locales to BCP-47 tags react-aria ships messages for. */
+/** Map Namakdan operator locales to BCP-47 tags react-aria ships messages for. */
 export function toReactAriaLocale(locale: string): string {
   const short = (locale || "en").toLowerCase().split(/[-_]/)[0];
   if (short === "es") return "es-ES";

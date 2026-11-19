@@ -28,11 +28,12 @@ export default function Maintenance() {
           imgClassName="h-auto w-32 mb-6 mx-auto"
           fallback={(alt) => (
             <Image
-              src="/images/PayvergeLogo.png"
+              src="/images/namakdan-mark.svg"
               alt={alt}
               width={128}
               height={128}
               className="h-auto mb-6 mx-auto hover:scale-110 transition-transform duration-300"
+              unoptimized
             />
           )}
         />

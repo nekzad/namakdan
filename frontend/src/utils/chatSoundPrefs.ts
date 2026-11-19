@@ -1,4 +1,4 @@
-const STORAGE_KEY = "payverge_chat_sound_prefs";
+const STORAGE_KEY = "namakdan_chat_sound_prefs";
 
 export interface ChatSoundPrefs {
   /** Manager broadcasts — rare and important. Default ON. */

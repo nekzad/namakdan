@@ -7,7 +7,7 @@ import { resolveOperatorLocale } from "@/i18n/htmlLangDir";
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
   const locale = resolveOperatorLocale(
-    requestHeaders.get("x-payverge-locale"),
+    requestHeaders.get("x-namakdan-locale"),
   );
   return {
     title: getTranslation("forgotPassword.metaTitle", locale) as string,

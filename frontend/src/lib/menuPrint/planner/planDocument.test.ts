@@ -198,7 +198,7 @@ describe("planMenuDocument", () => {
   );
 
   it("reserves masthead room for a long name that wraps at rendered size", () => {
-    // "Payverge AI Pro Demo Lounge" wraps to two rendered lines at atelier's
+    // "Namakdan AI Pro Demo Lounge" wraps to two rendered lines at atelier's
     // 22pt × 1.45 display size; the planner must reserve both lines so the
     // second is never clipped by the masthead block.
     const document = planFixtureDocument({
@@ -206,7 +206,7 @@ describe("planMenuDocument", () => {
         ...sparseRestaurantMenu,
         business: {
           ...sparseRestaurantMenu.business,
-          name: "Payverge AI Pro Demo Lounge",
+          name: "Namakdan AI Pro Demo Lounge",
           tagline: undefined,
           logoUrl: undefined,
         },
@@ -394,12 +394,12 @@ describe("planMenuDocument", () => {
       imageSelections: [
         {
           itemId: "harvest-bowl",
-          url: "https://images.payverge.test/harvest-bowl-1600x1200.jpg",
+          url: "https://images.example.test/harvest-bowl-1600x1200.jpg",
           role: "cover",
         },
         {
           itemId: "charred-carrots",
-          url: "https://images.payverge.test/charred-carrots-1400x1050.jpg",
+          url: "https://images.example.test/charred-carrots-1400x1050.jpg",
           role: "full-width",
         },
       ],
@@ -424,12 +424,12 @@ describe("planMenuDocument", () => {
       imageSelections: [
         {
           itemId: "harvest-bowl",
-          url: "https://images.payverge.test/harvest-bowl-1600x1200.jpg",
+          url: "https://images.example.test/harvest-bowl-1600x1200.jpg",
           role: "cover",
         },
         {
           itemId: "charred-carrots",
-          url: "https://images.payverge.test/charred-carrots-1400x1050.jpg",
+          url: "https://images.example.test/charred-carrots-1400x1050.jpg",
           role: "full-width",
         },
       ],
@@ -1605,7 +1605,7 @@ describe("planMenuDocument", () => {
     ).toThrow(
       `Image selection URL does not belong to item ${harvest.id}: foreign.jpg`,
     );
-    const sharedUrl = "https://images.payverge.test/shared-table-1800x1200.jpg";
+    const sharedUrl = "https://images.example.test/shared-table-1800x1200.jpg";
     expect(() =>
       planFixtureDocument({
         model: photoRichRestaurantMenu,

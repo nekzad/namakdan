@@ -133,7 +133,7 @@
     "loadError": "No se pudieron cargar las entregas. Comprueba tu conexión e intenta de nuevo.",
     "retry": "Reintentar",
     "assignDriver": "Asignar repartidor",
-    "cancelPaidWarning": "Este pedido puede haber sido pagado en línea. Cancelarlo queda registrado, pero cualquier compensación al cliente es responsabilidad tuya — Payverge no gestiona reembolsos.",
+    "cancelPaidWarning": "Este pedido puede haber sido pagado en línea. Cancelarlo queda registrado, pero cualquier compensación al cliente es responsabilidad tuya — Namakdan no gestiona reembolsos.",
     "tabs": {
       "configuration": "Configuración",
       "dispatch": "Despacho",

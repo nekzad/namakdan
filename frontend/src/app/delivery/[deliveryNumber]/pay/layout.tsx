@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 // SEO-0.5: guest delivery pages are token URLs — never indexable. The pay page
 // is a client component, so the robots directive lives in this server layout.
 export const metadata: Metadata = {
-  title: "Delivery payment | Payverge",
+  title: "Delivery payment | Namakdan",
   robots: { index: false, follow: false },
 };
 

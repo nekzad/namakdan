@@ -24,7 +24,7 @@ jest.mock("next/navigation", () => ({
 // bottom-of-page CTAs. The banner is 328px tall at 390x844 — 39% of the
 // viewport — so scrolling any /pricing plan card to the top of the viewport
 // still parks its Start-trial / Talk-to-us button under the banner. Measured
-// on live payverge.io/pricing at 390x844, banner rect top 516 vs CTA bottoms
+// on live example.test/pricing at 390x844, banner rect top 516 vs CTA bottoms
 // 522 / 545 / 545 => covered. Clamping the description to two lines and
 // tightening the policy link once the visitor scrolls shortens the banner.
 // The purpose and the /privacy-policy link stay visible.

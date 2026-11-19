@@ -102,7 +102,7 @@ test.describe("live menu print window lifecycle", () => {
     const popup = await popupPromise;
     const popupCsp = await popup.evaluate(() => {
       const lifecycle = document.querySelector<HTMLScriptElement>(
-        "#payverge-print-lifecycle",
+        "#namakdan-print-lifecycle",
       );
       return {
         origin: window.location.origin,

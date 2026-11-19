@@ -153,9 +153,9 @@ test.describe("approval-first marketing creative system", () => {
       await context.addCookies((await journeyApi.storageState()).cookies);
       await context.grantPermissions(["clipboard-read", "clipboard-write"]);
       await page.addInitScript(() => {
-        window.localStorage.setItem("payverge_had_session", "1");
+        window.localStorage.setItem("namakdan_had_session", "1");
         window.localStorage.setItem(
-          "payverge_cookie_consent",
+          "namakdan_cookie_consent",
           JSON.stringify({
             version: 1,
             analytics: false,

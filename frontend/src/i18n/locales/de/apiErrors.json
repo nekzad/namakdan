@@ -5,7 +5,7 @@
   "AUTH_REFRESH_ROTATED": "Ihre Sitzung wurde in einer anderen Anfrage erneuert. Bitte versuchen Sie es erneut.",
   "AUTH_SESSION_UNKNOWN": "Diese Sitzung ist nicht mehr aktiv. Bitte melden Sie sich erneut an.",
   "AUTH_FORBIDDEN": "Sie haben keinen Zugriff auf diese Aktion.",
-  "DEMO_MODE_FORBIDDEN": "Diese Aktion ist in der öffentlichen Demo deaktiviert. Installieren Sie Ihr eigenes Payverge, um sie zu nutzen; die Demo wird jede Nacht zurückgesetzt.",
+  "DEMO_MODE_FORBIDDEN": "Diese Aktion ist in der öffentlichen Demo deaktiviert. Installieren Sie Ihr eigenes Namakdan, um sie zu nutzen; die Demo wird jede Nacht zurückgesetzt.",
   "AUTH_NOT_ADMIN": "Administratorzugriff ist erforderlich.",
   "AUTH_INSUFFICIENT_ROLE": "Ihre Rolle erlaubt diese Aktion nicht.",
   "AUTH_INVALID_CREDENTIALS": "Ungültige E-Mail oder Passwort.",

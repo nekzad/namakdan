@@ -69,7 +69,7 @@ function renderTelegramConfig(
     <TelegramConfig
       businessId="42"
       plugin={plugin}
-      config={{ business_name: "Payverge Test" }}
+      config={{ business_name: "Namakdan Test" }}
       onConfigChange={jest.fn()}
       onSave={jest.fn()}
       onCancel={jest.fn()}
@@ -83,7 +83,7 @@ function mockGenerateToken(expiresAt = new Date(Date.now() + 15 * 60_000)) {
     if (url.includes("/generate-token")) {
       return {
         data: {
-          url: "https://t.me/PayvergeBot?start=pv_tg_test",
+          url: "https://t.me/NamakdanBot?start=pv_tg_test",
           expires_at: expiresAt.toISOString(),
         },
       };
@@ -270,7 +270,7 @@ describe("TelegramConfig lifecycle", () => {
     renderTelegramConfig({
       onConfigChange,
       config: {
-        business_name: "Payverge Test",
+        business_name: "Namakdan Test",
         notifications: { shift_reminder: true },
       },
     });

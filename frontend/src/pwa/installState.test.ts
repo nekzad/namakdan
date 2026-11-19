@@ -156,7 +156,7 @@ describe("PWA identity-scoped state", () => {
   });
 
   it("fails closed across repeated visits when session reads fail", () => {
-    local.setItem("payverge:pwa:user:19:eligible", "1");
+    local.setItem("namakdan:pwa:user:19:eligible", "1");
     const unavailableSession = new ThrowingStorage("read");
 
     expect(noteDashboardVisit(local, unavailableSession, identity)).toBe(false);
@@ -164,7 +164,7 @@ describe("PWA identity-scoped state", () => {
   });
 
   it("fails closed across repeated visits when session writes fail", () => {
-    local.setItem("payverge:pwa:user:19:eligible", "1");
+    local.setItem("namakdan:pwa:user:19:eligible", "1");
     const unavailableSession = new ThrowingStorage("write");
 
     expect(noteDashboardVisit(local, unavailableSession, identity)).toBe(false);
@@ -235,17 +235,17 @@ describe("PWA identity-scoped state", () => {
     expect(isSnoozed(local, identity, Date.UTC(2026, 7, 5))).toBe(true);
   });
 
-  it("prefixes persisted state keys with payverge:pwa", () => {
+  it("prefixes persisted state keys with namakdan:pwa", () => {
     noteDashboardVisit(local, session, identity);
     markInstallComplete(local, identity);
     saveLastDashboardPath(local, identity, "/business/casa/dashboard");
 
-    expect(local.getItem("payverge:pwa:user:19:eligible")).toBe("1");
-    expect(session.getItem("payverge:pwa:user:19:dashboard-session")).toBe(
+    expect(local.getItem("namakdan:pwa:user:19:eligible")).toBe("1");
+    expect(session.getItem("namakdan:pwa:user:19:dashboard-session")).toBe(
       "1",
     );
-    expect(local.getItem("payverge:pwa:user:19:complete")).toBe("1");
-    expect(local.getItem("payverge:pwa:user:19:last-dashboard")).toBe(
+    expect(local.getItem("namakdan:pwa:user:19:complete")).toBe("1");
+    expect(local.getItem("namakdan:pwa:user:19:last-dashboard")).toBe(
       "/business/casa/dashboard",
     );
   });

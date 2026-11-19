@@ -3,7 +3,7 @@
 // layout.tsx (a server component) can call them at first paint — before any
 // client effect (GuestTranslationProvider / SimpleTranslationProvider) runs.
 //
-// The middleware writes `x-payverge-locale`. For operator routes this is one of
+// The middleware writes `x-namakdan-locale`. For operator routes this is one of
 // en|es|es-ar (see utils/requestLocale). For a guest storefront URL carrying a
 // shared/crawled `?lang=` (e.g. /b/slug?lang=ar) the middleware now writes the
 // canonical storefront code (ar, es-AR, fr, …) so the SSR first paint reflects
@@ -36,7 +36,7 @@ function toCanonicalLocaleCode(
   return registryCodeByLower.get(raw.toLowerCase());
 }
 
-// Resolve the canonical <html lang> for an x-payverge-locale header value.
+// Resolve the canonical <html lang> for an x-namakdan-locale header value.
 // Accepts any registry code (operator OR guest storefront), normalising casing
 // (es-ar → es-AR). Unknown / missing values fall back to the default locale so
 // the attribute is always a valid BCP-47 tag.
@@ -44,7 +44,7 @@ export function resolveHtmlLang(raw: string | null | undefined): LocaleCode {
   return toCanonicalLocaleCode(raw) ?? defaultLocale;
 }
 
-// Resolve the <html dir> for an x-payverge-locale header value, driven by the
+// Resolve the <html dir> for an x-namakdan-locale header value, driven by the
 // registry `direction` field (so future RTL locales — he/fa/ur — light up
 // automatically once added to the registry). Unknown values default to ltr.
 export function resolveHtmlDir(raw: string | null | undefined): "ltr" | "rtl" {

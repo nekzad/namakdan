@@ -70,7 +70,7 @@ describe("BusinessPageEditor — failed load must not look unpublished (#691)", 
       .mockRejectedValueOnce(new Error("network"))
       .mockResolvedValueOnce({
         name: "Demo Lounge",
-        custom_url: "payverge-ai-pro-demo-lounge",
+        custom_url: "namakdan-ai-pro-demo-lounge",
         business_page_enabled: true,
         description: "Live page",
         design_settings: { primary_color: "#111111" },

@@ -1,5 +1,5 @@
 /**
- * Shared money display convention for Payverge surfaces (PG-20 / PG-8 / L6-37).
+ * Shared money display convention for Namakdan surfaces (PG-20 / PG-8 / L6-37).
  *
  * Wire contract: amounts here are **whole currency units** (dollars). Callers
  * convert int64 cents → dollars before `formatMoneyAmount`, or use

@@ -52,7 +52,7 @@ const actionKinds = new Set([
   "create_support_request",
 ]);
 const sourceKinds = new Set([
-  "payverge_page",
+  "namakdan_page",
   "product_registry",
   "pricing_registry",
   "knowledge_entry",

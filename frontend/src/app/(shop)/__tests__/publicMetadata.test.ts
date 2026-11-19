@@ -50,7 +50,7 @@ describe("SEO-3 · /business/register owns its canonical", () => {
     }));
     mockHeaders.mockResolvedValue({
       get: (name: string) =>
-        name === "x-payverge-locale" ? "en" : null,
+        name === "x-namakdan-locale" ? "en" : null,
     });
   });
 
@@ -62,9 +62,9 @@ describe("SEO-3 · /business/register owns its canonical", () => {
     // the hreflang cluster, matching home/features/pricing. The guard stays
     // the same — this page must never inherit the root canonical.
     expect(metadata.alternates?.canonical).toBe(
-      "https://payverge.io/business/register",
+      "https://example.test/business/register",
     );
-    expect(metadata.alternates?.canonical).not.toBe("https://payverge.io/");
+    expect(metadata.alternates?.canonical).not.toBe("https://example.test/");
     expect(metadata.alternates?.languages).toMatchObject({
       "es-AR": expect.stringContaining("/business/register"),
     });
@@ -75,8 +75,8 @@ describe("SEO-3 · /business/register owns its canonical", () => {
     const metadata = await generateMetadata();
     const og = metadata.openGraph as { url?: string | URL; images?: unknown[] };
 
-    expect(String(og?.url)).toBe("https://payverge.io/business/register");
-    expect(String(og?.url)).not.toBe("https://payverge.io");
+    expect(String(og?.url)).toBe("https://example.test/business/register");
+    expect(String(og?.url)).not.toBe("https://example.test");
     expect(og?.images?.length).toBeGreaterThan(0);
   });
 });

@@ -58,9 +58,9 @@ describe("sitemap covers localized public routes (#722)", () => {
     const urls = (await loadEntries()).map((e) => e.url);
 
     for (const route of LOCALIZED_PUBLIC_ROUTES) {
-      expect(urls).toContain(`https://payverge.io${route}`);
-      expect(urls).toContain(`https://payverge.io/es${route}`);
-      expect(urls).toContain(`https://payverge.io/es-ar${route}`);
+      expect(urls).toContain(`https://example.test${route}`);
+      expect(urls).toContain(`https://example.test/es${route}`);
+      expect(urls).toContain(`https://example.test/es-ar${route}`);
     }
   });
 
@@ -70,14 +70,14 @@ describe("sitemap covers localized public routes (#722)", () => {
 
     for (const route of LOCALIZED_PUBLIC_ROUTES) {
       const expected = {
-        en: `https://payverge.io${route}`,
-        es: `https://payverge.io/es${route}`,
-        "es-AR": `https://payverge.io/es-ar${route}`,
-        "x-default": `https://payverge.io${route}`,
+        en: `https://example.test${route}`,
+        es: `https://example.test/es${route}`,
+        "es-AR": `https://example.test/es-ar${route}`,
+        "x-default": `https://example.test${route}`,
       };
 
       for (const prefix of ["", "/es", "/es-ar"]) {
-        const entry = byUrl.get(`https://payverge.io${prefix}${route}`);
+        const entry = byUrl.get(`https://example.test${prefix}${route}`);
         expect(entry?.alternates?.languages).toEqual(expected);
       }
     }

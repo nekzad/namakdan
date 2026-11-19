@@ -268,7 +268,7 @@ function compatibilityAssistantLabels({
   dialogLabel: string;
 }): AssistantMessageLabels {
   // Sources carry only their own names — never prefix with the shell brand title
-  // (avoids "Payverge Concierge: …" / duplicate sender labels in Concierge).
+  // (avoids "Namakdan Concierge: …" / duplicate sender labels in Concierge).
   const sourceNames = Array.from(
     new Set(
       response.sources

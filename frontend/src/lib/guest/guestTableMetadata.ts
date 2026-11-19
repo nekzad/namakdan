@@ -43,8 +43,8 @@ export async function guestTablePageMetadata(opts: {
   const messages = await loadGuestMessages(locale);
   const label = surfaceLabel(messages, opts.surface);
   const title = opts.businessName
-    ? `${opts.businessName} – ${label} | Payverge`
-    : `${label} | Payverge`;
+    ? `${opts.businessName} – ${label} | Namakdan`
+    : `${label} | Namakdan`;
   const description = opts.businessName
     ? opts.surface === "menu"
       ? `Menu at ${opts.businessName}. Order from your table QR.`
@@ -52,10 +52,10 @@ export async function guestTablePageMetadata(opts: {
         ? `Table bill at ${opts.businessName}.`
         : `Your table at ${opts.businessName}.`
     : opts.surface === "menu"
-      ? "Guest table menu on Payverge."
+      ? "Guest table menu on Namakdan."
       : opts.surface === "bill"
-        ? "Guest table bill on Payverge."
-        : "Guest table on Payverge.";
+        ? "Guest table bill on Namakdan."
+        : "Guest table on Namakdan.";
   const path = guestTablePagePath(opts.tableCode, opts.surface);
   const baseUrl = getSiteUrl();
   const url = guestPublicUrl(locale, path, baseUrl);

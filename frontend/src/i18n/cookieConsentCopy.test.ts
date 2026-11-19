@@ -18,7 +18,7 @@ describe("cookieConsentCopy (NEW-3)", () => {
   });
 
   it("returns Arabic banner copy on guest path with ar locale cookie", async () => {
-    document.cookie = "payverge_guest_locale=ar; path=/";
+    document.cookie = "namakdan_guest_locale=ar; path=/";
     // Pass pathname explicitly — jsdom location is non-configurable.
     const { copy, locale } = await loadCookieConsentCopy("en", "/t/ABC/bill");
     expect(locale).toBe("ar");

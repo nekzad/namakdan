@@ -153,7 +153,7 @@ export function SimpleTranslationProvider({
   initialLocale,
 }: {
   children: ReactNode;
-  // Locale resolved server-side from the x-payverge-locale request header. Seeds
+  // Locale resolved server-side from the x-namakdan-locale request header. Seeds
   // the first render so SSR HTML (what crawlers and the no-JS first paint see)
   // matches the route's language instead of always defaulting to English.
   initialLocale?: Locale;

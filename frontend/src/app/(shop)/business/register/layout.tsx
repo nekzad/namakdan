@@ -22,12 +22,12 @@ const REGISTER_PATH = "/business/register";
 // hreflang cluster (#911) — otherwise Google consolidates the Spanish wizard
 // onto the English URL.
 //
-// MIN-2: document title (and OG/Twitter titles) follow x-payverge-locale so an
+// MIN-2: document title (and OG/Twitter titles) follow x-namakdan-locale so an
 // es UI does not keep the English browser tab title.
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
   const locale = resolveOperatorLocale(
-    requestHeaders.get("x-payverge-locale"),
+    requestHeaders.get("x-namakdan-locale"),
   );
 
   const title = getTranslation("businessRegister.metaTitle", locale) as string;

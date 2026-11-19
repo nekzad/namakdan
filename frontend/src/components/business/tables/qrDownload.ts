@@ -4,7 +4,7 @@ import QRCode from "qrcode";
  * Quick-download a table's QR code as a PNG, without going through the
  * detail drawer. Used by the Tables list row's "Download QR" action.
  *
- * L3-29: output includes the same "Powered by Payverge" footer as the
+ * L3-29: output includes the same "Powered by Namakdan" footer as the
  * canvas preview and print sheet (callers pass a translated string).
  */
 export interface QuickQRColors {

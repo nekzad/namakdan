@@ -6,7 +6,7 @@ jest.mock("next/headers", () => ({
   cookies: async () => ({ get: () => undefined }),
   headers: async () => ({
     get: (name: string) =>
-      name === "x-payverge-locale" ? mockLocaleHeader : null,
+      name === "x-namakdan-locale" ? mockLocaleHeader : null,
   }),
 }));
 
@@ -87,7 +87,7 @@ describe("BusinessPage server component — ?lang= body fetch (I18N-D1)", () => 
     expect(calledUrl).not.toContain("language=");
   });
 
-  it("threads path-locale /es/b/{slug} via x-payverge-locale into the body fetch (#860)", async () => {
+  it("threads path-locale /es/b/{slug} via x-namakdan-locale into the body fetch (#860)", async () => {
     mockLocaleHeader = "es";
     mockBusinessFetch({
       id: 142,
@@ -130,7 +130,7 @@ describe("generateMetadata — localized not-found fallback (I18N-D1b)", () => {
       searchParams: Promise.resolve({ lang: "de" }),
     });
     // de.json → businessPage.errors.notFound = "Unternehmen nicht gefunden"
-    expect(meta.title).toBe("Unternehmen nicht gefunden | Payverge");
+    expect(meta.title).toBe("Unternehmen nicht gefunden | Namakdan");
     expect(meta.title).not.toContain("Business Not Found");
   });
 
@@ -140,6 +140,6 @@ describe("generateMetadata — localized not-found fallback (I18N-D1b)", () => {
     const meta = await generateMetadata({
       params: Promise.resolve({ customUrl: "missing" }),
     });
-    expect(meta.title).toBe("Business Not Found | Payverge");
+    expect(meta.title).toBe("Business Not Found | Namakdan");
   });
 });

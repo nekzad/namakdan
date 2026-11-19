@@ -1,5 +1,5 @@
 {
-  "metaTitle": "Inicio de sesión del personal — Payverge",
+  "metaTitle": "Inicio de sesión del personal — Namakdan",
   "title": "Inicio de Sesión del Personal",
   "subtitle": "Inicia sesión para acceder al panel de tu negocio",
   "errors": {
@@ -54,6 +54,6 @@
   "footer": {
     "businessOwner": "¿Eres dueño del negocio?",
     "businessLogin": "Iniciar sesión como propietario",
-    "poweredBy": "Acceso seguro del personal con tecnología de Payverge"
+    "poweredBy": "Acceso seguro del personal con tecnología de Namakdan"
   }
 }

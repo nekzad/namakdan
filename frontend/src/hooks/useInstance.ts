@@ -14,7 +14,7 @@ import { InstanceContext } from '@/lib/instance/instanceContext';
 /**
  * One source of truth for GET /api/v1/instance in client components.
  *
- * The root layout seeds `window.__PAYVERGE_INSTANCE__` from its own server
+ * The root layout seeds `window.__NAMAKDAN_INSTANCE__` from its own server
  * fetch, so most pages start with the answer and never flash hidden UI. The
  * cache is module-level (not React Query) so it also works outside any
  * QueryClientProvider; the payload only changes on a backend restart.

@@ -134,7 +134,7 @@ export function buildBusinessJsonLd(
     image: firstStorefrontImage(business, baseUrl),
     description:
       business.description ||
-      `Visit ${business.name} - Powered by Payverge AI Restaurant Management`,
+      `Visit ${business.name} - Powered by Namakdan AI Restaurant Management`,
     url: pageUrl,
     telephone: business.phone || "",
     address: {

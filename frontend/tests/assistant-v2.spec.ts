@@ -35,7 +35,7 @@ const APP_BASE_URL =
 const WAITER_TABLE_CODE =
   process.env.PLAYWRIGHT_AI_TABLE_CODE || seededTableCode("ai-pro", 2);
 const RESTRICTED_STAFF_EMAIL =
-  process.env.PLAYWRIGHT_AI_RESTRICTED_EMAIL || "host@ai-demo.payverge.example";
+  process.env.PLAYWRIGHT_AI_RESTRICTED_EMAIL || "host@ai-demo.example.com";
 const UNAVAILABLE_MENU_ITEM_ID = "ffffffff-ffff-4fff-8fff-ffffffffffff";
 
 type SeededGuestTable = {
@@ -116,9 +116,9 @@ async function authenticateStaffContext(
       },
     ]);
     await context.addInitScript(() => {
-      window.localStorage.setItem("payverge_had_session", "1");
+      window.localStorage.setItem("namakdan_had_session", "1");
       window.localStorage.setItem(
-        "payverge_cookie_consent",
+        "namakdan_cookie_consent",
         JSON.stringify({
           version: 1,
           analytics: false,
@@ -428,18 +428,18 @@ test.describe("Assistant V2 seeded product journeys", () => {
     const continuity = await page.evaluate((tableCode) => {
       const receipt = JSON.parse(
         sessionStorage.getItem(
-          `payverge_pending_cart_v1:${tableCode}:consumed`,
+          `namakdan_pending_cart_v1:${tableCode}:consumed`,
         ) || '{"entries":[]}',
       ) as { entries?: unknown[] };
       const cart = JSON.parse(
-        localStorage.getItem(`payverge_cart_${tableCode}`) || '{"items":[]}',
+        localStorage.getItem(`namakdan_cart_${tableCode}`) || '{"items":[]}',
       ) as { items?: Array<{ quantity?: number }> };
       return {
         pending: sessionStorage.getItem(
-          `payverge_pending_cart_v1:${tableCode}`,
+          `namakdan_pending_cart_v1:${tableCode}`,
         ),
         binding: sessionStorage.getItem(
-          `payverge_pending_cart_session_v1:${tableCode}`,
+          `namakdan_pending_cart_session_v1:${tableCode}`,
         ),
         consumedCount: receipt.entries?.length ?? 0,
         quantity:
@@ -464,7 +464,7 @@ test.describe("Assistant V2 seeded product journeys", () => {
       await page.evaluate(
         (tableCode) =>
           JSON.parse(
-            localStorage.getItem(`payverge_cart_${tableCode}`) ||
+            localStorage.getItem(`namakdan_cart_${tableCode}`) ||
               '{"items":[]}',
           ).items.reduce(
             (sum: number, item: { quantity?: number }) =>
@@ -489,7 +489,7 @@ test.describe("Assistant V2 seeded product journeys", () => {
       await page.evaluate(
         (tableCode) =>
           JSON.parse(
-            localStorage.getItem(`payverge_cart_${tableCode}`) ||
+            localStorage.getItem(`namakdan_cart_${tableCode}`) ||
               '{"items":[]}',
           ).items.reduce(
             (sum: number, item: { quantity?: number }) =>

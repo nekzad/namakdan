@@ -3,8 +3,8 @@ import path from "node:path";
 
 const API_BASE = process.env.PLAYWRIGHT_API_BASE || "http://localhost:8080/api/v1";
 const COMPOSE_FILE = path.resolve(__dirname, "..", "..", "..", "docker-compose.yml");
-const POSTGRES_USER = "payverge";
-const POSTGRES_DB = "payverge";
+const POSTGRES_USER = "namakdan";
+const POSTGRES_DB = "namakdan";
 
 const FIXED_OTP = "424242";
 
@@ -40,7 +40,7 @@ function seedStaffLoginCode(email: string): string {
   if (process.env.PLAYWRIGHT_DIRECT_PSQL === "1") {
     const dbHost = process.env.PLAYWRIGHT_DB_HOST || "localhost";
     const dbPort = process.env.PLAYWRIGHT_DB_PORT || "5432";
-    const dbPassword = process.env.PLAYWRIGHT_DB_PASSWORD || "payverge_password";
+    const dbPassword = process.env.PLAYWRIGHT_DB_PASSWORD || "namakdan_password";
     execFileSync(
       "psql",
       [

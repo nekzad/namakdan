@@ -12,7 +12,7 @@ export interface HardcodedStringFinding {
 
 const jsxTextPattern = />([A-Z][^<>{}\n]{2,})</g;
 const guestJsxTextPattern = />([^<>{}\n]{3,})</g;
-const allowedExactText = new Set(["Payverge"]);
+const allowedExactText = new Set(["Namakdan"]);
 
 // Per-file/per-string allow-list for KNOWN-acceptable hardcoded text.
 //
@@ -43,7 +43,7 @@ const allowedHardcodedStrings: AllowedHardcodedString[] = [
   // remains in those JSX trees — do not re-add allow-list entries for them.
   {
     path: "frontend/src/app/business/[businessId]/route.ts",
-    text: "Page not found — Payverge",
+    text: "Page not found — Namakdan",
     reason:
       "Route handler emits an authoritative 404 HTML fallback outside the App Router translation provider.",
   },
@@ -61,7 +61,7 @@ const allowedHardcodedStrings: AllowedHardcodedString[] = [
   },
   {
     path: "frontend/src/app/business/[businessId]/route.ts",
-    text: "Back to Payverge",
+    text: "Back to Namakdan",
     reason:
       "Route handler emits an authoritative 404 HTML fallback outside the App Router translation provider.",
   },

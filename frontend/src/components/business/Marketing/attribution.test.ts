@@ -42,7 +42,7 @@ describe("attachAttributionQuery", () => {
 
   it("stamps pv_ref / pv_mkt / pv_dest on public storefront URLs", () => {
     const out = attachAttributionQuery(
-      "https://payverge.io/b/bistro?tab=menu",
+      "https://example.test/b/bistro?tab=menu",
       {
         promoCode: "PV-HH-ABCD",
         play: "happy_hour",
@@ -59,7 +59,7 @@ describe("attachAttributionQuery", () => {
   });
 
   it("result remains a public guest URL", () => {
-    const out = attachAttributionQuery("https://payverge.io/b/cafe", {
+    const out = attachAttributionQuery("https://example.test/b/cafe", {
       promoCode: "PV-FD-1111",
       play: "featured_dish",
     });
@@ -78,7 +78,7 @@ describe("buildAttributionTag + file text", () => {
     expect(tag.promoCode).toMatch(/^PV-FD-/);
     const text = attributionFileText({
       tag,
-      attributedUrl: "https://payverge.io/b/x?pv_ref=PV-FD-1",
+      attributedUrl: "https://example.test/b/x?pv_ref=PV-FD-1",
     });
     expect(text).toContain(tag.promoCode);
     expect(text).toContain("Limitations");
@@ -99,9 +99,9 @@ describe("buildAttributionTag + file text", () => {
 describe("promoCodeFromUrl", () => {
   it("reads pv_ref", () => {
     expect(
-      promoCodeFromUrl("https://payverge.io/b/x?pv_ref=PV-HH-ABCD&tab=menu"),
+      promoCodeFromUrl("https://example.test/b/x?pv_ref=PV-HH-ABCD&tab=menu"),
     ).toBe("PV-HH-ABCD");
-    expect(promoCodeFromUrl("https://payverge.io/b/x")).toBeNull();
+    expect(promoCodeFromUrl("https://example.test/b/x")).toBeNull();
   });
 
   it("returns null for garbage URLs", () => {

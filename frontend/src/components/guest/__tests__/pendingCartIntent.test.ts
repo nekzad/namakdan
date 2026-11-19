@@ -32,7 +32,7 @@ describe("pending cart intent storage", () => {
   it("uses a canonical table-scoped key without putting payload data in the URL", () => {
     const before = window.location.href;
 
-    expect(pendingCartKey(" t-1 ")).toBe("payverge_pending_cart_v1:T-1");
+    expect(pendingCartKey(" t-1 ")).toBe("namakdan_pending_cart_v1:T-1");
     expect(pendingCartKey("T-2")).not.toBe(pendingCartKey("T-1"));
     expect(pendingCartKey("T-1")).not.toContain(ITEM_ID);
     expect(window.location.href).toBe(before);
@@ -40,7 +40,7 @@ describe("pending cart intent storage", () => {
 
   it("supports a legitimate one-character ASCII table code", () => {
     const intent = itemIntent({ tableCode: "1" });
-    expect(pendingCartKey(" 1 ")).toBe("payverge_pending_cart_v1:1");
+    expect(pendingCartKey(" 1 ")).toBe("namakdan_pending_cart_v1:1");
     expect(writePendingCartIntent(intent, { now: NOW })).toEqual({ ok: true });
     expect(
       consumePendingCartIntent("1", "session-abc", { now: NOW + 1 }),
@@ -496,7 +496,7 @@ describe("pending cart non-secret session binding", () => {
       }),
     ).toEqual({ ok: true, sessionId: BINDING_ID });
     expect(randomUUID).toHaveBeenCalledTimes(1);
-    expect(sessionStorage.getItem("payverge_pending_cart_session_v1:T1")).toBe(
+    expect(sessionStorage.getItem("namakdan_pending_cart_session_v1:T1")).toBe(
       BINDING_ID,
     );
     expect(JSON.stringify(sessionStorage)).not.toContain("bearer-token");
@@ -519,7 +519,7 @@ describe("pending cart non-secret session binding", () => {
   it.each(["corrupt", " 728a70ef-0e4f-49b7-9978-229b7bc2be59 ", "ß1"])(
     "replaces an invalid stored binding %p without using it",
     (stored) => {
-      sessionStorage.setItem("payverge_pending_cart_session_v1:T1", stored);
+      sessionStorage.setItem("namakdan_pending_cart_session_v1:T1", stored);
       expect(
         getOrCreatePendingCartSessionBinding("T1", {
           randomUUID: () => BINDING_ID,
@@ -559,7 +559,7 @@ describe("pending cart non-secret session binding", () => {
       error: "entropy_unavailable",
     });
     expect(
-      sessionStorage.getItem("payverge_pending_cart_session_v1:T1"),
+      sessionStorage.getItem("namakdan_pending_cart_session_v1:T1"),
     ).toBeNull();
   });
 
@@ -568,7 +568,7 @@ describe("pending cart non-secret session binding", () => {
     (failure) => {
       const values = new Map<string, string>();
       if (failure === "remove") {
-        values.set("payverge_pending_cart_session_v1:T1", "corrupt");
+        values.set("namakdan_pending_cart_session_v1:T1", "corrupt");
       }
       const storage = {
         getItem: (key: string) => {

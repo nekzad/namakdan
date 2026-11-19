@@ -18,7 +18,7 @@ import {
   renderScenePrintHtml,
 } from "./printWalker";
 
-const ORIGIN = "https://payverge.io";
+const ORIGIN = "https://example.test";
 
 function emptyScene(): Scene {
   return {
@@ -444,17 +444,17 @@ describe("guestDeepLinkHtml (S2-D)", () => {
 
   it("renders link and optional QR data URL", () => {
     const html = guestDeepLinkHtml(
-      "https://payverge.io/b/bistro?tab=menu",
+      "https://example.test/b/bistro?tab=menu",
       "data:image/png;base64,abc",
     );
     expect(html).toContain("pv-guest");
-    expect(html).toContain("https://payverge.io/b/bistro?tab=menu");
+    expect(html).toContain("https://example.test/b/bistro?tab=menu");
     expect(html).toContain('src="data:image/png;base64,abc"');
   });
 
   it("renders promo code under the QR when provided", () => {
     const html = guestDeepLinkHtml(
-      "https://payverge.io/b/bistro?pv_ref=PV-HH-ABCD",
+      "https://example.test/b/bistro?pv_ref=PV-HH-ABCD",
       "data:image/png;base64,abc",
       "PV-HH-ABCD",
     );
@@ -469,7 +469,7 @@ describe("guestDeepLinkHtml (S2-D)", () => {
   });
 
   it("escapes markup in guest URL", () => {
-    const html = guestDeepLinkHtml('https://payverge.io/b/x?q="<script>"');
+    const html = guestDeepLinkHtml('https://example.test/b/x?q="<script>"');
     expect(html).not.toContain("<script>");
     expect(html).toContain("&lt;");
   });

@@ -11,7 +11,7 @@ import { getServerInstanceInfo } from "@/lib/instance/serverInstance";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
-  const locale = resolveOperatorLocale(requestHeaders.get("x-payverge-locale"));
+  const locale = resolveOperatorLocale(requestHeaders.get("x-namakdan-locale"));
   return genericLegalMetadata("terms", locale, await getServerInstanceInfo());
 }
 

@@ -60,7 +60,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       {/* Mobile header */}
       <header className="sticky top-0 z-40 flex items-center justify-between border-b border-warm-200 bg-white/90 px-4 py-3 backdrop-blur-md lg:hidden">
         <Link href="/admin" className={`${titleFont} text-xl font-bold text-ink-900`}>
-          Payverge Admin
+          Namakdan Admin
         </Link>
         <Button
           isIconOnly
@@ -90,7 +90,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           <div className="mb-8 hidden lg:block">
             <Link href="/admin" className="block">
               <span className={`${titleFont} text-xl font-bold text-ink-900`}>
-                Payverge
+                Namakdan
               </span>
               <span className="mt-0.5 block text-xs font-medium text-brand">
                 Command Center

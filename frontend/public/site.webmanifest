@@ -1,7 +1,7 @@
 {
   "id": "/",
-  "name": "Payverge - Restaurant Management System",
-  "short_name": "Payverge",
+  "name": "Namakdan - Restaurant Management System",
+  "short_name": "Namakdan",
   "description": "Restaurant operations, service, and payments in one app-like workspace.",
   "start_url": "/app",
   "scope": "/",

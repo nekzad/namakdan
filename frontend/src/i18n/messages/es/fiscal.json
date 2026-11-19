@@ -1,5 +1,5 @@
 {
-  "serviceUnavailable": "La facturación electrónica está desactivada en el servidor en este momento, así que no se envió nada a la autoridad fiscal. Pide a tu contacto de Payverge que la vuelva a activar.",
+  "serviceUnavailable": "La facturación electrónica está desactivada en el servidor en este momento, así que no se envió nada a la autoridad fiscal. Pide a tu contacto de Namakdan que la vuelva a activar.",
   "dashboard": {
     "title": "Facturas",
     "description": "Facturas oficiales y documentos fiscales para cuentas pagadas.",
@@ -27,7 +27,7 @@
   "setup": {
     "title": "Configuración de facturas",
     "description": "Actualiza país, perfil fiscal o modo de emisión. Los cambios aplican a nuevas cuentas pagadas.",
-    "emptyDescription": "Configúralo una vez para que Payverge pueda encolar facturas oficiales por cada cuenta pagada.",
+    "emptyDescription": "Configúralo una vez para que Namakdan pueda encolar facturas oficiales por cada cuenta pagada.",
     "compareModes": "Comparar modos",
     "currentMode": "Actual",
     "comingSoon": "Próximamente",
@@ -74,7 +74,7 @@
   },
   "credentials": {
     "title": "Credenciales de AFIP",
-    "description": "Sube el certificado digital y la clave privada emitidos por AFIP/ARCA para que Payverge pueda solicitar autorizaciones de CAE en tu nombre.",
+    "description": "Sube el certificado digital y la clave privada emitidos por AFIP/ARCA para que Namakdan pueda solicitar autorizaciones de CAE en tu nombre.",
     "certLabel": "Certificado (.crt o .pem)",
     "certHint": "El certificado X.509 descargado de AFIP.",
     "keyLabel": "Clave privada (.key)",
@@ -103,14 +103,14 @@
       "credentials_set": "Pendiente de validación",
       "credentialsSetHint": "Valida las credenciales subidas contra AFIP para terminar la configuración.",
       "ready": "Listo",
-      "readyHint": "Las credenciales son válidas. Payverge puede solicitar autorizaciones de CAE.",
+      "readyHint": "Las credenciales son válidas. Namakdan puede solicitar autorizaciones de CAE.",
       "validated": "Validado"
     }
   },
   "region": {
     "title": "Facturación electrónica",
     "unavailableTitle": "La facturación electrónica aún no está disponible en tu región",
-    "unavailableDescription": "Payverge emite facturas electrónicas oficiales para Argentina (AFIP/ARCA). La facturación electrónica no está disponible en {country} todavía.",
+    "unavailableDescription": "Namakdan emite facturas electrónicas oficiales para Argentina (AFIP/ARCA). La facturación electrónica no está disponible en {country} todavía.",
     "unavailablePathToLive": "Camino a producción: cuando tu país esté soportado, subirás credenciales del proveedor y cambiarás el Entorno a Producción desde Editar configuración.",
     "demoTitle": "Entorno fiscal de demostración",
     "demoDescription": "Este negocio solo emite facturas DEMO simuladas. No son documentos fiscales válidos y no se requiere subir un certificado real.",
@@ -119,7 +119,7 @@
   "modes": {
     "off": {
       "title": "Apagado",
-      "description": "Payverge no emitirá facturas y el botón manual queda deshabilitado."
+      "description": "Namakdan no emitirá facturas y el botón manual queda deshabilitado."
     },
     "manual": {
       "title": "Manual",
@@ -134,9 +134,9 @@
     "title": "Historial de facturas",
     "description": "Facturas encoladas para cuentas pagadas — incluyendo pendientes, autorizadas y fallidas.",
     "emptyTitle": "Aún no hay facturas",
-    "emptyDescription": "Las cuentas pagadas aparecerán aquí en cuanto Payverge emita una factura para ellas.",
+    "emptyDescription": "Las cuentas pagadas aparecerán aquí en cuanto Namakdan emita una factura para ellas.",
     "emptyDescriptionManual": "Ingresa el ID de una cuenta pagada abajo para emitir tu primera factura.",
-    "emptyDescriptionOff": "La emisión de facturas está apagada. Cambia a Manual o Automático desde Editar configuración para que Payverge encole facturas por cada cuenta pagada.",
+    "emptyDescriptionOff": "La emisión de facturas está apagada. Cambia a Manual o Automático desde Editar configuración para que Namakdan encole facturas por cada cuenta pagada.",
     "noMatch": "Ninguna factura coincide con este filtro.",
     "unnumbered": "Sin número",
     "pdfReady": "PDF",

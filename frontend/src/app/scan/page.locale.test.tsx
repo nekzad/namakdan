@@ -20,9 +20,9 @@ beforeEach(() => {
 });
 
 describe("scan page guest locale bootstrap (#390)", () => {
-  it("honors payverge_guest_locale before Accept-Language when ?lang= is absent", async () => {
+  it("honors namakdan_guest_locale before Accept-Language when ?lang= is absent", async () => {
     mockCookieGet.mockImplementation((name: string) =>
-      name === "payverge_guest_locale" ? { value: "es" } : undefined,
+      name === "namakdan_guest_locale" ? { value: "es" } : undefined,
     );
     mockHeaderGet.mockImplementation((name: string) =>
       name === "accept-language" ? "en-US,en;q=0.9" : null,
@@ -40,7 +40,7 @@ describe("scan page guest locale bootstrap (#390)", () => {
 
   it("prefers ?lang= over the guest cookie", async () => {
     mockCookieGet.mockImplementation((name: string) =>
-      name === "payverge_guest_locale" ? { value: "ja" } : undefined,
+      name === "namakdan_guest_locale" ? { value: "ja" } : undefined,
     );
 
     const { default: ScanPage } = await import("./page");
@@ -52,9 +52,9 @@ describe("scan page guest locale bootstrap (#390)", () => {
     expect(result.props.preferInitialLanguage).toBe(true);
   });
 
-  it("ignores the operator payverge_locale cookie", async () => {
+  it("ignores the operator namakdan_locale cookie", async () => {
     mockCookieGet.mockImplementation((name: string) =>
-      name === "payverge_locale" ? { value: "es" } : undefined,
+      name === "namakdan_locale" ? { value: "es" } : undefined,
     );
     mockHeaderGet.mockImplementation((name: string) =>
       name === "accept-language" ? "en-US,en;q=0.9" : null,

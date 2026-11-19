@@ -71,7 +71,7 @@ const TABLE_TENT_INSTRUCTIONS = [
   "Resolution: authored at 300 dpi.",
   "",
   "Not a thermal receipt. Kitchen/POS receipt branding is separate.",
-  "You place the tent when ready — Payverge does not own a publish clock.",
+  "You place the tent when ready — Namakdan does not own a publish clock.",
   "",
 ].join("\n");
 
@@ -87,7 +87,7 @@ const WINDOW_INSTRUCTIONS = [
   "Colour: sRGB PNG. Request CMYK conversion at the shop if needed.",
   "",
   "Not a thermal receipt.",
-  "You apply the cling when ready — Payverge does not own a publish clock.",
+  "You apply the cling when ready — Namakdan does not own a publish clock.",
   "",
 ].join("\n");
 
@@ -103,7 +103,7 @@ const FLYER_INSTRUCTIONS = [
   "Colour: sRGB PNG.",
   "",
   "Not a thermal receipt.",
-  "You distribute flyers when ready — Payverge does not own a publish clock.",
+  "You distribute flyers when ready — Namakdan does not own a publish clock.",
   "",
 ].join("\n");
 

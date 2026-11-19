@@ -41,11 +41,12 @@ export function Footer() {
                   imgClassName="h-full w-full object-contain object-left"
                   fallback={(alt) => (
                     <Image
-                      src="/images/PayvergeLogo.png"
+                      src="/images/namakdan-logo-dark.svg"
                       alt={alt}
                       fill
                       sizes="(max-width: 768px) 160px, 192px"
                       className="object-contain object-left"
+                      unoptimized
                     />
                   )}
                 />

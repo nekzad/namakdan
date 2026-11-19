@@ -7,7 +7,7 @@
 // Single source for the funnel draft's localStorage key — shared by the
 // register page (write/restore) and the success page (clear on CONFIRMED
 // completion only).
-export const REGISTRATION_DRAFT_STORAGE_KEY = "payverge_registration_draft";
+export const REGISTRATION_DRAFT_STORAGE_KEY = "namakdan_registration_draft";
 
 interface RegistrationDraftAddress {
   street?: string;

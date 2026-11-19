@@ -515,7 +515,7 @@
   "notifications": {
     "tabTitle": "Notificaciones",
     "emailSection": "Notificaciones por Email",
-    "emailDescription": "Controla qué emails recibes de Payverge",
+    "emailDescription": "Controla qué emails recibes de Namakdan",
     "ordersAndPayments": "Pedidos y Pagos",
     "ordersAndPaymentsDesc": "Recibe emails cuando se realizan pedidos o se reciben pagos",
     "reportsAndAnalytics": "Reportes y Análisis",
@@ -599,7 +599,7 @@
     "scope": {
       "account": {
         "label": "Esta cuenta",
-        "helper": "Se guarda en tu sesión de Payverge: te sigue en dispositivos y negocios."
+        "helper": "Se guarda en tu sesión de Namakdan: te sigue en dispositivos y negocios."
       },
       "device": {
         "label": "Este dispositivo",

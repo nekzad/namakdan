@@ -125,7 +125,7 @@ const menu: FixtureMenuCategory[] = [
         id: "m1",
         name: "Burger",
         price: 9,
-        image: "https://payverge.io/media/biz/1/burger.jpg",
+        image: "https://example.test/media/biz/1/burger.jpg",
         is_available: true,
       },
     ],
@@ -208,7 +208,7 @@ describe("AiWaiter image allowlist", () => {
     const image = await screen.findByTestId("rendered-image");
     expect(image).toHaveAttribute(
       "src",
-      "https://payverge.io/media/biz/1/burger.jpg",
+      "https://example.test/media/biz/1/burger.jpg",
     );
     expect(image).toHaveAccessibleName("Burger image 1");
   });
@@ -227,7 +227,7 @@ describe("AiWaiter image allowlist", () => {
 
     expect(await screen.findByTestId("rendered-image")).toHaveAttribute(
       "src",
-      "https://payverge.io/media/biz/1/burger.jpg",
+      "https://example.test/media/biz/1/burger.jpg",
     );
   });
 
@@ -235,13 +235,13 @@ describe("AiWaiter image allowlist", () => {
     await send(
       v2Response(
         "menu_item:unknown",
-        "![Burger](https://payverge.io/media/biz/1/burger.jpg)",
+        "![Burger](https://example.test/media/biz/1/burger.jpg)",
       ),
     );
     await waitFor(() =>
       expect(screen.queryByTestId("rendered-image")).not.toBeInTheDocument(),
     );
-    expect(screen.queryByText(/images\.payverge\.io/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/images\.namakdan\.io/)).not.toBeInTheDocument();
   });
 
   it("omits media when the same namespaced stable ID is duplicated in the live catalog", async () => {
@@ -253,7 +253,7 @@ describe("AiWaiter image allowlist", () => {
             id: "m1",
             name: "Another Burger",
             price: 10,
-            image: "https://payverge.io/media/biz/1/other.jpg",
+            image: "https://example.test/media/biz/1/other.jpg",
             is_available: true,
           },
         ],
@@ -310,7 +310,7 @@ describe("AiWaiter image allowlist", () => {
           id: 10,
           name: "Combo",
           price: 20,
-          image: "https://payverge.io/media/biz/1/combo.jpg",
+          image: "https://example.test/media/biz/1/combo.jpg",
           is_active: true,
         },
       ],
@@ -324,7 +324,7 @@ describe("AiWaiter image allowlist", () => {
           id: 10,
           name: "Combo",
           price: 20,
-          image: "https://payverge.io/media/biz/1/combo.jpg",
+          image: "https://example.test/media/biz/1/combo.jpg",
           is_active: false,
         },
       ],
@@ -343,7 +343,7 @@ describe("AiWaiter image allowlist", () => {
   });
 
   it("filters empty, duplicate, and unsafe configured images", async () => {
-    const allowed = "https://payverge.io/media/biz/1/burger.jpg";
+    const allowed = "https://example.test/media/biz/1/burger.jpg";
     await send(v2Response("menu_item:m1"), [
       {
         items: [
@@ -368,8 +368,8 @@ describe("AiWaiter image allowlist", () => {
           {
             ...menu[0].items[0],
             images: [
-              "https://payverge.io/media/biz/1/burger-side.jpg",
-              "https://payverge.io/media/biz/1/burger-top.jpg",
+              "https://example.test/media/biz/1/burger-side.jpg",
+              "https://example.test/media/biz/1/burger-top.jpg",
             ],
           },
         ],
@@ -428,10 +428,10 @@ describe("AiWaiter image allowlist", () => {
           name: entity.display_name,
           price: 10 + index,
           is_available: true,
-          image: `https://payverge.io/media/biz/1/m${index + 1}-1.jpg`,
+          image: `https://example.test/media/biz/1/m${index + 1}-1.jpg`,
           images: [2, 3, 4].map(
             (image) =>
-              `https://payverge.io/media/biz/1/m${index + 1}-${image}.jpg`,
+              `https://example.test/media/biz/1/m${index + 1}-${image}.jpg`,
           ),
         })),
       },

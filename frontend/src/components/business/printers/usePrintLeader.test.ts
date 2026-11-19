@@ -23,7 +23,7 @@ describe("usePrintLeader", () => {
     const { result } = renderHook(() => usePrintLeader(42));
     await waitFor(() => expect(result.current.current).toBe(true));
     expect(request).toHaveBeenCalledWith(
-      "payverge-print-leader-42",
+      "namakdan-print-leader-42",
       expect.any(Function),
     );
   });

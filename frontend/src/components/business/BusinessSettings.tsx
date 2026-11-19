@@ -792,7 +792,7 @@ function BusinessProfileTab({
             onPress={() => {
               if (typeof window !== "undefined") {
                 window.sessionStorage.setItem(
-                  `payverge_hub_force_show_${businessId}`,
+                  `namakdan_hub_force_show_${businessId}`,
                   "1",
                 );
               }

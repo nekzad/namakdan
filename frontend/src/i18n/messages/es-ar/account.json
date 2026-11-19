@@ -4,7 +4,7 @@
     "description": "Iniciá sesión para acceder a la configuración de tu cuenta."
   },
   "emailPrefs": {
-    "sectionDescription": "Elegí qué correos te envía Payverge. Se aplican a toda tu cuenta.",
+    "sectionDescription": "Elegí qué correos te envía Namakdan. Se aplican a toda tu cuenta.",
     "errorMessage": "No pudimos cargar tus preferencias de correo. Actualizá la página o volvé a intentarlo en un momento.",
     "saveErrorToast": "No pudimos guardar ese cambio. Intentá de nuevo."
   },
@@ -16,7 +16,7 @@
   },
   "privacy": {
     "deleteDescription": "Desactiva tu cuenta e inicia un período de revisión de 30 días. Puede ser necesario conservar algunos registros tributarios, fiscales, de facturación, fraude, seguridad o legales.",
-    "sectionDescription": "Descargá una copia de los datos de tu cuenta Payverge o solicitá su eliminación.",
+    "sectionDescription": "Descargá una copia de los datos de tu cuenta Namakdan o solicitá su eliminación.",
     "exportSuccess": "Tu exportación fue descargada. El archivo es válido por 24 horas — volvé a exportar si necesitás datos más recientes.",
     "exportError": "No pudimos preparar tu exportación. Intentá de nuevo o contactá a soporte si el problema persiste.",
     "modalIntro": "Esto desactiva tu cuenta y fija una fecha de revisión de eliminación dentro de 30 días. La eliminación final se revisa porque puede ser necesario conservar algunos registros. Escribí el valor de abajo para confirmar.",

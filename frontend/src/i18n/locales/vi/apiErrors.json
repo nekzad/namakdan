@@ -5,7 +5,7 @@
   "AUTH_REFRESH_ROTATED": "Phiên của bạn đã được gia hạn trong một yêu cầu khác. Vui lòng thử lại.",
   "AUTH_SESSION_UNKNOWN": "Phiên này không còn hoạt động. Vui lòng đăng nhập lại.",
   "AUTH_FORBIDDEN": "Bạn không có quyền thực hiện thao tác này.",
-  "DEMO_MODE_FORBIDDEN": "Thao tác này bị tắt trong bản demo công khai. Hãy cài đặt Payverge của riêng bạn để sử dụng; bản demo được đặt lại mỗi đêm.",
+  "DEMO_MODE_FORBIDDEN": "Thao tác này bị tắt trong bản demo công khai. Hãy cài đặt Namakdan của riêng bạn để sử dụng; bản demo được đặt lại mỗi đêm.",
   "AUTH_NOT_ADMIN": "Cần quyền quản trị viên.",
   "AUTH_INSUFFICIENT_ROLE": "Vai trò của bạn không cho phép thao tác này.",
   "AUTH_INVALID_CREDENTIALS": "Email hoặc mật khẩu không hợp lệ.",

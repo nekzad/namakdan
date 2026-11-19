@@ -145,7 +145,7 @@ describe("dashboard sign-in gate", () => {
   it("drops Google and the AI bullets on an instance without them", async () => {
     setInstanceForTests(
       parseInstanceInfo({
-        product_name: "Payverge",
+        product_name: "Namakdan",
         registration_mode: "invite",
         features: { google_oauth: false, ai: false },
       }),
@@ -165,7 +165,7 @@ describe("dashboard sign-in gate", () => {
   it("offers sign-up only when the instance takes open registration", async () => {
     setInstanceForTests(
       parseInstanceInfo({
-        product_name: "Payverge",
+        product_name: "Namakdan",
         registration_mode: "open",
         features: {},
       }),
@@ -181,7 +181,7 @@ describe("dashboard sign-in gate", () => {
   it("labels the button sign-in only on an invite instance", async () => {
     setInstanceForTests(
       parseInstanceInfo({
-        product_name: "Payverge",
+        product_name: "Namakdan",
         registration_mode: "invite",
         features: {},
       }),
@@ -197,7 +197,7 @@ describe("dashboard sign-in gate", () => {
   it("keeps the full gate when the instance has everything on", async () => {
     setInstanceForTests(
       parseInstanceInfo({
-        product_name: "Payverge",
+        product_name: "Namakdan",
         registration_mode: "invite",
         features: { google_oauth: true, ai: true },
       }),
@@ -215,7 +215,7 @@ describe("dashboard sign-in gate", () => {
     window.localStorage.removeItem(CONSENT_STORAGE_KEY);
     setInstanceForTests(
       parseInstanceInfo({
-        product_name: "Payverge",
+        product_name: "Namakdan",
         registration_mode: "closed",
         features: {},
         demo: { enabled: true, mode: true, reset_utc: "03:00" },
@@ -233,7 +233,7 @@ describe("dashboard sign-in gate", () => {
     writeConsent({ analytics: false, marketing: false });
     setInstanceForTests(
       parseInstanceInfo({
-        product_name: "Payverge",
+        product_name: "Namakdan",
         registration_mode: "closed",
         features: {},
         demo: { enabled: true, mode: true, reset_utc: "03:00" },
@@ -246,7 +246,7 @@ describe("dashboard sign-in gate", () => {
   it("keeps the dialog closed on a normal install", async () => {
     setInstanceForTests(
       parseInstanceInfo({
-        product_name: "Payverge",
+        product_name: "Namakdan",
         registration_mode: "invite",
         features: {},
         demo: { enabled: true, mode: false },

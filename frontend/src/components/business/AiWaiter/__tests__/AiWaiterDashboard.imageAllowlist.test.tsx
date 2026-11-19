@@ -9,12 +9,12 @@ jest.mock("@/providers/HybridAuthProvider", () => ({ useAuth: () => ({ staffData
 import { renderChatContent } from "../AiWaiterDashboard";
 
 describe("AiWaiterDashboard.renderChatContent image allowlist", () => {
-  const hosts = new Set<string>(["assets.payverge.io"]);
+  const hosts = new Set<string>(["assets.example.test"]);
 
   it("renders an allowed image host as <img>", () => {
-    const { container } = render(<>{renderChatContent("![x](https://assets.payverge.io/a.jpg)", hosts)}</>);
+    const { container } = render(<>{renderChatContent("![x](https://assets.example.test/a.jpg)", hosts)}</>);
     expect(container.querySelector("img")).not.toBeNull();
-    expect(container.querySelector("img")?.getAttribute("src")).toBe("https://assets.payverge.io/a.jpg");
+    expect(container.querySelector("img")?.getAttribute("src")).toBe("https://assets.example.test/a.jpg");
   });
 
   it("renders a hostile host as plain text, not <img>", () => {

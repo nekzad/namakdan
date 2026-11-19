@@ -93,7 +93,7 @@ describe("DashboardLayout forbidden state", () => {
       <DashboardLayout
         {...layoutProps}
         error="business:forbidden"
-        venueName="Payverge AI Pro Demo Lounge"
+        venueName="Namakdan AI Pro Demo Lounge"
       >
         <div />
       </DashboardLayout>,
@@ -101,13 +101,13 @@ describe("DashboardLayout forbidden state", () => {
 
     expect(screen.getByTestId("business-access-error")).toBeInTheDocument();
     expect(
-      screen.getAllByText("Payverge AI Pro Demo Lounge").length,
+      screen.getAllByText("Namakdan AI Pro Demo Lounge").length,
     ).toBeGreaterThan(0);
     expect(
       screen.getByText(
         "businessDashboard.error.venueAccessDenied".replace(
           "{name}",
-          "Payverge AI Pro Demo Lounge",
+          "Namakdan AI Pro Demo Lounge",
         ),
       ),
     ).toBeInTheDocument();

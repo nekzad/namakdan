@@ -387,7 +387,7 @@ export function publicMarketingVenueName(business: {
   const name = business.name?.trim() || "";
   if (!name) return "";
   const folded = name.toLowerCase();
-  if (folded.includes("payverge") || folded.includes("demo lounge")) {
+  if (folded.includes("namakdan") || folded.includes("demo lounge")) {
     return "";
   }
   return name;

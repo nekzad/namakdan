@@ -58,9 +58,9 @@ describe("storefront Restaurant JSON-LD (#637)", () => {
         ok: true,
         json: async () => ({
           id: 9,
-          name: "Payverge AI Pro Demo Lounge",
+          name: "Namakdan AI Pro Demo Lounge",
           description: "Neighborhood tasting room",
-          custom_url: "payverge-ai-pro-demo-lounge",
+          custom_url: "namakdan-ai-pro-demo-lounge",
           is_demo: true,
           kind: "demo",
           business_page_enabled: true,
@@ -71,7 +71,7 @@ describe("storefront Restaurant JSON-LD (#637)", () => {
 
     const { default: BusinessPage } = await import("./page");
     const tree = await BusinessPage({
-      params: Promise.resolve({ customUrl: "payverge-ai-pro-demo-lounge" }),
+      params: Promise.resolve({ customUrl: "namakdan-ai-pro-demo-lounge" }),
     });
     const blocks = collectJsonLd(tree);
     expect(blocks.some((block) => block["@type"] === "Restaurant")).toBe(true);

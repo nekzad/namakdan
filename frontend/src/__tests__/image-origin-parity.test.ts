@@ -7,7 +7,7 @@ import { canOptimizeImageSrc, optimizableImageHosts } from "@/config/imageOrigin
 describe("remote image origin contract", () => {
   it("ships a generic manifest: no first-party SaaS or storage-provider hosts", () => {
     const hosts = imageOrigins.map((entry) => entry.hostname);
-    expect(hosts.join(" ")).not.toMatch(/payverge|e2-3\.dev|idrivee2/);
+    expect(hosts.join(" ")).not.toMatch(/namakdan|e2-3\.dev|idrivee2/);
     expect(new Set(hosts).size).toBe(hosts.length);
   });
 
@@ -62,6 +62,6 @@ describe("remote image origin contract", () => {
       'readFileSync(new URL("./src/config/imageOrigins.json", import.meta.url)',
     );
     expect(source).toContain("remotePatterns: imageOrigins");
-    expect(source).not.toMatch(/hostname:\s*["'][^"']*payverge\.io["']/);
+    expect(source).not.toMatch(/hostname:\s*["'][^"']*namakdan\.io["']/);
   });
 });

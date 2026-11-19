@@ -28,7 +28,7 @@ import {
 // gate scans this file with a regex that cannot tell a comment from JSX.)
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
-  const locale = resolveOperatorLocale(requestHeaders.get("x-payverge-locale"));
+  const locale = resolveOperatorLocale(requestHeaders.get("x-namakdan-locale"));
 
   const title = getTranslation("notFound.metaTitle", locale) as string;
   const description = getTranslation("notFound.body", locale) as string;

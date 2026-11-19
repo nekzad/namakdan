@@ -69,7 +69,7 @@ describe("StaffTable", () => {
         staff={[
           {
             ...staff[0],
-            email: "demo+admin8-business75-staff1@payverge.local",
+            email: "demo+admin8-business75-staff1@example.test",
           },
         ]}
         getRoleLabel={(r) => `label:${r}`}
@@ -84,7 +84,7 @@ describe("StaffTable", () => {
     expect(screen.getByText("table.columns.name")).toBeInTheDocument();
     expect(screen.getByText("table.columns.role")).toBeInTheDocument();
     const email = screen.getByTitle(
-      "demo+admin8-business75-staff1@payverge.local",
+      "demo+admin8-business75-staff1@example.test",
     );
     expect(email).toHaveClass("truncate");
     expect(email.tagName).toBe("P");

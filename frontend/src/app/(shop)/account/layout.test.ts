@@ -6,7 +6,7 @@ import { metadata } from "./layout";
 
 describe("account route metadata", () => {
   it("provides an account document title instead of the marketing homepage string", () => {
-    expect(metadata.title).toBe("Account — Payverge");
+    expect(metadata.title).toBe("Account — Namakdan");
   });
 
   it("keeps the authenticated account surface out of search indexes", () => {

@@ -21,7 +21,7 @@ async function localeCookie(
   const context = await browser.newContext({ javaScriptEnabled });
   await context.addCookies([
     {
-      name: "payverge_locale",
+      name: "namakdan_locale",
       value: "es-AR",
       domain: origin.hostname,
       path: "/",

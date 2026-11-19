@@ -195,7 +195,7 @@ const Kitchen: React.FC<KitchenProps> = ({
   // M6: queue tab + list/KDS view survive rail switches for the browser-tab
   // session (a cook mid-service should land back on their queue), then reset.
   const [activeTab, setActiveTab] = useSessionTabState<string>(
-    businessId ? `payverge_kitchen_status:${businessId}` : null,
+    businessId ? `namakdan_kitchen_status:${businessId}` : null,
     "approved",
     (v) => ["approved", "in_kitchen", "ready", "all"].includes(String(v)),
   );
@@ -221,7 +221,7 @@ const Kitchen: React.FC<KitchenProps> = ({
     router.replace(nextUrl, { scroll: false });
   }, [deepLinkKitchenStatus, setActiveTab, router]);
   const [viewMode, setViewMode] = useSessionTabState<"list" | "kds">(
-    businessId ? `payverge_kitchen_viewmode:${businessId}` : null,
+    businessId ? `namakdan_kitchen_viewmode:${businessId}` : null,
     "list",
     (v) => v === "list" || v === "kds",
   );

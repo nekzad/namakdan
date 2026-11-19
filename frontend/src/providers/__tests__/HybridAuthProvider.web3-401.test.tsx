@@ -17,7 +17,7 @@ const mockRefreshAuthSession = jest.fn();
 const mockAxiosPost = jest.fn();
 
 jest.mock("@/utils/refreshAuth", () => ({
-  SESSION_HINT_KEY: "payverge_had_session",
+  SESSION_HINT_KEY: "namakdan_had_session",
   refreshAuthSession: (...args: unknown[]) => mockRefreshAuthSession(...args),
 }));
 
@@ -122,7 +122,7 @@ describe("HybridAuthProvider L6-42 web3 non-dead 401 (real path)", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     localStorage.clear();
-    localStorage.setItem("payverge_had_session", "1");
+    localStorage.setItem("namakdan_had_session", "1");
     mockRefreshAuthSession.mockResolvedValue({ ok: true });
     mockAxiosPost.mockResolvedValue({ data: {} });
   });
@@ -166,7 +166,7 @@ describe("HybridAuthProvider L6-42 web3 non-dead 401 (real path)", () => {
       "/auth/logout",
       expect.anything(),
     );
-    expect(localStorage.getItem("payverge_had_session")).toBe("1");
+    expect(localStorage.getItem("namakdan_had_session")).toBe("1");
     // Provider finished bootstrap; profile fetch failed without killing session.
     expect(latest.current?.isInitialized).toBe(true);
     // clearSession always clears the user store — must not happen on this path.

@@ -236,7 +236,7 @@ function emailLayoutTemplate(pathSegment: string): string {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Payverge</title>
+  <title>Namakdan</title>
 </head>
 <body>
   {{ template "content" . }}
@@ -248,7 +248,7 @@ function emailLayoutTemplate(pathSegment: string): string {
 function promptTemplate(surface: string, nativeName: string): string {
   return `# ${surface} ${nativeName} draft instructions
 
-Write concise, hospitality-focused responses in ${nativeName}. Keep terminology consistent with Payverge product language and flag uncertain translations for review.
+Write concise, hospitality-focused responses in ${nativeName}. Keep terminology consistent with Namakdan product language and flag uncertain translations for review.
 `;
 }
 

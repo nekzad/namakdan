@@ -38,7 +38,7 @@ describe("buildContentSecurityPolicy", () => {
     expect(directive(csp, "connect-src")).toBe(
       "connect-src 'self' https://sepolia.base.org",
     );
-    expect(csp).not.toMatch(/payverge\.io/);
+    expect(csp).not.toMatch(/namakdan\.io/);
     expect(csp).not.toMatch(/cloudflareinsights/);
     expect(csp).not.toMatch(/posthog/);
     expect(csp).not.toMatch(/sentry/);

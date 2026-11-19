@@ -115,7 +115,7 @@ test.describe.serial("Verified advertised operator + guest outcomes", () => {
   test.beforeAll(async ({ playwright }) => {
     api = await playwright.request.newContext({ ignoreHTTPSErrors: true });
     const stamp = Date.now();
-    const email = `operator-${stamp}@payverge.test`;
+    const email = `operator-${stamp}@example.test`;
     const register = await api.post(`${API_BASE}/auth/register`, {
       headers: { Origin: ORIGIN },
       data: { email, password: "E2e!Operator-42", name: "Operator Owner" },
@@ -202,7 +202,7 @@ test.describe.serial("Verified advertised operator + guest outcomes", () => {
     // Invite a server-role staff and mint a real limited-role session via the
     // accept-invitation flow. Tokens are not on GET staff; use invitation_url
     // from the invite response. Powers the RBAC + time-clock claims.
-    const staffEmail = `server-${stamp}@payverge.test`;
+    const staffEmail = `server-${stamp}@example.test`;
     const invite = await api.post(
       `${API_BASE}/inside/businesses/${businessId}/staff/invite`,
       { headers: authHeaders(), data: { email: staffEmail, name: "Sam Server", role: "server" } },
@@ -669,7 +669,7 @@ test.describe.serial("Verified advertised operator + guest outcomes", () => {
       `${API_BASE}/inside/businesses/${businessId}/staff/invite`,
       {
         headers: staffAuthHeaders(),
-        data: { email: "nope@payverge.test", name: "Nope", role: "server" },
+        data: { email: "nope@example.test", name: "Nope", role: "server" },
       },
     );
     expect(deniedInvite.status()).toBe(403);
@@ -1125,7 +1125,7 @@ test.describe.serial("Verified advertised operator + guest outcomes", () => {
     // after the operator publishes it. (A pre-published fixture would prove
     // nothing about the publish gate.)
     const stamp = Date.now();
-    const email = `setup-${stamp}@payverge.test`;
+    const email = `setup-${stamp}@example.test`;
     const reg = await api.post(`${API_BASE}/auth/register`, {
       headers: { Origin: ORIGIN },
       data: { email, password: "E2e!Setup-42", name: "Setup Owner" },
@@ -1266,7 +1266,7 @@ test.describe.serial("Verified advertised operator + guest outcomes", () => {
     // Manual onboarding: register -> create business -> immediately operable,
     // no AI wizard involved.
     const stamp = Date.now();
-    const email = `manual-onboard-${stamp}@payverge.test`;
+    const email = `manual-onboard-${stamp}@example.test`;
     const reg = await api.post(`${API_BASE}/auth/register`, {
       headers: { Origin: ORIGIN },
       data: { email, password: "E2e!Manual-42", name: "Manual Owner" },
@@ -1313,7 +1313,7 @@ test.describe.serial("Verified advertised operator + guest outcomes", () => {
     const otherReg = await api.post(`${API_BASE}/auth/register`, {
       headers: { Origin: ORIGIN },
       data: {
-        email: `intruder-${stamp}@payverge.test`,
+        email: `intruder-${stamp}@example.test`,
         password: "E2e!Intruder-42",
         name: "Intruder",
       },
@@ -2160,7 +2160,7 @@ test.describe.serial("Verified advertised operator + guest outcomes", () => {
 
     // A real diner enrolls and signs in.
     const stamp = Date.now();
-    const customerEmail = `diner-${stamp}@payverge.test`;
+    const customerEmail = `diner-${stamp}@example.test`;
     const register = await api.post(`${API_BASE}/crm/register`, {
       headers: { Origin: ORIGIN },
       data: { email: customerEmail, password: "E2e!Diner-42", name: "Loyal Diner" },

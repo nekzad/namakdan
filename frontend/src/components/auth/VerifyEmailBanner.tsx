@@ -9,7 +9,7 @@ import { authAPI } from "@/api/auth";
 import { useSimpleLocale } from "@/i18n/OperatorLocaleProvider";
 import { getChromeTranslation } from "@/i18n/operatorChromeCatalog";
 
-const DISMISS_KEY = "payverge_verify_banner_dismissed";
+const DISMISS_KEY = "namakdan_verify_banner_dismissed";
 
 /**
  * Slim top banner nudging an authenticated email/password user to verify their

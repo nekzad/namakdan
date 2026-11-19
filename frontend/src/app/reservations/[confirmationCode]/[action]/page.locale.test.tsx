@@ -66,14 +66,14 @@ describe("ReservationActionPage locale resolution (F4)", () => {
     ).toBeInTheDocument();
   });
 
-  it("PG-12: honors payverge_guest_locale cookie when ?lang= is absent", async () => {
-    document.cookie = "payverge_guest_locale=fr";
+  it("PG-12: honors namakdan_guest_locale cookie when ?lang= is absent", async () => {
+    document.cookie = "namakdan_guest_locale=fr";
     mockGet.mockImplementation(() => null);
     render(<ReservationActionPage />);
     expect(
       await screen.findByText("Annuler la réservation"),
     ).toBeInTheDocument();
-    document.cookie = "payverge_guest_locale=; Max-Age=0; Path=/";
+    document.cookie = "namakdan_guest_locale=; Max-Age=0; Path=/";
   });
 
   it("adopts the booking's business after the action resolves (F4)", async () => {

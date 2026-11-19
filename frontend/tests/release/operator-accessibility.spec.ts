@@ -23,8 +23,8 @@ const COMPOSE_FILE = path.resolve(
   "..",
   "docker-compose.yml",
 );
-const POSTGRES_USER = "payverge";
-const POSTGRES_DB = "payverge";
+const POSTGRES_USER = "namakdan";
+const POSTGRES_DB = "namakdan";
 const BUSINESS_TIMEZONE = "America/New_York";
 const DEVICE_TIMEZONE = "America/Buenos_Aires";
 const AUTH_RATE_LIMIT_TIMEOUT_MS = 120_000;
@@ -92,7 +92,7 @@ function executeDatabaseSQL(sql: string): void {
         stdio: ["pipe", "pipe", "pipe"],
         env: {
           ...process.env,
-          PGPASSWORD: process.env.PLAYWRIGHT_DB_PASSWORD || "payverge_password",
+          PGPASSWORD: process.env.PLAYWRIGHT_DB_PASSWORD || "namakdan_password",
         },
       },
     );
@@ -221,7 +221,7 @@ async function authenticateOperator(page: Page, context: BrowserContext) {
     })),
   );
   await page.addInitScript(() => {
-    localStorage.setItem("payverge_had_session", "1");
+    localStorage.setItem("namakdan_had_session", "1");
   });
 }
 
@@ -269,7 +269,7 @@ test.describe.serial("operator accessibility release gate", () => {
   test.beforeAll(async ({ playwright }) => {
     api = await playwright.request.newContext({ ignoreHTTPSErrors: true });
     const stamp = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-    ownerEmail = `operator-a11y-owner-${stamp}@payverge.test`;
+    ownerEmail = `operator-a11y-owner-${stamp}@example.test`;
     const register = await postWithRateLimitRetry(`${API_BASE}/auth/register`, {
       headers: { Origin: ORIGIN },
       data: {
@@ -411,7 +411,7 @@ test.describe.serial("operator accessibility release gate", () => {
     expect(reservation.status(), await reservation.text()).toBe(201);
     moveReservationToUiToday(Number((await reservation.json()).id));
 
-    const staffEmail = `operator-a11y-manager-${stamp}@payverge.test`;
+    const staffEmail = `operator-a11y-manager-${stamp}@example.test`;
     const invite = await api.post(
       `${API_BASE}/inside/businesses/${businessID}/staff/invite`,
       {

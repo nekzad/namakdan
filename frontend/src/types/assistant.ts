@@ -30,12 +30,12 @@ const actionTargetKinds = [
   "external_url",
   "lead_form",
   "menu_item",
-  "payverge_page",
+  "namakdan_page",
   "support_request",
 ] as const;
 
 const sourceTypes = [
-  "payverge_page",
+  "namakdan_page",
   "product_registry",
   "pricing_registry",
   "knowledge_entry",
@@ -202,7 +202,7 @@ const allowedTargetKinds: Record<
   AssistantAction["type"],
   ReadonlySet<AssistantActionTarget["kind"]>
 > = {
-  navigate: new Set(["dashboard_area", "payverge_page"]),
+  navigate: new Set(["dashboard_area", "namakdan_page"]),
   external_link: new Set(["external_url"]),
   director_handoff: new Set(["director"]),
   add_cart_item: new Set(["menu_item", "bundle"]),
@@ -401,7 +401,7 @@ const adaptLegacyAction = (
     case "navigate":
       if (!isSafeInternalHref(href)) return null;
       type = "navigate";
-      targetKind = "payverge_page";
+      targetKind = "namakdan_page";
       break;
     case "external":
       if (!isSafeExternalHref(href)) return null;

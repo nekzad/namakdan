@@ -27,13 +27,13 @@ jest.mock("@/api/publicBusiness", () => ({
   getBusinessByCustomUrl: jest.fn((_: string, language?: string) => {
     if (language === "es") {
       return Promise.resolve({
-        description: "Un restaurante modelo de Payverge con datos operativos reales.",
+        description: "Un restaurante modelo de Namakdan con datos operativos reales.",
         welcome_message: "Bienvenidos.",
         about_story: "Un entorno de demostración realista.",
       });
     }
     return Promise.resolve({
-      description: "A Payverge showcase restaurant with realistic operational demo data.",
+      description: "A Namakdan showcase restaurant with realistic operational demo data.",
       welcome_message: "Welcome.",
       about_story: "A realistic demo.",
     });
@@ -43,9 +43,9 @@ jest.mock("@/api/business", () => ({
   businessApi: {
     getBusiness: jest.fn().mockResolvedValue({
       name: "Demo Lounge",
-      custom_url: "payverge-ai-pro-demo-lounge",
+      custom_url: "namakdan-ai-pro-demo-lounge",
       business_page_enabled: true,
-      description: "A Payverge showcase restaurant with realistic operational demo data.",
+      description: "A Namakdan showcase restaurant with realistic operational demo data.",
       welcome_message: "Welcome.",
       about_story: "A realistic demo.",
       design_settings: { primary_color: "#111111" },
@@ -70,23 +70,23 @@ describe("BusinessPageEditor — operator locale copy (#694)", () => {
     render(<BusinessPageEditor businessId={1} />);
     await waitFor(() => {
       expect(getBusinessByCustomUrl).toHaveBeenCalledWith(
-        "payverge-ai-pro-demo-lounge",
+        "namakdan-ai-pro-demo-lounge",
         "es-AR",
       );
     });
     await waitFor(() => {
       expect(getBusinessByCustomUrl).toHaveBeenCalledWith(
-        "payverge-ai-pro-demo-lounge",
+        "namakdan-ai-pro-demo-lounge",
         "es",
       );
     });
     expect(
       await screen.findByDisplayValue(
-        /Un restaurante modelo de Payverge/i,
+        /Un restaurante modelo de Namakdan/i,
       ),
     ).toBeInTheDocument();
     expect(
-      screen.queryByDisplayValue(/A Payverge showcase restaurant/i),
+      screen.queryByDisplayValue(/A Namakdan showcase restaurant/i),
     ).not.toBeInTheDocument();
   });
 });

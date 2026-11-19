@@ -14,8 +14,8 @@ const business = {
 
 describe("buildBusinessJsonLd", () => {
   it("links the on-page menu and maps open days to OpeningHoursSpecification", () => {
-    const ld = buildBusinessJsonLd(business, "test-biz", "https://payverge.io");
-    expect(ld.hasMenu).toBe("https://payverge.io/b/test-biz#menu");
+    const ld = buildBusinessJsonLd(business, "test-biz", "https://example.test");
+    expect(ld.hasMenu).toBe("https://example.test/b/test-biz#menu");
     expect(ld.openingHoursSpecification).toEqual([
       {
         "@type": "OpeningHoursSpecification",
@@ -26,9 +26,9 @@ describe("buildBusinessJsonLd", () => {
     ]);
   });
 
-  it("falls back to the Payverge OG image when the business has no logo", () => {
-    const ld = buildBusinessJsonLd(business, "test-biz", "https://payverge.io");
-    expect(ld.image).toBe("https://payverge.io/share-card.png");
+  it("falls back to the Namakdan OG image when the business has no logo", () => {
+    const ld = buildBusinessJsonLd(business, "test-biz", "https://example.test");
+    expect(ld.image).toBe("https://example.test/share-card.png");
   });
 
   it("prefers a banner image over the generic OG fallback (#864)", () => {
@@ -39,7 +39,7 @@ describe("buildBusinessJsonLd", () => {
     const ld = buildBusinessJsonLd(
       withBanner,
       "test-biz",
-      "https://payverge.io",
+      "https://example.test",
     );
     expect(ld.image).toBe("https://cdn.example/banner.jpg");
   });
@@ -48,25 +48,25 @@ describe("buildBusinessJsonLd", () => {
     const ld = buildBusinessJsonLd(
       business,
       "parrilla-quebracho-azul",
-      "https://payverge.io",
+      "https://example.test",
       { locale: "es" },
     );
-    expect(ld.url).toBe("https://payverge.io/es/b/parrilla-quebracho-azul");
-    expect(ld.hasMenu).toBe("https://payverge.io/es/b/parrilla-quebracho-azul#menu");
+    expect(ld.url).toBe("https://example.test/es/b/parrilla-quebracho-azul");
+    expect(ld.hasMenu).toBe("https://example.test/es/b/parrilla-quebracho-azul#menu");
   });
 
   it("exposes a menu URL pointing at the menu tab alongside hasMenu", () => {
-    const ld = buildBusinessJsonLd(business, "test-biz", "https://payverge.io");
-    expect(ld.hasMenu).toBe("https://payverge.io/b/test-biz#menu");
-    expect(ld.menu).toBe("https://payverge.io/b/test-biz?tab=menu");
-    expect(ld.url).toBe("https://payverge.io/b/test-biz");
+    const ld = buildBusinessJsonLd(business, "test-biz", "https://example.test");
+    expect(ld.hasMenu).toBe("https://example.test/b/test-biz#menu");
+    expect(ld.menu).toBe("https://example.test/b/test-biz?tab=menu");
+    expect(ld.url).toBe("https://example.test/b/test-biz");
   });
 
   it("adds aggregateRating only when rating and review count are both known", () => {
     const rated = buildBusinessJsonLd(
       business,
       "test-biz",
-      "https://payverge.io",
+      "https://example.test",
       { googleRating: { ratingValue: 4.7, reviewCount: 213 } },
     );
     expect(rated.aggregateRating).toEqual({
@@ -75,12 +75,12 @@ describe("buildBusinessJsonLd", () => {
       reviewCount: 213,
     });
 
-    const noCount = buildBusinessJsonLd(business, "test-biz", "https://payverge.io", {
+    const noCount = buildBusinessJsonLd(business, "test-biz", "https://example.test", {
       googleRating: { ratingValue: 4.7, reviewCount: 0 },
     });
     expect(noCount.aggregateRating).toBeUndefined();
 
-    const none = buildBusinessJsonLd(business, "test-biz", "https://payverge.io");
+    const none = buildBusinessJsonLd(business, "test-biz", "https://example.test");
     expect(none.aggregateRating).toBeUndefined();
   });
 
@@ -88,19 +88,19 @@ describe("buildBusinessJsonLd", () => {
     const withReservations = buildBusinessJsonLd(
       business,
       "test-biz",
-      "https://payverge.io",
+      "https://example.test",
       { acceptsReservations: true },
     );
     expect(withReservations.acceptsReservations).toBe("True");
 
-    const without = buildBusinessJsonLd(business, "test-biz", "https://payverge.io");
+    const without = buildBusinessJsonLd(business, "test-biz", "https://example.test");
     expect(without.acceptsReservations).toBeUndefined();
   });
 
   it("emits potentialAction Order/Reserve actions only for known targets", () => {
-    const ld = buildBusinessJsonLd(business, "test-biz", "https://payverge.io", {
-      orderActionTarget: "https://payverge.io/b/test-biz?tab=menu",
-      reserveActionTarget: "https://payverge.io/b/test-biz?tab=reservations",
+    const ld = buildBusinessJsonLd(business, "test-biz", "https://example.test", {
+      orderActionTarget: "https://example.test/b/test-biz?tab=menu",
+      reserveActionTarget: "https://example.test/b/test-biz?tab=reservations",
     });
     const actions = ld.potentialAction as Array<Record<string, any>>;
     expect(actions).toHaveLength(2);
@@ -109,7 +109,7 @@ describe("buildBusinessJsonLd", () => {
     expect(actions[1]["@type"]).toBe("ReserveAction");
     expect(actions[1].target.urlTemplate).toContain("tab=reservations");
 
-    const none = buildBusinessJsonLd(business, "test-biz", "https://payverge.io");
+    const none = buildBusinessJsonLd(business, "test-biz", "https://example.test");
     expect(none.potentialAction).toBeUndefined();
   });
 });

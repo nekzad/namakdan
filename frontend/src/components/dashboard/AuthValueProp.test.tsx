@@ -19,7 +19,7 @@ jest.mock("@/i18n/SimpleTranslationProvider", () => ({
   getTranslation: (key: string) => {
     if (key === "dashboard.authentication.valueProp.title") return "What's inside";
     if (key === "dashboard.authentication.valueProp.imageAlt") {
-      return "Payverge analytics dashboard";
+      return "Namakdan analytics dashboard";
     }
     if (key === "dashboard.authentication.valueProp.bullets") return BULLETS;
     return key;
@@ -40,7 +40,7 @@ import { AuthValueProp, AuthValuePropCompact } from "./AuthValueProp";
 describe("AuthValueProp", () => {
   it("renders a real product crop instead of an empty beige slab", () => {
     const { container } = render(<AuthValueProp />);
-    const img = screen.getByRole("img", { name: "Payverge analytics dashboard" });
+    const img = screen.getByRole("img", { name: "Namakdan analytics dashboard" });
     expect(img).toHaveAttribute("src", "/onboarding/analytics.webp");
     expect(container.querySelector('[aria-hidden]:not(svg)')).toBeNull();
     expect(screen.getByText("Director Console")).toBeInTheDocument();

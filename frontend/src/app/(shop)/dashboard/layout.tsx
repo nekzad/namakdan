@@ -7,7 +7,7 @@ import { pageOpenGraphFromCanonical } from "@/lib/seo/openGraphImages";
 // metadata directly; a server layout in the same folder gives Next.js
 // somewhere to attach it. `robots: noindex` keeps the authenticated
 // surface out of search indexes if the auth wall ever leaks.
-const DASHBOARD_TITLE = "Dashboard — Payverge";
+const DASHBOARD_TITLE = "Dashboard — Namakdan";
 const DASHBOARD_URL = absoluteSiteUrl("/dashboard");
 
 export const metadata: Metadata = {

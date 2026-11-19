@@ -345,7 +345,7 @@ export default function TableManager({
   useEffect(() => {
     if (autoPrintFiredRef.current || isLoading || activeTableCount === 0) return;
     if (typeof window === "undefined") return;
-    const key = `payverge_print_qr_on_open_${businessId}`;
+    const key = `namakdan_print_qr_on_open_${businessId}`;
     if (window.sessionStorage.getItem(key) === "1") {
       window.sessionStorage.removeItem(key);
       autoPrintFiredRef.current = true;

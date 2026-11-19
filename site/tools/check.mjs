@@ -54,6 +54,17 @@ const DEPLOY = ['index.html', '404.html', 'robots.txt', 'assets'];
 // Top-level entries that live in site/ but must never be served.
 const NOT_DEPLOYED = ['README.md', 'tools', '.gitignore', 'dist'];
 const GATES_FILE = 'tools/launch-gates.json';
+const SOURCE_ONLY_ASSETS = new Set([
+  'assets/README.txt',
+  'assets/logo.svg',
+  'assets/namakdan-icon-180.png',
+  'assets/namakdan-icon-192.png',
+  'assets/namakdan-icon-32.png',
+  'assets/namakdan-icon-512.png',
+  'assets/namakdan-icon-64.png',
+  'assets/namakdan-logo-dark.svg',
+  'assets/namakdan-logo-light.svg',
+]);
 
 // ------------------------------------------------------------------ helpers
 const isFont = (f) => ['.woff2', '.woff', '.ttf', '.otf'].includes(extname(f));
@@ -429,7 +440,7 @@ export function checkSite(site) {
 
   // Every shipped asset is used by a deployed page (the font license excepted).
   const used = new Set([...deployHtml.flatMap((f) => [...loadsOf.get(f)]), ...linked, ...crawlerAssets]);
-  for (const f of allFiles.filter((f) => rel(f).startsWith('assets/') && !rel(f).endsWith('OFL.txt'))) {
+  for (const f of allFiles.filter((f) => rel(f).startsWith('assets/') && !rel(f).endsWith('OFL.txt') && !SOURCE_ONLY_ASSETS.has(rel(f)))) {
     if (!used.has(f)) fail(rel(f), 'not referenced by any deployed page (delete it or link it)');
   }
 
@@ -441,7 +452,7 @@ export function checkSite(site) {
     const pageFiles = new Set([index, ...loadsOf.get(index)]);
     const pageBytes = [...pageFiles].filter((f) => !isFont(f) && !isShot(f)).reduce((n, f) => n + size(f), 0);
     const fontBytes = [...pageFiles].filter(isFont).reduce((n, f) => n + size(f), 0);
-    const deployBytes = allFiles.filter((f) => isDeployed(f) && !isFont(f) && !isShot(f) && !rel(f).endsWith('OFL.txt')).reduce((n, f) => n + size(f), 0);
+    const deployBytes = allFiles.filter((f) => isDeployed(f) && !isFont(f) && !isShot(f) && !rel(f).endsWith('OFL.txt') && !SOURCE_ONLY_ASSETS.has(rel(f))).reduce((n, f) => n + size(f), 0);
     const shots = allFiles.filter(isShot);
     const shotBytes = shots.reduce((n, f) => n + size(f), 0);
     if (shots.length) notes.push(`${shots.length} lazy screenshots: ${(shotBytes / 1024).toFixed(1)} KB (budget ${SHOTS_BUDGET_BYTES / 1024} KB, ${SHOT_MAX_BYTES / 1024} KB each)`);
@@ -485,7 +496,7 @@ export function checkSite(site) {
 async function probeOnce(url) {
   for (const method of ['HEAD', 'GET']) {
     try {
-      const res = await fetch(url, { method, redirect: 'follow', signal: AbortSignal.timeout(15000), headers: { 'user-agent': 'payverge-site-check' } });
+      const res = await fetch(url, { method, redirect: 'follow', signal: AbortSignal.timeout(15000), headers: { 'user-agent': 'namakdan-site-check' } });
       if (method === 'GET') await res.body?.cancel();
       if (res.ok) return { ok: true, status: res.status };
       if (method === 'HEAD' && [403, 405, 501].includes(res.status)) continue;
@@ -550,13 +561,24 @@ export function stage(site, outDir) {
     for (const n of DEPLOY) rmSync(join(out, n), { recursive: true, force: true });
   }
   mkdirSync(out, { recursive: true });
-  for (const n of DEPLOY) cpSync(join(site, n), join(out, n), { recursive: true });
+  for (const n of DEPLOY) {
+    const source = join(site, n);
+    const dest = join(out, n);
+    if (n === 'assets') {
+      cpSync(source, dest, {
+        recursive: true,
+        filter: (path) => !SOURCE_ONLY_ASSETS.has(relative(site, path).split(sep).join('/')),
+      });
+    } else {
+      cpSync(source, dest, { recursive: true });
+    }
+  }
   return out;
 }
 
 // ------------------------------------------------------------------ self-test
 async function selfTest() {
-  const base = mkdtempSync(join(tmpdir(), 'payverge-site-selftest-'));
+  const base = mkdtempSync(join(tmpdir(), 'namakdan-site-selftest-'));
   let n = 0;
   const copy = () => {
     const d = join(base, `case-${++n}`);
@@ -587,7 +609,7 @@ async function selfTest() {
 
   const cases = [
     ['broken #anchor', (d) => edit(d, 'index.html', beforeMainEnd('<a href="#nowhere">x</a>')), /fragment reference "#nowhere"/],
-    ['missing asset', (d) => edit(d, 'index.html', (s) => s.replace('src="assets/logo.svg"', 'src="assets/logo-missing.svg"')), /missing local file/],
+    ['missing asset', (d) => edit(d, 'index.html', (s) => s.replace('src="assets/namakdan-mark.svg"', 'src="assets/logo-missing.svg"')), /missing local file/],
     ['edited inline script', (d) => edit(d, 'index.html', (s) => s.replace('btn.hidden = false;', 'btn.hidden = false; ')), /is not in the CSP/],
     ['low-contrast light token', (d) => edit(d, 'index.html', (s) => s.replace(/--muted:\s*#[0-9a-f]+/i, '--muted: #c8c4bc')), /light: --muted on/],
     ['low-contrast token in a second dark block', (d) => edit(d, 'index.html', beforeHeadEnd('<style>@media (prefers-color-scheme: dark) { :root { --muted: #333333; } }</style>')), /dark: --muted on/],
@@ -605,13 +627,13 @@ async function selfTest() {
     ['external image', (d) => edit(d, 'index.html', beforeMainEnd('<img src="https://example.com/p.png" width="1" height="1" alt="">')), /third-party/],
     ['external <use href>', (d) => edit(d, 'index.html', beforeMainEnd('<svg><use href="https://example.com/s.svg#x"/></svg>')), /third-party/],
     ['iframe', (d) => edit(d, 'index.html', beforeMainEnd('<iframe src="https://example.com/"></iframe>')), /third-party/],
-    ['img without size', (d) => edit(d, 'index.html', beforeMainEnd('<img src="assets/logo.svg" alt="">')), /without width\/height/],
-    ['img without alt', (d) => edit(d, 'index.html', beforeMainEnd('<img src="assets/logo.svg" width="1" height="1">')), /without alt/],
+    ['img without size', (d) => edit(d, 'index.html', beforeMainEnd('<img src="assets/namakdan-mark.svg" alt="">')), /without width\/height/],
+    ['img without alt', (d) => edit(d, 'index.html', beforeMainEnd('<img src="assets/namakdan-mark.svg" width="1" height="1">')), /without alt/],
     ['inline event handler', (d) => edit(d, 'index.html', beforeMainEnd('<button type="button" onclick="x()">x</button>')), /inline event handler/],
-    ['unparseable tag', (d) => edit(d, 'index.html', beforeMainEnd('<img src="assets/logo.svg alt="">')), /could not parse tag/],
-    ['target=_blank', (d) => edit(d, 'index.html', beforeMainEnd("<a href='https://github.com/stdevMac' target=_blank>x</a>")), /target="_blank"/],
-    ['missing og:image file', (d) => edit(d, 'index.html', (s) => s.replace('content="https://payverge.io/assets/og-image.png"', 'content="https://payverge.io/assets/missing.png"')), /no matching file/],
-    ['og:image on another origin', (d) => edit(d, 'index.html', (s) => s.replace('content="https://payverge.io/assets/og-image.png"', 'content="https://example.com/assets/og-image.png"')), /not on the canonical origin/],
+    ['unparseable tag', (d) => edit(d, 'index.html', beforeMainEnd('<img src="assets/namakdan-mark.svg alt="">')), /could not parse tag/],
+    ['target=_blank', (d) => edit(d, 'index.html', beforeMainEnd("<a href='https://github.com/nekzad/namakdan' target=_blank>x</a>")), /target="_blank"/],
+    ['missing og:image file', (d) => edit(d, 'index.html', (s) => s.replace('content="https://namakdan.example/assets/og-image.png"', 'content="https://namakdan.example/assets/missing.png"')), /no matching file/],
+    ['og:image on another origin', (d) => edit(d, 'index.html', (s) => s.replace('content="https://namakdan.example/assets/og-image.png"', 'content="https://example.com/assets/og-image.png"')), /not on the canonical origin/],
     ['orphan asset', (d) => writeFileSync(join(d, 'assets/stray.png'), 'x'), /not referenced by any deployed page/],
     ['heavy image outside screenshots/ still counts', (d) => { writeFileSync(join(d, 'assets/big.png'), Buffer.alloc(BUDGET_BYTES)); edit(d, 'index.html', beforeMainEnd('<img src="assets/big.png" width="1" height="1" alt="" loading="lazy">')); }, /page weight \d+ B exceeds/],
     ['eager screenshot', (d) => { mkdirSync(join(d, SHOTS_DIR), { recursive: true }); writeFileSync(join(d, SHOTS_DIR, 'x.webp'), 'x'); edit(d, 'index.html', beforeMainEnd('<img src="assets/screenshots/x.webp" width="1" height="1" alt="">')); }, /must load through <img loading="lazy">/],
@@ -624,7 +646,7 @@ async function selfTest() {
       for (let i = 0; i < k; i++) { writeFileSync(join(d, SHOTS_DIR, `s${i}.webp`), Buffer.alloc(SHOT_MAX_BYTES)); tags += `<img src="assets/screenshots/s${i}.webp" width="1" height="1" alt="" loading="lazy">`; }
       edit(d, 'index.html', beforeMainEnd(tags));
     }, /screenshots total \d+ B exceeds/],
-    ['unclassified top-level file', (d) => writeFileSync(join(d, 'humans.txt'), 'Payverge'), /not in the deploy list/],
+    ['unclassified top-level file', (d) => writeFileSync(join(d, 'humans.txt'), 'Namakdan'), /not in the deploy list/],
     ['unknown data-gate marker', (d) => edit(d, 'index.html', beforeMainEnd('<p data-gate="no-such-gate">claim</p>')), /unknown launch gate/],
     ['gate without a marker', (d) => edit(d, GATES_FILE, (s) => {
       const j = JSON.parse(s);
@@ -643,9 +665,9 @@ async function selfTest() {
     }), /"phrases" must be a list/],
     // Claim phrases: gated copy cannot lose its marker, and new copy cannot make a gated claim unmarked.
     ['hero note without its gate', (d) => edit(d, 'index.html', (s) => s.replace('<p class="hero-note" data-gate="licence-files zero-accounts">', '<p class="hero-note">')), /line \d+: "sign-up" is a claim of launch gate "zero-accounts"/],
-    ['hero lead without its gate', (d) => edit(d, 'index.html', (s) => s.replace('<p class="lead" data-gate="feature-claims">Payverge is', '<p class="lead">Payverge is')), /"platform fee" is a claim of launch gate "feature-claims"/],
+    ['hero lead without its gate', (d) => edit(d, 'index.html', (s) => s.replace('<p class="lead" data-gate="feature-claims">Namakdan is', '<p class="lead">Namakdan is')), /"platform fee" is a claim of launch gate "feature-claims"/],
     ['meta description without its gate', (d) => edit(d, 'index.html', (s) => s.replace('Apache-2.0." data-gate="feature-claims licence-files">', 'Apache-2.0.">')), /"Apache" is a claim of launch gate "licence-files"/],
-    ['og-image source without its gate', (d) => edit(d, 'tools/og-image.html', (s) => s.replace('<div class="eyebrow" data-gate="licence-files">', '<div class="eyebrow">')), /tools\/og-image\.html: line \d+: "Apache"/],
+    ['ungated claim in social image alt', (d) => edit(d, 'tools/og-image.html', (s) => s.replace('alt="Namakdan"', 'alt="Namakdan Apache-2.0"')), /tools\/og-image\.html: line \d+: "Apache"/],
     ['new ungated claim, reported at its line', (d) => edit(d, 'index.html', beforeMainEnd('<p>Now with no platform fees.</p>')), new RegExp(`index\\.html: line ${mainLine}: "platform fee"`)],
     ['ungated claim split across lines', (d) => edit(d, 'index.html', beforeMainEnd('<p>Deploy in one\n      command.</p>')), /"one command" is a claim of launch gate "install"/],
     ['ungated claim in an attribute', (d) => edit(d, 'index.html', beforeMainEnd('<img src="assets/logo.svg" width="1" height="1" alt="Apache licensed">')), /"Apache" is a claim of launch gate "licence-files"/],
@@ -768,7 +790,7 @@ async function selfTest() {
     stage(HERE_SITE, out);
     const top = readdirSync(out).sort();
     const shipped = walk(out).map((f) => relative(out, f).split(sep).join('/'));
-    record('stage: copies only index.html, 404.html, robots.txt, assets/', JSON.stringify(top) === JSON.stringify([...DEPLOY].sort()) && !shipped.some((f) => /tools\/|README\.md|launch-gates/.test(f)), top.join(', '));
+    record('stage: copies deployable assets without source-only logos', JSON.stringify(top) === JSON.stringify([...DEPLOY].sort()) && !shipped.some((f) => /tools\/|README\.md|launch-gates/.test(f)) && !shipped.some((f) => SOURCE_ONLY_ASSETS.has(f)), top.join(', '));
     stage(HERE_SITE, out);
     record('stage: re-staging into a previous stage works', readdirSync(out).length === DEPLOY.length);
     const foreign = join(base, 'foreign');

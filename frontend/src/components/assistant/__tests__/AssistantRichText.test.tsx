@@ -80,7 +80,7 @@ const total = 2;
     ["javascript:alert(1)", "scheme"],
     ["data:text/html,<script>alert(1)</script>", "data"],
     ["file:///etc/passwd", "file"],
-    ["blob:https://payverge.io/id", "blob"],
+    ["blob:https://example.test/id", "blob"],
     ["//evil.example/path", "protocol relative"],
     ["https://user:pass@example.com/private", "credentials"],
     ["https://example.com\\@evil.test", "backslash"],
@@ -107,7 +107,7 @@ const total = 2;
       <AssistantRichText
         content={`[Data](data:text/html,boom)
 [File](file:///etc/passwd)
-[Blob](blob:https://payverge.io/id)
+[Blob](blob:https://example.test/id)
 [Protocol](//evil.example/path)
 [Credentials](https://user:pass@example.com/private)
 [Unknown](/api/v1/users)

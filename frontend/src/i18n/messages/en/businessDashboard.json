@@ -3452,7 +3452,7 @@
         "fontGeorgia": "Georgia",
         "fontVerdana": "Verdana",
         "download": "Download QR",
-        "poweredBy": "Powered by Payverge",
+        "poweredBy": "Powered by Namakdan",
         "reset": "Reset to Defaults",
         "cancel": "Cancel",
         "save": "Save Changes",
@@ -3982,7 +3982,7 @@
           "secretSavedHint": "Saved — leave blank to keep the stored value.",
           "baseUrl": "Public API Base URL",
           "baseUrlPlaceholder": "https://api.yourdomain.com",
-          "baseUrlDescription": "Your Payverge backend's public URL, used for PayPal return and cancel links.",
+          "baseUrlDescription": "Your Namakdan backend's public URL, used for PayPal return and cancel links.",
           "baseUrlInvalid": "Enter a valid URL (starting with https://).",
           "openPayPalDashboard": "Open PayPal Dashboard"
         },
@@ -4050,7 +4050,7 @@
           "secretSavedHint": "Saved — leave unchanged to keep the stored value.",
           "baseUrl": "Public API Base URL",
           "baseUrlPlaceholder": "https://api.yourdomain.com",
-          "baseUrlDescription": "Your Payverge backend's public URL, used to build the MercadoPago webhook callback.",
+          "baseUrlDescription": "Your Namakdan backend's public URL, used to build the MercadoPago webhook callback.",
           "baseUrlInvalid": "Enter a valid URL (starting with https://)."
         },
         "trustpilot": {
@@ -4165,7 +4165,7 @@
           "howToConnect": "How to Connect",
           "clickConnectToTelegramBot": "Click 'Connect to Telegram Bot' above",
           "startConversationWithBot": "Open the Telegram bot",
-          "botWillAutomaticallyLinkAccount": "Send the prefilled start command so Payverge can verify this business",
+          "botWillAutomaticallyLinkAccount": "Send the prefilled start command so Namakdan can verify this business",
           "returnHereToConfigureNotificationPreferences": "Return here to configure notification preferences",
           "notificationPreferences": "Notification Preferences",
           "orderAndPaymentNotifications": "Order & Payment Notifications",
@@ -4501,7 +4501,7 @@
       "coverageWarning": "You track {ingredients} ingredients, but no menu dishes have recipes yet — stock won't auto-deduct or 86 dishes until you map them.",
       "incompleteCoverage": "Stock only reflects {ingredients} tracked ingredients. {mapped} of {total} dishes have recipes — unmapped dishes stay sellable and will not auto-deduct or 86.",
       "emptyGuideTitle": "Pick a dish to map ingredients",
-      "emptyGuideBody": "Recipe mapping tells Payverge which stock each sale consumes. Unmapped dishes stay sellable even when ingredients hit zero.",
+      "emptyGuideBody": "Recipe mapping tells Namakdan which stock each sale consumes. Unmapped dishes stay sellable even when ingredients hit zero.",
       "emptyNoMenu": "Add menu items first, then come back to link their ingredients.",
       "statusMapped": "Mapped",
       "statusUnmapped": "Needs mapping"

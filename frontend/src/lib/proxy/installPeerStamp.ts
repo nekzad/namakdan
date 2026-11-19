@@ -24,7 +24,7 @@ type Subscriber = (message: unknown) => void;
 
 // On globalThis, like the nonce, so a second module instance (a separate
 // bundle, a dev reload) finds the subscription instead of adding another.
-const SUBSCRIBER_KEY = Symbol.for("payverge.peerStamp.subscriber");
+const SUBSCRIBER_KEY = Symbol.for("namakdan.peerStamp.subscriber");
 type SubscriberGlobal = typeof globalThis & { [SUBSCRIBER_KEY]?: Subscriber };
 
 /** Idempotent per process; returns the process nonce. */

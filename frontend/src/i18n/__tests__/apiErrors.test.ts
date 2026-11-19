@@ -90,17 +90,17 @@ describe('getLocalizedApiError (live error path)', () => {
       {
         code: 'DEMO_MODE_FORBIDDEN',
         error:
-          'Disabled in the public demo: inviting users. Install your own Payverge to use it — everything else here works, and the demo resets nightly.',
+          'Disabled in the public demo: inviting users. Install your own Namakdan to use it — everything else here works, and the demo resets nightly.',
         params: { reason: 'demo_mode', kind: 'staff_access' },
       },
       403,
     );
     expect(getLocalizedApiError(err, 'es')).toBe(
-      'Esta acción está deshabilitada en la demo pública. Instala tu propio Payverge para usarla; la demo se reinicia cada noche.',
+      'Esta acción está deshabilitada en la demo pública. Instala tu propio Namakdan para usarla; la demo se reinicia cada noche.',
     );
-    expect(getLocalizedApiError(err, 'es-AR')).toContain('Instalá tu propio Payverge');
+    expect(getLocalizedApiError(err, 'es-AR')).toContain('Instalá tu propio Namakdan');
     expect(getLocalizedApiError(err, 'en')).toBe(
-      'This action is disabled in the public demo. Install your own Payverge to use it; the demo resets nightly.',
+      'This action is disabled in the public demo. Install your own Namakdan to use it; the demo resets nightly.',
     );
   });
 

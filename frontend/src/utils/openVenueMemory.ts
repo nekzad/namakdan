@@ -1,4 +1,4 @@
-const STORAGE_KEY = "payverge:last-open-venue";
+const STORAGE_KEY = "namakdan:last-open-venue";
 
 type RememberedVenue = {
   key: string;

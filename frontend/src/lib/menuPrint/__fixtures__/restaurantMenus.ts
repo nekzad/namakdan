@@ -231,7 +231,7 @@ export const denseRestaurantMenu: PrintMenuModel = {
 };
 
 const photoUrl = (fileName: string): string =>
-  `https://images.payverge.test/${fileName}`;
+  `https://images.example.test/${fileName}`;
 
 export const photoRichRestaurantMenu: PrintMenuModel = {
   business: {

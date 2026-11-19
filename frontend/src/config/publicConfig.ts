@@ -10,7 +10,7 @@
  *     unprefixed (`PUBLIC_URL`, `API_URL`, ...); each key's `NEXT_PUBLIC_*`
  *     twin is read as a runtime fallback.
  *   - The root layout serializes the resolved values for the whitelisted keys
- *     below into `window.__PAYVERGE_ENV__` with a nonce'd inline script, the
+ *     below into `window.__NAMAKDAN_ENV__` with a nonce'd inline script, the
  *     first body script. It runs before any page client module evaluates
  *     (their chunks are required from flight data streamed after it). Only
  *     `instrumentation-client.ts`, evaluated by Next's async main chunk, can
@@ -31,7 +31,7 @@ type EnvLike = Readonly<Record<string, string | undefined>>;
 
 /**
  * Whitelist of browser-visible keys. Only these ever reach
- * `window.__PAYVERGE_ENV__`; adding a key here publishes it to every visitor,
+ * `window.__NAMAKDAN_ENV__`; adding a key here publishes it to every visitor,
  * so never add anything secret.
  */
 export const PUBLIC_ENV_KEYS = [
@@ -101,7 +101,7 @@ const RUNTIME_ENV_NAMES: Readonly<Record<PublicEnvKey, readonly string[]>> = {
 
 /**
  * Build-time inlined values (literal reads, replaced by Next at build time).
- * Only consulted when the runtime environment and `window.__PAYVERGE_ENV__`
+ * Only consulted when the runtime environment and `window.__NAMAKDAN_ENV__`
  * are both silent (for example `next dev` reading NEXT_PUBLIC_* from a local
  * env file). Evaluated lazily so tests can mutate process.env.
  */
@@ -142,7 +142,7 @@ const DEFAULT_RPC_URL: Record<string, string> = {
 // No vendor fallback: an unset SUPPORT_EMAIL stays empty and callers hide
 // the contact affordance instead of pointing users at another deployment.
 const DEFAULT_SUPPORT_EMAIL = "";
-const DEFAULT_LIFI_INTEGRATOR = "Payverge";
+const DEFAULT_LIFI_INTEGRATOR = "Namakdan";
 const KNOWN_NETWORKS = new Set(["base", "baseSepolia"]);
 
 function currentMode(): ConfigMode {
@@ -344,7 +344,7 @@ export function resolvePublicEnv(
 
 /**
  * Reads exactly the whitelisted keys from a browser-supplied object. Anything
- * else on `window.__PAYVERGE_ENV__` is ignored.
+ * else on `window.__NAMAKDAN_ENV__` is ignored.
  */
 function resolveFromBrowserObject(
   source: Readonly<Record<string, unknown>>,
@@ -419,7 +419,7 @@ export function toPublicConfig(env: PublicEnv): PublicConfig {
 
 declare global {
   interface Window {
-    __PAYVERGE_ENV__?: Readonly<Record<string, unknown>>;
+    __NAMAKDAN_ENV__?: Readonly<Record<string, unknown>>;
   }
 }
 
@@ -427,7 +427,7 @@ let browserCache: { source: object; env: PublicEnv } | null = null;
 
 /**
  * The resolved whitelisted values as an env-keyed object. Server: from the
- * process environment at call time. Browser: from `window.__PAYVERGE_ENV__`,
+ * process environment at call time. Browser: from `window.__NAMAKDAN_ENV__`,
  * or the build-time fallback when the page was not rendered by the root
  * layout (e.g. unit tests).
  */
@@ -435,7 +435,7 @@ export function getPublicEnv(): PublicEnv {
   if (typeof window === "undefined") {
     return resolvePublicEnv(process.env);
   }
-  const injected = window.__PAYVERGE_ENV__;
+  const injected = window.__NAMAKDAN_ENV__;
   if (injected && typeof injected === "object") {
     if (browserCache && browserCache.source === injected) {
       return browserCache.env;
@@ -460,7 +460,7 @@ function browserProcessEnv(): EnvLike {
 }
 
 /** Event the injected config script dispatches on `window` once it has run. */
-export const PUBLIC_ENV_READY_EVENT = "payverge:public-env";
+export const PUBLIC_ENV_READY_EVENT = "namakdan:public-env";
 
 /**
  * Run `callback` once the runtime public config can be read.
@@ -476,7 +476,7 @@ export const PUBLIC_ENV_READY_EVENT = "payverge:public-env";
 export function onPublicEnvReady(callback: () => void): void {
   if (
     typeof window === "undefined" ||
-    window.__PAYVERGE_ENV__ ||
+    window.__NAMAKDAN_ENV__ ||
     typeof document === "undefined" ||
     document.readyState !== "loading"
   ) {
@@ -523,7 +523,7 @@ export function getSiteUrl(): string {
  */
 export function getRenderedSiteUrl(): string {
   if (typeof window !== "undefined") {
-    const injected = window.__PAYVERGE_ENV__;
+    const injected = window.__NAMAKDAN_ENV__;
     if (injected && typeof injected === "object" && !clean(injected.PUBLIC_URL)) {
       return DEV_PUBLIC_URL;
     }
@@ -686,7 +686,7 @@ export function serializePublicEnvScript(env?: PublicEnv): string {
     }
   }
   return (
-    `window.__PAYVERGE_ENV__=Object.freeze(${escapeJsonForScript(
+    `window.__NAMAKDAN_ENV__=Object.freeze(${escapeJsonForScript(
       JSON.stringify(payload),
     )});` +
     `if(window.dispatchEvent)window.dispatchEvent(new Event(${JSON.stringify(

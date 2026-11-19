@@ -30,7 +30,7 @@ describe("HybridAuthProvider — session death keeps the page mounted (P1-10)", 
     const handler = handlerWindow();
     expect(handler).toContain("refreshCleanupRef.current?.()");
     expect(handler).toContain(
-      'localStorage.removeItem("payverge_had_session")',
+      'localStorage.removeItem("namakdan_had_session")',
     );
   });
 

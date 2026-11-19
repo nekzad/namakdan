@@ -95,7 +95,7 @@ describe("PrintersSettings", () => {
       await screen.findByRole("button", { name: "Use on this browser" }),
     );
 
-    expect(window.localStorage.getItem("payverge_print_station:42")).toBe("7");
+    expect(window.localStorage.getItem("namakdan_print_station:42")).toBe("7");
     expect(
       screen.getByRole("button", { name: "Stop station" }),
     ).toBeInTheDocument();
@@ -104,7 +104,7 @@ describe("PrintersSettings", () => {
     );
 
     fireEvent.click(screen.getByRole("button", { name: "Stop station" }));
-    expect(window.localStorage.getItem("payverge_print_station:42")).toBeNull();
+    expect(window.localStorage.getItem("namakdan_print_station:42")).toBeNull();
   });
 
   it("renders the empty state when no printers exist", async () => {
@@ -158,7 +158,7 @@ describe("PrintersSettings", () => {
     // The shape api/print.ts PrintApiError carries for the demo guard's 403.
     const body = {
       error:
-        "Disabled in the public demo: test prints. Install your own Payverge to use it — everything else here works, and the demo resets nightly.",
+        "Disabled in the public demo: test prints. Install your own Namakdan to use it — everything else here works, and the demo resets nightly.",
       code: "DEMO_MODE_FORBIDDEN",
       params: { reason: "demo_mode", kind: "write" },
     };

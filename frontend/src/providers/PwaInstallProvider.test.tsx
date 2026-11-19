@@ -281,7 +281,7 @@ describe("PwaInstallProvider", () => {
     const readyGate = deferred<MockRegistration>();
     mockRegister.mockReturnValue(registrationGate.promise);
     mockReadyPromise = readyGate.promise;
-    localStorage.setItem("payverge:pwa:user:19:eligible", "1");
+    localStorage.setItem("namakdan:pwa:user:19:eligible", "1");
     const view = renderProvider();
     const event = dispatchNativePrompt();
     act(() => screen.getByRole("button", { name: "visit" }).click());
@@ -374,7 +374,7 @@ describe("PwaInstallProvider", () => {
     act(() => window.dispatchEvent(new Event("appinstalled")));
 
     expect(screen.getByTestId("state")).toHaveTextContent("installed");
-    expect(localStorage.getItem("payverge:pwa:user:19:complete")).toBe("1");
+    expect(localStorage.getItem("namakdan:pwa:user:19:complete")).toBe("1");
     expect(mockTrackEvent).toHaveBeenCalledWith("pwa_appinstalled_observed", {
       platform_path: "installed",
       device_category: "tablet",
@@ -383,7 +383,7 @@ describe("PwaInstallProvider", () => {
   });
 
   it("keeps persisted completion installed without serviceWorker capability", () => {
-    localStorage.setItem("payverge:pwa:user:19:complete", "1");
+    localStorage.setItem("namakdan:pwa:user:19:complete", "1");
     Reflect.deleteProperty(navigator, "serviceWorker");
     renderProvider();
 
@@ -394,7 +394,7 @@ describe("PwaInstallProvider", () => {
   it("does not downgrade persisted completion when registration rejects", async () => {
     const registrationGate = deferred<MockRegistration>();
     mockRegister.mockReturnValue(registrationGate.promise);
-    localStorage.setItem("payverge:pwa:user:19:complete", "1");
+    localStorage.setItem("namakdan:pwa:user:19:complete", "1");
     renderProvider();
 
     expect(screen.getByTestId("state")).toHaveTextContent("installed");
@@ -420,7 +420,7 @@ describe("PwaInstallProvider", () => {
     act(() => screen.getByRole("button", { name: "visit" }).click());
 
     expect(screen.getByTestId("visible")).toHaveTextContent("true");
-    expect(sessionStorage.getItem("payverge:pwa:user:19:card-shown")).toBe("1");
+    expect(sessionStorage.getItem("namakdan:pwa:user:19:card-shown")).toBe("1");
     expect(mockTrackEvent).toHaveBeenCalledWith("pwa_install_card_viewed", {
       platform_path: "native-installable",
       device_category: "tablet",
@@ -433,7 +433,7 @@ describe("PwaInstallProvider", () => {
       configurable: true,
       value: 1440,
     });
-    localStorage.setItem("payverge:pwa:user:19:eligible", "1");
+    localStorage.setItem("namakdan:pwa:user:19:eligible", "1");
 
     renderProvider();
     dispatchNativePrompt();
@@ -448,14 +448,14 @@ describe("PwaInstallProvider", () => {
   });
 
   it("does not consume or track an eligible prompt before a gated surface claims it", () => {
-    localStorage.setItem("payverge:pwa:user:19:eligible", "1");
+    localStorage.setItem("namakdan:pwa:user:19:eligible", "1");
     renderProvider(<Probe allowFloatingPrompt={false} />);
     dispatchNativePrompt();
     act(() => screen.getByRole("button", { name: "visit" }).click());
 
     expect(screen.getByTestId("visible")).toHaveTextContent("false");
     expect(
-      sessionStorage.getItem("payverge:pwa:user:19:card-shown"),
+      sessionStorage.getItem("namakdan:pwa:user:19:card-shown"),
     ).toBeNull();
     expect(
       mockTrackEvent.mock.calls.filter(
@@ -465,13 +465,13 @@ describe("PwaInstallProvider", () => {
   });
 
   it("claims an eligible prompt exactly once across route transitions", () => {
-    localStorage.setItem("payverge:pwa:user:19:eligible", "1");
+    localStorage.setItem("namakdan:pwa:user:19:eligible", "1");
     const view = renderProvider(<Probe allowFloatingPrompt />);
     dispatchNativePrompt();
     act(() => screen.getByRole("button", { name: "visit" }).click());
 
     expect(screen.getByTestId("visible")).toHaveTextContent("true");
-    expect(sessionStorage.getItem("payverge:pwa:user:19:card-shown")).toBe("1");
+    expect(sessionStorage.getItem("namakdan:pwa:user:19:card-shown")).toBe("1");
 
     view.rerender(
       <PwaInstallProvider>
@@ -494,7 +494,7 @@ describe("PwaInstallProvider", () => {
   });
 
   it("keeps an eligible claimed prompt idempotent under Strict Mode", () => {
-    localStorage.setItem("payverge:pwa:user:19:eligible", "1");
+    localStorage.setItem("namakdan:pwa:user:19:eligible", "1");
     render(
       <StrictMode>
         <PwaInstallProvider>
@@ -506,7 +506,7 @@ describe("PwaInstallProvider", () => {
     act(() => screen.getByRole("button", { name: "visit" }).click());
 
     expect(screen.getByTestId("visible")).toHaveTextContent("true");
-    expect(sessionStorage.getItem("payverge:pwa:user:19:card-shown")).toBe("1");
+    expect(sessionStorage.getItem("namakdan:pwa:user:19:card-shown")).toBe("1");
     expect(
       mockTrackEvent.mock.calls.filter(
         ([eventName]) => eventName === "pwa_install_card_viewed",
@@ -526,7 +526,7 @@ describe("PwaInstallProvider", () => {
     act(() => screen.getByRole("button", { name: "staff visit" }).click());
     expect(screen.getByTestId("visible")).toHaveTextContent("false");
     expect(
-      localStorage.getItem("payverge:pwa:staff:7:42:last-dashboard"),
+      localStorage.getItem("namakdan:pwa:staff:7:42:last-dashboard"),
     ).toBeNull();
 
     first.unmount();
@@ -546,7 +546,7 @@ describe("PwaInstallProvider", () => {
       isOAuthUser: false,
       oauthData: null,
     };
-    localStorage.setItem("payverge:pwa:staff:7:42:eligible", "1");
+    localStorage.setItem("namakdan:pwa:staff:7:42:eligible", "1");
     renderProvider();
     dispatchNativePrompt();
 
@@ -556,7 +556,7 @@ describe("PwaInstallProvider", () => {
 
     expect(screen.getByTestId("visible")).toHaveTextContent("false");
     expect(
-      sessionStorage.getItem("payverge:pwa:staff:7:42:dashboard-session"),
+      sessionStorage.getItem("namakdan:pwa:staff:7:42:dashboard-session"),
     ).toBeNull();
   });
 
@@ -640,7 +640,7 @@ describe("PwaInstallProvider", () => {
 
     expect(screen.getByTestId("state")).toHaveTextContent("installed");
     expect(
-      localStorage.getItem("payverge:pwa:user:19:snoozed-until"),
+      localStorage.getItem("namakdan:pwa:user:19:snoozed-until"),
     ).toBeNull();
   });
 
@@ -678,10 +678,10 @@ describe("PwaInstallProvider", () => {
     expect(screen.getByTestId("state")).toHaveTextContent("manual-install");
     expect(screen.getByTestId("help")).toHaveTextContent("none");
     expect(
-      localStorage.getItem("payverge:pwa:user:19:snoozed-until"),
+      localStorage.getItem("namakdan:pwa:user:19:snoozed-until"),
     ).toBeNull();
     expect(
-      localStorage.getItem("payverge:pwa:user:20:snoozed-until"),
+      localStorage.getItem("namakdan:pwa:user:20:snoozed-until"),
     ).toBeNull();
   });
 
@@ -738,7 +738,7 @@ describe("PwaInstallProvider", () => {
 
     expect(screen.getByTestId("state")).toHaveTextContent("installed");
     expect(
-      localStorage.getItem("payverge:pwa:user:19:snoozed-until"),
+      localStorage.getItem("namakdan:pwa:user:19:snoozed-until"),
     ).toBeNull();
   });
 
@@ -777,10 +777,10 @@ describe("PwaInstallProvider", () => {
     expect(screen.getByTestId("state")).toHaveTextContent("manual-install");
     expect(screen.getByTestId("help")).toHaveTextContent("none");
     expect(
-      localStorage.getItem("payverge:pwa:user:19:snoozed-until"),
+      localStorage.getItem("namakdan:pwa:user:19:snoozed-until"),
     ).toBeNull();
     expect(
-      localStorage.getItem("payverge:pwa:user:20:snoozed-until"),
+      localStorage.getItem("namakdan:pwa:user:20:snoozed-until"),
     ).toBeNull();
   });
 
@@ -899,7 +899,7 @@ describe("PwaInstallProvider", () => {
     act(() => screen.getByRole("button", { name: "manual done" }).click());
 
     expect(screen.getByTestId("state")).toHaveTextContent("installed");
-    expect(localStorage.getItem("payverge:pwa:user:19:complete")).toBe("1");
+    expect(localStorage.getItem("namakdan:pwa:user:19:complete")).toBe("1");
   });
 
   it("treats standalone display mode as installed", () => {
@@ -925,7 +925,7 @@ describe("PwaInstallProvider", () => {
     act(() => window.dispatchEvent(new Event("appinstalled")));
 
     expect(screen.getByTestId("state")).toHaveTextContent("installed");
-    expect(localStorage.getItem("payverge:pwa:user:19:complete")).toBe("1");
+    expect(localStorage.getItem("namakdan:pwa:user:19:complete")).toBe("1");
     expect(mockTrackEvent).toHaveBeenCalledWith("pwa_appinstalled_observed", {
       platform_path: "installed",
       device_category: "tablet",
@@ -953,11 +953,11 @@ describe("PwaInstallProvider", () => {
 
   it("clears only the prior identity launch path when auth disappears", () => {
     localStorage.setItem(
-      "payverge:pwa:user:19:last-dashboard",
+      "namakdan:pwa:user:19:last-dashboard",
       "/business/casa/dashboard",
     );
     localStorage.setItem(
-      "payverge:pwa:user:19:snoozed-until",
+      "namakdan:pwa:user:19:snoozed-until",
       String(Date.now() + 60_000),
     );
     const view = renderProvider();
@@ -974,10 +974,10 @@ describe("PwaInstallProvider", () => {
     );
 
     expect(
-      localStorage.getItem("payverge:pwa:user:19:last-dashboard"),
+      localStorage.getItem("namakdan:pwa:user:19:last-dashboard"),
     ).toBeNull();
     expect(
-      localStorage.getItem("payverge:pwa:user:19:snoozed-until"),
+      localStorage.getItem("namakdan:pwa:user:19:snoozed-until"),
     ).not.toBeNull();
   });
 
@@ -1015,7 +1015,7 @@ describe("PwaInstallProvider", () => {
 
   it("does not throw when auth-transition launch-path cleanup is blocked", () => {
     localStorage.setItem(
-      "payverge:pwa:user:19:last-dashboard",
+      "namakdan:pwa:user:19:last-dashboard",
       "/business/casa/dashboard",
     );
     const view = renderProvider();
@@ -1045,7 +1045,7 @@ describe("PwaInstallProvider", () => {
   });
 
   it("fails closed when localStorage is blocked", () => {
-    localStorage.setItem("payverge:pwa:user:19:eligible", "1");
+    localStorage.setItem("namakdan:pwa:user:19:eligible", "1");
     const realRemoveItem = Storage.prototype.removeItem;
     jest.spyOn(Storage.prototype, "removeItem").mockImplementation(function (
       this: Storage,
@@ -1053,7 +1053,7 @@ describe("PwaInstallProvider", () => {
     ) {
       if (
         this === localStorage &&
-        storageKey === "payverge:pwa:storage-probe"
+        storageKey === "namakdan:pwa:storage-probe"
       ) {
         throw new Error("blocked");
       }
@@ -1072,7 +1072,7 @@ describe("PwaInstallProvider", () => {
   });
 
   it("fails closed when the once-per-session card marker cannot be written", () => {
-    localStorage.setItem("payverge:pwa:user:19:eligible", "1");
+    localStorage.setItem("namakdan:pwa:user:19:eligible", "1");
     const realSetItem = Storage.prototype.setItem;
     jest.spyOn(Storage.prototype, "setItem").mockImplementation(function (
       this: Storage,
@@ -1097,7 +1097,7 @@ describe("PwaInstallProvider", () => {
   });
 
   it("dismisses and snoozes the card even when analytics throws", () => {
-    localStorage.setItem("payverge:pwa:user:19:eligible", "1");
+    localStorage.setItem("namakdan:pwa:user:19:eligible", "1");
     renderProvider();
     dispatchNativePrompt();
     act(() => screen.getByRole("button", { name: "visit" }).click());
@@ -1112,12 +1112,12 @@ describe("PwaInstallProvider", () => {
 
     expect(screen.getByTestId("visible")).toHaveTextContent("false");
     expect(
-      localStorage.getItem("payverge:pwa:user:19:snoozed-until"),
+      localStorage.getItem("namakdan:pwa:user:19:snoozed-until"),
     ).not.toBeNull();
   });
 
   it("tracks card dismissal with categorical properties", () => {
-    localStorage.setItem("payverge:pwa:user:19:eligible", "1");
+    localStorage.setItem("namakdan:pwa:user:19:eligible", "1");
     renderProvider();
     dispatchNativePrompt();
     act(() => screen.getByRole("button", { name: "visit" }).click());

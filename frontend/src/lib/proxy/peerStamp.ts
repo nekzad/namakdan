@@ -13,9 +13,9 @@
  * This module has no Node imports so the proxy can use it anywhere.
  */
 
-export const PEER_STAMP_HEADER = "x-payverge-peer";
+export const PEER_STAMP_HEADER = "x-namakdan-peer";
 
-const NONCE_KEY = Symbol.for("payverge.peerStamp.nonce");
+const NONCE_KEY = Symbol.for("namakdan.peerStamp.nonce");
 
 type StampGlobal = typeof globalThis & { [NONCE_KEY]?: string };
 

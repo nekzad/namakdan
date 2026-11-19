@@ -197,7 +197,7 @@ describe("BusinessOverview — visual hierarchy", () => {
     });
     setInstanceForTests(
       parseInstanceInfo({
-        product_name: "Payverge",
+        product_name: "Namakdan",
         registration_mode: "invite",
         features: { ai },
       }),

@@ -452,7 +452,7 @@ export const TopMenu = ({ onReady }: { onReady?: () => void }) => {
             {showInstallAction ? (
               <DropdownSection showDivider>
                 <DropdownItem
-                  key="install-payverge"
+                  key="install-namakdan"
                   startContent={<Download size={18} />}
                   isDisabled={installPending}
                   aria-busy={installPending}

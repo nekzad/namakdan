@@ -4,7 +4,7 @@ import type { Page } from "@playwright/test";
 export async function prepareGuestPage(page: Page): Promise<void> {
   await page.addInitScript(() => {
     window.localStorage.setItem(
-      "payverge_cookie_consent",
+      "namakdan_cookie_consent",
       JSON.stringify({
         version: 1,
         analytics: false,

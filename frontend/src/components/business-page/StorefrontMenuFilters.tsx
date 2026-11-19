@@ -8,7 +8,7 @@ import { ensureContrastWithWhiteText } from "./themedColor";
  * Storefront dietary filter toggles (storefront plan 3.7) — ports the QR table
  * menu's MenuFilterToggles capability (/t/[tableCode]/menu) to the public
  * business page. The QR component itself is not reused because its selected
- * state is hardcoded to the Payverge `brand` teal; the storefront must honor
+ * state is hardcoded to the Namakdan `brand` teal; the storefront must honor
  * the merchant's design_settings primary color.
  *
  * Filter ids, item fields (item.dietary_tags), and OR-within-group semantics

@@ -62,7 +62,7 @@ jest.mock("@/i18n/GuestTranslationProvider", () => {
       "table.promotions.subtitle": "View today's specials",
       "bill.billStatus.open": "Open",
       "menu.items": "items",
-      "businessPage.poweredBySecure": "Powered by Payverge",
+      "businessPage.poweredBySecure": "Powered by Namakdan",
       "crm.signupPrompt": "Sign up for rewards",
       "crm.signupDescription": "Create an account to earn points",
       "crm.alreadyMember": "Already a member?",

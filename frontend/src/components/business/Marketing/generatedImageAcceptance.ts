@@ -41,7 +41,7 @@ export function proxyableImageHosts(
 
 const MARKETING_MEDIA_PROXY_PATH = "/api/marketing-media";
 const GENERATED_IMAGE_DRAFT_PREFIX =
-  "payverge:marketing:generated-image:";
+  "namakdan:marketing:generated-image:";
 
 type ImagePreflightStatus =
   | "readable"

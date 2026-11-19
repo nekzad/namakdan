@@ -1,6 +1,6 @@
 /**
  * Source gate: admin layout must not reintroduce an SSR cookies()/session-info
- * bounce that assumes parent-domain COOKIE_DOMAIN=.payverge.io (rejected by
+ * bounce that assumes parent-domain COOKIE_DOMAIN=.example.test (rejected by
  * SEC-5 / #302 / #314). Soft UX redirect lives in AdminLayoutClient; API
  * AuthenticationAdminMiddleware is the security boundary.
  */

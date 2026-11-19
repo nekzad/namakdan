@@ -146,14 +146,14 @@
       "moveItem": "Only {qty} orders in the last period — a spotlight can lift discovery.",
       "moveItemOne": "Only 1 order in the last period — a spotlight can lift discovery."
     },
-    "localExportHint": "Exports and share stay on this device — Payverge does not post for you."
+    "localExportHint": "Exports and share stay on this device — Namakdan does not post for you."
   },
   "outcome": {
     "title": "Was this post published?",
     "shared": "Your device completed the share handoff. Confirm only if the post was actually published.",
     "downloaded": "Your post files were downloaded. Confirm only after you publish them on a social channel.",
     "copied": "The caption was copied. Confirm only after the full post is actually published.",
-    "downloadedWithDestination": "Downloaded — now post in {destination} yourself when you're ready. Payverge does not publish for you.",
+    "downloadedWithDestination": "Downloaded — now post in {destination} yourself when you're ready. Namakdan does not publish for you.",
     "sharedWithDestination": "Shared to your device — finish posting in {destination} yourself. Confirm only after it is live.",
     "copiedWithDestination": "Caption copied — paste it when you post in {destination}. Confirm only after the full post is published.",
     "notYet": "Not yet",
@@ -162,7 +162,7 @@
     "retry": "Try marking it again",
     "channelLabel": "Where did you post? (optional)",
     "channelPlaceholder": "e.g. Instagram, WhatsApp group",
-    "channelHint": "Freeform note only — Payverge never schedules or publishes for you."
+    "channelHint": "Freeform note only — Namakdan never schedules or publishes for you."
   },
   "preview": {
     "aspects": {
@@ -400,17 +400,17 @@
       "table_tent_5x7": {
         "name": "Table tent 5×7",
         "hint": "300 dpi HTML with bleed and crop marks. Print or Save as PDF from the browser.",
-        "instructions": "Print shop instructions — table tent (5 × 7 in)\n============================================\n\nFile: HTML with @page size, bleed, and crop marks.\nOpen the HTML in Chrome/Safari/Edge and use Print → Save as PDF,\nor send the HTML/PDF to your print shop.\n\nTrim size: 127 mm × 177.8 mm (5 × 7 in).\nBleed: 3.175 mm (1/8 in) on every side.\nCrop marks: outside the bleed; do not crop marks into live art.\nResolution: authored at 300 dpi.\n\nNot a thermal receipt. Kitchen/POS receipt branding is separate.\nYou place the tent when ready — Payverge does not own a publish clock.\n"
+        "instructions": "Print shop instructions — table tent (5 × 7 in)\n============================================\n\nFile: HTML with @page size, bleed, and crop marks.\nOpen the HTML in Chrome/Safari/Edge and use Print → Save as PDF,\nor send the HTML/PDF to your print shop.\n\nTrim size: 127 mm × 177.8 mm (5 × 7 in).\nBleed: 3.175 mm (1/8 in) on every side.\nCrop marks: outside the bleed; do not crop marks into live art.\nResolution: authored at 300 dpi.\n\nNot a thermal receipt. Kitchen/POS receipt branding is separate.\nYou place the tent when ready — Namakdan does not own a publish clock.\n"
       },
       "window_clings_square": {
         "name": "Window cling (square)",
         "hint": "2160×2160 PNG for vinyl clings. Shop sizes to your glass panel.",
-        "instructions": "Print shop instructions — window cling (square)\n===============================================\n\nFile: high-resolution PNG (2× social square = 2160 × 2160 px).\nAsk the shop to size to your glass panel; common clings are 20–40 cm square.\nProvide a white underbase if printing on clear vinyl.\n\nSource aspect: 1:1. Do not stretch — letterbox or crop only if the panel is not square.\nColour: sRGB PNG. Request CMYK conversion at the shop if needed.\n\nNot a thermal receipt.\nYou apply the cling when ready — Payverge does not own a publish clock.\n"
+        "instructions": "Print shop instructions — window cling (square)\n===============================================\n\nFile: high-resolution PNG (2× social square = 2160 × 2160 px).\nAsk the shop to size to your glass panel; common clings are 20–40 cm square.\nProvide a white underbase if printing on clear vinyl.\n\nSource aspect: 1:1. Do not stretch — letterbox or crop only if the panel is not square.\nColour: sRGB PNG. Request CMYK conversion at the shop if needed.\n\nNot a thermal receipt.\nYou apply the cling when ready — Namakdan does not own a publish clock.\n"
       },
       "flyer_half_letter": {
         "name": "Flyer (wide base)",
         "hint": "High-dpi wide PNG — shop scales to half-letter or A5.",
-        "instructions": "Print shop instructions — flyer (half-letter landscape base)\n============================================================\n\nFile: high-resolution wide PNG (2× 1920×1080 = 3840 × 2160 px).\nScale to half-letter (5.5 × 8.5 in) or A5 as needed; keep margins ≥ 5 mm.\nBleed: add 3 mm at the shop if full-bleed is required (this PNG is trim-safe).\n\nSource aspect: 16:9 wide. Letterbox or crop carefully for portrait half-letter.\nColour: sRGB PNG.\n\nNot a thermal receipt.\nYou distribute flyers when ready — Payverge does not own a publish clock.\n"
+        "instructions": "Print shop instructions — flyer (half-letter landscape base)\n============================================================\n\nFile: high-resolution wide PNG (2× 1920×1080 = 3840 × 2160 px).\nScale to half-letter (5.5 × 8.5 in) or A5 as needed; keep margins ≥ 5 mm.\nBleed: add 3 mm at the shop if full-bleed is required (this PNG is trim-safe).\n\nSource aspect: 16:9 wide. Letterbox or crop carefully for portrait half-letter.\nColour: sRGB PNG.\n\nNot a thermal receipt.\nYou distribute flyers when ready — Namakdan does not own a publish clock.\n"
       }
     }
   },
@@ -727,7 +727,7 @@
   "automation": {
     "button": "Creative settings",
     "heading": "Auto-suggestions",
-    "subtitle": "Choose which ideas Payverge builds for you.",
+    "subtitle": "Choose which ideas Namakdan builds for you.",
     "master": "Auto-suggestions",
     "masterHint": "Turn off to stop generating new post ideas entirely.",
     "playsHeading": "Play types",
@@ -744,13 +744,13 @@
   },
   "settings": {
     "title": "Creative settings",
-    "subtitle": "Guide the ideas, captions, and images Payverge prepares for your approval.",
+    "subtitle": "Guide the ideas, captions, and images Namakdan prepares for your approval.",
     "close": "Done",
     "automatic": "Automatic",
     "readOnly": "You can inspect these settings, but your role cannot change them.",
     "autonomy": {
       "title": "Autonomy",
-      "body": "Choose which ideas Payverge can prepare. Nothing is published without your approval.",
+      "body": "Choose which ideas Namakdan can prepare. Nothing is published without your approval.",
       "master": "Prepare suggestions",
       "masterHint": "Pause all new suggestions while keeping your creative profile.",
       "plays": "Suggestion types"
@@ -809,7 +809,7 @@
       },
       "language": {
         "label": "Default language",
-        "helper": "The first language used when Payverge writes a caption."
+        "helper": "The first language used when Namakdan writes a caption."
       },
       "tone": {
         "label": "Default tone",

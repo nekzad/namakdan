@@ -17,7 +17,7 @@ function main(): void {
   const validation = runLocaleValidation({ repoRoot });
   const counts = buildLocaleCounts(validation.errors, validation.warnings);
 
-  console.log("Payverge locale report");
+  console.log("Namakdan locale report");
   console.log(`Default locale: ${registry.defaultLocale}`);
   console.log(
     [

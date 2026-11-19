@@ -37,7 +37,7 @@ const actionFixture = () => ({
   type: "navigate" as const,
   label: "Open menu",
   target: {
-    kind: "payverge_page" as const,
+    kind: "namakdan_page" as const,
     id: "menu",
     href: "/menu",
   },
@@ -151,7 +151,7 @@ describe("parseAssistantResponse", () => {
       parseAssistantResponse(responseFixture({ actions: [actionFixture()] }))
         .actions[0].target,
     ).toEqual({
-      kind: "payverge_page",
+      kind: "namakdan_page",
       id: "menu",
       href: "/menu",
     });
@@ -623,7 +623,7 @@ describe("parseAssistantResponse", () => {
 
   it.each([
     ["navigate", "external_url"],
-    ["external_link", "payverge_page"],
+    ["external_link", "namakdan_page"],
     ["director_handoff", "menu_item"],
     ["add_cart_item", "director"],
     ["capture_lead", "support_request"],
@@ -741,7 +741,7 @@ describe("adaptLegacyResponse", () => {
         { label: "Menu", href: "/menu", kind: "navigate", disabled: false },
         {
           label: "Docs",
-          href: "https://docs.payverge.io/guide",
+          href: "https://docs.example.test/guide",
           kind: "external",
           disabled: true,
           disabled_reason: "Owner only",
@@ -766,7 +766,7 @@ describe("adaptLegacyResponse", () => {
         state: "ready",
         disabled_reason: null,
         confirmation: "none",
-        target: { kind: "payverge_page", id: "legacy-target-1", href: "/menu" },
+        target: { kind: "namakdan_page", id: "legacy-target-1", href: "/menu" },
       }),
       expect.objectContaining({
         id: "action-2",
@@ -776,7 +776,7 @@ describe("adaptLegacyResponse", () => {
         target: {
           kind: "external_url",
           id: "legacy-target-2",
-          href: "https://docs.payverge.io/guide",
+          href: "https://docs.example.test/guide",
         },
       }),
       expect.objectContaining({

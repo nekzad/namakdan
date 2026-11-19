@@ -19,7 +19,7 @@ jest.mock("@/hooks/useInstance", () => ({
     instance: null,
     loading: false,
     isError: false,
-    productName: "Payverge",
+    productName: "Namakdan",
     isOff: (feature: string) => mockOffFeatures.includes(feature),
     isOn: (feature: string) => !mockOffFeatures.includes(feature),
   }),
@@ -144,7 +144,7 @@ describe("TopMenu right rail", () => {
     mockAuthState = {
       ...signedOutAuthState,
       isOAuthUser: true,
-      oauthData: { email: "owner@payverge.test", role: "user" },
+      oauthData: { email: "owner@example.test", role: "user" },
     };
     mockInstallIdentity = { key: "user:19", roleType: "owner" };
   };
@@ -179,7 +179,7 @@ describe("TopMenu right rail", () => {
         id: 7,
         business_id: 42,
         name: "Operator",
-        email: "operator@payverge.test",
+        email: "operator@example.test",
         role: "manager" as const,
         is_active: true,
       },
@@ -198,7 +198,7 @@ describe("TopMenu right rail", () => {
     mockAuthState = {
       ...signedOutAuthState,
       isOAuthUser: true,
-      oauthData: { email: "admin@payverge.test", role: "admin" },
+      oauthData: { email: "admin@example.test", role: "admin" },
     };
 
     render(<TopMenu onReady={jest.fn()} />);
@@ -213,7 +213,7 @@ describe("TopMenu right rail", () => {
     mockAuthState = {
       ...signedOutAuthState,
       isOAuthUser: true,
-      oauthData: { email: "admin@payverge.test", role: "admin" },
+      oauthData: { email: "admin@example.test", role: "admin" },
     };
 
     render(<TopMenu onReady={jest.fn()} />);
@@ -365,7 +365,7 @@ describe("TopMenu right rail", () => {
             id: 7,
             business_id: 42,
             name: "Operator",
-            email: "operator@payverge.test",
+            email: "operator@example.test",
             role: "manager" as const,
             is_active: true,
           },
@@ -461,7 +461,7 @@ describe("TopMenu ?auth dialog ownership", () => {
     mockAuthState = {
       ...signedOutAuthState,
       isOAuthUser: true,
-      oauthData: { email: "owner@payverge.test", role: "user" },
+      oauthData: { email: "owner@example.test", role: "user" },
     };
     view.rerender(<TopMenu onReady={jest.fn()} />);
     expect(screen.queryByTestId("top-menu-auth-modal")).toBeNull();
@@ -475,7 +475,7 @@ describe("TopMenu ?auth dialog ownership", () => {
     mockAuthState = {
       ...signedOutAuthState,
       isOAuthUser: true,
-      oauthData: { email: "owner@payverge.test", role: "user" },
+      oauthData: { email: "owner@example.test", role: "user" },
     };
     view.rerender(<TopMenu onReady={jest.fn()} />);
     expect(screen.queryByTestId("top-menu-auth-modal")).toBeNull();
@@ -500,7 +500,7 @@ describe("TopMenu staff logout", () => {
         id: 7,
         business_id: 42,
         name: "Operator",
-        email: "operator@payverge.test",
+        email: "operator@example.test",
         role: "manager" as const,
         is_active: true,
       },

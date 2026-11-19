@@ -1,6 +1,6 @@
 /**
  * Server-only runtime settings that never reach the browser bundle or
- * window.__PAYVERGE_ENV__. Read at request time so one image serves any
+ * window.__NAMAKDAN_ENV__. Read at request time so one image serves any
  * deployment. See docs/self-hosting/frontend-config.md.
  */
 import { resolvePublicEnv } from "@/config/publicConfig";

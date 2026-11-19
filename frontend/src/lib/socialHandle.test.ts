@@ -7,30 +7,30 @@ import {
 describe("normalize(network, raw)", () => {
   describe.each([
     // [network, raw, expectedHandle]
-    ["facebook", "payverge", "payverge"],
-    ["facebook", "@payverge", "payverge"],
-    ["facebook", "facebook.com/payverge", "payverge"],
-    ["facebook", "https://facebook.com/payverge", "payverge"],
-    ["facebook", "https://www.facebook.com/payverge/", "payverge"],
+    ["facebook", "namakdan", "namakdan"],
+    ["facebook", "@namakdan", "namakdan"],
+    ["facebook", "facebook.com/namakdan", "namakdan"],
+    ["facebook", "https://facebook.com/namakdan", "namakdan"],
+    ["facebook", "https://www.facebook.com/namakdan/", "namakdan"],
     ["instagram", "mycafe", "mycafe"],
     ["instagram", "@mycafe", "mycafe"],
     ["instagram", "instagram.com/mycafe", "mycafe"],
     ["instagram", "https://www.instagram.com/mycafe/", "mycafe"],
-    ["twitter", "payverge", "payverge"],
-    ["twitter", "@payverge", "payverge"],
-    ["twitter", "https://x.com/payverge", "payverge"],
-    ["twitter", "https://twitter.com/payverge/", "payverge"],
-    ["linkedin", "payverge", "payverge"],
-    ["linkedin", "linkedin.com/company/payverge", "payverge"],
-    ["linkedin", "https://www.linkedin.com/company/payverge/", "payverge"],
-    ["youtube", "payverge", "payverge"],
-    ["youtube", "@payverge", "payverge"],
-    ["youtube", "https://youtube.com/@payverge", "payverge"],
-    ["youtube", "https://www.youtube.com/@payverge/", "payverge"],
-    ["tiktok", "payverge", "payverge"],
-    ["tiktok", "@payverge", "payverge"],
-    ["tiktok", "tiktok.com/@payverge", "payverge"],
-    ["tiktok", "https://www.tiktok.com/@payverge/", "payverge"],
+    ["twitter", "namakdan", "namakdan"],
+    ["twitter", "@namakdan", "namakdan"],
+    ["twitter", "https://x.com/namakdan", "namakdan"],
+    ["twitter", "https://twitter.com/namakdan/", "namakdan"],
+    ["linkedin", "namakdan", "namakdan"],
+    ["linkedin", "linkedin.com/company/namakdan", "namakdan"],
+    ["linkedin", "https://www.linkedin.com/company/namakdan/", "namakdan"],
+    ["youtube", "namakdan", "namakdan"],
+    ["youtube", "@namakdan", "namakdan"],
+    ["youtube", "https://youtube.com/@namakdan", "namakdan"],
+    ["youtube", "https://www.youtube.com/@namakdan/", "namakdan"],
+    ["tiktok", "namakdan", "namakdan"],
+    ["tiktok", "@namakdan", "namakdan"],
+    ["tiktok", "tiktok.com/@namakdan", "namakdan"],
+    ["tiktok", "https://www.tiktok.com/@namakdan/", "namakdan"],
   ] as const)("%s %s → %s", (network, raw, expected) => {
     it("returns one canonical handle", () => {
       const result = normalize(network, raw);
@@ -45,8 +45,8 @@ describe("normalize(network, raw)", () => {
 
   it("strips query strings and fragments", () => {
     expect(
-      normalize("facebook", "https://www.facebook.com/payverge?ref=page"),
-    ).toEqual({ ok: true, handle: "payverge" });
+      normalize("facebook", "https://www.facebook.com/namakdan?ref=page"),
+    ).toEqual({ ok: true, handle: "namakdan" });
     expect(
       normalize("instagram", "https://instagram.com/mycafe#reels"),
     ).toEqual({ ok: true, handle: "mycafe" });
@@ -54,12 +54,12 @@ describe("normalize(network, raw)", () => {
 
   it("rejects a URL for the wrong network", () => {
     const cases: Array<[SocialNetwork, string]> = [
-      ["facebook", "https://instagram.com/payverge"],
-      ["instagram", "https://facebook.com/payverge"],
-      ["twitter", "https://tiktok.com/@payverge"],
-      ["tiktok", "https://www.instagram.com/payverge"],
-      ["linkedin", "https://youtube.com/@payverge"],
-      ["youtube", "https://linkedin.com/company/payverge"],
+      ["facebook", "https://instagram.com/namakdan"],
+      ["instagram", "https://facebook.com/namakdan"],
+      ["twitter", "https://tiktok.com/@namakdan"],
+      ["tiktok", "https://www.instagram.com/namakdan"],
+      ["linkedin", "https://youtube.com/@namakdan"],
+      ["youtube", "https://linkedin.com/company/namakdan"],
     ];
     for (const [network, raw] of cases) {
       const result = normalize(network, raw);
@@ -92,20 +92,20 @@ describe("socialProfileUrl", () => {
     expect(socialProfileUrl("instagram", "mycafe")).toBe(
       "https://instagram.com/mycafe",
     );
-    expect(socialProfileUrl("facebook", "payverge")).toBe(
-      "https://facebook.com/payverge",
+    expect(socialProfileUrl("facebook", "namakdan")).toBe(
+      "https://facebook.com/namakdan",
     );
-    expect(socialProfileUrl("twitter", "payverge")).toBe(
-      "https://twitter.com/payverge",
+    expect(socialProfileUrl("twitter", "namakdan")).toBe(
+      "https://twitter.com/namakdan",
     );
-    expect(socialProfileUrl("linkedin", "payverge")).toBe(
-      "https://linkedin.com/company/payverge",
+    expect(socialProfileUrl("linkedin", "namakdan")).toBe(
+      "https://linkedin.com/company/namakdan",
     );
-    expect(socialProfileUrl("youtube", "payverge")).toBe(
-      "https://youtube.com/@payverge",
+    expect(socialProfileUrl("youtube", "namakdan")).toBe(
+      "https://youtube.com/@namakdan",
     );
-    expect(socialProfileUrl("tiktok", "payverge")).toBe(
-      "https://tiktok.com/@payverge",
+    expect(socialProfileUrl("tiktok", "namakdan")).toBe(
+      "https://tiktok.com/@namakdan",
     );
   });
 

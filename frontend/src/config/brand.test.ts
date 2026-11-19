@@ -9,7 +9,7 @@ import {
 
 describe("brand links defaults", () => {
   it("routes support to the public GitHub repository", () => {
-    expect(PROJECT_REPO_URL).toBe("https://github.com/stdevMac/payverge");
+    expect(PROJECT_REPO_URL).toBe("https://github.com/nekzad/namakdan");
     expect(brandLinks.repoUrl).toBe(PROJECT_REPO_URL);
     expect(brandLinks.supportUrl).toBe(`${PROJECT_REPO_URL}/issues`);
   });
@@ -30,7 +30,7 @@ describe("brand links defaults", () => {
       "repoUrl",
       "supportUrl",
     ]);
-    expect(JSON.stringify(brandLinks)).not.toMatch(/payverge\.io|x\.com|twitter\.com/);
+    expect(JSON.stringify(brandLinks)).not.toMatch(/namakdan\.io|x\.com|twitter\.com/);
   });
 });
 

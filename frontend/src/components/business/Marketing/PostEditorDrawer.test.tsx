@@ -1589,7 +1589,7 @@ describe("PostEditorDrawer", () => {
       expect(screen.getByTestId("narrative-campaign-pack")).toBeInTheDocument();
       expect((caption as HTMLTextAreaElement).value).toBe(before);
       expect(
-        localStorage.getItem(`payverge:marketing:editorMode:${business.id}`),
+        localStorage.getItem(`namakdan:marketing:editorMode:${business.id}`),
       ).toBe("craft");
     });
 

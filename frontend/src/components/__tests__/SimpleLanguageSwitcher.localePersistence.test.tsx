@@ -49,7 +49,7 @@ async function pickLanguage(visibleName: string) {
 
 beforeEach(() => {
   window.localStorage.clear();
-  document.cookie = "payverge_locale=; Max-Age=0; Path=/";
+  document.cookie = "namakdan_locale=; Max-Age=0; Path=/";
   window.history.replaceState(null, "", OPERATOR_PATH);
 });
 
@@ -62,7 +62,7 @@ describe("operator language pick persists on the dashboard (#617)", () => {
     await waitFor(() =>
       expect(window.localStorage.getItem("locale")).toBe("en"),
     );
-    expect(document.cookie).toContain("payverge_locale=en");
+    expect(document.cookie).toContain("namakdan_locale=en");
   });
 
   it("stops the account language from overriding that pick at sign-in", async () => {
@@ -95,6 +95,6 @@ describe("operator language pick persists on the dashboard (#617)", () => {
     await waitFor(() =>
       expect(window.localStorage.getItem("locale")).toBe("es"),
     );
-    expect(document.cookie).toContain("payverge_locale=es");
+    expect(document.cookie).toContain("namakdan_locale=es");
   });
 });

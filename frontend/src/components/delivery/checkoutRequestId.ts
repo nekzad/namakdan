@@ -13,7 +13,7 @@
  */
 import { randomUUID } from "@/lib/randomUUID";
 
-const KEY_PREFIX = "payverge_delivery_checkout_rid:";
+const KEY_PREFIX = "namakdan_delivery_checkout_rid:";
 
 interface StoredRequestId {
   id: string;

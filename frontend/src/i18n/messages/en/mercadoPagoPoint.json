@@ -14,7 +14,7 @@
   "noTerminals": "No Point terminals found for this Mercado Pago account.",
   "terminalsError": "Could not load terminals. Check the Mercado Pago connection and try again.",
   "pdvCalloutTitle": "Integration mode required",
-  "pdvCalloutBody": "This terminal is not in PDV (integration) mode. Activate it so Payverge can send charges. The terminal will reboot briefly.",
+  "pdvCalloutBody": "This terminal is not in PDV (integration) mode. Activate it so Namakdan can send charges. The terminal will reboot briefly.",
   "pdvActivate": "Activate integration mode (PDV)",
   "pdvActivating": "Switching mode…",
   "pdvActivated": "PDV mode activated. Wait for the terminal to reboot, then charge again.",

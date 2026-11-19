@@ -5,7 +5,7 @@
   "AUTH_REFRESH_ROTATED": "Din session förnyades i en annan begäran. Försök igen.",
   "AUTH_SESSION_UNKNOWN": "Den här sessionen är inte längre aktiv. Logga in igen.",
   "AUTH_FORBIDDEN": "Du har inte åtkomst till den här åtgärden.",
-  "DEMO_MODE_FORBIDDEN": "Den här åtgärden är avstängd i den offentliga demon. Installera din egen Payverge för att använda den; demon återställs varje natt.",
+  "DEMO_MODE_FORBIDDEN": "Den här åtgärden är avstängd i den offentliga demon. Installera din egen Namakdan för att använda den; demon återställs varje natt.",
   "AUTH_NOT_ADMIN": "Administratörsåtkomst krävs.",
   "AUTH_INSUFFICIENT_ROLE": "Din roll tillåter inte den här åtgärden.",
   "AUTH_INVALID_CREDENTIALS": "Ogiltig e-post eller lösenord.",

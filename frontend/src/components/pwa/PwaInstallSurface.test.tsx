@@ -58,19 +58,19 @@ jest.mock("@/i18n/OperatorLocaleProvider", () => ({
 jest.mock("@/i18n/operatorChromeCatalog", () => ({
   getChromeTranslation: (key: string) =>
     ({
-      "pwa.card.title": "Open Payverge like an app",
+      "pwa.card.title": "Open Namakdan like an app",
       "pwa.card.body":
         "Faster access from your home screen. No app store needed.",
-      "pwa.actions.install": "Install Payverge",
+      "pwa.actions.install": "Install Namakdan",
       "pwa.actions.dismiss": "Not now",
-      "pwa.manual.title": "Add Payverge to your Home Screen",
+      "pwa.manual.title": "Add Namakdan to your Home Screen",
       "pwa.manual.stepShare": "Tap Share in Safari.",
       "pwa.manual.stepAdd": "Choose Add to Home Screen.",
       "pwa.manual.stepConfirm": "Tap Add.",
       "pwa.manual.done": "I've added it",
       "pwa.unsupported.title": "Installation unavailable",
       "pwa.unsupported.body":
-        "Open Payverge in Safari or a compatible browser.",
+        "Open Namakdan in Safari or a compatible browser.",
       "pwa.actions.close": "Close",
     })[key] ?? key,
 }));
@@ -96,7 +96,7 @@ test("shows the floating card and routes its actions through the controller", as
   expect(mockClaimFloatingPrompt).toHaveBeenCalledTimes(1);
 
   await act(async () => {
-    fireEvent.click(screen.getByRole("button", { name: "Install Payverge" }));
+    fireEvent.click(screen.getByRole("button", { name: "Install Namakdan" }));
   });
   fireEvent.click(screen.getByRole("button", { name: "Not now" }));
 
@@ -119,7 +119,7 @@ test("guards a pending install request against synchronous re-entry", async () =
 
   render(<PwaInstallSurface allowFloatingPrompt />);
   installButton = screen.getByRole("button", {
-    name: "Install Payverge",
+    name: "Install Namakdan",
   });
   const dismissButton = screen.getByRole("button", { name: "Not now" });
 
@@ -129,7 +129,7 @@ test("guards a pending install request against synchronous re-entry", async () =
   expect(installButton).toBeDisabled();
   expect(dismissButton).toBeDisabled();
   expect(
-    screen.getByRole("region", { name: "Open Payverge like an app" }),
+    screen.getByRole("region", { name: "Open Namakdan like an app" }),
   ).toHaveAttribute("aria-busy", "true");
 
   fireEvent.click(installButton);
@@ -154,7 +154,7 @@ test("hides the invitation when the controller says it is not eligible", () => {
 
   expect(screen.queryByRole("region")).not.toBeInTheDocument();
   expect(
-    screen.queryByRole("button", { name: "Install Payverge" }),
+    screen.queryByRole("button", { name: "Install Namakdan" }),
   ).not.toBeInTheDocument();
 });
 
@@ -164,7 +164,7 @@ test("hides an eligible floating card when the route gate disallows it", () => {
   expect(mockClaimFloatingPrompt).not.toHaveBeenCalled();
   expect(screen.queryByRole("region")).not.toBeInTheDocument();
   expect(
-    screen.queryByRole("button", { name: "Install Payverge" }),
+    screen.queryByRole("button", { name: "Install Namakdan" }),
   ).not.toBeInTheDocument();
 });
 
@@ -215,7 +215,7 @@ test("shows ordered manual instructions with safe-area footer padding", () => {
   render(<PwaInstallSurface />);
 
   const dialog = screen.getByRole("dialog", {
-    name: "Add Payverge to your Home Screen",
+    name: "Add Namakdan to your Home Screen",
   });
   const steps = within(dialog).getAllByRole("listitem");
   expect(steps).toHaveLength(3);
@@ -281,7 +281,7 @@ test("moves initial focus inside manual help and contains Tab navigation", async
   render(<PwaInstallSurface />);
 
   const dialog = screen.getByRole("dialog", {
-    name: "Add Payverge to your Home Screen",
+    name: "Add Namakdan to your Home Screen",
   });
   const close = within(dialog).getByRole("button", { name: "Close" });
   const done = within(dialog).getByRole("button", { name: "I've added it" });
@@ -321,7 +321,7 @@ test("closes on Escape and restores focus to the invoking control", async () => 
     </>,
   );
   const dialog = screen.getByRole("dialog", {
-    name: "Add Payverge to your Home Screen",
+    name: "Add Namakdan to your Home Screen",
   });
   await waitFor(() =>
     expect(dialog.contains(document.activeElement)).toBe(true),
@@ -374,7 +374,7 @@ test("shows unsupported help with a close action only", () => {
     name: "Installation unavailable",
   });
   expect(dialog).toHaveTextContent(
-    "Open Payverge in Safari or a compatible browser.",
+    "Open Namakdan in Safari or a compatible browser.",
   );
   expect(within(dialog).queryByRole("list")).not.toBeInTheDocument();
   expect(

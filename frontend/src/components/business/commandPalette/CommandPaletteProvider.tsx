@@ -128,7 +128,7 @@ export function CommandPaletteProvider({
 
   const businessId = business?.id ? String(business.id) : null;
   const [recentKeys, setRecentKeys] = useLocalStorageState<string[]>(
-    businessId ? `payverge_cmdk_recent:${businessId}` : null,
+    businessId ? `namakdan_cmdk_recent:${businessId}` : null,
     [],
   );
 

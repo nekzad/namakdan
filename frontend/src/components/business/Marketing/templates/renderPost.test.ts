@@ -224,7 +224,7 @@ describe("shared canvas mock", () => {
     };
 
     ctx.font = "20px Inter";
-    expect(ctx.measureText("Payverge").width).toBeGreaterThan(0);
+    expect(ctx.measureText("Namakdan").width).toBeGreaterThan(0);
     const gradient = ctx.createLinearGradient(0, 0, 100, 100);
     gradient.addColorStop(0, "#000000");
     gradient.addColorStop(1, "#ffffff");

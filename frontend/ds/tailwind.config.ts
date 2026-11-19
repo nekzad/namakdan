@@ -7,7 +7,7 @@
  * differ.
  *
  * Why the content globs are wide: claude.ai/design's agent composes NEW
- * layouts with Payverge's utility vocabulary, not just the classes the
+ * layouts with Namakdan's utility vocabulary, not just the classes the
  * exported components happen to use. Scanning the whole app captures the
  * vocabulary that is actually idiomatic here; the safelist then guarantees
  * every systematic variation of a design token resolves even if no file

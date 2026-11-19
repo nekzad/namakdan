@@ -41,7 +41,7 @@ describe("RFC 9116 security.txt (#291)", () => {
     expect(body).toContain("Preferred-Languages:");
     expect(body).toContain(`Canonical: ${origin}/.well-known/security.txt`);
     expect(body).toMatch(/Expires:\s*\d{4}-\d{2}-\d{2}T/);
-    expect(body).not.toContain("payverge.io");
+    expect(body).not.toContain("example.test");
   });
 
   it("falls back to SUPPORT_EMAIL when SECURITY_EMAIL is unset or malformed", async () => {

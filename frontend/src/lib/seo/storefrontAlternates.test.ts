@@ -5,21 +5,21 @@ import { buildStorefrontLanguageAlternates } from "./storefrontAlternates";
 describe("buildStorefrontLanguageAlternates", () => {
   it("emits ?lang= entries per language plus a lang-less x-default", () => {
     const languages = buildStorefrontLanguageAlternates(
-      "https://payverge.io",
+      "https://example.test",
       "aurora",
       ["en", "es", "es-AR"],
     );
     expect(languages).toEqual({
-      en: "https://payverge.io/b/aurora?lang=en",
-      es: "https://payverge.io/es/b/aurora",
-      "es-AR": "https://payverge.io/es-ar/b/aurora",
-      "x-default": "https://payverge.io/b/aurora",
+      en: "https://example.test/b/aurora?lang=en",
+      es: "https://example.test/es/b/aurora",
+      "es-AR": "https://example.test/es-ar/b/aurora",
+      "x-default": "https://example.test/b/aurora",
     });
   });
 
   it("returns undefined when there are no languages (or no base URL)", () => {
     expect(
-      buildStorefrontLanguageAlternates("https://payverge.io", "aurora", []),
+      buildStorefrontLanguageAlternates("https://example.test", "aurora", []),
     ).toBeUndefined();
     expect(
       buildStorefrontLanguageAlternates("", "aurora", ["en"]),
@@ -28,7 +28,7 @@ describe("buildStorefrontLanguageAlternates", () => {
 
   it("filters empty language codes", () => {
     const languages = buildStorefrontLanguageAlternates(
-      "https://payverge.io",
+      "https://example.test",
       "aurora",
       ["en", ""],
     );

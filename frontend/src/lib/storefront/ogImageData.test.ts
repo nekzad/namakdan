@@ -40,42 +40,42 @@ describe("buildOgCardModel", () => {
     const model = buildOgCardModel({
       business,
       customUrl: "aurora",
-      baseUrl: "https://payverge.io",
+      baseUrl: "https://example.test",
       googleRating: { ratingValue: 4.7, reviewCount: 213 },
     });
     expect(model.name).toBe("Café Aurora");
     expect(model.initial).toBe("C");
     expect(model.description).toContain("bistro");
-    expect(model.slugPath).toBe("payverge.io/b/aurora");
+    expect(model.slugPath).toBe("example.test/b/aurora");
     expect(model.bannerUrl).toBe("https://cdn.example.com/banner.jpg");
     expect(model.logoUrl).toBe("https://cdn.example.com/logo.png");
     expect(model.rating).toEqual({ value: 4.7, count: 213 });
   });
 
-  it("falls back to a branded Payverge card when the business is missing", () => {
+  it("falls back to a branded Namakdan card when the business is missing", () => {
     const model = buildOgCardModel({
       business: null,
       customUrl: "gone",
-      baseUrl: "https://payverge.io",
+      baseUrl: "https://example.test",
     });
-    expect(model.name).toBe("Payverge");
+    expect(model.name).toBe("Namakdan");
     expect(model.initial).toBe("P");
     expect(model.bannerUrl).toBeNull();
     expect(model.logoUrl).toBeNull();
     expect(model.rating).toBeNull();
-    expect(model.slugPath).toBe("payverge.io/b/gone");
+    expect(model.slugPath).toBe("example.test/b/gone");
   });
 
   it("drops the rating when non-positive and tolerates bad banner JSON", () => {
     const model = buildOgCardModel({
       business: { ...business, banner_images: "{broken" } as any,
       customUrl: "aurora",
-      baseUrl: "https://payverge.io/",
+      baseUrl: "https://example.test/",
       googleRating: { ratingValue: 0, reviewCount: 12 },
     });
     expect(model.rating).toBeNull();
     expect(model.bannerUrl).toBeNull();
-    expect(model.slugPath).toBe("payverge.io/b/aurora");
+    expect(model.slugPath).toBe("example.test/b/aurora");
   });
 });
 

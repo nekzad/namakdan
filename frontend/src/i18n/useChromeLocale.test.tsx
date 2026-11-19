@@ -21,7 +21,7 @@ describe("chromeCopyLocale", () => {
 
 describe("useChromeLocale (#26 guest-table in-app switch)", () => {
   beforeEach(() => {
-    document.cookie = "payverge_guest_locale=; Max-Age=0; Path=/";
+    document.cookie = "namakdan_guest_locale=; Max-Age=0; Path=/";
   });
 
   it("stays on the operator locale until a guest language event fires", () => {
@@ -35,7 +35,7 @@ describe("useChromeLocale (#26 guest-table in-app switch)", () => {
 
   it("reads the guest cookie on a table route so reload stays Spanish", async () => {
     window.history.pushState({}, "", "/t/MF6PVR6S97");
-    document.cookie = "payverge_guest_locale=es-AR; Path=/";
+    document.cookie = "namakdan_guest_locale=es-AR; Path=/";
 
     render(
       <SimpleTranslationProvider initialLocale="en">

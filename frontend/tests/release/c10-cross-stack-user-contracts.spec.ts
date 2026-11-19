@@ -3,7 +3,7 @@
  *
  * Every test below drives a shipped browser surface and then checks the API or
  * database state that surface changed. Provider-dependent boundaries are
- * intercepted at the browser edge; Payverge's own handlers and persistence
+ * intercepted at the browser edge; Namakdan's own handlers and persistence
  * remain real.
  */
 import {
@@ -79,9 +79,9 @@ async function renewOwnerToken(): Promise<void> {
 function runSQL(sql: string): void {
   const commonArgs = [
     "-U",
-    "payverge",
+    "namakdan",
     "-d",
-    "payverge",
+    "namakdan",
     "-v",
     "ON_ERROR_STOP=1",
     "-q",
@@ -101,7 +101,7 @@ function runSQL(sql: string): void {
         stdio: ["pipe", "pipe", "pipe"],
         env: {
           ...process.env,
-          PGPASSWORD: process.env.PLAYWRIGHT_DB_PASSWORD || "payverge_password",
+          PGPASSWORD: process.env.PLAYWRIGHT_DB_PASSWORD || "namakdan_password",
         },
       },
     );
@@ -150,7 +150,7 @@ function setFixtureBusinessSuspended(id: number, suspended: boolean): void {
 async function authenticateOwner(page: Page): Promise<void> {
   // Mirror operator-accessibility: seed session_token on both the app and API
   // hostnames (cookies are host-scoped; ports share a host for localhost), and
-  // set payverge_had_session so HybridAuthProvider bootstraps from the cookie
+  // set namakdan_had_session so HybridAuthProvider bootstraps from the cookie
   // instead of treating the visit as anonymous.
   const app = new URL(BASE_URL);
   const api = new URL(API_BASE);
@@ -167,7 +167,7 @@ async function authenticateOwner(page: Page): Promise<void> {
     })),
   );
   await page.addInitScript(() => {
-    localStorage.setItem("payverge_had_session", "1");
+    localStorage.setItem("namakdan_had_session", "1");
   });
 }
 
@@ -323,7 +323,7 @@ test.describe.serial("C10 cross-stack user contracts", () => {
   test.beforeAll(async ({ playwright }) => {
     api = await playwright.request.newContext({ ignoreHTTPSErrors: true });
     const stamp = `${Date.now()}-${process.pid}`;
-    const email = `c10-owner-${stamp}@payverge.test`;
+    const email = `c10-owner-${stamp}@example.test`;
     fixtureOwnerEmail = email;
     const password = "C10!Release-42";
     fixtureOwnerPassword = password;
@@ -704,7 +704,7 @@ test.describe.serial("C10 cross-stack user contracts", () => {
     page,
   }) => {
     const stamp = `${Date.now()}-${process.pid}`;
-    const staffEmail = `c10-staff-${stamp}@payverge.test`;
+    const staffEmail = `c10-staff-${stamp}@example.test`;
     const staffId = await inviteAndAcceptStaff(
       businessId,
       staffEmail,
@@ -745,7 +745,7 @@ test.describe.serial("C10 cross-stack user contracts", () => {
     const second = await createBusiness(
       `${stamp}-second`,
       "C10 Second Venue",
-      `c10-second-${stamp}@payverge.test`,
+      `c10-second-${stamp}@example.test`,
     );
     await inviteAndAcceptStaff(second.id, staffEmail, "Casey C10");
     const loginCode = String((Date.now() % 900_000) + 100_000);
@@ -831,7 +831,7 @@ test.describe.serial("C10 cross-stack user contracts", () => {
     // Venue selection must not put the access token in document.cookie (HttpOnly
     // staff_token only). WebKit on localhost often will not surface host-only
     // cookies for a different port via credentials:include even though Chromium
-    // and Firefox do; production uses shared parent Domain=.payverge.io.
+    // and Firefox do; production uses shared parent Domain=.example.test.
     const staffTokenJsVisible = await page.evaluate(() =>
       document.cookie
         .split(";")

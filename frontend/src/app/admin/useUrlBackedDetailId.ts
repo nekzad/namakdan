@@ -8,7 +8,7 @@ export function adminDetailIdFromParam(raw: string | null | undefined): number |
 }
 
 function adminDetailDismissKey(key: string): string {
-  return `payverge:admin-detail-dismiss:${key}`;
+  return `namakdan:admin-detail-dismiss:${key}`;
 }
 
 function readDismissed(key: string): number | null {

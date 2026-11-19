@@ -39,7 +39,7 @@ describe("extractLeakedActions", () => {
       "Go: href: /business/5/dashboard?tab=menu kind: primary",
     );
     expect(internal.actions[0].kind).toBe("navigate");
-    const external = extractLeakedActions("Docs: href: https://payverge.io/docs kind: primary");
+    const external = extractLeakedActions("Docs: href: https://example.test/docs kind: primary");
     expect(external.actions[0].kind).toBe("external");
   });
 

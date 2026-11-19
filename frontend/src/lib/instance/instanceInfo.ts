@@ -61,12 +61,12 @@ export function isPublicDemo(info: InstanceInfo | null | undefined): boolean {
 }
 
 /** Upstream brand defaults; every one is overridable from the backend env. */
-const DEFAULT_PRODUCT_NAME = "Payverge";
+const DEFAULT_PRODUCT_NAME = "Namakdan";
 // eslint-disable-next-line no-restricted-syntax -- the brand default itself (tailwind brand.DEFAULT)
 const DEFAULT_BRAND_COLOR = "#1a6b6a";
 
 /** Name of the window global the root layout seeds the client cache with. */
-const INSTANCE_WINDOW_KEY = "__PAYVERGE_INSTANCE__";
+const INSTANCE_WINDOW_KEY = "__NAMAKDAN_INSTANCE__";
 
 const HEX_COLOR_RE = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
 
@@ -181,7 +181,7 @@ export function legalNameOf(info: InstanceInfo | null | undefined): string {
 }
 
 /**
- * JS that seeds `window.__PAYVERGE_INSTANCE__` (JSON-escaped against
+ * JS that seeds `window.__NAMAKDAN_INSTANCE__` (JSON-escaped against
  * `</script>`). Null serializes as null so the client hook fetches instead.
  */
 export function serializeInstanceScript(info: InstanceInfo | null): string {

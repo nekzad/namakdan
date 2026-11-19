@@ -203,7 +203,7 @@ it("does not sell an 86'd steak via fallback when caption generation refuses", a
         businessId: 86,
         business: {
           ...business,
-          name: "Payverge AI Pro Demo Lounge",
+          name: "Namakdan AI Pro Demo Lounge",
         } as Business,
         suggestion: steak,
         locale: "en",
@@ -216,7 +216,7 @@ it("does not sell an 86'd steak via fallback when caption generation refuses", a
 
   await waitFor(() => expect(result.current.source).toBe("unavailable"));
   expect(result.current.caption).toBe("");
-  expect(result.current.caption).not.toMatch(/steak|payverge/i);
+  expect(result.current.caption).not.toMatch(/steak|namakdan/i);
 });
 
 it("does not sell Date Night fallback copy in Spanish when the combo is 86'd", async () => {

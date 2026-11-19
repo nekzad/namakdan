@@ -7,7 +7,7 @@ import { ToastProvider } from "@/contexts/ToastContext";
 // keeps the authenticated surface out of search indexes if the auth wall
 // ever leaks.
 export const metadata: Metadata = {
-  title: "Account — Payverge",
+  title: "Account — Namakdan",
   robots: { index: false, follow: false },
 };
 

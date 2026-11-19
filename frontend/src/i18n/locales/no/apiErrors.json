@@ -5,7 +5,7 @@
   "AUTH_REFRESH_ROTATED": "Økten din ble fornyet i en annen forespørsel. Prøv igjen.",
   "AUTH_SESSION_UNKNOWN": "Denne økten er ikke lenger aktiv. Logg inn på nytt.",
   "AUTH_FORBIDDEN": "Du har ikke tilgang til denne handlingen.",
-  "DEMO_MODE_FORBIDDEN": "Denne handlingen er slått av i den offentlige demoen. Installer din egen Payverge for å bruke den; demoen tilbakestilles hver natt.",
+  "DEMO_MODE_FORBIDDEN": "Denne handlingen er slått av i den offentlige demoen. Installer din egen Namakdan for å bruke den; demoen tilbakestilles hver natt.",
   "AUTH_NOT_ADMIN": "Administrator tilgang er påkrevd.",
   "AUTH_INSUFFICIENT_ROLE": "Rollen din tillater ikke denne handlingen.",
   "AUTH_INVALID_CREDENTIALS": "Ugyldig e-post eller passord.",

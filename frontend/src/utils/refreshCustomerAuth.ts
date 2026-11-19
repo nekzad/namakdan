@@ -22,7 +22,7 @@ export interface RefreshCustomerAuthClientDependencies {
 }
 
 export const CUSTOMER_SESSION_EXPIRED_EVENT = "customer:session-expired";
-export const CUSTOMER_SESSION_HINT_KEY = "payverge_had_customer_session";
+export const CUSTOMER_SESSION_HINT_KEY = "namakdan_had_customer_session";
 
 const MAX_REFRESH_ATTEMPTS = 2;
 const REFRESH_REQUEST_TIMEOUT_MS = 30_000;

@@ -68,7 +68,7 @@ describe("frontend sentry reporting", () => {
     expect(mockScopeSetTag).toHaveBeenCalledWith("component", "CheckoutButton");
     expect(mockScopeSetTag).toHaveBeenCalledWith("function", "submit");
     expect(mockScopeSetTag).toHaveBeenCalledWith("request_id", "req-1");
-    expect(mockScopeSetContext).toHaveBeenCalledWith("payverge", {
+    expect(mockScopeSetContext).toHaveBeenCalledWith("namakdan", {
       business_id: 42,
       token: "[Filtered]",
       email: "[Filtered]",
@@ -98,7 +98,7 @@ describe("frontend sentry reporting", () => {
     expect(Sentry.setUser).toHaveBeenCalledWith({ id: "staff:7" });
     expect(Sentry.setTag).toHaveBeenCalledWith("auth_source", "staff");
     expect(Sentry.setTag).toHaveBeenCalledWith("business_id", "42");
-    expect(Sentry.setContext).toHaveBeenCalledWith("payverge_identity", {
+    expect(Sentry.setContext).toHaveBeenCalledWith("namakdan_identity", {
       auth_source: "staff",
       staff_id: 7,
       business_id: 42,
@@ -120,7 +120,7 @@ describe("frontend sentry reporting", () => {
     const sentryUser = (Sentry.setUser as jest.Mock).mock.calls[0][0];
     expect(sentryUser.id).not.toContain(walletAddress);
     expect(sentryUser.id).not.toContain(walletAddress.toLowerCase());
-    expect(Sentry.setContext).toHaveBeenCalledWith("payverge_identity", {
+    expect(Sentry.setContext).toHaveBeenCalledWith("namakdan_identity", {
       auth_source: "web3",
     });
   });
@@ -152,7 +152,7 @@ describe("frontend sentry reporting", () => {
     expect(Sentry.setUser).toHaveBeenCalledWith(null);
     expect(Sentry.setTag).toHaveBeenCalledWith("auth_source", undefined);
     expect(Sentry.setTag).toHaveBeenCalledWith("business_id", undefined);
-    expect(Sentry.setContext).toHaveBeenCalledWith("payverge_identity", null);
+    expect(Sentry.setContext).toHaveBeenCalledWith("namakdan_identity", null);
   });
 
   it("clears stale business tags when setting an identity without a business", () => {
@@ -171,7 +171,7 @@ describe("frontend sentry reporting", () => {
     expect(Sentry.setUser).toHaveBeenCalledWith({ id: "user:11" });
     expect(Sentry.setTag).toHaveBeenCalledWith("auth_source", "user");
     expect(Sentry.setTag).toHaveBeenCalledWith("business_id", undefined);
-    expect(Sentry.setContext).toHaveBeenCalledWith("payverge_identity", {
+    expect(Sentry.setContext).toHaveBeenCalledWith("namakdan_identity", {
       auth_source: "user",
       user_id: 11,
     });
@@ -193,7 +193,7 @@ describe("frontend sentry reporting", () => {
     expect(Sentry.setUser).toHaveBeenCalledWith({ id: "staff:7" });
     expect(Sentry.setTag).toHaveBeenCalledWith("auth_source", "staff");
     expect(Sentry.setTag).toHaveBeenCalledWith("business_id", undefined);
-    expect(Sentry.setContext).toHaveBeenCalledWith("payverge_identity", {
+    expect(Sentry.setContext).toHaveBeenCalledWith("namakdan_identity", {
       auth_source: "staff",
       staff_id: 7,
     });
@@ -248,7 +248,7 @@ describe("frontend sentry reporting", () => {
     expect(Sentry.setUser).toHaveBeenCalledWith({ id: "staff:7" });
     expect(Sentry.setTag).toHaveBeenCalledWith("auth_source", "staff");
     expect(Sentry.setTag).toHaveBeenCalledWith("business_id", "42");
-    expect(Sentry.setContext).toHaveBeenCalledWith("payverge_identity", {
+    expect(Sentry.setContext).toHaveBeenCalledWith("namakdan_identity", {
       auth_source: "staff",
       staff_id: 7,
       business_id: 42,
@@ -272,7 +272,7 @@ describe("frontend sentry reporting", () => {
     expect(Sentry.setUser).toHaveBeenCalledWith({ id: "customer:21" });
     expect(Sentry.setTag).toHaveBeenCalledWith("auth_source", "customer");
     expect(Sentry.setTag).toHaveBeenCalledWith("business_id", undefined);
-    expect(Sentry.setContext).toHaveBeenCalledWith("payverge_identity", {
+    expect(Sentry.setContext).toHaveBeenCalledWith("namakdan_identity", {
       auth_source: "customer",
       customer_id: 21,
     });

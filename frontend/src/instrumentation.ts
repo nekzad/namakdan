@@ -20,7 +20,7 @@ export async function register() {
       ...validatePublicEnv(process.env),
       ...trustedProxyIssues(process.env),
     ]) {
-      console.warn(`[payverge] frontend config: ${issue}`);
+      console.warn(`[namakdan] frontend config: ${issue}`);
     }
     await import("../sentry.server.config");
   }

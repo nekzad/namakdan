@@ -491,7 +491,7 @@ describe("PrintPhotoControls", () => {
       measurements: {
         "harvest.jpg": { status: "ready" as const, width: 1600, height: 1200 },
         "tiny.jpg": { status: "ready" as const, width: 1400, height: 1000 },
-        "https://images.payverge.test/lemon-trout-1800x1200.jpg": {
+        "https://images.example.test/lemon-trout-1800x1200.jpg": {
           status: "ready" as const,
           width: 1800,
           height: 1200,
@@ -514,7 +514,7 @@ describe("PrintPhotoControls", () => {
 
     const lemon: FeaturedImageSelection = {
       itemId: "lemon-trout",
-      url: "https://images.payverge.test/lemon-trout-1800x1200.jpg",
+      url: "https://images.example.test/lemon-trout-1800x1200.jpg",
       role: "editorial-crop",
     };
     onSelectionChange.mockClear();

@@ -26,7 +26,7 @@ describe("public legal claim scan", () => {
 
   test("reports unsupported claims with locale, JSON path, and class", () => {
     const fixtureRoot = fs.mkdtempSync(
-      path.join(os.tmpdir(), "payverge-legal-claims-"),
+      path.join(os.tmpdir(), "namakdan-legal-claims-"),
     );
     const localeDir = path.join(fixtureRoot, "messages", "en");
     fs.mkdirSync(localeDir, { recursive: true });
@@ -35,7 +35,7 @@ describe("public legal claim scan", () => {
       JSON.stringify({
         fiat: "USDC automatically converts to fiat instantly.",
         uptime: "Guaranteed 99.99% uptime.",
-        pci: "Payverge is PCI DSS certified.",
+        pci: "Namakdan is PCI DSS certified.",
       }),
     );
 
@@ -63,7 +63,7 @@ describe("public legal claim scan", () => {
 
   test("excludes fixtures and dotfiles from locale coverage", () => {
     const fixtureRoot = fs.mkdtempSync(
-      path.join(os.tmpdir(), "payverge-legal-coverage-"),
+      path.join(os.tmpdir(), "namakdan-legal-coverage-"),
     );
     const enDir = path.join(fixtureRoot, "messages", "en");
     const testsDir = path.join(fixtureRoot, "messages", "__tests__");

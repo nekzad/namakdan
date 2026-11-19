@@ -1,4 +1,4 @@
-// LI.FI SDK Hooks for Payverge Cross-Chain Payments
+// LI.FI SDK Hooks for Namakdan Cross-Chain Payments
 // Enables users to pay with any token from any chain, settling to USDC on Base
 
 import { useState, useCallback, useEffect } from 'react';

@@ -83,7 +83,7 @@ function notFoundHtml(locale: StorefrontLocale): string {
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="robots" content="noindex, nofollow"/>
-  <title>${title} — Payverge</title>
+  <title>${title} — Namakdan</title>
   <style>
     body{font-family:system-ui,sans-serif;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#faf9f6;color:#1c1917}
     main{max-width:28rem;padding:2rem;text-align:center}

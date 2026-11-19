@@ -4,7 +4,7 @@ import {
   stripDuplicatedDishList,
 } from "./aiWaiterDinerTranscript";
 
-const PHOTO = "https://payverge.io/media/biz/86/bowl.jpg";
+const PHOTO = "https://example.test/media/biz/86/bowl.jpg";
 
 const menu = [
   {
@@ -18,19 +18,19 @@ const menu = [
       {
         id: "tacos",
         name: "Market Tacos",
-        image: "https://payverge.io/media/biz/86/tacos.jpg",
+        image: "https://example.test/media/biz/86/tacos.jpg",
         is_available: true,
       },
       {
         id: "tea",
         name: "Iced Tea",
-        image: "https://payverge.io/media/biz/86/tea.jpg",
+        image: "https://example.test/media/biz/86/tea.jpg",
         is_available: true,
       },
       {
         id: "hidden",
         name: "Off Menu Steak",
-        image: "https://payverge.io/media/biz/86/steak.jpg",
+        image: "https://example.test/media/biz/86/steak.jpg",
         is_available: false,
         orderability_state: "manual_disabled",
       },
@@ -162,7 +162,7 @@ describe("forDinerTranscript (#723)", () => {
           {
             id: "steak",
             name: "Steak Plate",
-            image: "https://payverge.io/media/biz/86/steak.jpg",
+            image: "https://example.test/media/biz/86/steak.jpg",
             is_available: true,
             inventory_status: "out_of_stock",
           },
@@ -231,7 +231,7 @@ describe("forDinerTranscript (#723)", () => {
           {
             id: "steak",
             name: "Steak Plate",
-            image: "https://payverge.io/media/biz/86/steak.jpg",
+            image: "https://example.test/media/biz/86/steak.jpg",
             is_available: true,
             inventory_status: "out_of_stock",
           },

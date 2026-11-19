@@ -12,7 +12,7 @@ import { publicPageAlternates } from "@/i18n/publicPageRoutes";
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
   const locale = resolveOperatorLocale(
-    requestHeaders.get("x-payverge-locale"),
+    requestHeaders.get("x-namakdan-locale"),
   );
   const title = getTranslation("staffLogin.metaTitle", locale) as string;
   const description = getTranslation("staffLogin.subtitle", locale) as string;

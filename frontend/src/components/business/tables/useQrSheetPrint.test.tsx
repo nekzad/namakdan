@@ -21,7 +21,7 @@ import { useQrSheetPrint } from "./useQrSheetPrint";
 const strings = {
   scanCaption: "Scan to order",
   documentTitle: "Biz — QR codes",
-  poweredBy: "Powered by Payverge",
+  poweredBy: "Powered by Namakdan",
 };
 
 const tables = [

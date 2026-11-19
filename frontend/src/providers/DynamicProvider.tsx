@@ -16,7 +16,7 @@ import { WalletBridge } from "./WalletBridge";
 
 // Built lazily on first render, not at module evaluation: the module can be
 // evaluated before the root layout's runtime config script has set
-// window.__PAYVERGE_ENV__, which would pin the build-time RPC URLs.
+// window.__NAMAKDAN_ENV__, which would pin the build-time RPC URLs.
 function createWagmiConfig() {
   return createConfig({
     chains: [base, baseSepolia],

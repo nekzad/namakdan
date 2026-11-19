@@ -1,8 +1,8 @@
 {
   "id": "/es-ar",
   "lang": "es-AR",
-  "name": "Payverge - Sistema de gestión de restaurantes",
-  "short_name": "Payverge",
+  "name": "Namakdan - Sistema de gestión de restaurantes",
+  "short_name": "Namakdan",
   "description": "Operaciones, servicio y pagos del restaurante en un espacio tipo app.",
   "start_url": "/es-ar/app",
   "scope": "/",

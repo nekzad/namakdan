@@ -1,6 +1,6 @@
 {
-  "metaTitle": "Aceptar invitación — Payverge",
-  "metaDescription": "Acepta tu invitación de personal de Payverge y termina de configurar tu cuenta.",
+  "metaTitle": "Aceptar invitación — Namakdan",
+  "metaDescription": "Acepta tu invitación de personal de Namakdan y termina de configurar tu cuenta.",
   "title": "Únete al Equipo",
   "subtitle": "Has sido invitado a unirte como miembro del personal",
   "loading": {
@@ -61,7 +61,7 @@
     "tryAgain": "Intentar de nuevo"
   },
   "footer": {
-    "poweredBy": "Incorporación segura de personal impulsada por Payverge"
+    "poweredBy": "Incorporación segura de personal impulsada por Namakdan"
   },
   "existingSession": {
     "title": "Ya hay una sesión iniciada",

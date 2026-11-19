@@ -22,7 +22,7 @@ describe("BusinessDeliveryTab guest note (#718)", () => {
       <BusinessDeliveryTab
         businessId={86}
         businessName="Demo"
-        customUrl="payverge-ai-pro-demo-lounge"
+        customUrl="namakdan-ai-pro-demo-lounge"
         deliveryEnabled={false}
         deliverySettings={{
           business_id: 86,

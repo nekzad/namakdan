@@ -10,7 +10,7 @@ import {
 describe("SimpleTranslationProvider locale persistence", () => {
   beforeEach(() => {
     window.localStorage.clear();
-    document.cookie = "payverge_locale=; Max-Age=0; Path=/";
+    document.cookie = "namakdan_locale=; Max-Age=0; Path=/";
     window.history.replaceState(null, "", "/");
   });
 
@@ -25,7 +25,7 @@ describe("SimpleTranslationProvider locale persistence", () => {
     act(() => result.current.setLocale("es-AR"));
 
     expect(window.localStorage.getItem("locale")).toBe("es-AR");
-    expect(document.cookie).toContain("payverge_locale=es-AR");
+    expect(document.cookie).toContain("namakdan_locale=es-AR");
   });
 
   it("keeps the request-derived initial locale authoritative over stale local storage", async () => {
@@ -69,7 +69,7 @@ describe("SimpleTranslationProvider locale persistence", () => {
     renderHook(() => useSimpleLocale(), { wrapper });
 
     await waitFor(() => {
-      expect(document.cookie).toContain("payverge_locale=es");
+      expect(document.cookie).toContain("namakdan_locale=es");
     });
     expect(window.localStorage.getItem("locale")).toBe("es");
   });
@@ -84,7 +84,7 @@ describe("SimpleTranslationProvider locale persistence", () => {
     renderHook(() => useSimpleLocale(), { wrapper });
 
     await waitFor(() => {
-      expect(document.cookie).toContain("payverge_locale=es-AR");
+      expect(document.cookie).toContain("namakdan_locale=es-AR");
     });
   });
 
@@ -100,7 +100,7 @@ describe("SimpleTranslationProvider locale persistence", () => {
 
     expect(result.current.locale).toBe("en");
     await waitFor(() => expect(result.current.locale).toBe("en"));
-    expect(document.cookie).toContain("payverge_locale=en");
+    expect(document.cookie).toContain("namakdan_locale=en");
     expect(window.localStorage.getItem("locale")).toBe("en");
   });
 
@@ -124,7 +124,7 @@ describe("SimpleTranslationProvider locale persistence", () => {
       // request locale there is the guest language / English path contract.
       window.history.replaceState(null, "", path);
       window.localStorage.setItem("locale", "es");
-      document.cookie = "payverge_locale=es; Path=/";
+      document.cookie = "namakdan_locale=es; Path=/";
       const wrapper = ({ children }: PropsWithChildren) => (
         <SimpleTranslationProvider initialLocale="en">
           {children}
@@ -134,8 +134,8 @@ describe("SimpleTranslationProvider locale persistence", () => {
 
       await waitFor(() => expect(result.current.locale).toBe("en"));
       expect(window.localStorage.getItem("locale")).toBe("es");
-      expect(document.cookie).toContain("payverge_locale=es");
-      expect(document.cookie).not.toContain("payverge_locale=en");
+      expect(document.cookie).toContain("namakdan_locale=es");
+      expect(document.cookie).not.toContain("namakdan_locale=en");
     },
   );
 

@@ -530,7 +530,7 @@ export default function SpaceScanClient({ token }: SpaceScanClientProps) {
     >
       <header className="mb-4">
         <p className="text-xs font-medium uppercase tracking-wider text-ink-500">
-          Payverge
+          Namakdan
         </p>
         <h1 className="font-title text-2xl text-ink-900">
           {t("scan.mobile.title")}

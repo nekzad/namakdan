@@ -12,7 +12,7 @@ import { getPublicConfig } from "@/config/publicConfig";
  * rather than each re-declaring the same literal.
  *
  * Resolved from runtime public config (default `/api/v1`, same-origin). The
- * browser reads window.__PAYVERGE_ENV__, which the root layout injects before
+ * browser reads window.__NAMAKDAN_ENV__, which the root layout injects before
  * any page client module evaluates, so a module-level constant is safe there.
  * Do not import this from instrumentation-client (it can run earlier).
  */

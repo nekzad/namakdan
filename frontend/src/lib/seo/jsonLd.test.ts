@@ -14,8 +14,8 @@ describe("serializeJsonLd", () => {
   });
 
   it("preserves valid JSON semantics", () => {
-    const serialized = serializeJsonLd({ name: "Payverge", nested: { count: 1 } });
+    const serialized = serializeJsonLd({ name: "Namakdan", nested: { count: 1 } });
 
-    expect(JSON.parse(serialized)).toEqual({ name: "Payverge", nested: { count: 1 } });
+    expect(JSON.parse(serialized)).toEqual({ name: "Namakdan", nested: { count: 1 } });
   });
 });

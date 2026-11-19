@@ -4,9 +4,9 @@ import { SsrLastKnownGoodCache } from "./ssrLastKnownGood";
 describe("SsrLastKnownGoodCache", () => {
   it("returns the value set for a slug", () => {
     const cache = new SsrLastKnownGoodCache<string>();
-    cache.set("payverge-ai-pro-demo-lounge", "Payverge AI Pro Demo Lounge");
-    expect(cache.get("payverge-ai-pro-demo-lounge")).toBe(
-      "Payverge AI Pro Demo Lounge",
+    cache.set("namakdan-ai-pro-demo-lounge", "Namakdan AI Pro Demo Lounge");
+    expect(cache.get("namakdan-ai-pro-demo-lounge")).toBe(
+      "Namakdan AI Pro Demo Lounge",
     );
   });
 

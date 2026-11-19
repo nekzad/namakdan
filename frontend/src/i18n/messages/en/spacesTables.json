@@ -198,7 +198,7 @@
     },
     "mobile": {
       "title": "Space scan",
-      "docTitle": "Space scan — Payverge",
+      "docTitle": "Space scan — Namakdan",
       "spaceLabel": "Scanning: {name}",
       "loading": "Loading session…",
       "metaError": "Could not load this scan session",

@@ -1,14 +1,14 @@
-export const AUTH_REFRESH_LEASE_KEY = "payverge:auth-refresh:lease";
-export const AUTH_REFRESH_GENERATION_KEY = "payverge:auth-refresh:generation";
+export const AUTH_REFRESH_LEASE_KEY = "namakdan:auth-refresh:lease";
+export const AUTH_REFRESH_GENERATION_KEY = "namakdan:auth-refresh:generation";
 export const CUSTOMER_AUTH_REFRESH_LEASE_KEY =
-  "payverge:customer-auth-refresh:lease";
+  "namakdan:customer-auth-refresh:lease";
 export const CUSTOMER_AUTH_REFRESH_GENERATION_KEY =
-  "payverge:customer-auth-refresh:generation";
+  "namakdan:customer-auth-refresh:generation";
 
-const AUTH_REFRESH_LOCK_NAME = "payverge:auth-refresh";
-const AUTH_REFRESH_CHANNEL_NAME = "payverge:auth-refresh";
-const CUSTOMER_AUTH_REFRESH_LOCK_NAME = "payverge:customer-auth-refresh";
-const CUSTOMER_AUTH_REFRESH_CHANNEL_NAME = "payverge:customer-auth-refresh";
+const AUTH_REFRESH_LOCK_NAME = "namakdan:auth-refresh";
+const AUTH_REFRESH_CHANNEL_NAME = "namakdan:auth-refresh";
+const CUSTOMER_AUTH_REFRESH_LOCK_NAME = "namakdan:customer-auth-refresh";
+const CUSTOMER_AUTH_REFRESH_CHANNEL_NAME = "namakdan:customer-auth-refresh";
 const DEFAULT_LEASE_DURATION_MS = 5_000;
 const DEFAULT_POLL_INTERVAL_MS = 50;
 const DEFAULT_WAIT_TIMEOUT_MS = 7_000;

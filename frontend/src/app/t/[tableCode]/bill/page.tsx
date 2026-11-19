@@ -518,7 +518,7 @@ function GuestBillPageContent() {
         urlParams.get("bill_token")?.trim() ||
         urlParams.get("bill_number")?.trim() ||
         "";
-      const storedPaymentRaw = sessionStorage.getItem("payverge_payment");
+      const storedPaymentRaw = sessionStorage.getItem("namakdan_payment");
       // Only an opaque paymentId/method/billToken reference survives in storage
       // — no amounts or bill details, to limit XSS exfiltration.
       let storedPayment: {
@@ -597,7 +597,7 @@ function GuestBillPageContent() {
                 console.error("Failed to release cancelled split share:", error);
               });
           }
-          sessionStorage.removeItem("payverge_payment");
+          sessionStorage.removeItem("namakdan_payment");
         } else if (paymentStatus === "success") {
           if (safeStoredPayment?.paymentId && safeStoredPayment?.method) {
             setPendingPayment({
@@ -644,7 +644,7 @@ function GuestBillPageContent() {
         paymentId={pendingPayment.paymentId}
         paymentMethod={pendingPayment.paymentMethod}
         onPaymentConfirmed={(paymentDetails) => {
-          sessionStorage.removeItem("payverge_payment");
+          sessionStorage.removeItem("namakdan_payment");
           if (paymentDetails.splitShareId) {
             setShowPaymentStatusChecker(false);
             setPendingPayment(null);

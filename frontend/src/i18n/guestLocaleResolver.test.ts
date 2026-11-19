@@ -122,7 +122,7 @@ describe("resolveGuestRequestLocale (PG-21 / PG-12)", () => {
 
 describe("guest locale cookie helpers (node-safe)", () => {
   it("exports the cookie name used by middleware", () => {
-    expect(GUEST_LOCALE_COOKIE).toBe("payverge_guest_locale");
+    expect(GUEST_LOCALE_COOKIE).toBe("namakdan_guest_locale");
   });
 
   it("writeGuestLocaleCookie is a no-op without document", () => {

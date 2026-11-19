@@ -16,7 +16,7 @@ const mockReplace = jest.fn();
 const mockIsSafeRedirectUrl = jest.fn((..._args: unknown[]) => false);
 
 jest.mock("@/utils/refreshAuth", () => ({
-  SESSION_HINT_KEY: "payverge_had_session",
+  SESSION_HINT_KEY: "namakdan_had_session",
   refreshAuthSession: jest.fn().mockResolvedValue({ ok: true, sessionDead: false }),
 }));
 

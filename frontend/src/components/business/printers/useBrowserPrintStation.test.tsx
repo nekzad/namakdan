@@ -13,8 +13,8 @@ describe("useBrowserPrintStation", () => {
     act(() => result.current.selectPrinter(7));
 
     expect(result.current.printerId).toBe(7);
-    expect(window.localStorage.getItem("payverge_print_station:42")).toBe("7");
-    expect(window.localStorage.getItem("payverge_print_station:9")).toBeNull();
+    expect(window.localStorage.getItem("namakdan_print_station:42")).toBe("7");
+    expect(window.localStorage.getItem("namakdan_print_station:9")).toBeNull();
   });
 
   it("synchronizes settings and the dashboard agent in the same browser tab", () => {
@@ -26,7 +26,7 @@ describe("useBrowserPrintStation", () => {
 
     act(() => agent.result.current.stopStation());
     expect(settings.result.current.printerId).toBeNull();
-    expect(window.localStorage.getItem("payverge_print_station:42")).toBeNull();
+    expect(window.localStorage.getItem("namakdan_print_station:42")).toBeNull();
   });
 
   it("treats a throwing localStorage as no armed station instead of crashing (O6)", () => {

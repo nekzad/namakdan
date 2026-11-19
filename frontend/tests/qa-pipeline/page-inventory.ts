@@ -1,5 +1,5 @@
 /**
- * Complete App Router page inventory for Payverge frontend.
+ * Complete App Router page inventory for Namakdan frontend.
  * Generated from `find src/app -name page.tsx` (74 routes) and annotated for crawl.
  *
  * Tokens: {businessId}, {customUrl}, {tableCode}, {billId},

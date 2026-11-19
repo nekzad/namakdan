@@ -149,14 +149,14 @@ function buildMetadata(
     },
     manifest: pwaManifestHref(locale),
     other: {
-      "payverge-build": `${process.env.NEXT_PUBLIC_RELEASE_SHA ?? "dev"}@${process.env.NEXT_PUBLIC_VERSION ?? "unknown"}`,
+      "namakdan-build": `${process.env.NEXT_PUBLIC_RELEASE_SHA ?? "dev"}@${process.env.NEXT_PUBLIC_VERSION ?? "unknown"}`,
     },
   };
 }
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
-  const localeHeader = requestHeaders.get("x-payverge-locale");
+  const localeHeader = requestHeaders.get("x-namakdan-locale");
   // Collapse to the operator metadata tier (en/es/es-AR). A guest storefront
   // ?lang= flow (e.g. ?lang=ar) degrades to en here — guest pages own their own
   // SEO via generateMetadata in the /b and /t routes. es-AR shares the Spanish
@@ -178,7 +178,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const requestHeaders = await headers();
-  const localeHeader = requestHeaders.get("x-payverge-locale");
+  const localeHeader = requestHeaders.get("x-namakdan-locale");
   // <html lang>/<dir> are derived from the registry so SSR first paint is
   // correct even for guest storefront ?lang= flows (e.g. /b/slug?lang=ar emits
   // lang="ar" dir="rtl") — no longer LTR-until-hydration. es-ar normalises to
@@ -220,7 +220,7 @@ export default async function RootLayout({
     ? serializeJsonLd(structuredData.organization)
     : null;
   const siteJsonLd = serializeJsonLd(structuredData.website);
-  const buildInfo = `window.__PAYVERGE_BUILD__=${JSON.stringify({
+  const buildInfo = `window.__NAMAKDAN_BUILD__=${JSON.stringify({
     sha: process.env.NEXT_PUBLIC_RELEASE_SHA ?? "dev",
     version: process.env.NEXT_PUBLIC_VERSION ?? "unknown",
     builtAt: process.env.NEXT_PUBLIC_BUILD_TIMESTAMP ?? "unknown",

@@ -3430,7 +3430,7 @@
         "fontGeorgia": "Georgia",
         "fontVerdana": "Verdana",
         "download": "Descargar QR",
-        "poweredBy": "Desarrollado por Payverge",
+        "poweredBy": "Desarrollado por Namakdan",
         "reset": "Restablecer Valores Predeterminados",
         "cancel": "Cancelar",
         "save": "Guardar Cambios",
@@ -3982,7 +3982,7 @@
           "secretSavedHint": "Guardado. Dejar vacío para conservar el valor almacenado.",
           "baseUrl": "URL base pública de la API",
           "baseUrlPlaceholder": "https://api.tudominio.com",
-          "baseUrlDescription": "URL pública del backend de Payverge, usada para los enlaces de retorno y cancelación de PayPal.",
+          "baseUrlDescription": "URL pública del backend de Namakdan, usada para los enlaces de retorno y cancelación de PayPal.",
           "baseUrlInvalid": "Ingresar una URL válida (que empiece con https://).",
           "openPayPalDashboard": "Abrir el panel de PayPal"
         },
@@ -4050,7 +4050,7 @@
           "secretSavedHint": "Guardado. Dejar sin cambios para conservar el valor almacenado.",
           "baseUrl": "URL base pública de la API",
           "baseUrlPlaceholder": "https://api.tudominio.com",
-          "baseUrlDescription": "URL pública del backend de Payverge, usada para construir el callback del webhook de MercadoPago.",
+          "baseUrlDescription": "URL pública del backend de Namakdan, usada para construir el callback del webhook de MercadoPago.",
           "baseUrlInvalid": "Ingresar una URL válida (que empiece con https://)."
         },
         "trustpilot": {
@@ -4165,7 +4165,7 @@
           "howToConnect": "Cómo Conectar",
           "clickConnectToTelegramBot": "Haz clic en 'Conectar al Bot de Telegram' arriba",
           "startConversationWithBot": "Abre el bot de Telegram",
-          "botWillAutomaticallyLinkAccount": "Envía el comando de inicio precompletado para que Payverge verifique este negocio",
+          "botWillAutomaticallyLinkAccount": "Envía el comando de inicio precompletado para que Namakdan verifique este negocio",
           "returnHereToConfigureNotificationPreferences": "Regresa aquí para configurar las preferencias de notificación",
           "notificationPreferences": "Preferencias de Notificación",
           "orderAndPaymentNotifications": "Notificaciones de Pedidos y Pagos",

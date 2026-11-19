@@ -17,7 +17,7 @@ describe("fetchGuestTableCatalog", () => {
       ok: true,
       status: 200,
       json: async () => ({
-        business: { name: "Payverge AI Pro Demo Lounge" },
+        business: { name: "Namakdan AI Pro Demo Lounge" },
         categories: [
           {
             name: "Mains",
@@ -32,7 +32,7 @@ describe("fetchGuestTableCatalog", () => {
     }) as unknown as typeof fetch;
 
     await expect(fetchGuestTableCatalog("M03Y18GB3P")).resolves.toEqual({
-      businessName: "Payverge AI Pro Demo Lounge",
+      businessName: "Namakdan AI Pro Demo Lounge",
       dishes: ["Mains", "Harvest Bowl", "Steak Plate", "Date Night for Two"],
     });
   });

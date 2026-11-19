@@ -1,5 +1,5 @@
 {
-  "metaTitle": "Staff login — Payverge",
+  "metaTitle": "Staff login — Namakdan",
   "title": "Staff Login",
   "subtitle": "Sign in to access your business dashboard",
   "errors": {
@@ -54,6 +54,6 @@
   "footer": {
     "businessOwner": "Business owner?",
     "businessLogin": "Sign in as owner",
-    "poweredBy": "Secure staff access powered by Payverge"
+    "poweredBy": "Secure staff access powered by Namakdan"
   }
 }

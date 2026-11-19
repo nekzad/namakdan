@@ -25,7 +25,7 @@ function rewriteCloseLabels(label: string) {
   nodes.forEach((el) => {
     if (el.getAttribute("aria-label") === ENGLISH_CLOSE && label !== ENGLISH_CLOSE) {
       el.setAttribute("aria-label", label);
-      el.setAttribute("data-payverge-close-localized", "1");
+      el.setAttribute("data-namakdan-close-localized", "1");
     }
   });
 }

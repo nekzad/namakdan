@@ -3,8 +3,8 @@
 import { useEffect, useRef, type MutableRefObject } from "react";
 import { randomUUID } from "@/lib/randomUUID";
 
-const BC_PREFIX = "payverge-print-leader-";
-const LOCK_PREFIX = "payverge-print-leader-";
+const BC_PREFIX = "namakdan-print-leader-";
+const LOCK_PREFIX = "namakdan-print-leader-";
 
 /**
  * Cross-tab print leadership for one business. Exactly one tab should poll the
@@ -137,7 +137,7 @@ export function usePrintLeader(
   return isLeader;
 }
 
-const CLIENT_ID_KEY = "payverge-print-client-id";
+const CLIENT_ID_KEY = "namakdan-print-client-id";
 
 /** Stable UUID per browser profile for lease ownership across reloads. */
 export function getOrCreatePrintClientId(): string {

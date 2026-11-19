@@ -102,7 +102,7 @@ interface PublicMenuDisplayProps {
   fulfillmentContext?: FulfillmentContext | null;
   onEditFulfillment?: () => void;
   onClearFulfillment?: () => void;
-  /** True only when Payverge-native delivery is enabled for this business.
+  /** True only when Namakdan-native delivery is enabled for this business.
    *  Partner links (UberEats etc.) do NOT count — the on-page cart can only
    *  check out through native delivery. Gates all add-to-cart affordances. */
   deliveryAvailable?: boolean;
@@ -477,7 +477,7 @@ export default function PublicMenuDisplay({
   // context in useFulfillmentContext — a refresh must not wipe a half-built
   // delivery order while its address context survives.
   const cartStorageKey = businessId
-    ? `payverge_public_cart_${businessId}`
+    ? `namakdan_public_cart_${businessId}`
     : null;
   const [cart, setCart] = useState<CartItem[]>(() => {
     if (!cartStorageKey || typeof window === "undefined") return [];

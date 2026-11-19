@@ -86,7 +86,7 @@ function installDirectorStubs(): void {
     return { ...info, features: { ...(info.features ?? {}), ai: true } };
   };
   let seed: unknown;
-  Object.defineProperty(window, "__PAYVERGE_INSTANCE__", {
+  Object.defineProperty(window, "__NAMAKDAN_INSTANCE__", {
     configurable: true,
     get: () => seed,
     set: (value: unknown) => {

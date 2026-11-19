@@ -32,9 +32,9 @@ describe("guestOgLocale", () => {
 });
 
 describe("guestPublicUrl", () => {
-  it("builds an absolute payverge.io URL", () => {
+  it("builds an absolute example.test URL", () => {
     expect(guestPublicUrl("es", "/b/aurora")).toBe(
-      "https://payverge.io/es/b/aurora",
+      "https://example.test/es/b/aurora",
     );
   });
 });

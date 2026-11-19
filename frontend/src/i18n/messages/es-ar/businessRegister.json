@@ -1,10 +1,10 @@
 {
   "pageTitle": "Registrá tu negocio",
-  "metaTitle": "Registrá tu restaurante — Payverge",
-  "metaDescription": "Registrá tu restaurante en Payverge para empezar a aceptar pedidos QR, pagos, reservas y automatizaciones con IA.",
+  "metaTitle": "Registrá tu restaurante — Namakdan",
+  "metaDescription": "Registrá tu restaurante en Namakdan para empezar a aceptar pedidos QR, pagos, reservas y automatizaciones con IA.",
   "trustMessages": [
     "Configuración guiada con revisión antes del lanzamiento",
-    "Payverge no cobra comisión por pedido — pueden aplicar comisiones del procesador o de red",
+    "Namakdan no cobra comisión por pedido — pueden aplicar comisiones del procesador o de red",
     "Sumate a restaurantes que consolidan POS, cocina y pagos"
   ],
   "header": {
@@ -93,6 +93,6 @@
   },
   "validation": {},
   "messages": {
-    "authenticationMessage": "Por favor iniciá sesión para registrar tu negocio en Payverge."
+    "authenticationMessage": "Por favor iniciá sesión para registrar tu negocio en Namakdan."
   }
 }

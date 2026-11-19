@@ -28,7 +28,7 @@ const hexColorRule = {
 
 // Runtime-class public settings (API/site URL, network, RPC, maintenance,
 // VAPID, Sentry DSN, PostHog, ...) are resolved at request time through
-// src/config/publicConfig.ts (server env / window.__PAYVERGE_ENV__). A literal
+// src/config/publicConfig.ts (server env / window.__NAMAKDAN_ENV__). A literal
 // process.env.NEXT_PUBLIC_* read would be frozen into the bundle at build
 // time and silently ignore the operator's runtime config. Only the
 // build-identity values below may be inlined. See
@@ -59,7 +59,7 @@ const eslintConfig = [
     files: ["**/*.{js,jsx,mjs,ts,tsx,mts,cts}"],
     rules: {
       // eslint-plugin-react-hooks 7 (via eslint-config-next 16) turns on the
-      // React Compiler diagnostics. Payverge does not build with the React
+      // React Compiler diagnostics. Namakdan does not build with the React
       // Compiler, so keep the pre-upgrade policy (rules-of-hooks +
       // exhaustive-deps) and adopt these in a dedicated pass.
       "react-hooks/set-state-in-effect": "off",
@@ -105,7 +105,7 @@ const eslintConfig = [
   },
   {
     // The single sanctioned reader of build-time-inlined NEXT_PUBLIC_* values
-    // (legacy fallback when runtime env and window.__PAYVERGE_ENV__ are silent).
+    // (legacy fallback when runtime env and window.__NAMAKDAN_ENV__ are silent).
     files: ["src/config/publicConfig.ts"],
     rules: {
       "no-restricted-syntax": ["error", ...paletteRules, hexColorRule],

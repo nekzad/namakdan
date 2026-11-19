@@ -39,7 +39,7 @@ describe("legal pages render the template on the server", () => {
       expect(html).toContain("legal-template-banner");
       expect(html).toContain("Trattoria Hospitality SRL");
       expect(html).toContain("help@trattoria.example");
-      expect(html).not.toMatch(/Payverge provides|trademarks of our company/);
+      expect(html).not.toMatch(/Namakdan provides|trademarks of our company/);
     },
   );
 

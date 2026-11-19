@@ -98,7 +98,7 @@ test.describe("Owner onboarding journey", () => {
   }) => {
     test.setTimeout(120_000);
     const stamp = Date.now();
-    const email = `e2e-owner-${stamp}@payverge.test`;
+    const email = `e2e-owner-${stamp}@example.test`;
     const password = "E2e!Owner-Journey-42";
     const ownerName = "E2E Owner";
     const inviteCode = `e2e-owner-invite-${stamp}`;

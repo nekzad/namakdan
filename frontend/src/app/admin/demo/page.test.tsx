@@ -35,13 +35,13 @@ const summary: AdminDemoSummary = {
   businesses: [
     {
       id: 10,
-      name: "Payverge Core Demo Kitchen",
+      name: "Namakdan Core Demo Kitchen",
       business_id: "demo-admin-5-core",
       is_demo: true,
     },
     {
       id: 11,
-      name: "Payverge AI Pro Demo Lounge",
+      name: "Namakdan AI Pro Demo Lounge",
       business_id: "demo-admin-5-ai-pro",
       is_demo: true,
     },
@@ -49,7 +49,7 @@ const summary: AdminDemoSummary = {
   access: [
     {
       business_id: 10,
-      business_name: "Payverge Core Demo Kitchen",
+      business_name: "Namakdan Core Demo Kitchen",
       role: "manager",
       name: "Maya Manager",
       email: "demo+admin5-business10-staff1@example.com",
@@ -97,10 +97,10 @@ describe("AdminDemoPage", () => {
     render(<AdminDemoPage />);
 
     expect(await screen.findByText("Demo Center")).toBeInTheDocument();
-    expect(screen.getAllByText("Payverge Core Demo Kitchen").length).toBeGreaterThan(
+    expect(screen.getAllByText("Namakdan Core Demo Kitchen").length).toBeGreaterThan(
       0,
     );
-    expect(screen.getByText("Payverge AI Pro Demo Lounge")).toBeInTheDocument();
+    expect(screen.getByText("Namakdan AI Pro Demo Lounge")).toBeInTheDocument();
     expect(screen.getByText("Demo Staff Access")).toBeInTheDocument();
     expect(
       screen.getByText("demo+admin5-business10-staff1@example.com"),

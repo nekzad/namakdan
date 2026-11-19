@@ -10,12 +10,12 @@ const get = axiosInstance.get as jest.Mock;
 beforeEach(() => {
   resetInstanceCacheForTests();
   get.mockReset();
-  delete (window as unknown as Record<string, unknown>).__PAYVERGE_INSTANCE__;
+  delete (window as unknown as Record<string, unknown>).__NAMAKDAN_INSTANCE__;
 });
 
 describe("useInstance", () => {
   it("uses the layout seed without a request", () => {
-    (window as unknown as Record<string, unknown>).__PAYVERGE_INSTANCE__ = {
+    (window as unknown as Record<string, unknown>).__NAMAKDAN_INSTANCE__ = {
       product_name: "Trattoria OS",
       registration_mode: "closed",
       features: { ai: false },
@@ -42,6 +42,6 @@ describe("useInstance", () => {
     const { result } = renderHook(() => useInstance());
     await waitFor(() => expect(result.current.isError).toBe(true));
     expect(result.current.isOff("ai")).toBe(false);
-    expect(result.current.productName).toBe("Payverge");
+    expect(result.current.productName).toBe("Namakdan");
   });
 });

@@ -14,15 +14,15 @@ const INSTANCE_TAB_FEATURE: Readonly<
 };
 
 /** Self-hosting docs per optional integration (public repository tree). */
-const DOCS_BASE = "https://github.com/stdevMac/payverge/blob/main/docs/self-hosting";
+const DOCS_BASE = "https://github.com/nekzad/namakdan/blob/main/docs/self-hosting";
 export const FEATURE_DOCS_URL: Readonly<
   Partial<Record<keyof InstanceFeatures, string>>
 > = {
   ai: `${DOCS_BASE}/ai.md`,
   email: `${DOCS_BASE}/email.md`,
   whatsapp: `${DOCS_BASE}/whatsapp.md`,
-  telegram: "https://github.com/stdevMac/payverge/blob/main/docs/telegram-plugin-runbook.md",
-  fiscal_ar: "https://github.com/stdevMac/payverge/tree/main/docs/fiscal",
+  telegram: "https://github.com/nekzad/namakdan/blob/main/docs/telegram-plugin-runbook.md",
+  fiscal_ar: "https://github.com/nekzad/namakdan/tree/main/docs/fiscal",
 };
 
 /** The gated feature a tab needs, when the instance confirmed it is off. */

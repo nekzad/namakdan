@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import NotFoundClient from "@/app/NotFoundClient";
 
 export const metadata: Metadata = {
-  title: "Table | Payverge",
+  title: "Table | Namakdan",
   robots: { index: false, follow: false },
 };
 

@@ -1,8 +1,8 @@
 import { execFileSync } from "node:child_process";
 import path from "node:path";
 
-const POSTGRES_USER = "payverge";
-const POSTGRES_DB = "payverge";
+const POSTGRES_USER = "namakdan";
+const POSTGRES_DB = "namakdan";
 const COMPOSE_FILE = path.resolve(
   __dirname,
   "..",
@@ -47,7 +47,7 @@ export function runJourneySql(sql: string): void {
     const dbHost = process.env.PLAYWRIGHT_DB_HOST || "localhost";
     const dbPort = process.env.PLAYWRIGHT_DB_PORT || "5432";
     const dbPassword =
-      process.env.PLAYWRIGHT_DB_PASSWORD || "payverge_password";
+      process.env.PLAYWRIGHT_DB_PASSWORD || "namakdan_password";
     execFileSync(
       "psql",
       [

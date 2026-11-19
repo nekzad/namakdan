@@ -117,7 +117,7 @@ export default function TableDetailModal({
     );
     return typeof result === "string" && result.length > 0
       ? result
-      : "Powered by Payverge";
+      : "Powered by Namakdan";
   })();
   const url = `${typeof window !== "undefined" ? window.location.origin : ""}/t/${table.table_code}`;
   const [copied, setCopied] = useState(false);

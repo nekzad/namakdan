@@ -19,7 +19,7 @@ const mockRefreshAuthSession = jest.fn();
 const mockAxiosPost = jest.fn();
 
 jest.mock("@/utils/refreshAuth", () => ({
-  SESSION_HINT_KEY: "payverge_had_session",
+  SESSION_HINT_KEY: "namakdan_had_session",
   refreshAuthSession: (...args: unknown[]) => mockRefreshAuthSession(...args),
 }));
 
@@ -149,7 +149,7 @@ describe("HybridAuthProvider wallet bridge", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     localStorage.clear();
-    localStorage.setItem("payverge_had_session", "1");
+    localStorage.setItem("namakdan_had_session", "1");
     mockRefreshAuthSession.mockResolvedValue({ ok: true });
     mockAxiosPost.mockResolvedValue({ data: {} });
   });
@@ -175,7 +175,7 @@ describe("HybridAuthProvider wallet bridge", () => {
       expect.anything(),
     );
     expect(mockClearUser).not.toHaveBeenCalled();
-    expect(localStorage.getItem("payverge_had_session")).toBe("1");
+    expect(localStorage.getItem("namakdan_had_session")).toBe("1");
   });
 
   it("still clears a wallet session on a real wallet disconnect", async () => {

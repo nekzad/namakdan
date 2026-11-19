@@ -4,7 +4,7 @@ import {
   resolveOperatorLocale,
 } from "./htmlLangDir";
 
-// SSR <html lang>/<dir> derivation. The middleware writes x-payverge-locale;
+// SSR <html lang>/<dir> derivation. The middleware writes x-namakdan-locale;
 // layout.tsx reads it and must emit a correct first-paint lang + dir BEFORE any
 // client effect runs. Operator routes carry en|es|es-ar; guest storefront
 // ?lang= flows carry any canonical storefront code (e.g. ar, es-AR, fr).

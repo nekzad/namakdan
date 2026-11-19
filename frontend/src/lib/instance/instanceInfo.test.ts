@@ -30,7 +30,7 @@ describe("parseInstanceInfo", () => {
       public_url: "https://pos.example/",
     });
     expect(info).not.toBeNull();
-    expect(productNameOf(info)).toBe("Payverge");
+    expect(productNameOf(info)).toBe("Namakdan");
     expect(info!.logo_url).toBe("");
     expect(info!.support_email).toBe("");
     expect(info!.brand_color).toBe("#1a6b6a");
@@ -43,14 +43,14 @@ describe("parseInstanceInfo", () => {
   it("names the legal entity before the company and the product", () => {
     const info = parseInstanceInfo({ ...base, product_name: "Trattoria OS", company_name: "Trattoria SRL" });
     expect(legalNameOf(info)).toBe("Trattoria SRL");
-    expect(legalNameOf(null)).toBe("Payverge");
+    expect(legalNameOf(null)).toBe("Namakdan");
   });
 
   it("names the site after the company, then the product", () => {
     const info = parseInstanceInfo({ ...base, product_name: "Trattoria OS", company_name: "Trattoria", legal_entity: "Trattoria SRL" });
     expect(siteNameOf(info)).toBe("Trattoria");
     expect(siteNameOf(parseInstanceInfo({ ...base, product_name: "Trattoria OS", company_name: "" }))).toBe("Trattoria OS");
-    expect(siteNameOf(null)).toBe("Payverge");
+    expect(siteNameOf(null)).toBe("Namakdan");
   });
 
   it("emits CSS channels only for a non-default colour", () => {

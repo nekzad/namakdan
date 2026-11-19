@@ -43,7 +43,7 @@ afterEach(() => {
 
 describe("sitemap — storefront slugs (SEO-2)", () => {
   it("includes published storefront /b/<slug> URLs from the endpoint", async () => {
-    process.env.API_URL = "https://api.payverge.io/api/v1";
+    process.env.API_URL = "https://api.example.test/api/v1";
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
       json: async () => ({
@@ -59,15 +59,15 @@ describe("sitemap — storefront slugs (SEO-2)", () => {
     const entries = await sitemap();
     const urls = entries.map((e) => e.url);
     expect(global.fetch).toHaveBeenCalledWith(
-      "https://api.payverge.io/api/v1/business/storefronts",
+      "https://api.example.test/api/v1/business/storefronts",
       expect.anything(),
     );
-    expect(urls).toContain("https://payverge.io/b/alpha");
-    expect(urls).toContain("https://payverge.io/b/beta");
+    expect(urls).toContain("https://example.test/b/alpha");
+    expect(urls).toContain("https://example.test/b/beta");
   });
 
   it("emits hreflang alternates for storefront entries (SEO-0.4)", async () => {
-    process.env.API_URL = "https://api.payverge.io/api/v1";
+    process.env.API_URL = "https://api.example.test/api/v1";
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
       json: async () => ({
@@ -77,25 +77,25 @@ describe("sitemap — storefront slugs (SEO-2)", () => {
 
     const { default: sitemap } = await import("../sitemap");
     const entries = await sitemap();
-    const alpha = entries.find((e) => e.url === "https://payverge.io/b/alpha");
+    const alpha = entries.find((e) => e.url === "https://example.test/b/alpha");
     expect(alpha).toBeDefined();
     const languages = alpha?.alternates?.languages as Record<string, string>;
     // Mirrors /b/[customUrl] generateMetadata: ?lang=<code> + lang-less x-default.
-    expect(languages["x-default"]).toBe("https://payverge.io/b/alpha");
-    expect(languages.en).toBe("https://payverge.io/b/alpha?lang=en");
-    expect(languages.es).toBe("https://payverge.io/es/b/alpha");
-    expect(languages["es-AR"]).toBe("https://payverge.io/es-ar/b/alpha");
+    expect(languages["x-default"]).toBe("https://example.test/b/alpha");
+    expect(languages.en).toBe("https://example.test/b/alpha?lang=en");
+    expect(languages.es).toBe("https://example.test/es/b/alpha");
+    expect(languages["es-AR"]).toBe("https://example.test/es-ar/b/alpha");
   });
 
   it("includes published demo showrooms and excludes kind=test (#612)", async () => {
-    process.env.API_URL = "https://api.payverge.io/api/v1";
+    process.env.API_URL = "https://api.example.test/api/v1";
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
       json: async () => ({
         storefronts: [
           { custom_url: "real-bistro", updated_at: "2026-06-01T00:00:00Z" },
           {
-            custom_url: "payverge-ai-pro-demo-lounge",
+            custom_url: "namakdan-ai-pro-demo-lounge",
             updated_at: "2026-06-01T00:00:00Z",
             is_demo: true,
             kind: "demo",
@@ -112,11 +112,11 @@ describe("sitemap — storefront slugs (SEO-2)", () => {
     const { default: sitemap } = await import("../sitemap");
     const entries = await sitemap();
     const urls = entries.map((e) => e.url);
-    expect(urls).toContain("https://payverge.io/b/real-bistro");
+    expect(urls).toContain("https://example.test/b/real-bistro");
     expect(urls).toContain(
-      "https://payverge.io/b/payverge-ai-pro-demo-lounge",
+      "https://example.test/b/namakdan-ai-pro-demo-lounge",
     );
-    expect(urls).not.toContain("https://payverge.io/b/ci-test-kitchen");
+    expect(urls).not.toContain("https://example.test/b/ci-test-kitchen");
   });
 
   it("uses INTERNAL_API_URL when API_URL is empty (#612)", async () => {
@@ -126,7 +126,7 @@ describe("sitemap — storefront slugs (SEO-2)", () => {
       ok: true,
       json: async () => ({
         storefronts: [
-          { custom_url: "payverge-ai-pro-demo-lounge", updated_at: "2026-06-01T00:00:00Z" },
+          { custom_url: "namakdan-ai-pro-demo-lounge", updated_at: "2026-06-01T00:00:00Z" },
         ],
       }),
     }) as unknown as typeof fetch;
@@ -138,30 +138,30 @@ describe("sitemap — storefront slugs (SEO-2)", () => {
       expect.anything(),
     );
     expect(entries.map((e) => e.url)).toContain(
-      "https://payverge.io/b/payverge-ai-pro-demo-lounge",
+      "https://example.test/b/namakdan-ai-pro-demo-lounge",
     );
     delete process.env.INTERNAL_API_URL;
   });
 
   it("degrades gracefully (no throw, still returns static routes) when the fetch fails", async () => {
-    process.env.API_URL = "https://api.payverge.io/api/v1";
+    process.env.API_URL = "https://api.example.test/api/v1";
     global.fetch = jest
       .fn()
       .mockRejectedValue(new Error("network down")) as unknown as typeof fetch;
     const { default: sitemap } = await import("../sitemap");
     const entries = await sitemap();
     // Static routes still present.
-    expect(entries.some((e) => e.url === "https://payverge.io/business/register")).toBe(
+    expect(entries.some((e) => e.url === "https://example.test/business/register")).toBe(
       true,
     );
     // No /b/ entries when the source failed (no silent garbage).
     expect(
-      entries.some((e) => e.url.startsWith("https://payverge.io/b/")),
+      entries.some((e) => e.url.startsWith("https://example.test/b/")),
     ).toBe(false);
   });
 
   it("keeps static routes when the storefront endpoint returns non-success", async () => {
-    process.env.API_URL = "https://api.payverge.io/api/v1";
+    process.env.API_URL = "https://api.example.test/api/v1";
     global.fetch = jest.fn().mockResolvedValue({
       ok: false,
       status: 503,
@@ -169,16 +169,16 @@ describe("sitemap — storefront slugs (SEO-2)", () => {
     const { default: sitemap } = await import("../sitemap");
     const entries = await sitemap();
 
-    expect(entries.some((e) => e.url === "https://payverge.io/business/register")).toBe(
+    expect(entries.some((e) => e.url === "https://example.test/business/register")).toBe(
       true,
     );
     expect(
-      entries.some((e) => e.url.startsWith("https://payverge.io/b/")),
+      entries.some((e) => e.url.startsWith("https://example.test/b/")),
     ).toBe(false);
   });
 
   it("keeps static routes when the storefront payload is malformed", async () => {
-    process.env.API_URL = "https://api.payverge.io/api/v1";
+    process.env.API_URL = "https://api.example.test/api/v1";
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
       json: async () => ({ storefronts: "not-an-array" }),
@@ -186,11 +186,11 @@ describe("sitemap — storefront slugs (SEO-2)", () => {
     const { default: sitemap } = await import("../sitemap");
     const entries = await sitemap();
 
-    expect(entries.some((e) => e.url === "https://payverge.io/business/register")).toBe(
+    expect(entries.some((e) => e.url === "https://example.test/business/register")).toBe(
       true,
     );
     expect(
-      entries.some((e) => e.url.startsWith("https://payverge.io/b/")),
+      entries.some((e) => e.url.startsWith("https://example.test/b/")),
     ).toBe(false);
   });
 

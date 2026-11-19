@@ -11,7 +11,7 @@
  * design-sync bundle is plain esbuild output with no Next build step, so the
  * reads survive into the browser, where `process` does not exist — every
  * component in the bundle then failed with "ReferenceError: process is not
- * defined" before `window.Payverge` was ever assigned.
+ * defined" before `window.Namakdan` was ever assigned.
  *
  * This shims the environment, not the components. Nothing here changes what a
  * component renders; it supplies the values Next's own client runtime expects.

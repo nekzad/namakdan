@@ -10,7 +10,7 @@ import path from "path";
 import { FEATURE_DOCS_URL } from "./featureGates";
 
 const REPO_ROOT = path.resolve(__dirname, "../../../..");
-const PREFIX = /^https:\/\/github\.com\/stdevMac\/payverge\/(?:blob|tree)\/main\//;
+const PREFIX = /^https:\/\/github\.com\/nekzad\/namakdan\/(?:blob|tree)\/main\//;
 
 describe("FEATURE_DOCS_URL targets", () => {
   it.each(Object.entries(FEATURE_DOCS_URL))("%s docs exist in the public tree", (_f, url) => {

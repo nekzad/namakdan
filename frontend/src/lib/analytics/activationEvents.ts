@@ -121,8 +121,8 @@ export function validateActivationEvent(event: ClientActivationEvent): void {
   }
 }
 
-const FUNNEL_KEY = "payverge_activation_funnel_v1";
-const SENT_PREFIX = "payverge_activation_sent_v1:";
+const FUNNEL_KEY = "namakdan_activation_funnel_v1";
+const SENT_PREFIX = "namakdan_activation_sent_v1:";
 
 function browserStorage(): ActivationStorage {
   return window.sessionStorage;

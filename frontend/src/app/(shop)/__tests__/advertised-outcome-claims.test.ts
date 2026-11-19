@@ -95,7 +95,7 @@ describe("advertised outcome claims stay evidence-scoped", () => {
         }),
       );
       if (typeof primer === "string") {
-        expect(primer).toContain("Payverge");
+        expect(primer).toContain("Namakdan");
         expect(primer).toContain("Base");
       }
       const landingCrypto = tree.businessPage?.info?.cryptoPaymentsDesc;

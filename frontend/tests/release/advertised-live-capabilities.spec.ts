@@ -12,7 +12,7 @@ test.describe.serial("Verified advertised outcomes", () => {
   test.beforeAll(async ({ playwright }) => {
     api = await playwright.request.newContext({ ignoreHTTPSErrors: true });
     const stamp = Date.now();
-    const email = `advertised-${stamp}@payverge.test`;
+    const email = `advertised-${stamp}@example.test`;
     const register = await api.post(`${API_BASE}/auth/register`, {
       data: {
         email,

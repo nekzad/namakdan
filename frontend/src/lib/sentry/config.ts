@@ -69,7 +69,7 @@ const SENSITIVE_EXACT_KEYS = new Set([
   "x_forwarded_for",
   // The proxy's socket-peer stamp (src/lib/proxy/peerStamp.ts): the client
   // IP plus the per-process nonce that authenticates the stamp.
-  "x_payverge_peer",
+  "x_namakdan_peer",
   "x_real_ip",
 ]);
 
@@ -151,7 +151,7 @@ export function parseSampleRate(value: string | undefined, fallback: number): nu
 
 export function getFrontendSentryRuntimeConfig(): FrontendSentryRuntimeConfig {
   // DSN, environment, enable flag and sample rates are runtime public config
-  // (window.__PAYVERGE_ENV__ in the browser); only the release is build-time.
+  // (window.__NAMAKDAN_ENV__ in the browser); only the release is build-time.
   const publicConfig = getPublicConfig();
   const dsn = normalizeEnvValue(publicConfig.sentryDsn);
   const environment = normalizeEnvironmentName(

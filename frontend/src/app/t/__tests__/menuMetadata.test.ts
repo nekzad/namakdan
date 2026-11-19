@@ -1,4 +1,4 @@
-// #864: generateMetadata reads x-payverge-locale via next/headers, which
+// #864: generateMetadata reads x-namakdan-locale via next/headers, which
 // throws outside a request scope. Null header falls back to defaultLocale.
 jest.mock("next/headers", () => ({
   headers: async () => ({ get: () => null }),
@@ -44,7 +44,7 @@ describe("generateMetadata for /t/{tableCode}/menu", () => {
     const meta = await generateMetadata({
       params: Promise.resolve({ tableCode: "AI-T01" }),
     });
-    expect(meta.title).toBe("Mara AI Lounge – Menu | Payverge");
+    expect(meta.title).toBe("Mara AI Lounge – Menu | Namakdan");
     expect(meta.robots).toEqual({ index: false, follow: false });
   });
 
@@ -53,7 +53,7 @@ describe("generateMetadata for /t/{tableCode}/menu", () => {
     const meta = await generateMetadata({
       params: Promise.resolve({ tableCode: "MISSING" }),
     });
-    expect(meta.title).toBe("Menu | Payverge");
+    expect(meta.title).toBe("Menu | Namakdan");
     expect(meta.robots).toEqual({ index: false, follow: false });
   });
 
@@ -64,7 +64,7 @@ describe("generateMetadata for /t/{tableCode}/menu", () => {
     const meta = await generateMetadata({
       params: Promise.resolve({ tableCode: "AI-T01" }),
     });
-    expect(meta.title).toBe("Menu | Payverge");
+    expect(meta.title).toBe("Menu | Namakdan");
   });
 
   it("bounds metadata lookup with an abort signal so the route cannot hang", async () => {

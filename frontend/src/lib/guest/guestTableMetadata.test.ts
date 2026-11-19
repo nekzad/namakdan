@@ -6,13 +6,13 @@ describe("guestTablePageMetadata", () => {
     const meta = await guestTablePageMetadata({
       tableCode: "M03Y18GB3P",
       surface: "menu",
-      businessName: "Payverge AI Pro Demo Lounge",
+      businessName: "Namakdan AI Pro Demo Lounge",
     });
-    expect(meta.title).toBe("Payverge AI Pro Demo Lounge – Menu | Payverge");
+    expect(meta.title).toBe("Namakdan AI Pro Demo Lounge – Menu | Namakdan");
     expect(String(meta.openGraph?.url)).toContain("/t/M03Y18GB3P/menu");
-    expect(meta.openGraph?.title).toContain("Payverge AI Pro Demo Lounge");
-    expect(String(meta.openGraph?.description)).toMatch(/Menu at Payverge AI Pro Demo Lounge/i);
-    expect(String(meta.openGraph?.url)).not.toBe("https://payverge.io");
+    expect(meta.openGraph?.title).toContain("Namakdan AI Pro Demo Lounge");
+    expect(String(meta.openGraph?.description)).toMatch(/Menu at Namakdan AI Pro Demo Lounge/i);
+    expect(String(meta.openGraph?.url)).not.toBe("https://example.test");
     expect(String(meta.title)).not.toMatch(/AI-Powered Restaurant Management/i);
   });
 
@@ -20,12 +20,12 @@ describe("guestTablePageMetadata", () => {
     const meta = await guestTablePageMetadata({
       tableCode: "M03Y18GB3P",
       surface: "bill",
-      businessName: "Payverge AI Pro Demo Lounge",
+      businessName: "Namakdan AI Pro Demo Lounge",
     });
-    expect(meta.title).toBe("Payverge AI Pro Demo Lounge – Bill | Payverge");
+    expect(meta.title).toBe("Namakdan AI Pro Demo Lounge – Bill | Namakdan");
     expect(String(meta.openGraph?.url)).toContain("/t/M03Y18GB3P/bill");
-    expect(String(meta.openGraph?.description)).toMatch(/bill at Payverge AI Pro Demo Lounge/i);
-    expect(String(meta.openGraph?.url)).not.toBe("https://payverge.io");
+    expect(String(meta.openGraph?.description)).toMatch(/bill at Namakdan AI Pro Demo Lounge/i);
+    expect(String(meta.openGraph?.url)).not.toBe("https://example.test");
   });
 
   it("self-canonicalizes /es/t/{code} with es_ES og:locale and Spanish twitter title (#922)", async () => {
@@ -36,20 +36,20 @@ describe("guestTablePageMetadata", () => {
       locale: "es",
     });
     expect(String(meta.alternates?.canonical)).toBe(
-      "https://payverge.io/es/t/FV214XU12D",
+      "https://example.test/es/t/FV214XU12D",
     );
     expect(String(meta.openGraph?.url)).toBe(
-      "https://payverge.io/es/t/FV214XU12D",
+      "https://example.test/es/t/FV214XU12D",
     );
     expect(meta.openGraph?.locale).toBe("es_ES");
     expect(String((meta.twitter as { title?: string }).title)).toBe(
       String(meta.title),
     );
     expect(String((meta.twitter as { title?: string }).title)).not.toBe(
-      "Payverge - AI-Driven Restaurant Operations",
+      "Namakdan - AI-Driven Restaurant Operations",
     );
     expect(meta.alternates?.languages?.es).toBe(
-      "https://payverge.io/es/t/FV214XU12D",
+      "https://example.test/es/t/FV214XU12D",
     );
   });
 
@@ -61,7 +61,7 @@ describe("guestTablePageMetadata", () => {
       locale: "es-AR",
     });
     expect(String(meta.alternates?.canonical)).toBe(
-      "https://payverge.io/es-ar/t/FV214XU12D/menu",
+      "https://example.test/es-ar/t/FV214XU12D/menu",
     );
     expect(meta.openGraph?.locale).toBe("es_AR");
   });
@@ -73,7 +73,7 @@ describe("guestTablePageMetadata", () => {
       businessName: "Parrilla Quebracho Azul",
       locale: "es",
     });
-    expect(esMenu.title).toBe("Parrilla Quebracho Azul – Menú | Payverge");
+    expect(esMenu.title).toBe("Parrilla Quebracho Azul – Menú | Namakdan");
     expect(String(esMenu.title)).not.toMatch(/\bMenu\b/);
 
     const esBill = await guestTablePageMetadata({
@@ -82,7 +82,7 @@ describe("guestTablePageMetadata", () => {
       businessName: "Parrilla Quebracho Azul",
       locale: "es",
     });
-    expect(esBill.title).toBe("Parrilla Quebracho Azul – Cuenta | Payverge");
+    expect(esBill.title).toBe("Parrilla Quebracho Azul – Cuenta | Namakdan");
     expect(String(esBill.title)).not.toMatch(/\bBill\b/);
 
     const arMenu = await guestTablePageMetadata({
@@ -91,6 +91,6 @@ describe("guestTablePageMetadata", () => {
       businessName: "Parrilla Quebracho Azul",
       locale: "es-AR",
     });
-    expect(arMenu.title).toBe("Parrilla Quebracho Azul – Menú | Payverge");
+    expect(arMenu.title).toBe("Parrilla Quebracho Azul – Menú | Namakdan");
   });
 });

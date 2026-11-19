@@ -250,7 +250,7 @@ export function GuestTranslationProvider({
     setCurrentLanguage(language);
     // PG-12 / PG-21: persist cross-surface so reservations micro-pages and
     // the next SSR request agree with the diner's pick (distinct from the
-    // operator payverge_locale cookie).
+    // operator namakdan_locale cookie).
     writeGuestLocaleCookie(language);
     if (businessId) {
       localStorage.setItem(`guest-language-${businessId}`, language);

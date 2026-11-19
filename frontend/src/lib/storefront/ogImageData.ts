@@ -17,7 +17,7 @@ const MAX_OG_IMAGE_BYTES = 5_000_000;
  */
 
 export interface OgCardModel {
-  /** Business name, or the Payverge fallback wordmark for the default card. */
+  /** Business name, or the Namakdan fallback wordmark for the default card. */
   name: string;
   /** Single-letter initial for the no-logo tile. */
   initial: string;
@@ -48,7 +48,7 @@ export function buildOgCardModel(input: {
 }): OgCardModel {
   const { business, customUrl, baseUrl, googleRating } = input;
   const host = baseUrl.replace(/^https?:\/\//, "").replace(/\/+$/, "");
-  const name = business?.name?.trim() || "Payverge";
+  const name = business?.name?.trim() || "Namakdan";
   const description = business?.description?.trim()
     ? truncateOgText(business.description, 120)
     : null;

@@ -21,7 +21,7 @@ const mockClearUser = jest.fn();
 const mockRefreshAuthSession = jest.fn();
 
 jest.mock("@/utils/refreshAuth", () => ({
-  SESSION_HINT_KEY: "payverge_had_session",
+  SESSION_HINT_KEY: "namakdan_had_session",
   refreshAuthSession: (...args: unknown[]) => mockRefreshAuthSession(...args),
 }));
 
@@ -126,7 +126,7 @@ describe("HybridAuthProvider — non-dead 401 must not clear principal (#5)", ()
   beforeEach(() => {
     jest.clearAllMocks();
     localStorage.clear();
-    localStorage.setItem("payverge_had_session", "1");
+    localStorage.setItem("namakdan_had_session", "1");
     mockClearStaffSession.mockResolvedValue(undefined);
     mockAxiosPost.mockResolvedValue({ data: {} });
     mockRefreshAuthSession.mockResolvedValue({ ok: true });

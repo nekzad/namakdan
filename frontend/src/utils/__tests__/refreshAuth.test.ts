@@ -47,7 +47,7 @@ describe("refreshAuthSession", () => {
   beforeEach(() => {
     __resetRefreshAuthForTests();
     localStorage.clear();
-    localStorage.setItem("payverge_had_session", "1");
+    localStorage.setItem("namakdan_had_session", "1");
   });
 
   afterEach(() => {
@@ -64,7 +64,7 @@ describe("refreshAuthSession", () => {
     await expect(refreshAuthSession("https://api.example.com")).resolves.toEqual({
       ok: true,
     });
-    expect(localStorage.getItem("payverge_had_session")).toBe("1");
+    expect(localStorage.getItem("namakdan_had_session")).toBe("1");
   });
 
   it("does not mark sessionDead when refresh 401s but session-info is still authenticated", async () => {
@@ -132,7 +132,7 @@ describe("refreshAuthSession", () => {
       alreadyRotated: true,
       sessionDead: false,
     });
-    expect(localStorage.getItem("payverge_had_session")).toBe("1");
+    expect(localStorage.getItem("namakdan_had_session")).toBe("1");
   });
 
   it("does not infer a rotation race from the error text alone", async () => {

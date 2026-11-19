@@ -16,7 +16,7 @@ import { test, expect } from "@playwright/test";
 import { loginStaff } from "./helpers/staff-login";
 
 const BUSINESS_ID = process.env.PLAYWRIGHT_BUSINESS_ID || "1";
-const MANAGER_EMAIL = process.env.PLAYWRIGHT_MANAGER_EMAIL || "manager@core-demo.payverge.test";
+const MANAGER_EMAIL = process.env.PLAYWRIGHT_MANAGER_EMAIL || "manager@core-demo.example.test";
 
 test.describe.serial("Driver Performance API", () => {
   test.skip(
@@ -87,7 +87,7 @@ test.describe.serial("Driver Performance API", () => {
     });
     try {
       const serverEmail =
-        process.env.PLAYWRIGHT_SERVER_EMAIL || "server1@core-demo.payverge.test";
+        process.env.PLAYWRIGHT_SERVER_EMAIL || "server1@core-demo.example.test";
       await loginStaff(apiRequest, serverEmail);
 
       const resp = await apiRequest.get(`${process.env.PLAYWRIGHT_API_BASE || "http://localhost:8080/api/v1"}/inside/businesses/${BUSINESS_ID}/drivers/performance`);

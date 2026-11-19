@@ -3,7 +3,7 @@ import { buildQrSheetHtml, escapeHtml } from "./qrSheetHtml";
 const strings = {
   scanCaption: "Scan to view the menu & order",
   documentTitle: "Trattoria — QR codes",
-  poweredBy: "Powered by Payverge",
+  poweredBy: "Powered by Namakdan",
 };
 
 const card = (n: number) => ({
@@ -22,7 +22,7 @@ describe("buildQrSheetHtml (P2-16 print-all sheet)", () => {
     expect(html).toContain("/t/CODE1");
     expect(html).toContain('src="data:image/png;base64,QR1"');
     expect(html).toContain("Scan to view the menu &amp; order");
-    expect(html).toContain("Powered by Payverge");
+    expect(html).toContain("Powered by Namakdan");
     expect(html).toContain('class="powered"');
   });
 

@@ -92,7 +92,7 @@ describe("CommandPaletteProvider", () => {
     // Palette closes after dispatch.
     expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
     // Recent persisted under the per-business key.
-    expect(window.localStorage.getItem("payverge_cmdk_recent:7")).toContain("bills");
+    expect(window.localStorage.getItem("namakdan_cmdk_recent:7")).toContain("bills");
   });
 
   it("finds cash-register by keyword and navigates to it", () => {

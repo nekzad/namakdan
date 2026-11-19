@@ -40,7 +40,7 @@ export const defaultOpenGraphImages = [
 const defaultTwitterImages = [TWITTER_IMAGE_URL] as const;
 
 /** Site-wide OG defaults that page-level openGraph blocks must re-declare. */
-export const SITE_OG_SITE_NAME = "Payverge";
+export const SITE_OG_SITE_NAME = "Namakdan";
 export const SITE_OG_TYPE = "website" as const;
 const SITE_OG_LOCALE_EN = "en_US";
 

@@ -60,7 +60,7 @@ describe("assistant rendering security", () => {
     ["data:text/html,<script>alert(1)</script>", "data scheme"],
     ["//evil.example/path", "protocol-relative URL"],
     ["https://user:pass@example.com/private", "credentialed URL"],
-    ["https://payverge.io。evil.example/path", "Unicode host separator"],
+    ["https://example.test。evil.example/path", "Unicode host separator"],
     ["/business/7/dashboard?tab=secret-admin", "unknown internal route"],
   ])("keeps %s (%s) inert", (href) => {
     expect(classifyAssistantHref(href)).toBe("blocked");

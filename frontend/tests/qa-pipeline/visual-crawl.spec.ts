@@ -162,7 +162,7 @@ test.describe("QA pipeline — visual + deep interact", () => {
     // Pre-set cookie consent so screenshots aren't blocked by the privacy modal.
     await context.addInitScript(() => {
       window.localStorage.setItem(
-        "payverge_cookie_consent",
+        "namakdan_cookie_consent",
         JSON.stringify({
           version: 1,
           analytics: false,

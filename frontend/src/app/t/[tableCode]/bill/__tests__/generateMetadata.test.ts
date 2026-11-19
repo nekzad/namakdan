@@ -42,11 +42,11 @@ describe("generateMetadata for /t/[tableCode]/bill (PG-19)", () => {
     const meta = await generateMetadata({
       params: Promise.resolve({ tableCode: "AI-T01" }),
     });
-    expect(meta.title).toBe("Mara AI Lounge – Bill | Payverge");
+    expect(meta.title).toBe("Mara AI Lounge – Bill | Namakdan");
     expect(String(meta.title)).not.toMatch(/AI-Powered Restaurant Management/i);
     expect(String(meta.openGraph?.url)).toContain("/t/AI-T01/bill");
     expect(meta.openGraph?.title).toContain("Mara AI Lounge");
-    expect(String(meta.openGraph?.url)).not.toBe("https://payverge.io");
+    expect(String(meta.openGraph?.url)).not.toBe("https://example.test");
   });
 
   it("falls back to a generic bill title on non-OK response", async () => {
@@ -54,7 +54,7 @@ describe("generateMetadata for /t/[tableCode]/bill (PG-19)", () => {
     const meta = await generateMetadata({
       params: Promise.resolve({ tableCode: "MISSING" }),
     });
-    expect(meta.title).toBe("Bill | Payverge");
+    expect(meta.title).toBe("Bill | Namakdan");
   });
 
   it("does not embed the table code as a substitute for a title", async () => {

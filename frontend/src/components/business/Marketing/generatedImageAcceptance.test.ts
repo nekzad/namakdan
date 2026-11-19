@@ -40,7 +40,7 @@ describe("proxyableImageHosts", () => {
 
   it("follows the runtime MEDIA_ORIGINS", () => {
     expect(isProxyableImageUrl(PROVIDER_URL)).toBe(true);
-    expect(isProxyableImageUrl("https://images.payverge.io/x.jpg")).toBe(false);
+    expect(isProxyableImageUrl("https://images.example.test/x.jpg")).toBe(false);
     expect(isProxyableImageUrl("https://media.example.test:444/x.jpg")).toBe(false);
   });
 });

@@ -27,7 +27,7 @@ const I18N_STUB: Record<string, string> = {
   "fiscal.setup.description":
     "Update country, tax profile, or issuance mode. Changes apply to new paid bills.",
   "fiscal.setup.emptyDescription":
-    "Set this up once so Payverge can queue official invoices for paid bills.",
+    "Set this up once so Namakdan can queue official invoices for paid bills.",
   "fiscal.setup.compareModes": "Compare modes",
   "fiscal.setup.environmentDemoLocked":
     "Demo tenants stay in Sandbox. Production is not available for the demo provider.",
@@ -50,7 +50,7 @@ const I18N_STUB: Record<string, string> = {
   "fiscal.modes.manual.title": "Manual",
   "fiscal.modes.automatic_non_blocking.title": "Automatic",
   "fiscal.modes.off.description":
-    "Payverge will not issue invoices and the manual button is disabled.",
+    "Namakdan will not issue invoices and the manual button is disabled.",
   "fiscal.modes.manual.description":
     "Issue invoices yourself from the history when you're ready.",
   "fiscal.modes.automatic_non_blocking.description":
@@ -60,7 +60,7 @@ const I18N_STUB: Record<string, string> = {
     "Invoices queued for paid bills — including pending, authorized, and failed.",
   "fiscal.history.emptyTitle": "No invoices yet",
   "fiscal.history.emptyDescription":
-    "Paid bills will appear here as soon as Payverge issues an invoice for them.",
+    "Paid bills will appear here as soon as Namakdan issues an invoice for them.",
   "fiscal.history.noMatch": "No invoices match this filter.",
   "fiscal.history.unnumbered": "Awaiting number",
   "fiscal.history.filters.all": "All",
@@ -122,7 +122,7 @@ const I18N_STUB: Record<string, string> = {
   "fiscal.region.unavailableTitle":
     "E-invoicing isn't available in your region yet",
   "fiscal.region.unavailableDescription":
-    "Payverge currently issues official electronic invoices for Argentina (AFIP/ARCA). E-invoicing is not available in {country} yet.",
+    "Namakdan currently issues official electronic invoices for Argentina (AFIP/ARCA). E-invoicing is not available in {country} yet.",
   "fiscal.region.demoTitle": "Demo fiscal environment",
   "fiscal.region.demoDescription":
     "This business issues simulated DEMO invoices only.",

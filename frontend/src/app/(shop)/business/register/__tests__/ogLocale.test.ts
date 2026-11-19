@@ -13,7 +13,7 @@ const mockHeaders = headers as jest.MockedFunction<typeof headers>;
 
 function headerMap(locale: string | null) {
   return {
-    get: (name: string) => (name === "x-payverge-locale" ? locale : null),
+    get: (name: string) => (name === "x-namakdan-locale" ? locale : null),
   } as Awaited<ReturnType<typeof headers>>;
 }
 
@@ -39,10 +39,10 @@ describe("business/register og:locale (#809)", () => {
     const { generateMetadata } = await import("../layout");
     const meta = await generateMetadata();
     expect(String(meta.alternates?.canonical)).toBe(
-      "https://payverge.io/es/business/register",
+      "https://example.test/es/business/register",
     );
     const og = meta.openGraph as { url?: string };
-    expect(String(og.url)).toBe("https://payverge.io/es/business/register");
+    expect(String(og.url)).toBe("https://example.test/es/business/register");
     const twitter = meta.twitter as { title?: string } | undefined;
     expect(String(twitter?.title)).toBe(String(meta.title));
   });

@@ -40,7 +40,7 @@ describe("robots runtime configuration", () => {
       const cfg = robots();
       expect(cfg.sitemap).toBe(`${origin}/sitemap.xml`);
       expect(cfg.host).toBe(origin);
-      expect(JSON.stringify(cfg)).not.toContain("payverge.io");
+      expect(JSON.stringify(cfg)).not.toContain("example.test");
     },
   );
 });

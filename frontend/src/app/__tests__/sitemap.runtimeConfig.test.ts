@@ -60,7 +60,7 @@ describe("sitemap runtime configuration", () => {
       for (const url of urls) {
         expect(url.startsWith(origin)).toBe(true);
       }
-      expect(JSON.stringify(entries)).not.toContain("payverge.io");
+      expect(JSON.stringify(entries)).not.toContain("example.test");
     },
   );
 });

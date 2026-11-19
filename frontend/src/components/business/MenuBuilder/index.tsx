@@ -180,7 +180,7 @@ export default function MenuBuilder({ businessId }: MenuBuilderProps) {
     // M6: grid/list view + availability filter survive rail switches for the
     // browser-tab session, then reset with it.
     const [viewMode, setViewMode] = useSessionTabState<"grid" | "list">(
-        businessId ? `payverge_menu_viewmode:${businessId}` : null,
+        businessId ? `namakdan_menu_viewmode:${businessId}` : null,
         "grid",
         (v) => v === "grid" || v === "list",
     );
@@ -196,7 +196,7 @@ export default function MenuBuilder({ businessId }: MenuBuilderProps) {
         return () => clearTimeout(id);
     }, [searchQuery]);
     const [searchFilter, setSearchFilter] = useSessionTabState<"all" | "available" | "unavailable">(
-        businessId ? `payverge_menu_searchfilter:${businessId}` : null,
+        businessId ? `namakdan_menu_searchfilter:${businessId}` : null,
         "all",
         (v) => v === "all" || v === "available" || v === "unavailable",
     );
@@ -357,7 +357,7 @@ export default function MenuBuilder({ businessId }: MenuBuilderProps) {
     );
 
     // M6: viewMode persistence moved to sessionStorage via useSessionTabState
-    // (payverge_menu_viewmode:<businessId>) — per-shift, not cross-session.
+    // (namakdan_menu_viewmode:<businessId>) — per-shift, not cross-session.
     // The legacy localStorage mirror ("menuBuilder.viewMode") is retired so it
     // can't resurrect yesterday's view over the session value.
     const persistViewMode = useCallback((next: "grid" | "list") => {

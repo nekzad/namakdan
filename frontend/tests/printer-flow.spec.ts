@@ -36,7 +36,7 @@ const assignPrintStation = (
   context.addInitScript(
     ({ businessId: stationBusinessId, printerId: selectedPrinterId }) => {
       localStorage.setItem(
-        `payverge_print_station:${stationBusinessId}`,
+        `namakdan_print_station:${stationBusinessId}`,
         String(selectedPrinterId),
       );
     },

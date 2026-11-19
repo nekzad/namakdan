@@ -84,7 +84,7 @@ describe("business/register — workspace step revalidates the draft", () => {
     // A restored draft that filled everything EXCEPT the country must not
     // slip through isStepValid and seed USD/UTC defaults.
     localStorage.setItem(
-      "payverge_registration_draft",
+      "namakdan_registration_draft",
       JSON.stringify({
         name: "Café Rio",
         owner_name: "Mara",

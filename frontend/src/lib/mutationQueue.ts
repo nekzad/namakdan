@@ -17,7 +17,7 @@ export function setActiveUserId(id: string) { _activeUserId = id; }
 export function getActiveUserId() { return _activeUserId; }
 
 function getKey(userId: string) {
-  return `payverge:mutation-queue:${userId}`;
+  return `namakdan:mutation-queue:${userId}`;
 }
 
 export function getQueue(userId: string): QueuedMutation[] {
@@ -86,7 +86,7 @@ export function clearAllMutationQueues() {
   const keys: string[] = [];
   for (let i = 0; i < localStorage.length; i += 1) {
     const key = localStorage.key(i);
-    if (key?.startsWith("payverge:mutation-queue:")) {
+    if (key?.startsWith("namakdan:mutation-queue:")) {
       keys.push(key);
     }
   }

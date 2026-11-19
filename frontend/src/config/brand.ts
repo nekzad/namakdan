@@ -12,7 +12,7 @@
  *
  * Hook-up: the contact mailbox follows the deployment's runtime SUPPORT_EMAIL
  * (`getPublicConfig().supportEmail`: process env on the server,
- * window.__PAYVERGE_ENV__ in the browser). Unset or malformed, it stays empty
+ * window.__NAMAKDAN_ENV__ in the browser). Unset or malformed, it stays empty
  * and every mailto: entry is hidden. Further operator-facing sources (e.g.
  * GET /api/v1/instance) feed `resolveBrandLinks(overrides)` the same way,
  * without touching any call site.
@@ -21,7 +21,7 @@
 import { getPublicConfig } from "./publicConfig";
 
 /** Public source repository for the open-source project. */
-export const PROJECT_REPO_URL = "https://github.com/stdevMac/payverge";
+export const PROJECT_REPO_URL = "https://github.com/nekzad/namakdan";
 
 export interface BrandLinks {
   /** Source repository. Always set. */

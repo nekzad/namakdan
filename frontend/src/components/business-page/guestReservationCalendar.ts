@@ -39,7 +39,7 @@ export function buildReservationCalendarInvite({
   const ics = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//Payverge//Guest Reservation//EN",
+    "PRODID:-//Namakdan//Guest Reservation//EN",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
     "BEGIN:VEVENT",

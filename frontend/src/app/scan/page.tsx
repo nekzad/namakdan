@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
     (typeof scan?.header?.title === "string" && scan.header.title) ||
     "Scan table code";
   return {
-    title: `${heading} — Payverge`,
+    title: `${heading} — Namakdan`,
     robots: { index: false, follow: true },
   };
 }

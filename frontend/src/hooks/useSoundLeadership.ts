@@ -47,7 +47,7 @@ export function useSoundLeadership(
     });
 
     void locks
-      .request(`payverge-alert-sound-${businessId}`, () => {
+      .request(`namakdan-alert-sound-${businessId}`, () => {
         // The grant can arrive AFTER this effect run was cleaned up (e.g.
         // businessId switched while another tab still held the old lock). A
         // stale grant must not claim leadership: releasedPromise is already

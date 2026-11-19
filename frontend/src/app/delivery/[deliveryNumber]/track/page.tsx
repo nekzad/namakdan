@@ -509,7 +509,7 @@ function DeliveryTrackingInner() {
             {/* Header */}
             <div className="space-y-2 text-center">
               <p className="text-xs font-medium uppercase tracking-[0.3em] text-ink-500">
-                {tracking?.business_name ?? "Payverge Delivery"}
+                {tracking?.business_name ?? "Namakdan Delivery"}
               </p>
               <h1 className="text-2xl font-semibold sm:text-3xl">
                 {tString("deliveryTracking.pageTitle")}

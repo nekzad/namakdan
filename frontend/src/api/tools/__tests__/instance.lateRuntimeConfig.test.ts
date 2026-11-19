@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  *
  * The axios instance and the wagmi config must not freeze public config at
- * module evaluation: the runtime config script (window.__PAYVERGE_ENV__) can
+ * module evaluation: the runtime config script (window.__NAMAKDAN_ENV__) can
  * run after the client chunk that imports them.
  */
 import MockAdapter from "axios-mock-adapter";
@@ -19,11 +19,11 @@ jest.mock("wagmi", () => ({
 
 describe("late runtime public config", () => {
   afterEach(() => {
-    delete (window as { __PAYVERGE_ENV__?: unknown }).__PAYVERGE_ENV__;
+    delete (window as { __NAMAKDAN_ENV__?: unknown }).__NAMAKDAN_ENV__;
   });
 
   it("axios requests use an API_URL injected after the module loaded", async () => {
-    delete (window as { __PAYVERGE_ENV__?: unknown }).__PAYVERGE_ENV__;
+    delete (window as { __NAMAKDAN_ENV__?: unknown }).__NAMAKDAN_ENV__;
     const { axiosInstance } = await import("../instance");
     const mock = new MockAdapter(axiosInstance);
     let seenUrl = "";
@@ -32,7 +32,7 @@ describe("late runtime public config", () => {
       return [200, {}];
     });
 
-    window.__PAYVERGE_ENV__ = Object.freeze({
+    window.__NAMAKDAN_ENV__ = Object.freeze({
       API_URL: "https://api.late.example/api/v1",
     });
     await axiosInstance.get("/health/live");
@@ -42,7 +42,7 @@ describe("late runtime public config", () => {
 
   it("fiscal receipt PDF links use the late API_URL", async () => {
     const { guestFiscalReceiptPdfUrl } = await import("../../bills");
-    window.__PAYVERGE_ENV__ = Object.freeze({
+    window.__NAMAKDAN_ENV__ = Object.freeze({
       API_URL: "https://api.late.example/api/v1",
     });
     expect(guestFiscalReceiptPdfUrl("tok")).toBe(
@@ -53,7 +53,7 @@ describe("late runtime public config", () => {
   it("wagmi transports use an RPC_URL injected after the module loaded", async () => {
     const provider = await import("@/providers/DynamicProvider");
     provider.__resetWagmiConfigForTests();
-    window.__PAYVERGE_ENV__ = Object.freeze({
+    window.__NAMAKDAN_ENV__ = Object.freeze({
       NETWORK: "base",
       RPC_URL: "https://rpc.late.example",
     });

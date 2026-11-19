@@ -5,7 +5,7 @@ import vm from "node:vm";
 type CacheRecord = Map<string, Response>;
 
 function requestKey(request: { url: string } | string) {
-  return typeof request === "string" ? new URL(request, "https://payverge.io").href : request.url;
+  return typeof request === "string" ? new URL(request, "https://example.test").href : request.url;
 }
 
 function createWorkerHarness(options: { addAll?: jest.Mock } = {}) {
@@ -55,7 +55,7 @@ function createWorkerHarness(options: { addAll?: jest.Mock } = {}) {
     caches,
     fetch,
     self: {
-      location: { origin: "https://payverge.io" },
+      location: { origin: "https://example.test" },
       addEventListener: (type: string, listener: (event: any) => void) => listeners.set(type, listener),
       skipWaiting,
       clients: { claim, openWindow },
@@ -95,7 +95,7 @@ describe("PWA service worker", () => {
   it("does not intercept authenticated API GETs", async () => {
     const worker = createWorkerHarness();
     const { response } = await worker.dispatchFetch(
-      { url: "https://payverge.io/api/v1/inside/businesses/1", method: "GET", mode: "cors" },
+      { url: "https://example.test/api/v1/inside/businesses/1", method: "GET", mode: "cors" },
     );
 
     expect(response).toBeUndefined();
@@ -108,14 +108,14 @@ describe("PWA service worker", () => {
     await worker.dispatch("install");
 
     expect(worker.skipWaiting).toHaveBeenCalledTimes(1);
-    const offlineCache = worker.records.get("payverge-offline-v2");
+    const offlineCache = worker.records.get("namakdan-offline-v2");
     expect(offlineCache).toBeDefined();
     if (!offlineCache) return;
     expect([...offlineCache.keys()]).toEqual([
-      "https://payverge.io/offline/en.html",
-      "https://payverge.io/offline/es.html",
-      "https://payverge.io/offline/es-ar.html",
-      "https://payverge.io/android-chrome-192x192.png",
+      "https://example.test/offline/en.html",
+      "https://example.test/offline/es.html",
+      "https://example.test/offline/es-ar.html",
+      "https://example.test/android-chrome-192x192.png",
     ]);
   });
 
@@ -129,19 +129,19 @@ describe("PWA service worker", () => {
     expect(worker.skipWaiting).not.toHaveBeenCalled();
   });
 
-  it("removes legacy Payverge caches but preserves unrelated caches on activation", async () => {
+  it("removes legacy Namakdan caches but preserves unrelated caches on activation", async () => {
     const worker = createWorkerHarness();
-    await worker.caches.open("payverge-api-v1");
-    await worker.caches.open("payverge-static-v1");
-    await worker.caches.open("payverge-offline-v2");
-    await worker.caches.open("payverge-pwa-meta-v1");
+    await worker.caches.open("namakdan-api-v1");
+    await worker.caches.open("namakdan-static-v1");
+    await worker.caches.open("namakdan-offline-v2");
+    await worker.caches.open("namakdan-pwa-meta-v1");
     await worker.caches.open("third-party-cache");
 
     await worker.dispatch("activate");
 
     expect(await worker.caches.keys()).toEqual([
-      "payverge-offline-v2",
-      "payverge-pwa-meta-v1",
+      "namakdan-offline-v2",
+      "namakdan-pwa-meta-v1",
       "third-party-cache",
     ]);
     expect(worker.claim).toHaveBeenCalledTimes(1);
@@ -154,7 +154,7 @@ describe("PWA service worker", () => {
     worker.fetch.mockRejectedValueOnce(new Error("offline"));
 
     const { response } = await worker.dispatchFetch(
-      { url: "https://payverge.io/app", method: "GET", mode: "navigate" },
+      { url: "https://example.test/app", method: "GET", mode: "navigate" },
     );
 
     expect(response).toBeDefined();
@@ -164,7 +164,7 @@ describe("PWA service worker", () => {
 
   it("does not cache successful dashboard navigation before serving a later static fallback", async () => {
     const worker = createWorkerHarness();
-    const dashboardURL = "https://payverge.io/app/dashboard";
+    const dashboardURL = "https://example.test/app/dashboard";
     await worker.dispatch("install");
     await worker.dispatch("message", { data: { type: "SET_OFFLINE_LOCALE", locale: "es-AR" } });
     worker.fetch.mockResolvedValueOnce(new Response("private dashboard"));
@@ -186,7 +186,7 @@ describe("PWA service worker", () => {
     const worker = createWorkerHarness();
 
     await worker.dispatch("message", { data: { type: "SET_OFFLINE_LOCALE", locale: "es-MX" } });
-    const meta = await worker.caches.open("payverge-pwa-meta-v1");
+    const meta = await worker.caches.open("namakdan-pwa-meta-v1");
     const locale = await meta.match("/__pwa_offline_locale__");
 
     expect(locale).toBeDefined();
@@ -201,7 +201,7 @@ describe("PWA service worker", () => {
       data: { json: () => { throw new Error("invalid JSON"); } },
     });
 
-    expect(worker.showNotification).toHaveBeenCalledWith("Payverge", {
+    expect(worker.showNotification).toHaveBeenCalledWith("Namakdan", {
       body: "",
       icon: "/android-chrome-192x192.png",
       badge: "/favicon-32x32.png",

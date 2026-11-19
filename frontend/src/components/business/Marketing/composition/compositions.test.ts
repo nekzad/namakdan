@@ -216,7 +216,7 @@ describe("composition layouts", () => {
     dishName: "Grilled Octopus",
     price: "$24",
     cta: "Order tonight",
-    handle: "@payverge",
+    handle: "@namakdan",
   };
 
   const textFor = (key: string): string => {

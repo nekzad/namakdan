@@ -43,7 +43,7 @@ jest.mock("@/utils/tokenRefresh", () => ({
 
 jest.mock("@/utils/refreshCustomerAuth", () => ({
   CUSTOMER_SESSION_EXPIRED_EVENT: "customer:session-expired",
-  CUSTOMER_SESSION_HINT_KEY: "payverge_had_customer_session",
+  CUSTOMER_SESSION_HINT_KEY: "namakdan_had_customer_session",
   refreshCustomerAuthSession: jest.fn(),
 }));
 

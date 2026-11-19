@@ -23,7 +23,7 @@ describe("scan generateMetadata (#910)", () => {
 
   async function loadMetadata(localeHeader: string | null) {
     mockHeaderGet.mockImplementation((name: string) =>
-      name === "x-payverge-locale" ? localeHeader : null,
+      name === "x-namakdan-locale" ? localeHeader : null,
     );
     const mod = await import("./page");
     return mod.generateMetadata();
@@ -32,20 +32,20 @@ describe("scan generateMetadata (#910)", () => {
   it("keeps the English scan title by default", async () => {
     const meta = await loadMetadata(null);
     expect(String(meta.title)).toMatch(/scan/i);
-    expect(String(meta.title)).toContain("Payverge");
+    expect(String(meta.title)).toContain("Namakdan");
     expect(meta.robots).toEqual({ index: false, follow: true });
   });
 
   it("localizes /es/scan document title (#910)", async () => {
     const meta = await loadMetadata("es");
-    expect(String(meta.title)).not.toBe("Scan table code — Payverge");
+    expect(String(meta.title)).not.toBe("Scan table code — Namakdan");
     expect(String(meta.title).toLowerCase()).toMatch(/escanear|escanea|mesa/);
-    expect(String(meta.title)).toContain("Payverge");
+    expect(String(meta.title)).toContain("Namakdan");
   });
 
   it("localizes /es-ar/scan document title (#910)", async () => {
     const meta = await loadMetadata("es-AR");
-    expect(String(meta.title)).not.toBe("Scan table code — Payverge");
+    expect(String(meta.title)).not.toBe("Scan table code — Namakdan");
     expect(String(meta.title).toLowerCase()).toMatch(/escanear|escanea|mesa/);
   });
 });

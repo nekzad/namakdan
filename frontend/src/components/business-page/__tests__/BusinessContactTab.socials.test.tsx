@@ -32,7 +32,7 @@ describe("BusinessContactTab — social links", () => {
     const dirty = {
       ...business,
       social_media: JSON.stringify({
-        facebook: "https://www.facebook.com/payverge/",
+        facebook: "https://www.facebook.com/namakdan/",
       }),
     };
     render(
@@ -44,7 +44,7 @@ describe("BusinessContactTab — social links", () => {
       />,
     );
     const link = screen.getByRole("link", { name: /facebook/i });
-    expect(link).toHaveAttribute("href", "https://facebook.com/payverge");
+    expect(link).toHaveAttribute("href", "https://facebook.com/namakdan");
     expect(link.getAttribute("href")).not.toMatch(/facebook\.com\/https/);
   });
 

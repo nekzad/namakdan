@@ -7,7 +7,7 @@ const labels: StaffMoreLabels = {
   title: "More",
   profileEntry: "Profile",
   profileHint: "h",
-  installAppEntry: "Install Payverge",
+  installAppEntry: "Install Namakdan",
   installAppHint: "Add it to this device",
   availabilityEntry: "Availability",
   availabilityHint: "h",
@@ -137,8 +137,8 @@ test("places install beside Profile in the Account group", () => {
   );
   const account = screen.getByRole("heading", { name: "Account" });
   const list = account.nextElementSibling as HTMLElement;
-  expect(list).toHaveTextContent("Install Payverge");
-  fireEvent.click(screen.getByRole("button", { name: /Install Payverge/i }));
+  expect(list).toHaveTextContent("Install Namakdan");
+  fireEvent.click(screen.getByRole("button", { name: /Install Namakdan/i }));
   expect(onInstallApp).toHaveBeenCalledTimes(1);
 });
 
@@ -151,7 +151,7 @@ test("keeps a pending install action visible, disabled, and busy", () => {
       {...renderProps}
     />,
   );
-  const action = screen.getByRole("button", { name: /Install Payverge/i });
+  const action = screen.getByRole("button", { name: /Install Namakdan/i });
   expect(action).toBeDisabled();
   expect(action).toHaveAttribute("aria-busy", "true");
 });

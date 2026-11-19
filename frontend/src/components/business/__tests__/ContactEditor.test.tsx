@@ -58,9 +58,9 @@ describe("ContactEditor", () => {
   it("normalizes a full URL paste to a bare handle on input", () => {
     render(<ContactEditor {...baseProps} />);
     fireEvent.change(screen.getByRole("textbox", { name: /facebook/i }), {
-      target: { value: "https://www.facebook.com/payverge/" },
+      target: { value: "https://www.facebook.com/namakdan/" },
     });
-    expect(baseProps.onSocialChange).toHaveBeenCalledWith("facebook", "payverge");
+    expect(baseProps.onSocialChange).toHaveBeenCalledWith("facebook", "namakdan");
   });
 
   it("normalizes @handles and host/path forms on input", () => {
@@ -75,9 +75,9 @@ describe("ContactEditor", () => {
     render(
       <ContactEditor
         {...baseProps}
-        socialMedia={{ facebook: "https://www.facebook.com/payverge/" }}
+        socialMedia={{ facebook: "https://www.facebook.com/namakdan/" }}
       />,
     );
-    expect(screen.getByRole("textbox", { name: /facebook/i })).toHaveValue("payverge");
+    expect(screen.getByRole("textbox", { name: /facebook/i })).toHaveValue("namakdan");
   });
 });

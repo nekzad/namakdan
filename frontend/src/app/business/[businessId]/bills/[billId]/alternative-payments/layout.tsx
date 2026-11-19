@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 // This leaf is outside (shop)/.../dashboard, so it would otherwise inherit
 // the marketing root title. Keep it an authenticated operator surface.
 export const metadata: Metadata = {
-  title: "Alternative payments — Payverge",
+  title: "Alternative payments — Namakdan",
   robots: { index: false, follow: false },
 };
 

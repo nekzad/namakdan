@@ -114,7 +114,7 @@ const menu = [
         id: "m1",
         name: "Burger",
         price: 9,
-        image: "https://cdn.payverge.io/biz/1/burger.jpg",
+        image: "https://cdn.example.test/biz/1/burger.jpg",
       },
     ],
   },

@@ -103,14 +103,14 @@ function summary(
 
 // The live shape: viewer is user 8; 85/86 are theirs, 1/2 are admin 1's clones
 // of the same demo and carry the same two display names.
-const MINE = biz(85, "Payverge AI Pro Demo Lounge", {
+const MINE = biz(85, "Namakdan AI Pro Demo Lounge", {
   business_id: "demo-admin-8-ai-pro",
-  custom_url: "payverge-ai-pro-demo-lounge",
+  custom_url: "namakdan-ai-pro-demo-lounge",
   user_id: 8,
   is_demo: true,
   demo_owner_user_id: 8,
 });
-const THEIRS = biz(2, "Payverge AI Pro Demo Lounge", {
+const THEIRS = biz(2, "Namakdan AI Pro Demo Lounge", {
   business_id: "demo-admin-1-ai-pro",
   custom_url: "demo-admin-1-ai-pro-demo-lounge",
   user_id: 1,
@@ -194,7 +194,7 @@ describe("BusinessOverviewList admin-scoped venues (issue 832)", () => {
     // The viewer's own venue keeps a clean name.
     expect(
       screen.getByRole("button", {
-        name: /openBusiness Payverge AI Pro Demo Lounge \(payverge-ai-pro-demo-lounge\)$/i,
+        name: /openBusiness Namakdan AI Pro Demo Lounge \(namakdan-ai-pro-demo-lounge\)$/i,
       }),
     ).toBeInTheDocument();
   });

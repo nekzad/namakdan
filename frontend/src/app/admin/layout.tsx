@@ -5,7 +5,7 @@ import AdminLayoutClient from "./AdminLayoutClient";
 // landing-page metadata. `robots: noindex` also keeps the admin chrome
 // out of search results regardless of what the auth gate does.
 export const metadata: Metadata = {
-  title: "Admin — Payverge",
+  title: "Admin — Namakdan",
   robots: { index: false, follow: false },
 };
 

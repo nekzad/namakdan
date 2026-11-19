@@ -133,7 +133,7 @@
     "loadError": "Could not load deliveries. Check your connection and try again.",
     "retry": "Retry",
     "assignDriver": "Assign driver",
-    "cancelPaidWarning": "This order may already be paid online. Cancelling records it, but any compensation to the guest is handled by you directly — Payverge has no refund flow.",
+    "cancelPaidWarning": "This order may already be paid online. Cancelling records it, but any compensation to the guest is handled by you directly — Namakdan has no refund flow.",
     "tabs": {
       "configuration": "Configuration",
       "dispatch": "Dispatch",

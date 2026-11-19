@@ -407,7 +407,7 @@ describe("RecentPrintJobs", () => {
   });
 
   it("keeps fresh queued jobs quiet and trusts an armed station (#833)", async () => {
-    window.localStorage.setItem("payverge_print_station:42", "1");
+    window.localStorage.setItem("namakdan_print_station:42", "1");
     const fortyMinAgo = new Date(Date.now() - 40 * 60000).toISOString();
     (api.fetchJobs as jest.Mock).mockResolvedValueOnce({
       items: [
@@ -452,7 +452,7 @@ describe("RecentPrintJobs", () => {
         screen.queryByText(/no print station is active on this browser/i),
       ).not.toBeInTheDocument();
     } finally {
-      window.localStorage.removeItem("payverge_print_station:42");
+      window.localStorage.removeItem("namakdan_print_station:42");
     }
   });
 });

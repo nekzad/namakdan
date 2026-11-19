@@ -18,7 +18,7 @@ describe("PG-21 guest SSR chrome via table layout", () => {
     expect(layout).toMatch(/loadGuestMessages/);
     expect(layout).toMatch(/GuestTranslationProvider/);
     expect(layout).toMatch(/initialMessages/);
-    expect(layout).toMatch(/x-payverge-locale/);
+    expect(layout).toMatch(/x-namakdan-locale/);
   });
 
   it("menu/bill/profile do not re-wrap with an empty provider", () => {

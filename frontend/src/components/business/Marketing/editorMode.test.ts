@@ -31,10 +31,10 @@ describe("editorMode", () => {
 
   it("keys storage by business id", () => {
     expect(editorModeStorageKey(42)).toBe(
-      "payverge:marketing:editorMode:42",
+      "namakdan:marketing:editorMode:42",
     );
     expect(editorModeStorageKey("99")).toBe(
-      "payverge:marketing:editorMode:99",
+      "namakdan:marketing:editorMode:99",
     );
   });
 

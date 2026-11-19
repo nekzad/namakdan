@@ -27,13 +27,14 @@ export default function NotFoundClient() {
           style={{ width: "192px", height: "auto" }}
           fallback={(alt) => (
             <Image
-              src="/images/PayvergeLogo.png"
+              src="/images/namakdan-mark.svg"
               alt={alt}
-              width={384}
-              height={125}
+              width={96}
+              height={96}
               priority
-              style={{ width: "192px", height: "auto" }}
+              style={{ width: "96px", height: "96px" }}
               className="mx-auto mb-10 opacity-90"
+              unoptimized
             />
           )}
         />

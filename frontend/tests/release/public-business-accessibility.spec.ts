@@ -97,7 +97,7 @@ test.describe.serial("public business accessibility release gate", () => {
   test.beforeAll(async ({ playwright }) => {
     api = await playwright.request.newContext({ ignoreHTTPSErrors: true });
     const stamp = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-    const email = `public-a11y-${stamp}@payverge.test`;
+    const email = `public-a11y-${stamp}@example.test`;
     const register = await postWithRateLimitRetry(`${API_BASE}/auth/register`, {
       headers: { Origin: ORIGIN },
       data: {

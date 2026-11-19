@@ -229,7 +229,7 @@ describe("analytics session id is lazy until consent", () => {
     expect(sessionStorage.getItem(SESSION_KEY)).not.toBeNull();
 
     mockedHasConsent.mockReturnValue(false);
-    window.dispatchEvent(new Event("payverge:consent-change"));
+    window.dispatchEvent(new Event("namakdan:consent-change"));
 
     expect(sessionStorage.getItem(SESSION_KEY)).toBeNull();
   });

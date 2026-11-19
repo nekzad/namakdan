@@ -479,7 +479,7 @@ describe("Guest Sage panel persistence and placement (#724)", () => {
           {
             id: "bowl",
             name: "Harvest Bowl",
-            image: "https://payverge.io/media/biz/86/bowl.jpg",
+            image: "https://example.test/media/biz/86/bowl.jpg",
             is_available: false,
             orderability_state: "business_closed",
           },

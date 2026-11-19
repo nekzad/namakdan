@@ -197,7 +197,7 @@ test.describe("Commerce correctness release acceptance", () => {
   }) => {
     test.setTimeout(120_000);
     const stamp = Date.now();
-    const email = `commerce-release-${stamp}@payverge.test`;
+    const email = `commerce-release-${stamp}@example.test`;
     const password = "E2e!Commerce-Quote-42";
     let businessId = 0;
     let token = "";

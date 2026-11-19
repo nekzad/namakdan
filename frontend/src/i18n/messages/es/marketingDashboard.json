@@ -146,14 +146,14 @@
       "moveItem": "Solo {qty} pedidos en el último período — un spotlight puede impulsar el descubrimiento.",
       "moveItemOne": "Solo 1 pedido en el último período — un spotlight puede impulsar el descubrimiento."
     },
-    "localExportHint": "Exportar y compartir quedan en este dispositivo — Payverge no publica por ti."
+    "localExportHint": "Exportar y compartir quedan en este dispositivo — Namakdan no publica por ti."
   },
   "outcome": {
     "title": "¿Se publicó este post?",
     "shared": "Tu dispositivo completó el envío para compartir. Confirma solo si el post realmente se publicó.",
     "downloaded": "Se descargaron los archivos del post. Confirma solo después de publicarlos en una red social.",
     "copied": "Se copió el texto. Confirma solo después de publicar el post completo.",
-    "downloadedWithDestination": "Descargado — ahora publícalo en {destination} cuando quieras. Payverge no publica por ti.",
+    "downloadedWithDestination": "Descargado — ahora publícalo en {destination} cuando quieras. Namakdan no publica por ti.",
     "sharedWithDestination": "Compartido a tu dispositivo — termina de publicar en {destination} tú mismo. Confirma solo cuando esté en vivo.",
     "copiedWithDestination": "Texto copiado — pégalo al publicar en {destination}. Confirma solo cuando el post completo esté publicado.",
     "notYet": "Todavía no",
@@ -162,7 +162,7 @@
     "retry": "Intentar marcarlo de nuevo",
     "channelLabel": "¿Dónde lo publicaste? (opcional)",
     "channelPlaceholder": "p. ej. Instagram, grupo de WhatsApp",
-    "channelHint": "Solo una nota libre — Payverge nunca programa ni publica por ti."
+    "channelHint": "Solo una nota libre — Namakdan nunca programa ni publica por ti."
   },
   "preview": {
     "aspects": {
@@ -400,17 +400,17 @@
       "table_tent_5x7": {
         "name": "Display de mesa 5×7",
         "hint": "HTML a 300 dpi con sangrado y marcas de corte. Imprime o guarda como PDF desde el navegador.",
-        "instructions": "Instrucciones de imprenta — display de mesa (5 × 7 in)\n=====================================================\n\nArchivo: HTML con tamaño @page, sangrado y marcas de corte.\nÁbrelo en Chrome/Safari/Edge e Imprimir → Guardar como PDF,\no envía el HTML/PDF a la imprenta.\n\nTamaño de corte: 127 mm × 177.8 mm (5 × 7 in).\nSangrado: 3.175 mm (1/8 in) en cada lado.\nMarcas de corte: fuera del sangrado; no recortes el arte vivo.\nResolución: 300 dpi.\n\nNo es un ticket térmico. El branding de cocina/POS es otro flujo.\nColoca el display cuando quieras — Payverge no fija un horario de publicación.\n"
+        "instructions": "Instrucciones de imprenta — display de mesa (5 × 7 in)\n=====================================================\n\nArchivo: HTML con tamaño @page, sangrado y marcas de corte.\nÁbrelo en Chrome/Safari/Edge e Imprimir → Guardar como PDF,\no envía el HTML/PDF a la imprenta.\n\nTamaño de corte: 127 mm × 177.8 mm (5 × 7 in).\nSangrado: 3.175 mm (1/8 in) en cada lado.\nMarcas de corte: fuera del sangrado; no recortes el arte vivo.\nResolución: 300 dpi.\n\nNo es un ticket térmico. El branding de cocina/POS es otro flujo.\nColoca el display cuando quieras — Namakdan no fija un horario de publicación.\n"
       },
       "window_clings_square": {
         "name": "Vinilo de vidriera (cuadrado)",
         "hint": "PNG 2160×2160 para vinilos. La imprenta lo adapta al cristal.",
-        "instructions": "Instrucciones de imprenta — vinilo de vidriera (cuadrado)\n=========================================================\n\nArchivo: PNG de alta resolución (2× el cuadrado social = 2160 × 2160 px).\nPide a la imprenta el tamaño del cristal; lo habitual son 20–40 cm de lado.\nSi el vinilo es transparente, solicita base blanca.\n\nProporción: 1:1. No estires; recorta o deja bandas solo si el panel no es cuadrado.\nColor: PNG sRGB. Pide conversión CMYK en la imprenta si hace falta.\n\nNo es un ticket térmico.\nAplica el vinilo cuando quieras — Payverge no fija un horario de publicación.\n"
+        "instructions": "Instrucciones de imprenta — vinilo de vidriera (cuadrado)\n=========================================================\n\nArchivo: PNG de alta resolución (2× el cuadrado social = 2160 × 2160 px).\nPide a la imprenta el tamaño del cristal; lo habitual son 20–40 cm de lado.\nSi el vinilo es transparente, solicita base blanca.\n\nProporción: 1:1. No estires; recorta o deja bandas solo si el panel no es cuadrado.\nColor: PNG sRGB. Pide conversión CMYK en la imprenta si hace falta.\n\nNo es un ticket térmico.\nAplica el vinilo cuando quieras — Namakdan no fija un horario de publicación.\n"
       },
       "flyer_half_letter": {
         "name": "Flyer (base ancha)",
         "hint": "PNG ancho de alta resolución — la imprenta escala a media carta o A5.",
-        "instructions": "Instrucciones de imprenta — flyer (base media carta apaisada)\n=============================================================\n\nArchivo: PNG ancho de alta resolución (2× 1920×1080 = 3840 × 2160 px).\nEscala a media carta (5.5 × 8.5 in) o A5; márgenes ≥ 5 mm.\nSangrado: añade 3 mm en la imprenta si necesitas sangre total (este PNG es seguro al corte).\n\nProporción: 16:9 ancha. Recorta con cuidado si la media carta es vertical.\nColor: PNG sRGB.\n\nNo es un ticket térmico.\nDistribuye los flyers cuando quieras — Payverge no fija un horario de publicación.\n"
+        "instructions": "Instrucciones de imprenta — flyer (base media carta apaisada)\n=============================================================\n\nArchivo: PNG ancho de alta resolución (2× 1920×1080 = 3840 × 2160 px).\nEscala a media carta (5.5 × 8.5 in) o A5; márgenes ≥ 5 mm.\nSangrado: añade 3 mm en la imprenta si necesitas sangre total (este PNG es seguro al corte).\n\nProporción: 16:9 ancha. Recorta con cuidado si la media carta es vertical.\nColor: PNG sRGB.\n\nNo es un ticket térmico.\nDistribuye los flyers cuando quieras — Namakdan no fija un horario de publicación.\n"
       }
     }
   },
@@ -727,7 +727,7 @@
   "automation": {
     "button": "Ajustes creativos",
     "heading": "Sugerencias automáticas",
-    "subtitle": "Elige qué ideas crea Payverge para ti.",
+    "subtitle": "Elige qué ideas crea Namakdan para ti.",
     "master": "Sugerencias automáticas",
     "masterHint": "Desactívalas para dejar de generar nuevas ideas de post.",
     "playsHeading": "Tipos de jugada",
@@ -744,13 +744,13 @@
   },
   "settings": {
     "title": "Ajustes creativos",
-    "subtitle": "Orienta las ideas, los textos y las imágenes que Payverge prepara para tu aprobación.",
+    "subtitle": "Orienta las ideas, los textos y las imágenes que Namakdan prepara para tu aprobación.",
     "close": "Listo",
     "automatic": "Automático",
     "readOnly": "Puedes consultar estos ajustes, pero tu rol no permite modificarlos.",
     "autonomy": {
       "title": "Autonomía",
-      "body": "Elige qué ideas puede preparar Payverge. Nada se publica sin tu aprobación.",
+      "body": "Elige qué ideas puede preparar Namakdan. Nada se publica sin tu aprobación.",
       "master": "Preparar sugerencias",
       "masterHint": "Pausa todas las sugerencias nuevas sin perder tu perfil creativo.",
       "plays": "Tipos de sugerencia"
@@ -809,7 +809,7 @@
       },
       "language": {
         "label": "Idioma predeterminado",
-        "helper": "El primer idioma que usa Payverge al escribir un texto."
+        "helper": "El primer idioma que usa Namakdan al escribir un texto."
       },
       "tone": {
         "label": "Tono predeterminado",

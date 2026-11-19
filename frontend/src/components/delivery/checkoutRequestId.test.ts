@@ -45,7 +45,7 @@ describe("delivery checkout request id", () => {
   });
 
   it("ignores a legacy plain-string stored id (pre-fingerprint format)", () => {
-    sessionStorage.setItem("payverge_delivery_checkout_rid:42", "legacy-id");
+    sessionStorage.setItem("namakdan_delivery_checkout_rid:42", "legacy-id");
     const id = getOrCreateCheckoutRequestId(42, FP_A);
     expect(id).not.toBe("legacy-id");
     expect(getOrCreateCheckoutRequestId(42, FP_A)).toBe(id);

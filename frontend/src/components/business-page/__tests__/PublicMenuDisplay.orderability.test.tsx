@@ -176,7 +176,7 @@ describe("PublicMenuDisplay authoritative orderability", () => {
 
   it("removes a restored cart line that the current projection rejects", async () => {
     window.sessionStorage.setItem(
-      "payverge_public_cart_1",
+      "namakdan_public_cart_1",
       JSON.stringify([
         {
           key: "steak",
@@ -203,7 +203,7 @@ describe("PublicMenuDisplay authoritative orderability", () => {
       expect(screen.queryByTestId("open-cart-btn")).not.toBeInTheDocument(),
     );
     await waitFor(() =>
-      expect(window.sessionStorage.getItem("payverge_public_cart_1")).toBeNull(),
+      expect(window.sessionStorage.getItem("namakdan_public_cart_1")).toBeNull(),
     );
   });
 
@@ -219,7 +219,7 @@ describe("PublicMenuDisplay authoritative orderability", () => {
         options: [],
       },
     ]);
-    window.sessionStorage.setItem("payverge_public_cart_1", persistedCart);
+    window.sessionStorage.setItem("namakdan_public_cart_1", persistedCart);
 
     render(
       <PublicMenuDisplay
@@ -230,6 +230,6 @@ describe("PublicMenuDisplay authoritative orderability", () => {
     );
 
     await waitFor(() => expect(screen.getByTestId("open-cart-btn")).toBeInTheDocument());
-    expect(window.sessionStorage.getItem("payverge_public_cart_1")).toBe(persistedCart);
+    expect(window.sessionStorage.getItem("namakdan_public_cart_1")).toBe(persistedCart);
   });
 });

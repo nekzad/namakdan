@@ -185,7 +185,7 @@ function ReservationActionView() {
             <div className="space-y-3 text-center">
               <p className="text-xs uppercase tracking-[0.3em] text-brand">
                 {businessName ||
-                  t("reservationConfirmation.brandHeading", "Payverge Reservations")}
+                  t("reservationConfirmation.brandHeading", "Namakdan Reservations")}
               </p>
               <h1 className="font-title text-3xl text-stone-900">{title}</h1>
               <p className="text-sm text-stone-600">{message}</p>

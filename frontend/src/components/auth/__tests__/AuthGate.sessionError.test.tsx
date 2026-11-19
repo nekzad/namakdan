@@ -110,7 +110,7 @@ describe("AuthGate — sessionInfoError retriable state (L6-42 / #4)", () => {
   });
 
   it("fail-opens protected chrome when a session hint exists", () => {
-    window.localStorage.setItem("payverge_had_session", "1");
+    window.localStorage.setItem("namakdan_had_session", "1");
     mockAuth = { ...mockAuth, sessionInfoError: true };
 
     render(
@@ -121,13 +121,13 @@ describe("AuthGate — sessionInfoError retriable state (L6-42 / #4)", () => {
 
     expect(screen.getByTestId("protected-child")).toBeTruthy();
     expect(screen.queryByText("common.sessionCheckFailed")).toBeNull();
-    window.localStorage.removeItem("payverge_had_session");
+    window.localStorage.removeItem("namakdan_had_session");
   });
 
   it.each(["crm", "analytics"])(
     "fail-opens %s first paint instead of the session wall (#621)",
     (tab) => {
-      window.localStorage.setItem("payverge_had_session", "1");
+      window.localStorage.setItem("namakdan_had_session", "1");
       mockSearchParams = new URLSearchParams(`tab=${tab}`);
       mockAuth = { ...mockAuth, sessionInfoError: true };
 
@@ -139,7 +139,7 @@ describe("AuthGate — sessionInfoError retriable state (L6-42 / #4)", () => {
 
       expect(screen.getByTestId(`${tab}-child`)).toBeTruthy();
       expect(screen.queryByText("common.sessionCheckFailed")).toBeNull();
-      window.localStorage.removeItem("payverge_had_session");
+      window.localStorage.removeItem("namakdan_had_session");
     },
   );
 

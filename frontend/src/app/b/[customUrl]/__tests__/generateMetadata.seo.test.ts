@@ -85,10 +85,10 @@ describe("generateMetadata — SEO (canonical + OG banner)", () => {
       is_demo: true,
       kind: "demo",
       description:
-        "A Payverge showcase restaurant with realistic operational demo data.",
+        "A Namakdan showcase restaurant with realistic operational demo data.",
     });
     const meta = await generateMetadata({
-      params: Promise.resolve({ customUrl: "payverge-ai-pro-demo-lounge" }),
+      params: Promise.resolve({ customUrl: "namakdan-ai-pro-demo-lounge" }),
     });
     expect(meta.robots).toEqual(
       expect.objectContaining({ index: true, follow: true }),

@@ -10,7 +10,7 @@ describe("generateMetadata for /reservations/[confirmationCode] (PG-10)", () => 
     const meta = await generateMetadata({
       params: Promise.resolve({ confirmationCode: "ABC123XYZ" }),
     });
-    expect(meta.title).toBe("Reservation | Payverge");
+    expect(meta.title).toBe("Reservation | Namakdan");
     expect(String(meta.title)).not.toMatch(/AI-Powered Restaurant Management/i);
   });
 

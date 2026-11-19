@@ -88,14 +88,14 @@ export const canonicalPendingCartTableCode = (
 export const pendingCartKey = (tableCode: string): string => {
   const canonical = canonicalTableCode(tableCode);
   if (canonical === null) throw new Error("invalid_table_code");
-  return `payverge_pending_cart_v1:${canonical}`;
+  return `namakdan_pending_cart_v1:${canonical}`;
 };
 
 const consumedNonceKey = (tableCode: string): string =>
   `${pendingCartKey(tableCode)}:consumed`;
 
 const pendingCartSessionBindingKey = (tableCode: string): string =>
-  `payverge_pending_cart_session_v1:${tableCode}`;
+  `namakdan_pending_cart_session_v1:${tableCode}`;
 
 const containsUnsafeUnicode = (value: string): boolean =>
   /[\p{Cc}\p{Cf}]/u.test(value);

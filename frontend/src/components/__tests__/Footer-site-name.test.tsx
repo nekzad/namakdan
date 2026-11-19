@@ -32,7 +32,7 @@ describe("Footer copyright holder", () => {
   it("names the operator's company when one is configured", () => {
     setInstanceForTests(
       parseInstanceInfo({
-        product_name: "Payverge",
+        product_name: "Namakdan",
         company_name: "Bodegón Mesa Larga",
         registration_mode: "invite",
         features: {},

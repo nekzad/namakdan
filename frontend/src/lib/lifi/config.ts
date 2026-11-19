@@ -1,4 +1,4 @@
-// LI.FI SDK Configuration for Payverge
+// LI.FI SDK Configuration for Namakdan
 // Enables cross-chain payments with any token, settling to USDC on Base
 
 import { getPublicConfig } from "@/config/publicConfig";

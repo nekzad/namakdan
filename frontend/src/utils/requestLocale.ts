@@ -13,7 +13,7 @@ export type RequestLocale = "en" | "es" | "es-ar";
 
 export type OperatorRequestLocale = "en" | "es" | "es-AR";
 
-export const OPERATOR_LOCALE_COOKIE = "payverge_locale";
+export const OPERATOR_LOCALE_COOKIE = "namakdan_locale";
 
 /**
  * Unprefixed auth/register surfaces honor the operator locale cookie.

@@ -10,12 +10,12 @@ const SITE = "https://pos.example.test";
 
 describe("buildOrganizationJsonLd", () => {
   const org = buildOrganizationJsonLd(SITE, {
-    name: "Payverge",
-    twitterHandle: "payverge_io",
+    name: "Namakdan",
+    twitterHandle: "example",
   });
 
   it("falls back to a public logo path that exists in the frontend bundle", () => {
-    expect(org.logo).toBe(`${SITE}/images/logo.webp`);
+    expect(org.logo).toBe(`${SITE}/images/namakdan-icon-512.png`);
     const rel = org.logo.replace(SITE, "");
     // public/ is served at site root
     const disk = path.join(process.cwd(), "public", rel.replace(/^\//, ""));
@@ -31,7 +31,7 @@ describe("buildOrganizationJsonLd", () => {
     expect(built.name).toBe("Trattoria");
     expect(built).toMatchObject({ legalName: "Trattoria SRL" });
     expect(built.logo).toBe("https://cdn.example.test/trattoria.png");
-    expect(JSON.stringify(built)).not.toContain("Payverge");
+    expect(JSON.stringify(built)).not.toContain("Namakdan");
     expect(
       buildOrganizationJsonLd(SITE, { name: "T", logoUrl: "/media/logo.png" })
         .logo,
@@ -43,16 +43,16 @@ describe("buildOrganizationJsonLd", () => {
 
   it("derives every URL from the runtime site origin", () => {
     for (const origin of ["https://a.example.test", "https://b.example.test/"]) {
-      const built = buildOrganizationJsonLd(origin, { name: "Payverge" });
+      const built = buildOrganizationJsonLd(origin, { name: "Namakdan" });
       const clean = origin.replace(/\/$/, "");
       expect(built.url).toBe(clean);
-      expect(buildWebsiteJsonLd(origin, "Payverge").url).toBe(clean);
-      expect(JSON.stringify(built)).not.toContain("payverge.io");
+      expect(buildWebsiteJsonLd(origin, "Namakdan").url).toBe(clean);
+      expect(JSON.stringify(built)).not.toContain("example.test");
     }
   });
 
   it("points nowhere the instance does not serve (no /contact, no /blog search)", () => {
-    const serialized = JSON.stringify([org, buildWebsiteJsonLd(SITE, "Payverge")]);
+    const serialized = JSON.stringify([org, buildWebsiteJsonLd(SITE, "Namakdan")]);
     expect(serialized).not.toContain("/contact");
     expect(serialized).not.toContain("/blog");
     expect(serialized).not.toContain("SearchAction");
@@ -67,11 +67,11 @@ describe("buildOrganizationJsonLd", () => {
 
   it("does not advertise the stale parent-brand LinkedIn company URL (#36)", () => {
     expect(org.sameAs.join(" ")).not.toMatch(/linkedin\.com/i);
-    expect(org.sameAs).toContain("https://twitter.com/payverge_io");
+    expect(org.sameAs).toContain("https://twitter.com/example");
   });
 
   it("omits sameAs profiles when no handle is configured", () => {
-    expect(buildOrganizationJsonLd(SITE, { name: "Payverge" }).sameAs).toEqual([]);
+    expect(buildOrganizationJsonLd(SITE, { name: "Namakdan" }).sameAs).toEqual([]);
   });
 });
 

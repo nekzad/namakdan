@@ -31,7 +31,7 @@ export async function generateMetadata({
   const lookup = await lookupGuestTable(tableCode, "business");
   const businessName = lookup.kind === "found" ? lookup.businessName : null;
   const headerStore = await headers();
-  const raw = headerStore.get("x-payverge-locale") ?? defaultLocale;
+  const raw = headerStore.get("x-namakdan-locale") ?? defaultLocale;
   const locale: StorefrontLocale = isGuestLocale(raw) ? raw : defaultLocale;
   return guestTablePageMetadata({
     tableCode,
@@ -45,7 +45,7 @@ export async function generateMetadata({
  * PG-21: seed guest messages on the server so PersistentGuestNav labels
  * (Table / Menu / Bill) render in the diner locale on first paint — not English
  * SSR followed by a hydration flip. Locale comes from middleware's
- * x-payverge-locale (?lang= → guest cookie → Accept-Language).
+ * x-namakdan-locale (?lang= → guest cookie → Accept-Language).
  */
 export default async function TableLayout({
   children,
@@ -61,7 +61,7 @@ export default async function TableLayout({
   }
 
   const headerStore = await headers();
-  const raw = headerStore.get("x-payverge-locale") ?? defaultLocale;
+  const raw = headerStore.get("x-namakdan-locale") ?? defaultLocale;
   const locale: StorefrontLocale = isGuestLocale(raw) ? raw : defaultLocale;
   const initialMessages = await loadGuestMessages(locale);
 

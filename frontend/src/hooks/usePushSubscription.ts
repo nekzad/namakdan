@@ -2,7 +2,7 @@ import { getPublicConfig } from "@/config/publicConfig";
 import { useCallback, useEffect, useState } from "react";
 import { axiosInstance } from "@/api/index";
 
-// Runtime public config (window.__PAYVERGE_ENV__), read lazily.
+// Runtime public config (window.__NAMAKDAN_ENV__), read lazily.
 const vapidPublicKey = () => getPublicConfig().vapidPublicKey;
 
 function urlBase64ToUint8Array(base64String: string): Uint8Array<ArrayBuffer> {

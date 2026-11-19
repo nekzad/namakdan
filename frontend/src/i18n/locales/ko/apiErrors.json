@@ -5,7 +5,7 @@
   "AUTH_REFRESH_ROTATED": "다른 요청에서 세션이 갱신되었습니다. 다시 시도해 주세요.",
   "AUTH_SESSION_UNKNOWN": "이 세션은 더 이상 활성 상태가 아닙니다. 다시 로그인해 주세요.",
   "AUTH_FORBIDDEN": "이 작업에 대한 권한이 없습니다.",
-  "DEMO_MODE_FORBIDDEN": "이 작업은 공개 데모에서 사용할 수 없습니다. 사용하려면 직접 Payverge를 설치하세요. 데모는 매일 밤 초기화됩니다.",
+  "DEMO_MODE_FORBIDDEN": "이 작업은 공개 데모에서 사용할 수 없습니다. 사용하려면 직접 Namakdan를 설치하세요. 데모는 매일 밤 초기화됩니다.",
   "AUTH_NOT_ADMIN": "관리자 권한이 필요합니다.",
   "AUTH_INSUFFICIENT_ROLE": "역할이 이 작업을 허용하지 않습니다.",
   "AUTH_INVALID_CREDENTIALS": "이메일 또는 비밀번호가 올바르지 않습니다.",

@@ -13,7 +13,7 @@ const ORGANIZATION_LANGUAGES = [
 ] as const;
 
 /** Bundled fallback logo, used when the instance sets no LOGO_URL. */
-const DEFAULT_LOGO_PATH = "/images/logo.webp";
+const DEFAULT_LOGO_PATH = "/images/namakdan-icon-512.png";
 
 export interface OrganizationJsonLdOptions {
   /** Public name of the site (company → product); see siteNameOf. */

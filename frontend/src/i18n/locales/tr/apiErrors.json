@@ -5,7 +5,7 @@
   "AUTH_REFRESH_ROTATED": "Oturumunuz başka bir istekte yenilendi. Lütfen tekrar deneyin.",
   "AUTH_SESSION_UNKNOWN": "Bu oturum artık etkin değil. Lütfen yeniden oturum açın.",
   "AUTH_FORBIDDEN": "Bu işlem için erişiminiz yok.",
-  "DEMO_MODE_FORBIDDEN": "Bu işlem herkese açık demoda devre dışıdır. Kullanmak için kendi Payverge kurulumunuzu yapın; demo her gece sıfırlanır.",
+  "DEMO_MODE_FORBIDDEN": "Bu işlem herkese açık demoda devre dışıdır. Kullanmak için kendi Namakdan kurulumunuzu yapın; demo her gece sıfırlanır.",
   "AUTH_NOT_ADMIN": "Yönetici erişimi gerekir.",
   "AUTH_INSUFFICIENT_ROLE": "Rolünüz bu işleme izin vermiyor.",
   "AUTH_INVALID_CREDENTIALS": "Geçersiz e-posta veya parola.",

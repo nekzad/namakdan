@@ -82,8 +82,8 @@ describe("instance root page", () => {
     expect(meta.robots).toBeUndefined();
     expect(meta.alternates?.canonical).toBe(`${getSiteUrl()}/`);
     // R2-1: the directory owns its social card under the instance name.
-    expect(meta.openGraph?.title).toBe("Payverge");
-    expect(meta.openGraph?.siteName).toBe("Payverge");
+    expect(meta.openGraph?.title).toBe("Namakdan");
+    expect(meta.openGraph?.siteName).toBe("Namakdan");
     expect(String(meta.openGraph?.title)).not.toMatch(/Restaurant Management/);
   });
 

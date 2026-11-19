@@ -24,7 +24,7 @@ describe("mutationQueue principal isolation", () => {
     const businessKey = "75";
     enqueue("user:A", { method: "POST", url: "/bills/1/close", body: { from: "A" } });
     localStorage.setItem(
-      "payverge:mutation-queue:75",
+      "namakdan:mutation-queue:75",
       JSON.stringify(getQueue("user:A")),
     );
 

@@ -1,6 +1,6 @@
 import { isSafeRedirectUrl } from "@/utils/safeRedirect";
 
-const PREFIX = "payverge:pwa";
+const PREFIX = "namakdan:pwa";
 const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 const DASHBOARD_PATH = /^\/business\/[^/?#]+\/dashboard$/;
 

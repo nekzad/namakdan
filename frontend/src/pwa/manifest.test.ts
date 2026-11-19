@@ -55,8 +55,8 @@ describe("PWA manifest and offline assets", () => {
       start_url: "/app",
       scope: "/",
       display: "standalone",
-      name: "Payverge - Restaurant Management System",
-      short_name: "Payverge",
+      name: "Namakdan - Restaurant Management System",
+      short_name: "Namakdan",
       description: "Restaurant operations, service, and payments in one app-like workspace.",
       theme_color: "#1a6b6a",
       background_color: "#ffffff",
@@ -111,9 +111,9 @@ describe("PWA manifest and offline assets", () => {
   });
 
   it.each([
-    ["offline/en.html", 'lang="en"', "Payverge — Offline", "You’re offline", "Payverge needs an internet connection to show current restaurant data.", "Try again"],
-    ["offline/es.html", 'lang="es"', "Payverge — Sin conexión", "No tienes conexión", "Payverge necesita internet para mostrar los datos actuales del restaurante.", "Reintentar"],
-    ["offline/es-ar.html", 'lang="es-AR"', "Payverge — Sin conexión", "No tenés conexión", "Payverge necesita internet para mostrar los datos actuales del restaurante.", "Reintentá"],
+    ["offline/en.html", 'lang="en"', "Namakdan — Offline", "You’re offline", "Namakdan needs an internet connection to show current restaurant data.", "Try again"],
+    ["offline/es.html", 'lang="es"', "Namakdan — Sin conexión", "No tienes conexión", "Namakdan necesita internet para mostrar los datos actuales del restaurante.", "Reintentar"],
+    ["offline/es-ar.html", 'lang="es-AR"', "Namakdan — Sin conexión", "No tenés conexión", "Namakdan necesita internet para mostrar los datos actuales del restaurante.", "Reintentá"],
   ])("ships an approved localized offline document at %s", (filename, lang, title, heading, paragraph, retry) => {
     const file = path.join(publicDirectory, filename);
     expect(fs.existsSync(file)).toBe(true);

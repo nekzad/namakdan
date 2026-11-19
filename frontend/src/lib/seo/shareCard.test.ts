@@ -13,7 +13,7 @@ describe("shareCardModel", () => {
     expect(model.initial).toBe("C");
     expect(model.brand).toBe("#aa3355");
     expect(model.description).toBe(DEFAULT_SITE_DESCRIPTION);
-    expect(JSON.stringify(model)).not.toMatch(/payverge/i);
+    expect(JSON.stringify(model)).not.toMatch(/namakdan/i);
   });
 
   it("falls back to the default brand color for an invalid value", () => {

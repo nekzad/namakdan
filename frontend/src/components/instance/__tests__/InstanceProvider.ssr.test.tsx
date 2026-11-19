@@ -35,7 +35,7 @@ describe("InstanceProvider on the server render", () => {
 
   it("without a provider the server render stays 'unknown' (never off)", () => {
     const html = renderToString(<Probe />);
-    expect(html).toContain("Payverge");
+    expect(html).toContain("Namakdan");
     expect(html).toContain("ai-unknown-or-on");
   });
 });

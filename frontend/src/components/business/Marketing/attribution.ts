@@ -140,7 +140,7 @@ export function attributionFileText(args: {
   limitations?: string;
 }): string {
   const lines: string[] = [
-    "Payverge marketing attribution",
+    "Namakdan marketing attribution",
     "==============================",
     "",
     `Promo code: ${args.tag.promoCode}`,
@@ -169,7 +169,7 @@ export function attributionFileText(args: {
         "Guest pages do not currently record these query parameters automatically.",
         "Use the promo code for manual or future first-party correlation only.",
         "This is not multi-touch ads attribution and does not call Meta/Google APIs.",
-        "Operators post when ready — Payverge does not own a publish clock.",
+        "Operators post when ready — Namakdan does not own a publish clock.",
       ].join("\n"),
   );
   lines.push("");

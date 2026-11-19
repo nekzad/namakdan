@@ -53,7 +53,7 @@ function routeAliasRedirects() {
     // not permanent: an install may later serve its own docs.
     redirects.push({
       source: `${prefix}/docs`,
-      destination: "https://github.com/stdevMac/payverge/tree/main/docs",
+      destination: "https://github.com/nekzad/namakdan/tree/main/docs",
       permanent: false,
     });
   }

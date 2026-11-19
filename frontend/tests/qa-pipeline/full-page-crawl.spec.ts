@@ -52,7 +52,7 @@ test.describe("QA pipeline — full page inventory crawl", () => {
     // Consent
     await context.addInitScript(() => {
       window.localStorage.setItem(
-        "payverge_cookie_consent",
+        "namakdan_cookie_consent",
         JSON.stringify({
           version: 1,
           analytics: false,

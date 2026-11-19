@@ -15,7 +15,7 @@
  * cross-chain plan can reuse it verbatim for direct USDC and cross-chain flows.
  */
 
-export const CRYPTO_INFLIGHT_KEY = "payverge_crypto_inflight";
+export const CRYPTO_INFLIGHT_KEY = "namakdan_crypto_inflight";
 
 /**
  * Client-side staleness bound for a persisted in-flight record. The quoteToken

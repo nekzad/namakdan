@@ -10,10 +10,10 @@ describe("openVenueMemory", () => {
     rememberOpenVenue({
       id: 2,
       business_id: "demo-admin-1-ai-pro",
-      name: "Payverge AI Pro Demo Lounge",
+      name: "Namakdan AI Pro Demo Lounge",
     });
     expect(recalledVenueName("demo-admin-1-ai-pro")).toBe(
-      "Payverge AI Pro Demo Lounge",
+      "Namakdan AI Pro Demo Lounge",
     );
     expect(recalledVenueName("demo-admin-1-core")).toBeNull();
   });

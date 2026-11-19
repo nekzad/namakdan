@@ -116,7 +116,7 @@ function computeSessionFingerprint(info: {
 function hasSessionHint(): boolean {
   if (typeof window === "undefined") return false;
   try {
-    return localStorage.getItem("payverge_had_session") === "1";
+    return localStorage.getItem("namakdan_had_session") === "1";
   } catch {
     return false;
   }
@@ -517,7 +517,7 @@ export function HybridAuthProvider({ children }: { children: ReactNode }) {
         address,
         challengeResponse.challenge,
         chainId,
-        "Link this wallet to your Payverge account.",
+        "Link this wallet to your Namakdan account.",
       );
       const signature = await signMessageAsync({ message });
 
@@ -854,7 +854,7 @@ export function HybridAuthProvider({ children }: { children: ReactNode }) {
         // Mark that a session exists so subsequent visits know to attempt
         // /auth/refresh. Cleared on logout/expiry to keep anonymous loads silent.
         if (typeof window !== "undefined") {
-          localStorage.setItem("payverge_had_session", "1");
+          localStorage.setItem("namakdan_had_session", "1");
         }
 
         switch (sessionInfo.type) {
@@ -1008,7 +1008,7 @@ export function HybridAuthProvider({ children }: { children: ReactNode }) {
       refreshCleanupRef.current?.();
       refreshCleanupRef.current = null;
       if (typeof window !== "undefined") {
-        localStorage.removeItem("payverge_had_session");
+        localStorage.removeItem("namakdan_had_session");
       }
       setIsSessionExpired(true);
     };
@@ -1109,7 +1109,7 @@ export function HybridAuthProvider({ children }: { children: ReactNode }) {
           address,
           challenge,
           chainId,
-          "Sign in to Payverge.",
+          "Sign in to Namakdan.",
         );
         const signature = await signMessageAsync({ message });
         const response = await axiosInstance.post("/auth/signin", {
@@ -1123,7 +1123,7 @@ export function HybridAuthProvider({ children }: { children: ReactNode }) {
           setAuthSource("dynamic");
           clearDynamicAuthIntent();
           if (typeof window !== "undefined") {
-            localStorage.setItem("payverge_had_session", "1");
+            localStorage.setItem("namakdan_had_session", "1");
           }
           // Scope apiCache to this Dynamic session before fetching the
           // profile so responses land under the correct fingerprint.

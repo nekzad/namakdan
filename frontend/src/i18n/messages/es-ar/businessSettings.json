@@ -102,7 +102,7 @@
   },
   "timezoneDescription": "Afecta las marcas de tiempo de las cuentas, análisis y horarios de operación",
   "notifications": {
-    "emailDescription": "Controlá qué emails recibís de Payverge",
+    "emailDescription": "Controlá qué emails recibís de Namakdan",
     "ordersAndPaymentsDesc": "Recibí emails cuando se realizan pedidos o se reciben pagos",
     "telegramNotConnected": "Conectá Telegram en la pestaña de Plugins para configurar notificaciones",
     "directorDigestDesc": "Recibí un resumen diario por email con información generada por IA sobre tu negocio",

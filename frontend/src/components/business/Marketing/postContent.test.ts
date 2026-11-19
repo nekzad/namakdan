@@ -56,15 +56,15 @@ it("normalizes a handle", () => {
 
 it("extracts a handle from a social-links JSON blob (business.social_media shape)", () => {
   const json =
-    '{"instagram":"https://instagram.com/payverge","facebook":"https://facebook.com/payverge-page"}';
-  expect(normalizeHandle(json)).toBe("@payverge");
+    '{"instagram":"https://instagram.com/namakdan","facebook":"https://facebook.com/namakdan-page"}';
+  expect(normalizeHandle(json)).toBe("@namakdan");
 });
 
 it("falls back through the JSON blob when instagram is absent, and never emits raw JSON", () => {
   expect(normalizeHandle('{"facebook":"https://facebook.com/trattoria"}')).toBe(
     "@trattoria",
   );
-  expect(normalizeHandle('{"website":"https://payverge.io"}')).toBe("");
+  expect(normalizeHandle('{"website":"https://example.test"}')).toBe("");
   expect(normalizeHandle("{not json")).toBe("");
   expect(normalizeHandle("{}")).toBe("");
 });
@@ -186,10 +186,10 @@ describe("composeLocalizedFallbackCaption", () => {
     expect(output).not.toContain("�");
   });
 
-  it("omits demo venue names and #Payverge from fallback copy", () => {
+  it("omits demo venue names and #Namakdan from fallback copy", () => {
     const demo = {
       ...business,
-      name: "Payverge AI Pro Demo Lounge",
+      name: "Namakdan AI Pro Demo Lounge",
     } as Business;
     expect(
       composeLocalizedFallbackCaption({

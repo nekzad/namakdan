@@ -97,10 +97,10 @@ describe("validateTableCode", () => {
 
 describe("extractTableCodeFromURL", () => {
   it("pulls and upper-cases the code from a /t/ deep link", () => {
-    expect(extractTableCodeFromURL("https://payverge.io/t/abc123")).toBe("ABC123");
+    expect(extractTableCodeFromURL("https://example.test/t/abc123")).toBe("ABC123");
   });
   it("pulls slug demo codes from /t/ deep links", () => {
-    expect(extractTableCodeFromURL("https://payverge.io/t/demo-50-core-table-01")).toBe(
+    expect(extractTableCodeFromURL("https://example.test/t/demo-50-core-table-01")).toBe(
       "DEMO-50-CORE-TABLE-01",
     );
     expect(extractTableCodeFromURL("/t/demo-51-ai-pro-table-01/menu")).toBe(
@@ -108,6 +108,6 @@ describe("extractTableCodeFromURL", () => {
     );
   });
   it("returns null for a non-table URL", () => {
-    expect(extractTableCodeFromURL("https://payverge.io/pricing")).toBeNull();
+    expect(extractTableCodeFromURL("https://example.test/pricing")).toBeNull();
   });
 });

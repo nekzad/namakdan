@@ -22,7 +22,7 @@ describe("isCleanupEligiblePhotoUrl (L4-20)", () => {
   it("accepts https gallery-like hosts", () => {
     expect(
       isCleanupEligiblePhotoUrl(
-        "https://payverge-public.s3.us-east-1.amazonaws.com/menu/1.jpg",
+        "https://example-bucket.s3.us-east-1.amazonaws.com/menu/1.jpg",
       ),
     ).toBe(true);
   });

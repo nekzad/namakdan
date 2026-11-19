@@ -239,7 +239,7 @@ function GuestMenuPageContent() {
 
   // Cart storage key
   const CART_STORAGE_KEY = useMemo(
-    () => `payverge_cart_${tableCode}`,
+    () => `namakdan_cart_${tableCode}`,
     [tableCode],
   );
   // The cart-restore effect re-runs on menu load and every language change (it

@@ -9,12 +9,12 @@
     "invalidToken": "Invalid session token.",
     "loadingUserData": "Loading user data...",
     "error": "Error",
-    "unreachable": "Couldn't reach Payverge. Check your connection and try again."
+    "unreachable": "Couldn't reach Namakdan. Check your connection and try again."
   },
   "authentication": {
     "title": "Authentication Required",
-    "subtitle": "Sign in with Google or your email to open your Payverge dashboard.",
-    "subtitleEmail": "Sign in with your email to open your Payverge dashboard.",
+    "subtitle": "Sign in with Google or your email to open your Namakdan dashboard.",
+    "subtitleEmail": "Sign in with your email to open your Namakdan dashboard.",
     "welcomeBack": "Welcome back, {email}",
     "signInSignUp": "Sign In / Sign Up",
     "signInOnly": "Sign In",
@@ -41,7 +41,7 @@
           "description": "Guests pay on the rails you connect; nothing sits in between."
         }
       ],
-      "imageAlt": "Payverge analytics dashboard with sales, tips, and payment mix"
+      "imageAlt": "Namakdan analytics dashboard with sales, tips, and payment mix"
     }
   },
   "businesses": {

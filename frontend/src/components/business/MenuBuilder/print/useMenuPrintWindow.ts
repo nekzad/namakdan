@@ -3,8 +3,8 @@
 import DOMPurify from "dompurify";
 import { useCallback, useEffect, useRef } from "react";
 
-const MESSAGE_SOURCE = "payverge-menu-print";
-const WINDOW_NAME = "payverge-menu-print";
+const MESSAGE_SOURCE = "namakdan-menu-print";
+const WINDOW_NAME = "namakdan-menu-print";
 const WINDOW_FEATURES = "popup,width=1200,height=900";
 const DEFAULT_COMPLETION_TIMEOUT_MS = 60_000;
 const DEFAULT_READY_TIMEOUT_MS = 10_000;
@@ -330,7 +330,7 @@ function sanitizePrintDocument(
 
   parsed.querySelectorAll("meta").forEach((meta) => {
     const name = meta.getAttribute("name")?.trim().toLowerCase();
-    if (name === "payverge-print-job" || meta.hasAttribute("http-equiv")) {
+    if (name === "namakdan-print-job" || meta.hasAttribute("http-equiv")) {
       meta.remove();
     }
   });
@@ -365,7 +365,7 @@ function createPrintDocument(
   const parsed = sanitizePrintDocument(sourceHtml, expectedOrigin);
 
   const meta = parsed.createElement("meta");
-  meta.setAttribute("name", "payverge-print-job");
+  meta.setAttribute("name", "namakdan-print-job");
   meta.setAttribute("content", jobId);
   parsed.head.appendChild(meta);
 
@@ -381,7 +381,7 @@ function appendLifecycleScript(
 ): void {
   if (!childDocument.body) throw new Error("Print document body unavailable");
   const lifecycle = childDocument.createElement("script");
-  lifecycle.id = "payverge-print-lifecycle";
+  lifecycle.id = "namakdan-print-lifecycle";
   if (cspNonce) lifecycle.nonce = cspNonce;
   lifecycle.textContent = createLifecycleScriptText(
     jobId,

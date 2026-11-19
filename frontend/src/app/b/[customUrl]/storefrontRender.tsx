@@ -49,14 +49,14 @@ async function notFoundMetadata(lang?: string): Promise<Metadata> {
       const title = messages?.businessPage?.errors?.notFound;
       const description = messages?.businessPage?.error?.notFoundBody;
       if (typeof title === "string" && typeof description === "string") {
-        return { title: `${title} | Payverge`, description };
+        return { title: `${title} | Namakdan`, description };
       }
     } catch {
       // fall through to English
     }
   }
   return {
-    title: "Business Not Found | Payverge",
+    title: "Business Not Found | Namakdan",
     description: "The requested business page could not be found.",
   };
 }
@@ -95,18 +95,18 @@ export async function storefrontMetadata({
     // 'Not Found' flash while the page is actually still loading. noindex it:
     // a backend blip must never get indexed as the storefront's snippet.
     return {
-      title: "Loading business… | Payverge",
+      title: "Loading business… | Namakdan",
       description: "Loading business page…",
       robots: { index: false, follow: false },
     };
   }
 
-  const title = `${business.name} | Payverge`;
+  const title = `${business.name} | Namakdan`;
   const snippetLocale = resolvedLocale.locale;
   const description = sanitizeStorefrontProse(
     business.description,
     snippetLocale,
-    `Visit ${business.name} - Powered by Payverge`,
+    `Visit ${business.name} - Powered by Namakdan`,
   );
 
   const baseUrl = getSiteUrl();

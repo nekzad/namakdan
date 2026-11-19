@@ -44,7 +44,7 @@ function resolveGuestStorefrontLocale(request: NextRequest): string | null {
   }
   // PG-21: ?lang= → guest cookie → Accept-Language so SSR matches hydration.
   // Same path for /scan, /t, /b — a saved diner locale must survive QR-entry.
-  // Never reads the operator payverge_locale cookie.
+  // Never reads the operator namakdan_locale cookie.
   const resolved = resolveGuestRequestLocale({
     langParam:
       request.nextUrl.searchParams.get("lang") ||
@@ -327,7 +327,7 @@ async function resolveGuestTableResponse(
       ? (locale as StorefrontLocale)
       : defaultLocale;
     const title =
-      tableRoute.surface === "menu" ? "Menu | Payverge" : "Table | Payverge";
+      tableRoute.surface === "menu" ? "Menu | Namakdan" : "Table | Namakdan";
     return persistPathLocaleCookie(
       new NextResponse(guestTableNotFoundHtml(pageLocale, title), {
         status: 404,
@@ -359,7 +359,7 @@ async function resolveStorefrontResponse(
       ? (locale as StorefrontLocale)
       : defaultLocale;
     return persistPathLocaleCookie(
-      new NextResponse(guestTableNotFoundHtml(pageLocale, "Business Not Found | Payverge"), {
+      new NextResponse(guestTableNotFoundHtml(pageLocale, "Business Not Found | Namakdan"), {
         status: 404,
         headers: {
           "Content-Type": "text/html; charset=utf-8",
@@ -404,7 +404,7 @@ function finishMiddleware(
   const cspHeader = contentSecurityPolicyFor(nonce);
 
   const requestHeaders = new Headers(request.headers);
-  requestHeaders.set("x-payverge-locale", locale);
+  requestHeaders.set("x-namakdan-locale", locale);
   requestHeaders.set("x-nonce", nonce);
 
   // Locale-prefixed marketing URLs without a dedicated page rewrite to the
@@ -423,7 +423,7 @@ function finishMiddleware(
       const url = request.nextUrl.clone();
       url.pathname = unprefixed;
       // Carry the path locale in the rewritten URL too, not only in the
-      // x-payverge-locale request header. When the rewrite origin differs
+      // x-namakdan-locale request header. When the rewrite origin differs
       // from the server's own origin (request.nextUrl reports localhost
       // while `next start -H`/HOSTNAME binds another host), Next proxies the
       // rewrite as a fresh request: overridden request headers are dropped

@@ -45,7 +45,7 @@ test.describe("recent alerts with browser print station", () => {
       await page.addInitScript(
         ({ businessId: stationBusinessId, printerId: selectedPrinterId }) => {
           localStorage.setItem(
-            `payverge_print_station:${stationBusinessId}`,
+            `namakdan_print_station:${stationBusinessId}`,
             String(selectedPrinterId),
           );
         },

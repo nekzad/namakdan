@@ -1,10 +1,10 @@
-# Adding a New Locale to Payverge
+# Adding a New Locale to Namakdan
 
 This is the canonical playbook. Pick the scenario that matches what you want
 to do, follow the checklist exactly, then run the verification suite at the
 bottom.
 
-> **Architecture refresher:** Payverge has two distinct i18n systems.
+> **Architecture refresher:** Namakdan has two distinct i18n systems.
 >
 > 1. **Operator i18n** — what the business operator sees in the dashboard
 >    (Overview, Menu Builder, Reservations, etc.). Today: en, es, es-AR.

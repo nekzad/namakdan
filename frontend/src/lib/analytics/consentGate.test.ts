@@ -102,6 +102,6 @@ describe("consentGate", () => {
     unsubscribe();
     writeConsent({ analytics: true, marketing: false });
     expect(listener).toHaveBeenCalledTimes(3);
-    expect(CONSENT_CHANGE_EVENT).toBe("payverge:consent-change");
+    expect(CONSENT_CHANGE_EVENT).toBe("namakdan:consent-change");
   });
 });

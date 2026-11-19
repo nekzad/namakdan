@@ -7,7 +7,7 @@ import {
 } from "@/lib/analytics/consentGate";
 
 // instrumentation-client is evaluated by Next's async main chunk, which can
-// run before the root layout's window.__PAYVERGE_ENV__ script. Sentry's DSN is
+// run before the root layout's window.__NAMAKDAN_ENV__ script. Sentry's DSN is
 // runtime config, so init must wait for that script instead of reading the
 // build-time fallback at module load.
 
@@ -85,7 +85,7 @@ afterEach(() => {
   replayStartBuffering.mockClear();
   replayIntegration.mockClear();
   window.localStorage.clear();
-  delete window.__PAYVERGE_ENV__;
+  delete window.__NAMAKDAN_ENV__;
   delete (document as unknown as { readyState?: unknown }).readyState;
   jest.dontMock("@sentry/nextjs");
 });
@@ -114,7 +114,7 @@ describe("instrumentation-client Sentry init", () => {
     loadInstrumentationClient();
     expect(init).not.toHaveBeenCalled();
 
-    window.__PAYVERGE_ENV__ = runtimeEnv;
+    window.__NAMAKDAN_ENV__ = runtimeEnv;
     window.dispatchEvent(new Event(PUBLIC_ENV_READY_EVENT));
 
     expect(init).toHaveBeenCalledTimes(1);
@@ -126,7 +126,7 @@ describe("instrumentation-client Sentry init", () => {
 
   it("initializes immediately when the config is already present", () => {
     setReadyState("loading");
-    window.__PAYVERGE_ENV__ = runtimeEnv;
+    window.__NAMAKDAN_ENV__ = runtimeEnv;
     loadInstrumentationClient();
     expect(init).toHaveBeenCalledTimes(1);
   });
@@ -134,7 +134,7 @@ describe("instrumentation-client Sentry init", () => {
   it("stays off when the runtime config carries no DSN", () => {
     setReadyState("loading");
     loadInstrumentationClient();
-    window.__PAYVERGE_ENV__ = { SENTRY_DSN: "" };
+    window.__NAMAKDAN_ENV__ = { SENTRY_DSN: "" };
     window.dispatchEvent(new Event(PUBLIC_ENV_READY_EVENT));
     document.dispatchEvent(new Event("DOMContentLoaded"));
     expect(init).not.toHaveBeenCalled();
@@ -142,7 +142,7 @@ describe("instrumentation-client Sentry init", () => {
 
   it("does not add Replay when analytics consent is missing", () => {
     setReadyState("loading");
-    window.__PAYVERGE_ENV__ = replayEnv();
+    window.__NAMAKDAN_ENV__ = replayEnv();
     loadInstrumentationClient();
 
     expect(init).toHaveBeenCalledTimes(1);
@@ -155,7 +155,7 @@ describe("instrumentation-client Sentry init", () => {
   it("adds masked Replay once when analytics consent is already stored", () => {
     setReadyState("loading");
     window.localStorage.setItem(CONSENT_STORAGE_KEY, analyticsConsent);
-    window.__PAYVERGE_ENV__ = replayEnv();
+    window.__NAMAKDAN_ENV__ = replayEnv();
     loadInstrumentationClient();
 
     expect(addIntegration).toHaveBeenCalledTimes(1);
@@ -169,7 +169,7 @@ describe("instrumentation-client Sentry init", () => {
 
   it("adds Replay when analytics consent is granted after init", () => {
     setReadyState("loading");
-    window.__PAYVERGE_ENV__ = replayEnv();
+    window.__NAMAKDAN_ENV__ = replayEnv();
     loadInstrumentationClient();
     expect(addIntegration).not.toHaveBeenCalled();
 
@@ -184,7 +184,7 @@ describe("instrumentation-client Sentry init", () => {
   it("stops Replay when analytics consent is withdrawn", () => {
     setReadyState("loading");
     window.localStorage.setItem(CONSENT_STORAGE_KEY, analyticsConsent);
-    window.__PAYVERGE_ENV__ = replayEnv();
+    window.__NAMAKDAN_ENV__ = replayEnv();
     loadInstrumentationClient();
     expect(addIntegration).toHaveBeenCalledTimes(1);
 
@@ -196,7 +196,7 @@ describe("instrumentation-client Sentry init", () => {
   it("restarts Replay when consent is granted again after a withdrawal", () => {
     setReadyState("loading");
     window.localStorage.setItem(CONSENT_STORAGE_KEY, analyticsConsent);
-    window.__PAYVERGE_ENV__ = replayEnv();
+    window.__NAMAKDAN_ENV__ = replayEnv();
     loadInstrumentationClient();
 
     writeConsent({ analytics: false, marketing: false });
@@ -211,7 +211,7 @@ describe("instrumentation-client Sentry init", () => {
   it("skips Replay entirely when both sample rates are zero", () => {
     setReadyState("loading");
     window.localStorage.setItem(CONSENT_STORAGE_KEY, analyticsConsent);
-    window.__PAYVERGE_ENV__ = runtimeEnv;
+    window.__NAMAKDAN_ENV__ = runtimeEnv;
     loadInstrumentationClient();
 
     expect(init).toHaveBeenCalledTimes(1);

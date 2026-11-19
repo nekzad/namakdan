@@ -1,5 +1,5 @@
-const OFFLINE_CACHE = "payverge-offline-v2";
-const META_CACHE = "payverge-pwa-meta-v1";
+const OFFLINE_CACHE = "namakdan-offline-v2";
+const META_CACHE = "namakdan-pwa-meta-v1";
 const OFFLINE_LOCALE_KEY = "/__pwa_offline_locale__";
 const OFFLINE_PAGES = {
   en: "/offline/en.html",
@@ -36,7 +36,7 @@ self.addEventListener("activate", (event) => {
       .then((names) =>
         Promise.all(
           names
-            .filter((name) => name.startsWith("payverge-") && name !== OFFLINE_CACHE && name !== META_CACHE)
+            .filter((name) => name.startsWith("namakdan-") && name !== OFFLINE_CACHE && name !== META_CACHE)
             .map((name) => caches.delete(name)),
         ),
       )
@@ -84,7 +84,7 @@ self.addEventListener("fetch", (event) => {
 });
 
 self.addEventListener("push", (event) => {
-  let data = { title: "Payverge", body: "", url: "/app" };
+  let data = { title: "Namakdan", body: "", url: "/app" };
   try {
     if (event.data) data = { ...data, ...event.data.json() };
   } catch {
@@ -92,7 +92,7 @@ self.addEventListener("push", (event) => {
   }
 
   event.waitUntil(
-    self.registration.showNotification(data.title || "Payverge", {
+    self.registration.showNotification(data.title || "Namakdan", {
       body: data.body || "",
       icon: "/android-chrome-192x192.png",
       badge: "/favicon-32x32.png",

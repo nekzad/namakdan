@@ -24,8 +24,8 @@ function expectSiteOgDefaults(og: {
 
 describe("site openGraph defaults (REV-5)", () => {
   it("siteOpenGraphDefaults always includes siteName and images", () => {
-    const og = siteOpenGraphDefaults({ url: "https://payverge.io/business/register" });
+    const og = siteOpenGraphDefaults({ url: "https://example.test/business/register" });
     expectSiteOgDefaults(og);
-    expect(og.url).toBe("https://payverge.io/business/register");
+    expect(og.url).toBe("https://example.test/business/register");
   });
 });

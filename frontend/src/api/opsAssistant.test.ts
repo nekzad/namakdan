@@ -35,7 +35,7 @@ describe("Director handoff sessionStorage", () => {
   it("writes and reads one-shot handoff payload", () => {
     writeDirectorHandoff(42, "Why did revenue drop?");
     expect(readAndClearDirectorHandoff(42)).toBe("Why did revenue drop?");
-    expect(sessionStorage.getItem("payverge_director_handoff_42")).toBeNull();
+    expect(sessionStorage.getItem("namakdan_director_handoff_42")).toBeNull();
   });
 
   it("returns null when no handoff exists", () => {

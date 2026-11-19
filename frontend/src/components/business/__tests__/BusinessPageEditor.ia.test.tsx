@@ -119,8 +119,8 @@ it("offers a 'Set your page URL' action that switches to Content when no slug is
 
   const setUrlBtn = await screen.findByRole("button", { name: /set your page url/i });
   fireEvent.click(setUrlBtn);
-  // Lands on Content (essentials), where the slug input renders the payverge.io/b/ prefix.
-  const prefix = await screen.findAllByText(/payverge\.io\/b\//i);
+  // Lands on Content (essentials), where the slug input renders the example.test/b/ prefix.
+  const prefix = await screen.findAllByText(/namakdan\.io\/b\//i);
   expect(prefix.length).toBeGreaterThan(0);
 });
 
@@ -132,5 +132,5 @@ it("shows the live-page link (Open ↗) when a slug is already saved", async () 
   // The live-page zone is driven by the persisted slug (settings.custom_url),
   // wired through CustomURLInput's savedUrl prop.
   const link = await screen.findByRole("link", { name: /open live page/i });
-  expect(link).toHaveAttribute("href", "https://payverge.io/b/demo");
+  expect(link).toHaveAttribute("href", "https://example.test/b/demo");
 });
