@@ -105,6 +105,12 @@ func TestResolveAllowedOrigins_AddsCustomOrigin(t *testing.T) {
 	assert.Contains(t, origins, "http://localhost:3000")
 }
 
+func TestResolveAllowedOrigins_AllowsExplicitLANHTTPOriginOutsideProduction(t *testing.T) {
+	t.Setenv("ENV", "development")
+	origins := resolveAllowedOrigins("http://192.168.1.20:3000")
+	assert.Contains(t, origins, "http://192.168.1.20:3000")
+}
+
 func TestResolveAllowedOrigins_TrimsWhitespace(t *testing.T) {
 	origins := resolveAllowedOrigins("  https://staging.example.test  ,  https://preview.example.test  ")
 	assert.Contains(t, origins, "https://staging.example.test")

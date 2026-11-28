@@ -2,15 +2,18 @@ package utils
 
 import (
 	"fmt"
+	"log"
 	"net"
 	"os"
 	"strings"
+	"sync"
 	"sync/atomic"
 
 	"github.com/gin-gonic/gin"
 )
 
 var productionOverride atomic.Bool
+var invalidCookieSecureOnce sync.Once
 
 func SetProductionOverride(enabled bool) {
 	productionOverride.Store(enabled)
@@ -48,6 +51,24 @@ func IsProduction() bool {
 // True in production, or when PUBLIC_URL is https, so a dev-mode
 // deployment served over TLS still marks the cookie Secure.
 func authCookieSecure() bool {
+	switch strings.ToLower(strings.TrimSpace(os.Getenv("COOKIE_SECURE"))) {
+	case "true", "1", "yes", "on":
+		return true
+	case "false", "0", "no", "off":
+		if IsProduction() {
+			invalidCookieSecureOnce.Do(func() {
+				log.Printf("WARNING: COOKIE_SECURE=false ignored in production")
+			})
+			return true
+		}
+		return false
+	case "", "auto":
+	default:
+		invalidCookieSecureOnce.Do(func() {
+			log.Printf("WARNING: COOKIE_SECURE must be auto, true, or false; using automatic mode")
+		})
+	}
+
 	if IsProduction() {
 		return true
 	}

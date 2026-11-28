@@ -312,6 +312,7 @@ func TestSetSessionCookie_SecureFollowsPublicURLOutsideProduction(t *testing.T) 
 	t.Cleanup(func() { SetProductionOverride(false) })
 	t.Setenv("ENV", "")
 	t.Setenv("APP_ENV", "")
+	t.Setenv("COOKIE_SECURE", "auto")
 
 	t.Run("https", func(t *testing.T) {
 		t.Setenv("PUBLIC_URL", "https://pos.example.com")
@@ -338,6 +339,56 @@ func TestSetSessionCookie_SecureFollowsPublicURLOutsideProduction(t *testing.T) 
 		got := liveSetCookie(t, w, "session_token=v")
 		if strings.Contains(got, "; Secure") {
 			t.Fatalf("expected no ; Secure when PUBLIC_URL is http, got %q", got)
+		}
+	})
+
+	t.Run("private LAN HTTP", func(t *testing.T) {
+		t.Setenv("PUBLIC_URL", "http://192.168.1.10:3000")
+		w := httptest.NewRecorder()
+		c, _ := gin.CreateTestContext(w)
+		c.Request = httptest.NewRequest("GET", "/", nil)
+
+		SetSessionCookie(c, "session_token", "v", 900)
+
+		got := liveSetCookie(t, w, "session_token=v")
+		if strings.Contains(got, "; Secure") {
+			t.Fatalf("expected no ; Secure for an HTTP LAN install, got %q", got)
+		}
+	})
+}
+
+func TestSetSessionCookie_CookieSecureOverride(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+	SetProductionOverride(false)
+	t.Cleanup(func() { SetProductionOverride(false) })
+	t.Setenv("ENV", "")
+	t.Setenv("APP_ENV", "")
+	t.Setenv("PUBLIC_URL", "http://192.168.1.10:3000")
+
+	t.Run("explicit true", func(t *testing.T) {
+		t.Setenv("COOKIE_SECURE", "true")
+		w := httptest.NewRecorder()
+		c, _ := gin.CreateTestContext(w)
+		c.Request = httptest.NewRequest("GET", "/", nil)
+
+		SetSessionCookie(c, "session_token", "v", 900)
+
+		if got := liveSetCookie(t, w, "session_token=v"); !strings.Contains(got, "; Secure") {
+			t.Fatalf("expected ; Secure when COOKIE_SECURE=true, got %q", got)
+		}
+	})
+
+	t.Run("false cannot disable Secure in production", func(t *testing.T) {
+		t.Setenv("ENV", "production")
+		t.Setenv("COOKIE_SECURE", "false")
+		w := httptest.NewRecorder()
+		c, _ := gin.CreateTestContext(w)
+		c.Request = httptest.NewRequest("GET", "/", nil)
+
+		SetSessionCookie(c, "session_token", "v", 900)
+
+		if got := liveSetCookie(t, w, "session_token=v"); !strings.Contains(got, "; Secure") {
+			t.Fatalf("expected production to retain ; Secure, got %q", got)
 		}
 	})
 }

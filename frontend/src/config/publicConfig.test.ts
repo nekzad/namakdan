@@ -151,6 +151,19 @@ describe("resolvePublicEnv (server)", () => {
     expect(env.API_URL).toBe("http://127.0.0.1:8080/api/v1");
   });
 
+  it("reads a LAN API URL from runtime env and permits private HTTP origins", () => {
+    const env = resolvePublicEnv(
+      {
+        PUBLIC_URL: "http://192.168.1.20:3000",
+        API_URL: "http://192.168.1.20:8080/api/v1",
+      },
+      "development",
+      { includeBuildFallback: false },
+    );
+    expect(env.PUBLIC_URL).toBe("http://192.168.1.20:3000");
+    expect(env.API_URL).toBe("http://192.168.1.20:8080/api/v1");
+  });
+
   it("drops unsafe URLs back to defaults instead of publishing them", () => {
     const env = resolvePublicEnv(
       {
