@@ -160,13 +160,9 @@ export function getFrontendSentryRuntimeConfig(): FrontendSentryRuntimeConfig {
       "development",
   );
   const explicitEnabled = parseBoolean(publicConfig.sentryEnabled);
-  const environmentAllowsSentry = ["production", "staging"].includes(
-    environment.toLowerCase(),
-  );
-
   return {
     dsn,
-    enabled: Boolean(dsn) && (explicitEnabled ?? environmentAllowsSentry),
+    enabled: Boolean(dsn) && explicitEnabled === true,
     environment,
     release: normalizeEnvValue(process.env.NEXT_PUBLIC_SENTRY_RELEASE),
     tracesSampleRate: parseSampleRate(

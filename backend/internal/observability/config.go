@@ -31,8 +31,7 @@ func LoadConfigFromEnv(service string) Config {
 		"development",
 	))
 
-	normalizedEnvironment := strings.ToLower(environment)
-	enabled := dsn != "" && (normalizedEnvironment == "staging" || normalizedEnvironment == "production")
+	enabled := false
 	if explicitEnabled, ok := parseOptionalBool(os.Getenv("SENTRY_ENABLED")); ok {
 		enabled = dsn != "" && explicitEnabled
 	}

@@ -1452,10 +1452,11 @@ func main() {
 		}
 	})
 
-	// Initialize PostHog with environment variable
+	// PostHog is opt-in; a configured key alone never enables outbound telemetry.
 	posthogAPIKey := os.Getenv("POSTHOG_API_KEY")
 	posthogHost := os.Getenv("POSTHOG_HOST")
-	if posthogAPIKey != "" && posthogHost != "" {
+	posthogEnabled, _ := strconv.ParseBool(strings.TrimSpace(os.Getenv("POSTHOG_ENABLED")))
+	if posthogEnabled && posthogAPIKey != "" && posthogHost != "" {
 		metrics.InitPostHogClient(posthogAPIKey, posthogHost)
 		defer metrics.ClosePostHogClient()
 	}

@@ -39,14 +39,14 @@ func TestLoadConfigFromEnv_DefaultsDisabledWithoutDSN(t *testing.T) {
 	require.Equal(t, "production", cfg.Environment)
 }
 
-func TestLoadConfigFromEnv_EnablesForProductionWithDSN(t *testing.T) {
+func TestLoadConfigFromEnv_DisablesForProductionWithDSNByDefault(t *testing.T) {
 	clearConfigEnv(t)
 	t.Setenv("SENTRY_DSN", "https://public@example.com/1")
 	t.Setenv("SENTRY_ENVIRONMENT", "production")
 
 	cfg := LoadConfigFromEnv("backend")
 
-	require.True(t, cfg.Enabled)
+	require.False(t, cfg.Enabled)
 	require.Equal(t, "https://public@example.com/1", cfg.DSN)
 	require.InDelta(t, 0.05, cfg.TracesSampleRate, 0.0001)
 }
@@ -62,15 +62,14 @@ func TestLoadConfigFromEnv_ExplicitEnabledOverridesEnvironment(t *testing.T) {
 	require.True(t, cfg.Enabled)
 }
 
-func TestLoadConfigFromEnv_NormalizesProdAlias(t *testing.T) {
+func TestLoadConfigFromEnv_NormalizesProdAliasWithoutEnablingSentry(t *testing.T) {
 	clearConfigEnv(t)
 	t.Setenv("SENTRY_DSN", "https://public@example.com/1")
 	t.Setenv("ENV", "prod")
 
 	cfg := LoadConfigFromEnv("backend")
 
-	// ENV=prod must both enable Sentry and be reported as "production".
-	require.True(t, cfg.Enabled)
+	require.False(t, cfg.Enabled)
 	require.Equal(t, "production", cfg.Environment)
 }
 

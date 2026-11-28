@@ -30,16 +30,15 @@ describe("frontend sentry config", () => {
     process.env = originalEnv;
   });
 
-  it("enables Sentry only for staging or production when a DSN is present", () => {
+  it("keeps Sentry disabled in every environment until explicitly enabled", () => {
     process.env.NEXT_PUBLIC_SENTRY_DSN = "https://public@example.ingest.sentry.io/1";
-    process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT = "development";
     expect(getFrontendSentryRuntimeConfig().enabled).toBe(false);
 
     process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT = "staging";
-    expect(getFrontendSentryRuntimeConfig().enabled).toBe(true);
+    expect(getFrontendSentryRuntimeConfig().enabled).toBe(false);
 
     process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT = "production";
-    expect(getFrontendSentryRuntimeConfig().enabled).toBe(true);
+    expect(getFrontendSentryRuntimeConfig().enabled).toBe(false);
   });
 
   it("lets explicit enable flags override environment gating", () => {
@@ -65,7 +64,7 @@ describe("frontend sentry config", () => {
     process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT = "prod";
 
     const config = getFrontendSentryRuntimeConfig();
-    expect(config.enabled).toBe(true);
+    expect(config.enabled).toBe(false);
     expect(config.environment).toBe("production");
   });
 
@@ -99,6 +98,7 @@ describe("frontend sentry config", () => {
     process.env.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE = "0.2";
     process.env.NEXT_PUBLIC_SENTRY_REPLAYS_SESSION_SAMPLE_RATE = "0.3";
     process.env.NEXT_PUBLIC_SENTRY_REPLAYS_ON_ERROR_SAMPLE_RATE = "0.4";
+    process.env.NEXT_PUBLIC_SENTRY_ENABLED = "true";
 
     expect(getFrontendSentryRuntimeConfig()).toMatchObject({
       dsn: "https://public@example.ingest.sentry.io/1",
