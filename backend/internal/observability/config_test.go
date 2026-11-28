@@ -175,6 +175,7 @@ func TestLoadConfigFromEnv_ParsesTracingLogsAndLevels(t *testing.T) {
 	clearConfigEnv(t)
 	t.Setenv("SENTRY_DSN", "https://public@example.com/1")
 	t.Setenv("SENTRY_ENVIRONMENT", "staging")
+	t.Setenv("SENTRY_ENABLED", "true")
 	t.Setenv("SENTRY_ENABLE_TRACING", "false")
 	t.Setenv("SENTRY_ENABLE_LOGS", "true")
 	t.Setenv("SENTRY_TRACES_SAMPLE_RATE", "0.25")

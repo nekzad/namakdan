@@ -265,16 +265,9 @@ const sentryBuildOptions = {
     : {}),
 };
 
-// The Sentry build plugin (tunnel route, release injection, source-map
-// upload) is opt-in at BUILD time. The browser/server SDK itself is configured
-// at runtime (FRONTEND_SENTRY_DSN via src/config/publicConfig.ts), so a
-// self-hosted image without the plugin can still report to any DSN directly
-// (the CSP adds the DSN host to connect-src). NEXT_PUBLIC_SENTRY_DSN at build
-// time keeps the legacy behaviour.
-const enableSentryBuildPlugin =
-  process.env.SENTRY_BUILD_PLUGIN === "1" ||
-  // eslint-disable-next-line no-restricted-syntax -- build-time switch read by next build, never shipped to the browser
-  Boolean((process.env.NEXT_PUBLIC_SENTRY_DSN || "").trim());
+// Sentry's tunnel and source-map upload are opt-in independently of runtime
+// reporting. A DSN alone must not enable an external build-time upload.
+const enableSentryBuildPlugin = process.env.SENTRY_BUILD_PLUGIN === "1";
 
 export default enableSentryBuildPlugin
   ? withSentryConfig(nextConfig, sentryBuildOptions)
