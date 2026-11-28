@@ -121,6 +121,10 @@
     U+A720-A7FF;
 }
 
+/* TODO: Bundle Vazirmatn for Arabic/Persian UI text at
+   frontend/public/fonts/vazirmatn/Vazirmatn[wght].woff2, then add its
+   @font-face here. No Vazirmatn file is currently available locally. */
+
 :root {
   --font-title: "DM Serif Display Latin Ext", var(--font-dm-serif-display), "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
   --font-inter: "DM Sans Latin Ext", var(--font-dm-sans), "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
